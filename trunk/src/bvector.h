@@ -62,3 +62,4 @@ double DotProduct( bVector & b1, bVector & b2 );
 std::ostream& operator<<( std::ostream& out, const bVector & v );
 
 #endif
+

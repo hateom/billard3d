@@ -106,27 +106,18 @@ void bBallMgr::draw()
 
 void bBallMgr::collide( bBall * b1, bBall * b2 )
 {
-    bVector n( b1->pos );
-    n -= b2->pos;
+    static bVector n;
+    static double a1, a2, p;
+    
+    n = b1->pos - b2->pos;
     n.normalize();
     
-    double a1 = DotProduct( b1->vel, n );
-    double a2 = DotProduct( b2->vel, n );
-    
-    double p = ( 2.0 * ( a1- a2 )) / ( b1->mass + b2->mass );
-    
-    n *= p;
-    
-    bVector v1( b1->vel );
-    bVector v2( b2->vel );
-    
-    bVector n2(n);
-    
-    n *= b2->mass;
-    n2 *= b1->mass;
-    
-    v1 -= n;
-    v2 += n2;
+    a1 = DotProduct( b1->vel, n );
+    a2 = DotProduct( b2->vel, n );
+    p = ( 2.0 * ( a1- a2 )) / ( b1->mass + b2->mass );
+        
+    bVector v1 = b1->vel - n*p*b2->mass;
+    bVector v2 = b2->vel + n*p*b1->mass;
     
     b1->vel = v1;
     b2->vel = v2;
