@@ -13,6 +13,7 @@
 #define BBALLMGR_H
 
 #include "bball.h"
+#include "bfpstimer.h"
 
 /**
 	@author Tomasz Huczek <tomasz.huczek@gmail.com>
@@ -24,7 +25,7 @@ public:
     
     bool create();
     void release();
-    void draw();
+    void draw( bFpsTimer * fps );
     
     // 0 - no collision, 1 - x border, 2 - y border
     int border_col( bBall * b );

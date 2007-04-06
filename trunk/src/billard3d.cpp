@@ -9,32 +9,44 @@
  *                                                                         *
  ***************************************************************************/
 
+#include <iostream>
 #include "bdraw.h"
 #include "bvideo.h"
 #include "bvector.h"
+#include "bassert.h"
 
 int main( int argc, char* argv[] )
 {
-
-    bVideo video;
-    bDraw  graph;
+#ifdef DEBUG
+    std::cout << ">> Debug version" << std::endl;
+    try {
+#endif
+        bVideo video;
+        bDraw  graph;
     
-    if( !video.setup() ) {
-        return -1;
-    }
+        if( !video.setup() ) {
+            return -1;
+        }
 
-    if( !graph.create() ) {
+        if( !graph.create() ) {
+            video.release();
+            return -2;
+        }
+
+        while( video.messages() ) {
+            graph.draw();
+            video.buffers();
+        }
+
+        graph.release();
         video.release();
-        return -2;
-    }
 
-    while( video.messages() ) {
-        graph.draw();
-        video.buffers();
+#ifdef DEBUG
+    } catch( bException & e ) {
+        std::cout << e.format() << std::endl;
     }
-
-    graph.release();
-    video.release();
+    std::cout << ">> Finished." << std::endl;
+#endif // DEBUG
     
     return 0;
 }

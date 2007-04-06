@@ -31,7 +31,7 @@ void bDraw::draw()
     glMatrixMode( GL_MODELVIEW );
     glLoadIdentity();
 
-    bmgr.draw();
+    bmgr.draw( &fps );
     fps.calc();
 }
 
@@ -39,7 +39,7 @@ Uint32 sec_call( Uint32 intervall, void * parameter )
 {
     static char title[64] = "";
     bFpsTimer * fps = (bFpsTimer*)parameter;
-    sprintf( title, "Billard 3D, %d fps", fps->fps() );
+    sprintf( title, "Billard 3D, %d fps, %f", fps->fps(), fps->factor() );
     SDL_WM_SetCaption( title, 0 );
     
     return intervall;
