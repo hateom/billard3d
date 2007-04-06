@@ -22,6 +22,8 @@ bBall::bBall() : f(false)
     vel.zero();
     pos.zero();
     mass = 1.0;
+    r = g = b = 0.9f;
+    acc.y = 100.0;
 }
 
 bBall::~bBall()
@@ -51,12 +53,12 @@ void bBall::draw()
 
 void bBall::process( double fps_factor )
 {
-//    vel += acc * fps_factor;
+    vel += acc * fps_factor;
     pos += vel * fps_factor;
 }
 
 void bBall::unprocess( double fps_factor )
 {
     pos -= vel * fps_factor;
-//    vel -= acc * fps_factor;
+    vel -= acc * fps_factor;
 }

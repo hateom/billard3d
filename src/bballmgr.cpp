@@ -25,37 +25,44 @@ bBallMgr::~bBallMgr()
 
 bool bBallMgr::create()
 {
-    size = 4;
+    size = 6;
     ball = new bBall[size];
     
     ball[0].pos.x  = 100.0;
     ball[0].pos.y  = 100.0;
     ball[0].radius = 50.0;
     ball[0].vel.x  = 40.0;
-    ball[0].vel.y  = 0.0;
-    ball[0].r = 1.0f; ball[0].g = 0.5f; ball[0].b = 0.5f;
+    ball[0].vel.y  = -15.0;
     
     ball[1].pos.x  = 325.0;
     ball[1].pos.y  = 100.0;
     ball[1].radius = 50.0;
     ball[1].vel.x  = 0.0;
-    ball[1].vel.y  = 0.0;
-    ball[1].r = 0.5f; ball[1].g = 1.0f; ball[1].b = 0.5f;
+    ball[1].vel.y  = 14.0;
     
     ball[2].pos.x  = 550.0;
     ball[2].pos.y  = 100.0;
     ball[2].radius = 50.0;
     ball[2].vel.x  = -40.0;
-    ball[2].vel.y  = 0.0;
-    ball[2].r = 0.5f; ball[2].g = 0.5f; ball[2].b = 1.0f;
+    ball[2].vel.y  = 10.0;
     
-    // don't use
-    ball[3].pos.x  = 500.0;
-    ball[3].pos.y  = -400.0;
+    ball[3].pos.x  = 100.0;
+    ball[3].pos.y  = 300.0;
     ball[3].radius = 50.0;
-    ball[3].vel.x  = 0.0;
-    ball[3].vel.y  = 0.0;
-    ball[3].r = 1.0f; ball[3].g = 0.5f; ball[3].b = 1.0f;
+    ball[3].vel.x  = 40.0;
+    ball[3].vel.y  = -20.0;
+    
+    ball[4].pos.x  = 325.0;
+    ball[4].pos.y  = 300.0;
+    ball[4].radius = 50.0;
+    ball[4].vel.x  = 13.0;
+    ball[4].vel.y  = 20.0;
+    
+    ball[5].pos.x  = 550.0;
+    ball[5].pos.y  = 300.0;
+    ball[5].radius = 50.0;
+    ball[5].vel.x  = -40.0;
+    ball[5].vel.y  = 10.0;
     
     return true;
 }
