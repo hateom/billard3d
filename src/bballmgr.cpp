@@ -34,7 +34,6 @@ bool bBallMgr::create()
     ball[0].vel.x  = 40.0;
     ball[0].vel.y  = 0.0;
     ball[0].r = 1.0f; ball[0].g = 0.5f; ball[0].b = 0.5f;
-    ball[0].mass = 5.0;
     
     ball[1].pos.x  = 325.0;
     ball[1].pos.y  = 100.0;
