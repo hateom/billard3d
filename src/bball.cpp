@@ -42,8 +42,7 @@ void bBall::draw()
         glVertex2d( pos.x, pos.y );
         glColor3f( r/5.0, g/5.0, b/5.0 );
         glVertex2d( pos.x + radius*cos(0.0), pos.y + radius*sin(0.0) );
-        for( int i=0; i<rnum; ++i )
-        {
+        for( int i=0; i<rnum; ++i ) {
             rad -= nrad;
             glVertex2d( pos.x + radius*cos(rad), pos.y + radius*sin(rad) );
         }
