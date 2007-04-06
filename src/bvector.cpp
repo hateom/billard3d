@@ -192,3 +192,4 @@ double DotProduct( bVector & b1, bVector & b2 )
 {
     return b1.x*b2.x + b1.y*b2.y;
 }
+
