@@ -6,6 +6,6 @@ billard3d_SOURCES = bball.cpp bballmgr.cpp bdraw.cpp billard3d.cpp bvector.cpp \
 INCLUDES = $(all_includes)
 
 # the library search path.
-billard3d_LDFLAGS = $(all_libraries) 
+billard3d_LDFLAGS = $(all_libraries) -lGL -lGLU -lSDL
 noinst_HEADERS = bball.h bballmgr.h bdraw.h bvector.h bvideo.h
-AM_CXXFLAGS = -lGL -lGLU -lSDL
+AM_CXXFLAGS = -pedantic-errors -Wall

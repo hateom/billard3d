@@ -12,7 +12,7 @@
 #include <iostream>
 #include "bballmgr.h"
 
-bBallMgr::bBallMgr() : size(0), ball(NULL)
+bBallMgr::bBallMgr() : ball(NULL), size(0)
 {
 }
 
