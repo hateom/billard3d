@@ -11,9 +11,16 @@
 
 #include "bdraw.h"
 #include "bvideo.h"
+#include "bvector.h"
+#include <iostream>
+#include <unistd.h>
+
+
+using namespace std;
 
 int main( int argc, char* argv[] )
 {
+
     bVideo video;
     bDraw  graph;
     
@@ -29,10 +36,20 @@ int main( int argc, char* argv[] )
     while( video.messages() ) {
         graph.draw();
         video.buffers();
+	sleep(0);
     }
 
     graph.release();
     video.release();
-
+    
+    bVector V1(1,1);
+    bVector V2(2,2);
+    bVector V3;
+    V3 = V1 + V2;
+    V3 = V3 - V2;
+    cout << V1+V2 << endl;
+    cout << V3 <<endl;
+    cout << V3 - V1 << endl;
+    
     return 0;
 }
