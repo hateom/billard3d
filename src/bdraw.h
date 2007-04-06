@@ -12,7 +12,9 @@
 #ifndef BDRAW_H
 #define BDRAW_H
 
+#include <SDL/SDL.h>
 #include "bballmgr.h"
+#include "bfpstimer.h"
 
 /**
 	@author Tomasz Huczek <tomasz.huczek@gmail.com>
@@ -27,7 +29,10 @@ public:
     void release();
     
 private:
-    bBallMgr bmgr;
+    bBallMgr  bmgr;
+    Uint32    frame_ms;
+    bFpsTimer fps;
+    SDL_TimerID sec_timer;
 };
 
 #endif

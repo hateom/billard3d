@@ -29,7 +29,7 @@ bVideo::~bVideo()
 
 bool bVideo::setup()
 {
-    if( SDL_Init( SDL_INIT_VIDEO ) < 0 ) {
+    if( SDL_Init( SDL_INIT_VIDEO | SDL_INIT_TIMER ) < 0 ) {
         fprintf( stderr, "Video initialization failed: %s\n", SDL_GetError() );
         release();
     }
