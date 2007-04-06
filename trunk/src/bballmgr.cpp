@@ -73,26 +73,19 @@ void bBallMgr::draw( bFpsTimer * fps )
     
     int bcol;
     
-    for( int i=0; i<size; ++i )
-    {
+    for( int i=0; i<size; ++i ) {
         ball[i].process( fps->factor() );
-        if( ( bcol = border_col( &ball[i] ) ) != 0 )
-        {
+        if( ( bcol = border_col( &ball[i] ) ) != 0 ) {
             ball[i].unprocess( fps->factor() );
-            if( bcol == 1 ) // x-border
-            {
+            if( bcol == 1 ) { // x-border
                 ball[i].vel.x *= -1.0;
-            }
-            else // y-border
-            {
+            } else { // y-border 
                 ball[i].vel.y *= -1.0;
             }
         }
-        for( int j=0; j<size; ++j )
-        {
+        for( int j=0; j<size; ++j ) {
             if( i == j || ball[i].isf() ) continue;
-            if( ball_col( &ball[i], &ball[j] ) )
-            {
+            if( ball_col( &ball[i], &ball[j] ) ) {
                 ball[i].unprocess( fps->factor() );
                 //ball[j].unprocess( fps.factor() );
                 
@@ -132,8 +125,7 @@ int bBallMgr::ball_col( bBall * b1, bBall * b2 )
 {
     BASSERT( b1 != NULL && b2 != NULL );
     
-    if( b1->pos.distance( b2->pos ) <= ( b1->radius + b2->radius ) )
-    {
+    if( b1->pos.distance( b2->pos ) <= ( b1->radius + b2->radius ) ) {
         return 1;
     }
     
@@ -144,13 +136,11 @@ int bBallMgr::border_col( bBall * b )
 {
     BASSERT( b != NULL );
     
-    if( b->pos.x <= b->radius || b->pos.x >= 640-b->radius )
-    {
+    if( b->pos.x <= b->radius || b->pos.x >= 640-b->radius ) {
         return 1;
     }
     
-    if( b->pos.y <= b->radius || b->pos.y >= 480-b->radius )
-    {
+    if( b->pos.y <= b->radius || b->pos.y >= 480-b->radius ) {
         return 2;
     }
     

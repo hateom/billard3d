@@ -23,8 +23,7 @@ Uint32 bFpsTimer::calc()
     Uint32 temp;
     temp = SDL_GetTicks();
     
-    if( temp - ms >= 1000 )
-    {
+    if( temp - ms >= 1000 ) {
         ms = temp;
         frames = curr_frames;
         curr_frames = 0;
