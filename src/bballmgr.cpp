@@ -1,6 +1,6 @@
 /***************************************************************************
- *   Copyright (C) 2007 by Tomasz Huczek                                      *
- *   tomasz.huczek@gmail.com                                                               *
+ *   Copyright (C) 2007 by Tomasz Huczek                                   *
+ *   tomasz.huczek@gmail.com                                               *
  *                                                                         *
  *   This program is free software; you can redistribute it and/or modify  *
  *   it under the terms of the GNU General Public License as published by  *
@@ -11,6 +11,7 @@
 
 #include <iostream>
 #include "bballmgr.h"
+#include "bassert.h"
 
 bBallMgr::bBallMgr() : ball(NULL), size(0)
 {
@@ -30,7 +31,7 @@ bool bBallMgr::create()
     ball[0].pos.x  = 100.0;
     ball[0].pos.y  = 100.0;
     ball[0].radius = 50.0;
-    ball[0].vel.x  = 0.4;
+    ball[0].vel.x  = 40.0;
     ball[0].vel.y  = 0.0;
     ball[0].r = 1.0f; ball[0].g = 0.5f; ball[0].b = 0.5f;
     ball[0].mass = 5.0;
@@ -45,7 +46,7 @@ bool bBallMgr::create()
     ball[2].pos.x  = 550.0;
     ball[2].pos.y  = 100.0;
     ball[2].radius = 50.0;
-    ball[2].vel.x  = -0.4;
+    ball[2].vel.x  = -40.0;
     ball[2].vel.y  = 0.0;
     ball[2].r = 0.5f; ball[2].g = 0.5f; ball[2].b = 1.0f;
     
@@ -67,16 +68,18 @@ void bBallMgr::release()
     size = 0;
 }
 
-void bBallMgr::draw()
+void bBallMgr::draw( bFpsTimer * fps )
 {
+    BASSERT( fps != NULL );
+    
     int bcol;
     
     for( int i=0; i<size; ++i )
     {
-        ball[i].process();
+        ball[i].process( fps->factor() );
         if( ( bcol = border_col( &ball[i] ) ) != 0 )
         {
-            ball[i].unprocess();
+            ball[i].unprocess( fps->factor() );
             if( bcol == 1 ) // x-border
             {
                 ball[i].vel.x *= -1.0;
@@ -91,8 +94,8 @@ void bBallMgr::draw()
             if( i == j || ball[i].isf() ) continue;
             if( ball_col( &ball[i], &ball[j] ) )
             {
-                ball[i].unprocess();
-                ball[j].unprocess();
+                ball[i].unprocess( fps->factor() );
+                //ball[j].unprocess( fps.factor() );
                 
                 ball[i].setf( true );
                 ball[j].setf( true );
@@ -110,6 +113,8 @@ void bBallMgr::collide( bBall * b1, bBall * b2 )
     static bVector n;
     static double a1, a2, p;
     
+    BASSERT( b1 != NULL && b2 != NULL );
+    
     n = b1->pos - b2->pos;
     n.normalize();
     
@@ -126,6 +131,8 @@ void bBallMgr::collide( bBall * b1, bBall * b2 )
 
 int bBallMgr::ball_col( bBall * b1, bBall * b2 )
 {
+    BASSERT( b1 != NULL && b2 != NULL );
+    
     if( b1->pos.distance( b2->pos ) <= ( b1->radius + b2->radius ) )
     {
         return 1;
@@ -136,6 +143,8 @@ int bBallMgr::ball_col( bBall * b1, bBall * b2 )
 
 int bBallMgr::border_col( bBall * b )
 {
+    BASSERT( b != NULL );
+    
     if( b->pos.x <= b->radius || b->pos.x >= 640-b->radius )
     {
         return 1;

@@ -50,14 +50,14 @@ void bBall::draw()
     glEnd();
 }
 
-void bBall::process()
+void bBall::process( double fps_factor )
 {
-    vel += acc;
-    pos += vel;
+//    vel += acc * fps_factor;
+    pos += vel * fps_factor;
 }
 
-void bBall::unprocess()
+void bBall::unprocess( double fps_factor )
 {
-    pos -= vel;
-    vel -= acc;
+    pos -= vel * fps_factor;
+//    vel -= acc * fps_factor;
 }

@@ -1,6 +1,4 @@
 /***************************************************************************
- *   Copyright (C) 2007 by                                       *
- *                                                                  *
  *                                                                         *
  *   This program is free software; you can redistribute it and/or modify  *
  *   it under the terms of the GNU Library General Public License as       *
@@ -24,6 +22,10 @@ public:
 
     Uint32 calc();
     Uint32 fps() { return frames; }
+    inline double factor() { 
+        if( frames == 0 ) return 0.0; 
+        else return 1.0/((double)frames); 
+    }
     
 private:
     Uint32 ms;

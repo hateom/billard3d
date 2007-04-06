@@ -23,8 +23,8 @@ public:
     ~bBall();
     
     void draw();
-    void process();
-    void unprocess();
+    void process( double fps_factor );
+    void unprocess( double fps_factor );
     
     void setf( bool ff ) { f = ff; }
     bool isf() { return f; }
