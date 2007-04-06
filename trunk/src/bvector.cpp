@@ -10,6 +10,7 @@
  ***************************************************************************/
 
 #include <cmath>
+#include <iostream>
 #include "bvector.h"
 
 bVector::bVector()
@@ -20,7 +21,7 @@ bVector::bVector( double ix, double iy ) : x(ix), y(iy)
 {
 }
 
-bVector::bVector( bVector & rhs ) : x(rhs.x), y(rhs.y)
+bVector::bVector( const bVector & rhs ) : x(rhs.x), y(rhs.y)
 {
 }
 
@@ -42,7 +43,7 @@ bVector & bVector::operator +=( double v )
     return *this;
 }
 
-bVector & bVector::operator +=( bVector & v )
+bVector & bVector::operator +=( const bVector & v )
 {
     x += v.x;
     y += v.y;
@@ -56,7 +57,7 @@ bVector & bVector::operator -=( double v )
     return *this;
 }
 
-bVector & bVector::operator -=( bVector & v )
+bVector & bVector::operator -=( const bVector & v )
 {
     x -= v.x;
     y -= v.y;
@@ -85,7 +86,7 @@ bVector bVector::operator+( double v )
     return vec;
 }
 
-bVector bVector::operator+( bVector & v )
+bVector bVector::operator+( const bVector & v )
 {
     bVector vec( *this );
     vec.x += v.x;
@@ -101,7 +102,7 @@ bVector bVector::operator-( double v )
     return vec;
 }
 
-bVector bVector::operator-( bVector & v )
+bVector bVector::operator-( const bVector & v )
 {
     bVector vec( *this );
     vec.x -= v.x;
@@ -155,8 +156,15 @@ bVector & bVector::operator=( bVector & rhs )
     y = rhs.y;
     return *this;
 }
-*/
+*
 bVector & bVector::operator=( bVector rhs )
+{
+    x = rhs.x;
+    y = rhs.y;
+    return *this;
+}
+*/
+bVector bVector::operator=( bVector rhs )
 {
     x = rhs.x;
     y = rhs.y;
@@ -167,6 +175,12 @@ bVector & bVector::operator=( double val )
 {
     x = y = val;
     return *this;
+}
+
+std::ostream & operator<<(std::ostream & out, const bVector & v)
+{
+    out << "(" << v.x << ", " << v.y << ")";
+    return out;
 }
     
 double bVector::cross( bVector & v )

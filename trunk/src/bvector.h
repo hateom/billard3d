@@ -11,7 +11,7 @@
 
 #ifndef BVECTOR_H
 #define BVECTOR_H
-
+#include <iostream>
 /**
 	@author Tomasz Huczek <tomasz.huczek@gmail.com>
 */
@@ -19,29 +19,30 @@ class bVector{
 public:
     bVector();
     bVector( double x, double y );
-    bVector( bVector & rhs );
+    bVector( const bVector & rhs );
     bVector( bVector * ptr );
     ~bVector() {}
     
-    bVector & operator=( bVector rhs );
+    //bVector & operator=( bVector rhs );
+    bVector operator=( bVector rhs );
     bVector & operator=( double val );
 
     double length();
     
     bVector & operator +=( double v );
-    bVector & operator +=( bVector & v );
+    bVector & operator +=( const bVector & v );
     
     bVector & operator -=( double v );
-    bVector & operator -=( bVector & v );
+    bVector & operator -=( const bVector & v );
     
     bVector & operator *=( double v );
     bVector & operator /=( double v );
     
     bVector operator+( double v );
-    bVector operator+( bVector & v );
+    bVector operator+( const bVector & v );
     
     bVector operator-( double v );
-    bVector operator-( bVector & v );
+    bVector operator-( const bVector & v );
     
     bVector operator*( double v );
     bVector operator/( double v );
@@ -58,5 +59,6 @@ public:
 };
 
 double DotProduct( bVector & b1, bVector & b2 );
+std::ostream& operator<<( std::ostream& out, const bVector & v );
 
 #endif
