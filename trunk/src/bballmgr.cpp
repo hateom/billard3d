@@ -29,31 +29,32 @@ bool bBallMgr::create()
     
     ball[0].pos.x  = 100.0;
     ball[0].pos.y  = 100.0;
-    ball[0].radius = 70.0;
+    ball[0].radius = 50.0;
     ball[0].vel.x  = 0.4;
-    ball[0].vel.y  = -0.4;
+    ball[0].vel.y  = 0.0;
     ball[0].r = 1.0f; ball[0].g = 0.5f; ball[0].b = 0.5f;
     ball[0].mass = 5.0;
     
-    ball[1].pos.x  = 500.0;
+    ball[1].pos.x  = 325.0;
     ball[1].pos.y  = 100.0;
     ball[1].radius = 50.0;
-    ball[1].vel.x  = 0.4;
-    ball[1].vel.y  = -0.4;
+    ball[1].vel.x  = 0.0;
+    ball[1].vel.y  = 0.0;
     ball[1].r = 0.5f; ball[1].g = 1.0f; ball[1].b = 0.5f;
     
-    ball[2].pos.x  = 100.0;
-    ball[2].pos.y  = 400.0;
+    ball[2].pos.x  = 550.0;
+    ball[2].pos.y  = 100.0;
     ball[2].radius = 50.0;
     ball[2].vel.x  = -0.4;
-    ball[2].vel.y  = -0.4;
+    ball[2].vel.y  = 0.0;
     ball[2].r = 0.5f; ball[2].g = 0.5f; ball[2].b = 1.0f;
     
+    // don't use
     ball[3].pos.x  = 500.0;
-    ball[3].pos.y  = 400.0;
+    ball[3].pos.y  = -400.0;
     ball[3].radius = 50.0;
-    ball[3].vel.x  = -0.4;
-    ball[3].vel.y  = 0.4;
+    ball[3].vel.x  = 0.0;
+    ball[3].vel.y  = 0.0;
     ball[3].r = 1.0f; ball[3].g = 0.5f; ball[3].b = 1.0f;
     
     return true;
