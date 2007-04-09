@@ -25,15 +25,17 @@ public:
     
     bool create();
     void release();
-    void draw( bFpsTimer * fps );
+    void process( bFpsTimer * fps );
+    void draw();
     
     // 0 - no collision, 1 - x border, 2 - y border
     int border_col( bBall * b );
     int ball_col( bBall * b1, bBall * b2 );
-    void collide( bBall * b1, bBall * b2 );
+    void collide( bBall * b1, bBall * b2, bVector * out1, bVector * out2 );
 
 private:
-    bBall * ball;
+    void commit_reflections();
+    bBall ** ball;
     int size;
 };
 

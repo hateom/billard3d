@@ -10,6 +10,7 @@
 #ifndef BFPSTIMER_H
 #define BFPSTIMER_H
 
+#include <sys/time.h>
 #include <SDL/SDL.h>
 
 /**
@@ -22,12 +23,18 @@ public:
 
     Uint32 calc();
     Uint32 fps() { return frames; }
-    inline double factor() { 
-        if( frames == 0 ) return 0.0; 
-        else return 1.0/((double)frames); 
-    }
     
+    inline double factor() { 
+        return !frames?0.0:1.0/((double)frames); 
+    }
+
+/*
+    inline double factor() {
+        return (t2.tv_usec - t1.tv_usec)*0.0001;
+    }
+*/    
 private:
+    timeval t1, t2;
     Uint32 ms;
     Uint32 frames;
     Uint32 curr_frames;
