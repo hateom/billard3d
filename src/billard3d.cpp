@@ -14,15 +14,20 @@
 #include "bvideo.h"
 #include "bvector.h"
 #include "bassert.h"
+#include "boutputmgr.h"
 
 int main( int argc, char* argv[] )
 {
+    bOutputMgr * out;
 #ifdef DEBUG
     std::cout << ">> Debug version" << std::endl;
     try {
 #endif
         bVideo video;
         bDraw  graph;
+        
+        out = new bOutputMgr();
+        out->create();
     
         if( !video.setup() ) {
             return -1;
@@ -37,6 +42,9 @@ int main( int argc, char* argv[] )
             graph.draw();
             video.buffers();
         }
+        
+        out->release();
+        delete out;
 
         graph.release();
         video.release();

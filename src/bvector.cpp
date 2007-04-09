@@ -13,6 +13,9 @@
 #include <iostream>
 #include "bvector.h"
 
+#define EPS 0.00001
+#define BABS( X ) ((X)<0.0)?(-(X)):(X)
+
 bVector::bVector()
 {
 }
@@ -193,3 +196,8 @@ double DotProduct( bVector & b1, bVector & b2 )
     return b1.x*b2.x + b1.y*b2.y;
 }
 
+void bVector::ifzero()
+{
+    if( BABS(x) < EPS ) x = 0.0;
+    if( BABS(y) < EPS ) y = 0.0;
+}

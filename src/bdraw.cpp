@@ -15,6 +15,7 @@
 #include <SDL/SDL_ttf.h>
 #include "bdraw.h"
 #include "bball.h"
+#include "boutputmgr.h"
 
 bDraw::bDraw()
 {
@@ -31,7 +32,14 @@ void bDraw::draw()
     glMatrixMode( GL_MODELVIEW );
     glLoadIdentity();
 
-    bmgr.draw( &fps );
+    bmgr.process( &fps );
+    bmgr.draw();
+    
+    /*
+    glColor3f( 1.0f, 1.0f, 1.0f );
+    bOutputMgr::get_singleton().print( 2.2, 2.2, "Boom!" );
+    */
+    
     fps.calc();
 }
 

@@ -13,21 +13,41 @@
 #include <GL/glu.h>
 #include <cmath>
 #include "bball.h"
+#include "bassert.h"
 
 #define G_PI 3.1415
 
-bBall::bBall() : f(false)
+#define EPS 0.01
+
+bBall::bBall( int inum_balls ) : 
+        num_balls(inum_balls), num_collisions(0),
+        t_vel_f(false)
 {
     acc.zero();
     vel.zero();
     pos.zero();
+    t_vel.zero();
     mass = 1.0;
     r = g = b = 0.9f;
-    acc.y = 100.0;
+    acc.y = 300.0;
+    
+    collisions = new int[num_balls];
+}
+
+bBall::bBall(int inum_balls, bVector ip, bVector iv, bVector ia, 
+             double irad, double imass, float ir, float ig, float ib) :
+        pos(ip), vel(iv), acc(ia), radius(irad), mass(imass), 
+        r(ir), g(ig), b(ib), num_balls(inum_balls), num_collisions(0),
+        t_vel_f(false)
+{
+    collisions = new int[num_balls];
+    t_vel.zero();
 }
 
 bBall::~bBall()
 {
+    delete [] collisions;
+    collisions = NULL;
 }
 
 void bBall::draw()
@@ -38,7 +58,7 @@ void bBall::draw()
     
     glBegin( GL_TRIANGLE_FAN );
         glColor3f( r, g, b );
-        if( f ) {
+        if( has_collisions() ) {
             glColor3f( 1.0f, 1.0f, 1.0f );    
         }
         glVertex2d( pos.x, pos.y );
@@ -62,3 +82,46 @@ void bBall::unprocess( double fps_factor )
     pos -= vel * fps_factor;
     vel -= acc * fps_factor;
 }
+
+void bBall::set_collision(int ball)
+{
+    BASSERT( num_collisions < num_balls );
+    
+    collisions[num_collisions] = ball;
+    num_collisions++;
+}
+
+bool bBall::is_collision(int ball)
+{
+    int temp = 0;
+    while( temp < num_collisions ) {
+        if( collisions[temp] == ball ) {
+            return true;
+        }
+        temp++;
+    }
+    
+    return false;
+}
+
+void bBall::clear_collisions()
+{
+    num_collisions = 0;
+}
+
+int bBall::get_collisions_num()
+{
+    return num_collisions;
+}
+
+int bBall::get_collision( int num )
+{
+    BASSERT( num < num_collisions );
+    return collisions[num];
+}
+
+bool bBall::has_collisions()
+{
+    return num_collisions > 0;
+}
+

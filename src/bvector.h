@@ -54,6 +54,8 @@ public:
     double cross( bVector & vec );
     void zero() { x = y = 0.0; }
     
+    void ifzero();
+    
 public:
     double x, y;
 };

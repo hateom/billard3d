@@ -19,15 +19,26 @@
 */
 class bBall{
 public:
-    bBall();
+    bBall( int num_balls );
+    bBall( int num_balls, 
+           bVector pos, bVector v, bVector a, double radius, 
+           double mass = 1.0, float r = 1.0f, float g = 1.0f, float b = 1.0f );
     ~bBall();
     
     void draw();
     void process( double fps_factor );
     void unprocess( double fps_factor );
     
-    void setf( bool ff ) { f = ff; }
-    bool isf() { return f; }
+   
+    void set_collision( int ball );
+    bool is_collision( int ball );
+    bool has_collisions();
+    void clear_collisions();
+    int  get_collisions_num();
+    int  get_collision( int num );
+    
+    void set_v( bVector v ) { t_vel_f = true; t_vel = v; }
+    void commit_v() { if( t_vel_f ) { vel = t_vel; t_vel_f = false; } }
 
 public:
     bVector pos, vel, acc;
@@ -36,7 +47,12 @@ public:
     
     float r,g,b;
     
-    bool f;
+    int * collisions;
+    int num_balls;
+    int num_collisions;
+    
+    bVector t_vel;
+    bool t_vel_f;
 };
 
 #endif
