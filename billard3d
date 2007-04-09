@@ -1,0 +1,5 @@
+#!/bin/bash
+
+rm logfile.txt
+./debug/src/billard3d | tee -a logfile.txt
+
