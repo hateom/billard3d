@@ -16,6 +16,8 @@
 #define WALL_VERT   (0xFFFF-1)
 #define WALL_HORIZ  (0xFFFF-2)
 
+#define FACTOR 0.98
+
 bBallMgr::bBallMgr() : ball(NULL), band(NULL), ball_size(0), band_size(0)
 {
 }
@@ -194,6 +196,17 @@ void bBallMgr::process(bFpsTimer * fps)
         // apply velocity vector changes
         ball[i]->commit_v();
         ball[i]->process( fps->factor() );
+        for( int k=0; k<band_size; ++k ) {
+            if( band[k]->distance( ball[i]->pos ) < ball[i]->radius ) {
+                ball[i]->unprocess( fps->factor() );
+            }
+        }
+        for( int j=0; j<ball_size; ++j ) {
+            if( i == j || ball[j]->is_collision(i) ) continue;
+            if( ball_col( ball[i], ball[j] ) ) {
+                ball[i]->unprocess( fps->factor() );
+            }
+        }
     }
 }
 
@@ -241,6 +254,7 @@ void bBallMgr::commit_reflections()
         }
         
         v /= (((double)b1->get_collisions_num()) + ((double)b1->get_band_collisions_num()));
+        v *= FACTOR;
         
         b1->set_v( v );// / ((double)b1->get_collisions_num());
         std::cout << "\tcurr vel (" << b1->vel.x << ", " << b1->vel.y << ") |" << b1->vel.length() << "|" << std::endl;
