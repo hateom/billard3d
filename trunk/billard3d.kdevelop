@@ -6,17 +6,8 @@
     <version>0.1</version>
     <projectmanagement>KDevAutoProject</projectmanagement>
     <primarylanguage>C++</primarylanguage>
-    <keywords>
-      <keyword>C++</keyword>
-      <keyword>Code</keyword>
-    </keywords>
-    <versioncontrol>kdevsubversion</versioncontrol>
     <ignoreparts/>
     <projectname>billard3d</projectname>
-    <projectdirectory>.</projectdirectory>
-    <absoluteprojectpath>false</absoluteprojectpath>
-    <description/>
-    <defaultencoding/>
   </general>
   <kdevautoproject>
     <general>
@@ -24,42 +15,23 @@
       <useconfiguration>debug</useconfiguration>
     </general>
     <run>
-      <mainprogram>src/billard3d</mainprogram>
-      <terminal>true</terminal>
-      <runarguments>
-        <billard3d/>
-      </runarguments>
-      <debugarguments>
-        <billard3d/>
-      </debugarguments>
-      <cwd>
-        <billard3d>/home/deely/workspace/billard3d/debug/./src</billard3d>
-      </cwd>
+      <mainprogram>src/$APPNAMELC$</mainprogram>
     </run>
     <configurations>
       <optimized>
         <builddir>optimized</builddir>
-        <ccompiler>kdevgccoptions</ccompiler>
-        <cxxcompiler>kdevgppoptions</cxxcompiler>
-        <f77compiler>kdevg77options</f77compiler>
+        <ccompiler>GccOptions</ccompiler>
+        <cxxcompiler>GppOptions</cxxcompiler>
+        <f77compiler>G77Options</f77compiler>
         <cxxflags>-O2 -g0</cxxflags>
       </optimized>
       <debug>
         <configargs>--enable-debug=full</configargs>
         <builddir>debug</builddir>
-        <ccompiler>kdevgccoptions</ccompiler>
-        <cxxcompiler>kdevgppoptions</cxxcompiler>
-        <f77compiler>kdevg77options</f77compiler>
+        <ccompiler>GccOptions</ccompiler>
+        <cxxcompiler>GppOptions</cxxcompiler>
+        <f77compiler>G77Options</f77compiler>
         <cxxflags>-O0 -g3</cxxflags>
-        <envvars/>
-        <topsourcedir/>
-        <cppflags>-DDEBUG</cppflags>
-        <ldflags/>
-        <ccompilerbinary/>
-        <cxxcompilerbinary/>
-        <f77compilerbinary/>
-        <cflags/>
-        <f77flags/>
       </debug>
     </configurations>
     <make>
@@ -69,6 +41,11 @@
       </envvars>
     </make>
   </kdevautoproject>
+  <kdevdebugger>
+    <general>
+      <dbgshell>libtool</dbgshell>
+    </general>
+  </kdevdebugger>
   <kdevdoctreeview>
     <ignoretocs>
       <toc>ada</toc>
@@ -76,7 +53,6 @@
       <toc>bash</toc>
       <toc>bash_bugs</toc>
       <toc>clanlib</toc>
-      <toc>w3c-dom-level2-html</toc>
       <toc>fortran_bugs_gcc</toc>
       <toc>gnome1</toc>
       <toc>gnustep</toc>
@@ -99,8 +75,9 @@
       <toc>ruby</toc>
       <toc>ruby_bugs</toc>
       <toc>sdl</toc>
-      <toc>w3c-svg</toc>
       <toc>sw</toc>
+      <toc>w3c-dom-level2-html</toc>
+      <toc>w3c-svg</toc>
       <toc>w3c-uaag10</toc>
       <toc>wxwidgets_bugs</toc>
     </ignoretocs>
@@ -116,43 +93,13 @@
     </ignoredoxygen>
   </kdevdoctreeview>
   <kdevfilecreate>
+    <filetypes/>
     <useglobaltypes>
+      <type ext="ui" />
       <type ext="cpp" />
       <type ext="h" />
     </useglobaltypes>
   </kdevfilecreate>
-  <kdevfileview>
-    <groups>
-      <group pattern="*.h" name="Header files" />
-      <group pattern="*.cpp" name="Source files" />
-      <hidenonprojectfiles>false</hidenonprojectfiles>
-      <hidenonlocation>false</hidenonlocation>
-    </groups>
-    <tree>
-      <hidepatterns>*.o,*.lo,CVS</hidepatterns>
-      <hidenonprojectfiles>false</hidenonprojectfiles>
-      <showvcsfields>false</showvcsfields>
-    </tree>
-  </kdevfileview>
-  <kdevdocumentation>
-    <projectdoc>
-      <docsystem>Doxygen Documentation Collection</docsystem>
-      <docurl>billard3d.tag</docurl>
-    </projectdoc>
-  </kdevdocumentation>
-  <substmap>
-    <APPNAME>billard3d</APPNAME>
-    <APPNAMELC>billard3d</APPNAMELC>
-    <APPNAMESC>Billard3d</APPNAMESC>
-    <APPNAMEUC>BILLARD3D</APPNAMEUC>
-    <AUTHOR>Tomasz Huczek &amp; Andrzej Jasiński</AUTHOR>
-    <EMAIL>thuczek@gmail.com</EMAIL>
-    <LICENSE>LGPL</LICENSE>
-    <LICENSEFILE>COPYING.LIB</LICENSEFILE>
-    <VERSION>0.1</VERSION>
-    <YEAR>2007</YEAR>
-    <dest>/home/deely/workspace/billard3d</dest>
-  </substmap>
   <kdevcppsupport>
     <qt>
       <used>false</used>
@@ -160,7 +107,7 @@
       <includestyle>3</includestyle>
       <root>/usr/qt/3</root>
       <designerintegration>EmbeddedKDevDesigner</designerintegration>
-      <qmake>/usr/qt/3/bin/qmake</qmake>
+      <qmake>/usr/local/bin/qmake-qt3</qmake>
       <designer>/usr/qt/3/bin/designer</designer>
       <designerpluginpaths/>
     </qt>
@@ -188,41 +135,15 @@
       <alwaysIncludeNamespaces>false</alwaysIncludeNamespaces>
       <includePaths>.;</includePaths>
     </codecompletion>
-    <creategettersetter>
-      <prefixGet/>
-      <prefixSet>set</prefixSet>
-      <prefixVariable>m_,_</prefixVariable>
-      <parameterName>theValue</parameterName>
-      <inlineGet>true</inlineGet>
-      <inlineSet>true</inlineSet>
-    </creategettersetter>
-    <splitheadersource>
-      <enabled>false</enabled>
-      <synchronize>true</synchronize>
-      <orientation>Vertical</orientation>
-    </splitheadersource>
   </kdevcppsupport>
-  <cppsupportpart>
-    <filetemplates>
-      <interfacesuffix>.h</interfacesuffix>
-      <implementationsuffix>.cpp</implementationsuffix>
-    </filetemplates>
-  </cppsupportpart>
-  <kdevdebugger>
-    <general>
-      <gdbpath/>
-      <dbgshell>libtool</dbgshell>
-      <configGdbScript/>
-      <runShellScript/>
-      <runGdbScript/>
-      <breakonloadinglibs>true</breakonloadinglibs>
-      <separatetty>false</separatetty>
-      <floatingtoolbar>false</floatingtoolbar>
-    </general>
-    <display>
-      <staticmembers>false</staticmembers>
-      <demanglenames>true</demanglenames>
-      <outputradix>10</outputradix>
-    </display>
-  </kdevdebugger>
+  <kdevfileview>
+    <groups>
+      <hidenonprojectfiles>false</hidenonprojectfiles>
+      <hidenonlocation>false</hidenonlocation>
+    </groups>
+    <tree>
+      <hidepatterns>*.o,*.lo,CVS</hidepatterns>
+      <hidenonprojectfiles>false</hidenonprojectfiles>
+    </tree>
+  </kdevfileview>
 </kdevelop>
