@@ -16,7 +16,7 @@
 #define WALL_VERT   (0xFFFF-1)
 #define WALL_HORIZ  (0xFFFF-2)
 
-bBallMgr::bBallMgr() : ball(NULL), size(0)
+bBallMgr::bBallMgr() : ball(NULL), band(NULL), ball_size(0), band_size(0)
 {
 }
 
@@ -28,48 +28,69 @@ bBallMgr::~bBallMgr()
 
 bool bBallMgr::create()
 {
-    size = 4;
-    ball = new bBall*[size];
+    ball_size = 4;
+    ball = new bBall*[ball_size];
     
-    ball[0] = new bBall(size, 
-        /* pos */ bVector(100.0,90.0), 
-        /* vel */ bVector(30.0,30.0), 
-        /* acc */ bVector(0.0,100.0), 50.0);
+    band_size = 4;
+    band = new bBand*[band_size];
     
-    ball[1] = new bBall(size, 
-        /* pos */ bVector(400.0,100.0), 
-        /* vel */ bVector(-30.0,30.0), 
-        /* acc */ bVector(0.0,100.0), 50.0);
+    ball[0] = new bBall(ball_size, band_size,
+        bVector(100.0,90.0), 
+        bVector(10.0,3.0), 
+        bVector(0.0,100.0), 50.0);
+
+    ball[1] = new bBall(ball_size, band_size,
+        bVector(400.0,100.0), 
+        bVector(-3.0,3.0), 
+        bVector(0.0,100.0), 50.0);
     
-    ball[2] = new bBall(size, 
-        /* pos */ bVector(100.0,350.0), 
-        /* vel */ bVector(30.0,30.0), 
-        /* acc */ bVector(0.0,100.0), 50.0);
+    ball[2] = new bBall(ball_size, band_size,
+        bVector(220.0,350.0), 
+        bVector(3.0,3.0), 
+        bVector(0.0,100.0), 50.0);
     
-    ball[3] = new bBall(size, 
-        /* pos */ bVector(400.0,350.0), 
-        /* vel */ bVector(-30.0,30.0), 
-        /* acc */ bVector(0.0,100.0), 50.0);
+    ball[3] = new bBall(ball_size, band_size,
+        bVector(420.0,320.0), 
+        bVector(-3.0,3.0), 
+        bVector(0.0,100.0), 50.0);
+    
+    band[0] = new bBand( bVector(  20,  20 ), bVector( 140, 460 ) );
+    band[1] = new bBand( bVector( 500, 460 ), bVector( 620,  40 ) );
+    band[2] = new bBand( bVector(  20,  20 ), bVector( 620,  40 ) );
+    band[3] = new bBand( bVector( 140, 460 ), bVector( 500, 460 ) );
     
     return true;
 }
 
 void bBallMgr::release()
 {
-    for( int i=0; i<size; ++i )
+    for( int i=0; i<ball_size; ++i )
     {
         delete ball[i];
     }
     
     delete [] ball;
     ball = NULL;
-    size = 0;
+    ball_size = 0;
+    
+    for( int i=0; i<band_size; ++i )
+    {
+        delete band[i];
+    }
+    
+    delete [] band;
+    band = NULL;
+    band_size = 0;
 }
 
 void bBallMgr::draw()
 {
-    for( int i=0; i<size; ++i ) {
+    for( int i=0; i<ball_size; ++i ) {
         ball[i]->draw();
+    }
+    
+    for( int i=0; i<band_size; ++i ) {
+        band[i]->draw();
     }
 }
 
@@ -130,11 +151,12 @@ void bBallMgr::process(bFpsTimer * fps)
     
     int bcol;
     
-    for( int i=0; i<size; ++i ) {
+    for( int i=0; i<ball_size; ++i ) {
         ball[i]->process( fps->factor() );
     }
     
-    for( int i=0; i<size; ++i ) {
+    // find and mark balls with collisions
+    for( int i=0; i<ball_size; ++i ) {
         if( ( bcol = border_col( ball[i] ) ) != 0 ) {
             if( bcol == 1 ) { // x-border
                 ball[i]->set_collision( WALL_HORIZ );
@@ -142,25 +164,34 @@ void bBallMgr::process(bFpsTimer * fps)
                 ball[i]->set_collision( WALL_VERT );
             }
         }
-        for( int j=0; j<size; ++j ) {
+        for( int k=0; k<band_size; ++k ) {
+            if( band[k]->distance( ball[i]->pos ) < ball[i]->radius ) {
+                ball[i]->set_band_collision( k );
+            }
+        }
+        for( int j=0; j<ball_size; ++j ) {
             if( i == j || ball[j]->is_collision(i) ) continue;
             if( ball_col( ball[i], ball[j] ) ) {
-                ball[i]->set_collision( j );
-                ball[j]->set_collision( i );
+                 ball[i]->set_collision( j );
+                 ball[j]->set_collision( i );
             }
         }
     }
     
-    for( int i=0; i<size; ++i ) {
+    // move backwards balls with collision(s)
+    for( int i=0; i<ball_size; ++i ) {
         if( ball[i]->has_collisions() ) {
             ball[i]->unprocess( fps->factor() );
         }
     }
     
+    // calculate new velocity vectors 
+    // (but no commit - one change changes next calculation result!)
     commit_reflections();
     
-    for( int i=0; i<size; ++i ) {
+    for( int i=0; i<ball_size; ++i ) {
         ball[i]->clear_collisions();   
+        // apply velocity vector changes
         ball[i]->commit_v();
         ball[i]->process( fps->factor() );
     }
@@ -169,9 +200,10 @@ void bBallMgr::process(bFpsTimer * fps)
 void bBallMgr::commit_reflections()
 {
     bBall * b1, * b2;
+    bBand * bd;
     bVector v1(0.0,0.0), v2(0.0,0.0), v;
     
-    for( int i=0; i<size; ++i )
+    for( int i=0; i<ball_size; ++i )
     {
         b1 = ball[i];
         if( !b1->has_collisions() ) continue;
@@ -199,11 +231,34 @@ void bBallMgr::commit_reflections()
             }
             v += v1;
         }
+        for( int j=0; j<b1->get_band_collisions_num(); ++j )
+        {
+            bd = band[b1->get_band_collision(j)];
+            
+            collide_band( b1, bd, &v1 );
+            std::cout << "\t\t* band(" << b1->get_band_collision(j) << ") [ " << b1->vel.x << "," << b1->vel.y << " :: " << v1.x << "," << v1.y << " ]" << std::endl;
+            v += v1;
+        }
         
-        v /= ((double)b1->get_collisions_num());
+        v /= (((double)b1->get_collisions_num()) + ((double)b1->get_band_collisions_num()));
         
         b1->set_v( v );// / ((double)b1->get_collisions_num());
         std::cout << "\tcurr vel (" << b1->vel.x << ", " << b1->vel.y << ") |" << b1->vel.length() << "|" << std::endl;
         std::cout << "\tnew  vel (" << v.x << ", " << v.y << ") |" << v.length() << "|" << std::endl;
     }
 }
+
+void bBallMgr::collide_band(bBall * bl, bBand * bd, bVector * vout)
+{
+    bVector n(bd->p2-bd->p1), v(bl->vel);
+    double scal;
+    n.normalize();
+    //v.normalize();
+    
+    scal = DotProduct( v, n );
+    
+    v *= -1.0;
+    
+    *vout = v + n*scal*2.0;
+}
+
