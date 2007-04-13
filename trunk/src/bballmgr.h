@@ -13,6 +13,7 @@
 #define BBALLMGR_H
 
 #include "bball.h"
+#include "bband.h"
 #include "bfpstimer.h"
 
 /**
@@ -32,11 +33,15 @@ public:
     int border_col( bBall * b );
     int ball_col( bBall * b1, bBall * b2 );
     void collide( bBall * b1, bBall * b2, bVector * out1, bVector * out2 );
+    void collide_band( bBall * bl, bBand * bd, bVector * vout );
 
+   
 private:
     void commit_reflections();
     bBall ** ball;
-    int size;
+    bBand ** band;
+    int ball_size;
+    int band_size;
 };
 
 #endif

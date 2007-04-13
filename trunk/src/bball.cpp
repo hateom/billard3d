@@ -19,8 +19,8 @@
 
 #define EPS 0.01
 
-bBall::bBall( int inum_balls ) : 
-        num_balls(inum_balls), num_collisions(0),
+bBall::bBall( int inum_balls, int inum_bands ) : 
+        num_balls(inum_balls), num_bands(inum_bands), num_collisions(0), num_band_collisions(0),
         t_vel_f(false)
 {
     acc.zero();
@@ -32,15 +32,17 @@ bBall::bBall( int inum_balls ) :
     acc.y = 300.0;
     
     collisions = new int[num_balls];
+    band_collisions = new int[num_bands];
 }
 
-bBall::bBall(int inum_balls, bVector ip, bVector iv, bVector ia, 
+bBall::bBall(int inum_balls, int inum_bands, bVector ip, bVector iv, bVector ia, 
              double irad, double imass, float ir, float ig, float ib) :
         pos(ip), vel(iv), acc(ia), radius(irad), mass(imass), 
-        r(ir), g(ig), b(ib), num_balls(inum_balls), num_collisions(0),
-        t_vel_f(false)
+        r(ir), g(ig), b(ib), num_balls(inum_balls), num_bands(inum_bands), 
+        num_collisions(0), num_band_collisions(0), t_vel_f(false)
 {
     collisions = new int[num_balls];
+    band_collisions = new int[num_bands];
     t_vel.zero();
 }
 
@@ -48,6 +50,8 @@ bBall::~bBall()
 {
     delete [] collisions;
     collisions = NULL;
+    delete [] band_collisions;
+    band_collisions = NULL;
 }
 
 void bBall::draw()
@@ -107,6 +111,7 @@ bool bBall::is_collision(int ball)
 void bBall::clear_collisions()
 {
     num_collisions = 0;
+    num_band_collisions = 0;
 }
 
 int bBall::get_collisions_num()
@@ -122,6 +127,38 @@ int bBall::get_collision( int num )
 
 bool bBall::has_collisions()
 {
-    return num_collisions > 0;
+    return num_collisions > 0 || num_band_collisions > 0;
+}
+
+int bBall::get_band_collisions_num()
+{
+    return num_band_collisions;
+}
+
+int bBall::get_band_collision(int num)
+{
+    BASSERT( num < num_band_collisions );
+    return band_collisions[num];
+}
+
+void bBall::set_band_collision(int band)
+{
+    BASSERT( num_band_collisions < num_bands );
+    
+    band_collisions[num_band_collisions] = band;
+    num_band_collisions++;
+}
+
+bool bBall::is_band_collision(int band)
+{
+    int temp = 0;
+    while( temp < num_band_collisions ) {
+        if( band_collisions[temp] == band ) {
+            return true;
+        }
+        temp++;
+    }
+    
+    return false;
 }
 
