@@ -1,6 +1,6 @@
 /***************************************************************************
- *   Copyright (C) 2007 by Tomasz Huczek                                      *
- *   tomasz.huczek@gmail.com                                                               *
+ *   Copyright (C) 2007 by Tomasz Huczek                                   *
+ *   tomasz.huczek@gmail.com                                               *
  *                                                                         *
  *   This program is free software; you can redistribute it and/or modify  *
  *   it under the terms of the GNU General Public License as published by  *
@@ -15,7 +15,6 @@
 #include <SDL/SDL_ttf.h>
 #include "bdraw.h"
 #include "bball.h"
-#include "boutputmgr.h"
 
 bDraw::bDraw()
 {
