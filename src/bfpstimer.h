@@ -25,7 +25,8 @@ public:
     Uint32 fps() { return frames; }
     
     inline double factor() { 
-        return !frames?0.0:1.0/((double)frames); 
+        //return !frames?0.0:1.0/((double)frames); 
+        return 0.0006;
     }
 
 /*
