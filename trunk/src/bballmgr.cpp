@@ -16,7 +16,9 @@
 #define WALL_VERT   (0xFFFF-1)
 #define WALL_HORIZ  (0xFFFF-2)
 
-#define FACTOR 0.98
+#define FACTOR 0.96
+
+#define log std::cout
 
 bBallMgr::bBallMgr() : ball(NULL), band(NULL), ball_size(0), band_size(0)
 {
@@ -37,24 +39,24 @@ bool bBallMgr::create()
     band = new bBand*[band_size];
     
     ball[0] = new bBall(ball_size, band_size,
-        bVector(100.0,90.0), 
-        bVector(10.0,3.0), 
-        bVector(0.0,100.0), 50.0);
+        bVector(300.0,80.0), 
+        bVector(230.0,0.0), 
+        bVector(0.0,0.0), 50.0);
 
     ball[1] = new bBall(ball_size, band_size,
-        bVector(400.0,100.0), 
-        bVector(-3.0,3.0), 
-        bVector(0.0,100.0), 50.0);
+        bVector(200.0,100.0), 
+        bVector(200.0,500.0), 
+        bVector(0.0,0.0), 50.0);
     
     ball[2] = new bBall(ball_size, band_size,
         bVector(220.0,350.0), 
-        bVector(3.0,3.0), 
-        bVector(0.0,100.0), 50.0);
+        bVector(300.0,300.0), 
+        bVector(0.0,0.0), 50.0);
     
     ball[3] = new bBall(ball_size, band_size,
         bVector(420.0,320.0), 
-        bVector(-3.0,3.0), 
-        bVector(0.0,100.0), 50.0);
+        bVector(-300.0,300.0), 
+        bVector(0.0,0.0), 50.0);
     
     band[0] = new bBand( bVector(  20,  20 ), bVector( 140, 460 ) );
     band[1] = new bBand( bVector( 500, 460 ), bVector( 620,  40 ) );
@@ -221,26 +223,26 @@ void bBallMgr::commit_reflections()
         b1 = ball[i];
         if( !b1->has_collisions() ) continue;
         
-        std::cout << ">> ball(" << i << "):" << std::endl;
+//         log << ">> ball(" << i << "):" << std::endl;
         
         v.zero();
         
-        std::cout << "\tcollisions [" << b1->get_collisions_num() << "] :" << std::endl;
+//         log << "\tcollisions [" << b1->get_collisions_num() << "] :" << std::endl;
         
         for( int j=0; j<b1->get_collisions_num(); ++j )
         {
             if( b1->get_collision(j) == WALL_VERT ) {
                 v1 = b1->vel;
                 v1.y *= -1.0;
-                std::cout << "\t\t* vertical wall" << std::endl;
+//                 log << "\t\t* vertical wall" << std::endl;
             } else if( b1->get_collision(j) == WALL_HORIZ ) {
                 v1 = b1->vel;
                 v1.x *= -1.0;
-                std::cout << "\t\t* horizontal wall" << std::endl;
+//                 log << "\t\t* horizontal wall" << std::endl;
             } else {
                 b2 = ball[b1->get_collision(j)];
                 collide( b1, b2, &v1, &v2 );
-                std::cout << "\t\t* ball(" << b1->get_collision(j) << ")" << std::endl;
+//                 log << "\t\t* ball(" << b1->get_collision(j) << ")" << std::endl;
             }
             v += v1;
         }
@@ -249,7 +251,7 @@ void bBallMgr::commit_reflections()
             bd = band[b1->get_band_collision(j)];
             
             collide_band( b1, bd, &v1 );
-            std::cout << "\t\t* band(" << b1->get_band_collision(j) << ") [ " << b1->vel.x << "," << b1->vel.y << " :: " << v1.x << "," << v1.y << " ]" << std::endl;
+//             log << "\t\t* band(" << b1->get_band_collision(j) << ") [ " << b1->vel.x << "," << b1->vel.y << " :: " << v1.x << "," << v1.y << " ]" << std::endl;
             v += v1;
         }
         
@@ -257,8 +259,8 @@ void bBallMgr::commit_reflections()
         v *= FACTOR;
         
         b1->set_v( v );// / ((double)b1->get_collisions_num());
-        std::cout << "\tcurr vel (" << b1->vel.x << ", " << b1->vel.y << ") |" << b1->vel.length() << "|" << std::endl;
-        std::cout << "\tnew  vel (" << v.x << ", " << v.y << ") |" << v.length() << "|" << std::endl;
+//         log << "\tcurr vel (" << b1->vel.x << ", " << b1->vel.y << ") |" << b1->vel.length() << "|" << std::endl;
+//         log << "\tnew  vel (" << v.x << ", " << v.y << ") |" << v.length() << "|" << std::endl;
     }
 }
 

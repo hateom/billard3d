@@ -42,7 +42,13 @@ public:
     int  get_band_collision( int num );
     
     void set_v( bVector v ) { t_vel_f = true; t_vel = v; }
-    void commit_v() { if( t_vel_f ) { vel = t_vel; t_vel_f = false; } }
+    void commit_v() { 
+        if( t_vel_f ) { 
+            vel = t_vel;
+            vel.ifzero();
+            t_vel_f = false; 
+        } 
+    }
 
 public:
     bVector pos, vel, acc;
