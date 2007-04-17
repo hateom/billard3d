@@ -77,6 +77,7 @@ bool bVideo::setup()
 
 void bVideo::buffers()
 {
+//    SDL_Delay(10);
     SDL_GL_SwapBuffers();
 }
 
