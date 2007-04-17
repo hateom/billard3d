@@ -35,7 +35,7 @@ bool bBallMgr::create()
     ball_size = 4;
     ball = new bBall*[ball_size];
     
-    band_size = 4;
+    band_size = 5;
     band = new bBand*[band_size];
     
     ball[0] = new bBall(ball_size, band_size,
@@ -62,6 +62,7 @@ bool bBallMgr::create()
     band[1] = new bBand( bVector( 500, 460 ), bVector( 620,  40 ) );
     band[2] = new bBand( bVector(  20,  20 ), bVector( 620,  40 ) );
     band[3] = new bBand( bVector( 140, 460 ), bVector( 500, 460 ) );
+    band[4] = new bBand( bVector( 200, 240 ), bVector( 400, 230 ) );
     
     return true;
 }
@@ -169,7 +170,7 @@ void bBallMgr::process(bFpsTimer * fps)
             }
         }
         for( int k=0; k<band_size; ++k ) {
-            if( band[k]->distance( ball[i]->pos ) < ball[i]->radius ) {
+            if( band[k]->is_within( ball[i]->pos, ball[i]->radius ) ) {
                 ball[i]->set_band_collision( k );
             }
         }
@@ -199,7 +200,7 @@ void bBallMgr::process(bFpsTimer * fps)
         ball[i]->commit_v();
         ball[i]->process( fps->factor() );
         for( int k=0; k<band_size; ++k ) {
-            if( band[k]->distance( ball[i]->pos ) < ball[i]->radius ) {
+            if( band[k]->is_within( ball[i]->pos, ball[i]->radius ) ) {
                 ball[i]->unprocess( fps->factor() );
             }
         }

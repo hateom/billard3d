@@ -25,6 +25,7 @@ public:
 
     void draw();
     double distance( bVector pt );
+    bool   is_within( bVector pt, double rad );
     
 public:
     bVector p1, p2;

@@ -79,10 +79,12 @@ void bBall::process( double fps_factor )
 {
     vel += acc * fps_factor;
     pos += vel * fps_factor;
+    vel *= 0.999999;
 }
 
 void bBall::unprocess( double fps_factor )
 {
+    vel *= 1.000001;
     pos -= vel * fps_factor;
     vel -= acc * fps_factor;
 }
