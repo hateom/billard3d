@@ -12,34 +12,26 @@
 #ifndef BBALL_H
 #define BBALL_H
 
+//---------------------------------------------------------------------------------------------
+
+#include "bband.h"
 #include "bvector.h"
+
+//---------------------------------------------------------------------------------------------
 
 /**
 	@author Tomasz Huczek <tomasz.huczek@gmail.com>
 */
 class bBall{
 public:
-    bBall( int num_balls, int num_bands );
-    bBall( int num_balls, int num_bands,
-           bVector pos, bVector v, bVector a, double radius, 
+    bBall();
+    bBall( bVector pos, bVector v, bVector a, double radius, 
            double mass = 1.0, float r = 1.0f, float g = 1.0f, float b = 1.0f );
     ~bBall();
     
     void draw();
     void process( double fps_factor );
     void unprocess( double fps_factor );
-    
-   
-    void set_collision( int ball );
-    bool is_collision( int ball );
-    void set_band_collision( int band );
-    bool is_band_collision( int band );
-    bool has_collisions();
-    void clear_collisions();
-    int  get_collisions_num();
-    int  get_collision( int num );
-    int  get_band_collisions_num();
-    int  get_band_collision( int num );
     
     void set_v( bVector v ) { t_vel_f = true; t_vel = v; }
     void commit_v() { 
@@ -49,6 +41,11 @@ public:
             t_vel_f = false; 
         } 
     }
+    
+    bVector collision( bBall * b );
+    bVector collision( bBand * b );
+    bVector collision( bBand * b, bBand::band_piece edge );
+    bool    collides( bBall * b );
 
 public:
     bVector pos, vel, acc;
@@ -57,15 +54,10 @@ public:
     
     float r,g,b;
     
-    int * collisions;
-    int * band_collisions;
-    int num_balls;
-    int num_bands;
-    int num_collisions;
-    int num_band_collisions;
-    
     bVector t_vel;
     bool t_vel_f;
 };
+
+//---------------------------------------------------------------------------------------------
 
 #endif

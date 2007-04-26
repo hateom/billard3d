@@ -53,21 +53,25 @@ double bBand::distance( bVector pt )
     return BABS( A*pt.x + B*pt.y + C) / sqrt( A*A + B*B );
 }
 
-bool bBand::is_within(bVector pt, double rad)
+bBand::band_piece bBand::is_within(bVector pt, double rad)
 {
     double d = distance( pt );
-    if( d > rad ) return false;
+    if( d > rad ) return bBand::bNone;
     
     double p12d = (p2-p1).length();
+    double p12ds = p12d*p12d;
     double p1d = (pt-p1).length();
     double p2d = (pt-p2).length();
+    double p1ds = p1d*p1d;
+    double p2ds = p2d*p2d;
+    double x1 = p1ds-d*d;
+    double x2 = p2ds-d*d;
     
-    double x1 = sqrt(p1d*p1d-d*d);
-    double x2 = sqrt(p2d*p2d-d*d);
+    if( x1 <= p12ds && x2 <= p12ds ) return bBand::bSide;
+    if( p1d <= rad ) return bBand::bEdge1;
+    if( p2d <= rad ) return bBand::bEdge2;
     
-    if( (x1 <= p12d && x2 <= p12d) || (p1d <= rad || p2d <= rad)) return true;
-    
-    return false;
+    return bBand::bNone;
 }
 
 

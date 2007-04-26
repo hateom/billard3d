@@ -14,6 +14,9 @@
 #include "bvideo.h"
 #include "bvector.h"
 #include "bassert.h"
+#include "blogger.h"
+
+//---------------------------------------------------------------------------------------------
 
 int main( int argc, char* argv[] )
 {
@@ -23,6 +26,9 @@ int main( int argc, char* argv[] )
 #endif
         bVideo video;
         bDraw  graph;
+        bLogger logger;
+        
+        logger.set_state(true);
         
         if( !video.setup() ) {
             return -1;
@@ -50,3 +56,5 @@ int main( int argc, char* argv[] )
     
     return 0;
 }
+
+//---------------------------------------------------------------------------------------------

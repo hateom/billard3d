@@ -3,4 +3,4 @@
 AUTOMAKE_OPTIONS = foreign 1.4
 
 SUBDIRS = src
-AM_CXXFLAGS = -pedantic-errors -Wall
+AM_CXXFLAGS = -Wall -pedantic-errors
