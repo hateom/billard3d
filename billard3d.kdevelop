@@ -8,6 +8,10 @@
     <primarylanguage>C++</primarylanguage>
     <ignoreparts/>
     <projectname>billard3d</projectname>
+    <projectdirectory>.</projectdirectory>
+    <absoluteprojectpath>false</absoluteprojectpath>
+    <description></description>
+    <defaultencoding></defaultencoding>
   </general>
   <kdevautoproject>
     <general>
@@ -15,7 +19,16 @@
       <useconfiguration>debug</useconfiguration>
     </general>
     <run>
-      <mainprogram>src/$APPNAMELC$</mainprogram>
+      <mainprogram>/home/deely/workspace/billard3d/debug/src/$APPNAMELC$</mainprogram>
+      <programargs></programargs>
+      <globaldebugarguments></globaldebugarguments>
+      <globalcwd>/home/deely/workspace/billard3d/debug</globalcwd>
+      <useglobalprogram>false</useglobalprogram>
+      <terminal>false</terminal>
+      <autocompile>false</autocompile>
+      <autoinstall>false</autoinstall>
+      <autokdesu>false</autokdesu>
+      <envvars/>
     </run>
     <configurations>
       <optimized>
@@ -28,10 +41,19 @@
       <debug>
         <configargs>--enable-debug=full</configargs>
         <builddir>debug</builddir>
-        <ccompiler>GccOptions</ccompiler>
-        <cxxcompiler>GppOptions</cxxcompiler>
-        <f77compiler>G77Options</f77compiler>
+        <ccompiler>kdevgccoptions</ccompiler>
+        <cxxcompiler>kdevgppoptions</cxxcompiler>
+        <f77compiler>kdevg77options</f77compiler>
         <cxxflags>-O0 -g3</cxxflags>
+        <envvars/>
+        <topsourcedir></topsourcedir>
+        <cppflags>-D DEBUG</cppflags>
+        <ldflags></ldflags>
+        <ccompilerbinary></ccompilerbinary>
+        <cxxcompilerbinary></cxxcompilerbinary>
+        <f77compilerbinary></f77compilerbinary>
+        <cflags></cflags>
+        <f77flags></f77flags>
       </debug>
     </configurations>
     <make>
@@ -39,12 +61,30 @@
         <envvar value="1" name="WANT_AUTOCONF_2_5" />
         <envvar value="1" name="WANT_AUTOMAKE_1_6" />
       </envvars>
+      <abortonerror>true</abortonerror>
+      <runmultiplejobs>false</runmultiplejobs>
+      <numberofjobs>1</numberofjobs>
+      <dontact>false</dontact>
+      <makebin></makebin>
+      <prio>0</prio>
     </make>
   </kdevautoproject>
   <kdevdebugger>
     <general>
       <dbgshell>libtool</dbgshell>
+      <gdbpath></gdbpath>
+      <configGdbScript></configGdbScript>
+      <runShellScript></runShellScript>
+      <runGdbScript></runGdbScript>
+      <breakonloadinglibs>true</breakonloadinglibs>
+      <separatetty>false</separatetty>
+      <floatingtoolbar>false</floatingtoolbar>
     </general>
+    <display>
+      <staticmembers>false</staticmembers>
+      <demanglenames>true</demanglenames>
+      <outputradix>10</outputradix>
+    </display>
   </kdevdebugger>
   <kdevdoctreeview>
     <ignoretocs>
@@ -135,6 +175,19 @@
       <alwaysIncludeNamespaces>false</alwaysIncludeNamespaces>
       <includePaths>.;</includePaths>
     </codecompletion>
+    <creategettersetter>
+      <prefixGet></prefixGet>
+      <prefixSet>set</prefixSet>
+      <prefixVariable>m_,_</prefixVariable>
+      <parameterName>theValue</parameterName>
+      <inlineGet>true</inlineGet>
+      <inlineSet>true</inlineSet>
+    </creategettersetter>
+    <splitheadersource>
+      <enabled>false</enabled>
+      <synchronize>true</synchronize>
+      <orientation>Vertical</orientation>
+    </splitheadersource>
   </kdevcppsupport>
   <kdevfileview>
     <groups>
@@ -146,4 +199,10 @@
       <hidenonprojectfiles>false</hidenonprojectfiles>
     </tree>
   </kdevfileview>
+  <cppsupportpart>
+    <filetemplates>
+      <interfacesuffix>.h</interfacesuffix>
+      <implementationsuffix>.cpp</implementationsuffix>
+    </filetemplates>
+  </cppsupportpart>
 </kdevelop>

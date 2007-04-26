@@ -9,28 +9,33 @@
  *                                                                         *
  ***************************************************************************/
 
-#ifndef BUTILSBUTILS_H
-#define BUTILSBUTILS_H
+#ifndef BLUTABLE_H
+#define BLUTABLE_H
 
-//---------------------------------------------------------------------------------------------
-
-namespace bUtils {
-
-//---------------------------------------------------------------------------------------------
-    
 /**
-Various utilities
-
 	@author Tomasz Huczek & Andrzej Jasiñski <thuczek@gmail.com>
 */
+class bLUTable{
+public:
+    bLUTable();
+    ~bLUTable();
+    
+    bool create( int n, int m = -1, bool mirror=true );
+    void release();
+    void set( int x, int y, int val=1 );
+    void clear( int x, int y );
+    void clear();
+    int  at( int x, int y ) const;
+    
+    inline int width() const { return w; }
+    inline int height() const { return h; }
+    
+private:
+    int   w, h;
+    int * array;
+    bool  mirr;
+};
 
-//---------------------------------------------------------------------------------------------
-
-/// string copy - should be released by `delete []'
-char * scpy( const char * src );
-
-}
-
-//---------------------------------------------------------------------------------------------
+std::ostream& operator<<( std::ostream& out, const bLUTable & v );
 
 #endif

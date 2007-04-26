@@ -19,9 +19,7 @@
 
 #define EPS 0.01
 
-bBall::bBall( int inum_balls, int inum_bands ) : 
-        num_balls(inum_balls), num_bands(inum_bands), num_collisions(0), num_band_collisions(0),
-        t_vel_f(false)
+bBall::bBall() : t_vel_f(false)
 {
     acc.zero();
     vel.zero();
@@ -30,28 +28,18 @@ bBall::bBall( int inum_balls, int inum_bands ) :
     mass = 1.0;
     r = g = b = 0.9f;
     acc.y = 300.0;
-    
-    collisions = new int[num_balls];
-    band_collisions = new int[num_bands];
 }
 
-bBall::bBall(int inum_balls, int inum_bands, bVector ip, bVector iv, bVector ia, 
+bBall::bBall(bVector ip, bVector iv, bVector ia, 
              double irad, double imass, float ir, float ig, float ib) :
         pos(ip), vel(iv), acc(ia), radius(irad), mass(imass), 
-        r(ir), g(ig), b(ib), num_balls(inum_balls), num_bands(inum_bands), 
-        num_collisions(0), num_band_collisions(0), t_vel_f(false)
+        r(ir), g(ig), b(ib), t_vel_f(false)
 {
-    collisions = new int[num_balls];
-    band_collisions = new int[num_bands];
     t_vel.zero();
 }
 
 bBall::~bBall()
 {
-    delete [] collisions;
-    collisions = NULL;
-    delete [] band_collisions;
-    band_collisions = NULL;
 }
 
 void bBall::draw()
@@ -62,9 +50,6 @@ void bBall::draw()
     
     glBegin( GL_TRIANGLE_FAN );
         glColor3f( r, g, b );
-        if( has_collisions() ) {
-            glColor3f( 1.0f, 1.0f, 1.0f );    
-        }
         glVertex2d( pos.x, pos.y );
         glColor3f( r/5.0, g/5.0, b/5.0 );
         glVertex2d( pos.x + radius*cos(0.0), pos.y + radius*sin(0.0) );
@@ -79,88 +64,77 @@ void bBall::process( double fps_factor )
 {
     vel += acc * fps_factor;
     pos += vel * fps_factor;
-    vel *= 0.999999;
 }
 
 void bBall::unprocess( double fps_factor )
 {
-    vel *= 1.000001;
     pos -= vel * fps_factor;
     vel -= acc * fps_factor;
 }
 
-void bBall::set_collision(int ball)
+bVector bBall::collision(bBall * b)
 {
-    BASSERT( num_collisions < num_balls );
+    static bVector n;
+    static double a1, a2, p;
     
-    collisions[num_collisions] = ball;
-    num_collisions++;
+    BASSERT( b != NULL );
+    
+    n = pos - b->pos;
+    n.normalize();
+    
+    a1 = DotProduct( vel, n );
+    a2 = DotProduct( b->vel, n );
+    p = ( 2.0 * ( a1- a2 )) / ( mass + b->mass );
+        
+    bVector v1 = vel - n*p*b->mass;
+    
+    return v1;
 }
 
-bool bBall::is_collision(int ball)
+bVector bBall::collision(bBand * b)
 {
-    int temp = 0;
-    while( temp < num_collisions ) {
-        if( collisions[temp] == ball ) {
-            return true;
-        }
-        temp++;
+    bVector n(b->p2 - b->p1), v(vel);
+    double scal;
+    n.normalize();
+   
+    scal = DotProduct( v, n );
+    v *= -1.0;
+    
+    return ( v + n*scal*2.0 );
+}
+
+bool bBall::collides(bBall * b)
+{
+    BASSERT( b != NULL );
+    
+    if( pos.distance( b->pos ) <= ( radius + b->radius ) ) {
+        return true;
     }
     
     return false;
 }
 
-void bBall::clear_collisions()
+bVector bBall::collision(bBand * b, bBand::band_piece edge)
 {
-    num_collisions = 0;
-    num_band_collisions = 0;
-}
-
-int bBall::get_collisions_num()
-{
-    return num_collisions;
-}
-
-int bBall::get_collision( int num )
-{
-    BASSERT( num < num_collisions );
-    return collisions[num];
-}
-
-bool bBall::has_collisions()
-{
-    return num_collisions > 0 || num_band_collisions > 0;
-}
-
-int bBall::get_band_collisions_num()
-{
-    return num_band_collisions;
-}
-
-int bBall::get_band_collision(int num)
-{
-    BASSERT( num < num_band_collisions );
-    return band_collisions[num];
-}
-
-void bBall::set_band_collision(int band)
-{
-    BASSERT( num_band_collisions < num_bands );
+    BASSERT( b != NULL );
+    BASSERT( edge == bBand::bEdge1 || edge == bBand::bEdge2 );
     
-    band_collisions[num_band_collisions] = band;
-    num_band_collisions++;
-}
-
-bool bBall::is_band_collision(int band)
-{
-    int temp = 0;
-    while( temp < num_band_collisions ) {
-        if( band_collisions[temp] == band ) {
-            return true;
-        }
-        temp++;
+    bVector edg;
+    if( edge == bBand::bEdge1 ) {
+        edg = b->p1;
+    } else {
+        edg = b->p2;
     }
+    bVector n(pos - edg), v(vel);
+    double scal;
+    n.normalize();
+    double temp;
+    temp = n.x;
+    n.x = n.y;
+    n.y = -temp;
+   
+    scal = DotProduct( v, n );
+    v *= -1.0;
     
-    return false;
+    return ( v + n*scal*2.0 );
 }
-

@@ -38,12 +38,12 @@ private:
     void handle_key( SDL_keysym* keysym );
     
 private:
-    const SDL_VideoInfo * info;
-    int             width;
-    int             height;
-    int             bpp;
-    int             flags;
-    bool            status;
+    const SDL_VideoInfo *   info;
+    int   width;
+    int   height;
+    int   bpp;
+    int   flags;
+    bool   status;
 };
 
 //---------------------------------------------------------------------------------------------

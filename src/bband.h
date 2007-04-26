@@ -12,12 +12,20 @@
 #ifndef BBAND_H
 #define BBAND_H
 
+//---------------------------------------------------------------------------------------------
+
 #include "bvector.h"
+
+//---------------------------------------------------------------------------------------------
 
 /**
 	@author Tomasz Huczek & Andrzej Jasiñski <thuczek@gmail.com>
 */
 class bBand {
+public:
+    typedef enum band_piece {
+        bNone, bSide, bEdge1, bEdge2
+    };
 public:
     bBand();
     bBand( bVector p1, bVector p2 );
@@ -25,10 +33,12 @@ public:
 
     void draw();
     double distance( bVector pt );
-    bool   is_within( bVector pt, double rad );
+    band_piece is_within( bVector pt, double rad );
     
 public:
     bVector p1, p2;
 };
+
+//---------------------------------------------------------------------------------------------
 
 #endif

@@ -9,28 +9,45 @@
  *                                                                         *
  ***************************************************************************/
 
-#ifndef BUTILSBUTILS_H
-#define BUTILSBUTILS_H
+#ifndef BSINGLETON_H
+#define BSINGLETON_H
 
-//---------------------------------------------------------------------------------------------
+#include <iostream>
+#include "bassert.h"
 
-namespace bUtils {
-
-//---------------------------------------------------------------------------------------------
-    
 /**
-Various utilities
-
 	@author Tomasz Huczek & Andrzej Jasiñski <thuczek@gmail.com>
 */
 
-//---------------------------------------------------------------------------------------------
+template <typename T>
+class bSingleton
+{
+public:
+    bSingleton() {
+        BASSERT( single == NULL );
+        
+        int offs = (int)(T*)1 - (int)(bSingleton<T>*)(T*)1; 
+        single = (T*)((int)this + offs);
+    }
+    
+    virtual ~bSingleton() {
+        BASSERT( single != NULL );
+    }
+    
+    static T & get_Singleton() {
+        BASSERT( single != NULL );
+        return *single;
+    }
+    
+    static T * get_singleton_ptr() {
+        BASSERT( single != NULL );
+        return single;
+    }
+    
+private:
+    static T * single;
+};
 
-/// string copy - should be released by `delete []'
-char * scpy( const char * src );
-
-}
-
-//---------------------------------------------------------------------------------------------
+template <typename T> T * bSingleton<T>::single = NULL;
 
 #endif
