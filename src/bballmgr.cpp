@@ -30,7 +30,7 @@ bool bBallMgr::create()
     ball_size = 2;
     ball = new bBall*[ball_size];
     
-    band_size = 4;
+    band_size = 5;
     band = new bBand*[band_size];
     
     ball[0] = new bBall(
@@ -53,11 +53,11 @@ bool bBallMgr::create()
         bVector(-300.0,300.0), 
         bVector(0.0,0.0), 50.0);
     */
-    band[0] = new bBand( bVector(  20,  20 ), bVector( 140, 460 ) );
-    band[1] = new bBand( bVector( 500, 460 ), bVector( 620,  40 ) );
-    band[2] = new bBand( bVector(  20,  20 ), bVector( 620,  40 ) );
-    band[3] = new bBand( bVector( 140, 460 ), bVector( 500, 460 ) );
-//    band[4] = new bBand( bVector( 200, 240 ), bVector( 400, 230 ) );
+    band[0] = new bBand( bVector(  20,  20 ), bVector( 140, 580 ) );
+    band[1] = new bBand( bVector( 500, 460 ), bVector( 780,  40 ) );
+    band[2] = new bBand( bVector(  20,  20 ), bVector( 790,  40 ) );
+    band[3] = new bBand( bVector( 140, 460 ), bVector( 700, 590 ) );
+    band[4] = new bBand( bVector( 200, 340 ), bVector( 250, 330 ) );
     
     luball.create( ball_size );
     luband.create( ball_size, band_size, false );
@@ -171,7 +171,7 @@ void bBallMgr::commit_reflections()
         b1 = ball[i];
         v.zero();
         flag = 0;
-        for( int j=0; j<i; ++j ) {
+        for( int j=0; j<ball_size; ++j ) {
             b2 = ball[j];
             if( i!=j && luball.at(i,j) != 0 ) {
                 BLOG( ">> collision %d with %d\n", i, j );
@@ -206,7 +206,7 @@ bool bBallMgr::is_any(int ball)
         if( luball.at( ball, i ) != 0 ) return true;
     }
     for( int i=0; i<band_size; ++i ) {
-        if( luball.at( ball, i ) != 0 ) return true;
+        if( luband.at( ball, i ) != 0 ) return true;
     }
     
     return false;

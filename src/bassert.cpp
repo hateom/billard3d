@@ -12,12 +12,20 @@
 #include "butils.h"
 #include "bassert.h"
 
-bException::bException( const char * ifile, int iline, const char * iexpr, const char * imsg )
+bException::bException( const char * ifile, int iline, const char * iexpr, bExceptionStream & estrm )
     : line(iline)
 {
     file = bUtils::scpy( ifile );
     expr = bUtils::scpy( iexpr );
-    msg = bUtils::scpy( imsg );
+    msg = bUtils::scpy( estrm.get_str() );
+}
+
+bException::bException( const char * ifile, int iline, const char * iexpr )
+    : line(iline)
+{
+    file = bUtils::scpy( ifile );
+    expr = bUtils::scpy( iexpr );
+    msg = bUtils::scpy( "" );
 }
 
 bException::~bException()

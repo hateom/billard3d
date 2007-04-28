@@ -15,12 +15,16 @@
 //---------------------------------------------------------------------------------------------
 
 #include <iostream>
+#include "bexceptionstream.h"
 
 //---------------------------------------------------------------------------------------------
 
 #ifdef DEBUG
-#define BASSERTM( EXPR, MSG ) if( !(EXPR) ) { throw bException( \
-            __FILE__, __LINE__, #EXPR, MSG ); }
+#define BASSERTM( EXPR, MSG ) if( !(EXPR) ) { \
+            static bExceptionStream exp_strm;\
+            exp_strm << MSG;\
+            throw bException( \
+            __FILE__, __LINE__, #EXPR, exp_strm ); }
 #define BASSERT( EXPR ) if( !(EXPR) ) { throw bException( \
             __FILE__, __LINE__, #EXPR ); } 
 #else // DEBUG
@@ -37,7 +41,8 @@ Assertion managing unit
 */
 class bException {
 public:
-    bException( const char * file, int line, const char * expr, const char * msg = NULL );
+    bException( const char * file, int line, const char * expr, bExceptionStream & estrm );
+    bException( const char * file, int line, const char * expr );
     ~bException();
     
     int get_line();
