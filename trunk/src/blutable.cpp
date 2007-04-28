@@ -42,14 +42,14 @@ void bLUTable::release()
 
 int bLUTable::at(int x, int y) const
 {
-    BASSERT( x < w && y < h );
+    BASSERTM( x < w && y < h, "x("<<x<<"), y("<<y<<"), w("<<w<<"), h("<<h<<")\n" );
     return array[x+y*w];
 }
 
 void bLUTable::set(int x, int y,int val)
 {
     BASSERT( array != NULL );
-    BASSERT( x < w && y < h );
+    BASSERTM( x < w && y < h, "x("<<x<<"), y("<<y<<"), w("<<w<<"), h("<<h<<")\n" );
     if( mirr ) {
         array[y+x*w] = val;
     }
@@ -59,7 +59,7 @@ void bLUTable::set(int x, int y,int val)
 void bLUTable::clear(int x, int y)
 {
     BASSERT( array != NULL );
-    BASSERT( x < w && y < h );
+    BASSERTM( x < w && y < h, "x("<<x<<"), y("<<y<<"), w("<<w<<"), h("<<h<<")\n" );
     array[x+y*w] = 0;
 }
 
@@ -78,4 +78,6 @@ std::ostream & operator <<(std::ostream & out, const bLUTable & v)
         }
         out << std::endl;
     }
+    
+    return out;
 }

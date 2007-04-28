@@ -41,8 +41,8 @@ bool bVideo::setup()
         release();
     }
 
-    width = 640;
-    height = 480;
+    width  = SCR_W;
+    height = SCR_H;
     bpp = info->vfmt->BitsPerPixel;
 
     SDL_GL_SetAttribute( SDL_GL_RED_SIZE,        5 );
