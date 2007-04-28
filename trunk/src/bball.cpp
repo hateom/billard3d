@@ -62,6 +62,18 @@ void bBall::draw()
 
 void bBall::process( double fps_factor )
 {
+    static double mi = 500.0;
+    double ta = ((mi*10.0)/radius)*fps_factor;
+    
+    if( vel.length() < ta )
+    {
+        vel.zero();
+    }
+    else
+    {
+        vel -= vel.normal()*ta;
+    }
+    
     vel += acc * fps_factor;
     pos += vel * fps_factor;
 }

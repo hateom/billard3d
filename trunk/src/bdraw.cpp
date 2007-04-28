@@ -56,13 +56,13 @@ bool bDraw::create()
 {
     if( !bmgr.create() ) return false;
     
-    sec_timer = SDL_AddTimer( 1000, sec_call, (void*)&fps );
+    //sec_timer = SDL_AddTimer( 1000, sec_call, (void*)&fps );
     
     return true;
 }
 
 void bDraw::release()
 {
-    SDL_RemoveTimer( sec_timer );
+    //SDL_RemoveTimer( sec_timer );
     bmgr.release();    
 }
