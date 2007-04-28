@@ -27,6 +27,8 @@ bBallMgr::~bBallMgr()
 
 bool bBallMgr::create()
 {
+    double tm = 0.0;
+    
     ball_size = 2;
     ball = new bBall*[ball_size];
     
@@ -36,12 +38,12 @@ bool bBallMgr::create()
     ball[0] = new bBall(
         bVector(300.0,180.0), 
         bVector(230.0,0.0), 
-        bVector(0.0,0.0), 50.0);
+        bVector(tm,tm), 50.0);
 
     ball[1] = new bBall(
         bVector(200.0,100.0), 
         bVector(200.0,500.0), 
-        bVector(0.0,0.0), 50.0);
+        bVector(tm,tm), 50.0);
     /*
     ball[2] = new bBall(
         bVector(220.0,350.0), 
