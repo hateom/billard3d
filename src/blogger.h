@@ -14,7 +14,7 @@
 
 #include "bsingleton.h"
 
-#define BLOG bLogger::get_Singleton().log
+#define BLOG bLogger::get_singleton().log
 
 /**
 	@author Tomasz Huczek & Andrzej Jasiñski <thuczek@gmail.com>

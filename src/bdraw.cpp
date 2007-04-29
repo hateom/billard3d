@@ -12,6 +12,7 @@
 #include "bdraw.h"
 #include "bball.h"
 #include "bsdl.h"
+#include "bfontmgr.h"
 
 bDraw::bDraw()
 {
@@ -31,6 +32,10 @@ void bDraw::draw()
     bmgr.process( &fps );
     bmgr.draw();
     
+	glEnable( GL_TEXTURE_2D );
+	PRINT( 10, 10, DG_FONT_LIGHT, "Hello World!" );
+	glDisable( GL_TEXTURE_2D );
+
     /*
     glColor3f( 1.0f, 1.0f, 1.0f );
     bOutputMgr::get_singleton().print( 2.2, 2.2, "Boom!" );

@@ -39,7 +39,7 @@ public:
         BASSERT( single != NULL );
     }
     
-    static T & get_Singleton() {
+    static T & get_singleton() {
         BASSERT( single != NULL );
         return *single;
     }
