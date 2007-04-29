@@ -12,6 +12,7 @@
 #include "bsdl.h"
 #include <cmath>
 #include "bband.h"
+#include "blogger.h"
 
 #define BABS( VAL ) ((VAL)<0.0)?(-(VAL)):(VAL)
 
@@ -35,22 +36,12 @@ void bBand::draw()
 
 bBand::bBand(bVector _p1, bVector _p2) : p1(_p1), p2(_p2)
 {
+    recalc();
 }
 
-double bBand::distance( bVector pt )
+double bBand::distance( bVector pt ) const
 {
-    double A, B, C;
-    
-    if( p2.x == p1.x ) {
-        A = 0.0;
-    } else {
-        A = (p2.y-p1.y)/(p2.x-p1.x);
-    }
-    
-    B = -1.0;
-    C = p1.y - A*p1.x;
-    
-    return BABS( A*pt.x + B*pt.y + C) / sqrt( A*A + B*B );
+    return (BABS( a*pt.x + b*pt.y + c)) / det;
 }
 
 bBand::band_piece bBand::is_within(bVector pt, double rad)
@@ -74,4 +65,22 @@ bBand::band_piece bBand::is_within(bVector pt, double rad)
     return bBand::bNone;
 }
 
+void bBand::recalc()
+{
+    if( p2.x == p1.x ) {
+        a = 0.0;
+    } else {
+        a = (p2.y-p1.y)/(p2.x-p1.x);
+    }
+    
+    b = -1.0;
+    c = p1.y - a*p1.x;
+    det = sqrt( a*a + b*b );
+}
 
+void bBand::set_points(bVector ip1, bVector ip2)
+{
+    p1 = ip1;
+    p2 = ip2;
+    recalc();
+}

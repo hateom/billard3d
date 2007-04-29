@@ -35,7 +35,6 @@ private:
     bBallMgr		bmgr;
     unsigned int    frame_ms;
     bFpsTimer		fps;
-//    SDL_TimerID sec_timer;
 };
 
 //---------------------------------------------------------------------------------------------

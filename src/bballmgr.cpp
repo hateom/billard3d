@@ -13,6 +13,8 @@
 #include "bballmgr.h"
 #include "bassert.h"
 #include "blogger.h"
+#include "bsdl.h"
+#include "bfontmgr.h"
 
 #define FACTOR 0.96
 
@@ -33,35 +35,40 @@ bool bBallMgr::create()
     ball = new bBall*[ball_size];
     
     ball[0] = new bBall(
-        bVector(100.0,180.0), 
+        bVector(400.0,180.0), 
         bVector(230.0,0.0), 
         bVector(tm,tm), 30.0);
 
     ball[1] = new bBall(
-        bVector(300.0,100.0), 
+        bVector(300.0,200.0), 
         bVector(200.0,500.0), 
         bVector(tm,tm), 30.0);
     
     ball[2] = new bBall(
-        bVector(520.0,150.0), 
+        bVector(220.0,350.0), 
         bVector(300.0,300.0), 
         bVector(0.0,0.0), 30.0);
     
     ball[3] = new bBall(
-        bVector(680.0,120.0), 
+        bVector(180.0,420.0), 
         bVector(-300.0,300.0), 
         bVector(0.0,0.0), 30.0);
 
-	band_size = 6;
+	band_size = 12;
 	band = new bBand*[band_size];
 
-    band[0] = new bBand( bVector(  20,  40 ), bVector(  30, 580 ) );
-    band[1] = new bBand( bVector(  20,  40 ), bVector( 780,  40 ) );
-    band[2] = new bBand( bVector( 780,  40 ), bVector( 770, 580 ) );
-    band[3] = new bBand( bVector(  20, 580 ), bVector( 780, 580 ) );
-
-    band[4] = new bBand( bVector( 200, 330 ), bVector( 450, 335 ) );
-	band[5] = new bBand( bVector( 200, 340 ), bVector( 205, 530 ) );
+    band[0]  = new bBand( bVector(  65, 150 ), bVector( 200,  50 ) );
+    band[1]  = new bBand( bVector( 200,  50 ), bVector( 400, 100 ) );
+    band[2]  = new bBand( bVector( 400, 100 ), bVector( 600,  50 ) );
+    band[3]  = new bBand( bVector( 600,  50 ), bVector( 730, 150 ) );
+    band[4]  = new bBand( bVector( 730, 150 ), bVector( 665, 300 ) );
+    band[5]  = new bBand( bVector( 665, 300 ), bVector( 730, 450 ) );
+    band[6]  = new bBand( bVector( 730, 450 ), bVector( 600, 550 ) );
+    band[7]  = new bBand( bVector( 600, 550 ), bVector( 400, 500 ) );
+    band[8]  = new bBand( bVector( 400, 500 ), bVector( 200, 550 ) );
+    band[9]  = new bBand( bVector( 200, 550 ), bVector(  65, 450 ) );
+    band[10] = new bBand( bVector(  65, 450 ), bVector( 130, 300 ) );
+    band[11] = new bBand( bVector( 130, 300 ), bVector(  65, 150 ) );
     
     luball.create( ball_size );
     luband.create( ball_size, band_size, false );

@@ -33,38 +33,20 @@ void bDraw::draw()
     bmgr.draw();
     
 	glEnable( GL_TEXTURE_2D );
-	PRINT( 10, 10, DG_FONT_LIGHT, "Hello World!" );
+	PRINT( 10, 10, DG_FONT_LIGHT, "%d fps", fps.fps() );
 	glDisable( GL_TEXTURE_2D );
 
-    /*
-    glColor3f( 1.0f, 1.0f, 1.0f );
-    bOutputMgr::get_singleton().print( 2.2, 2.2, "Boom!" );
-    */
-    
     fps.calc();
 }
-/*
-Uint32 sec_call( Uint32 intervall, void * parameter )
-{
-    static char title[64] = "";
-    bFpsTimer * fps = (bFpsTimer*)parameter;
-    sprintf( title, "Billard 3D, %d fps, %f", fps->fps(), fps->factor() );
-    SDL_WM_SetCaption( title, 0 );
-    
-    return intervall;
-}
-*/
+
 bool bDraw::create()
 {
     if( !bmgr.create() ) return false;
-    
-    //sec_timer = SDL_AddTimer( 1000, sec_call, (void*)&fps );
-    
+   
     return true;
 }
 
 void bDraw::release()
 {
-    //SDL_RemoveTimer( sec_timer );
     bmgr.release();    
 }
