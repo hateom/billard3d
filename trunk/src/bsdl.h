@@ -9,4 +9,4 @@
 #include <GL/glu.h>
 #include <SDL/SDL.h>
 
-#endif __B_SDL_H__
+#endif // __B_SDL_H__

@@ -172,7 +172,7 @@ bool bFont::build_font()
 	float fsx = 0.0f, ffw = 0.0f;
 	uint32 i = 0;
 
-	for( y=0; y<16; ++y )
+	for( uint32 y=0; y<16; ++y )
 	{
 		fy = (float)y;
 		for( int x=0; x<16; x++ )
@@ -235,7 +235,7 @@ bool bFont::get_font_width( uint32 fx, uint32 fy, font_width * fw )
 
 	if( !flag ) start = 0;
 
-	for( x=f_width-1; x>=0; --x )
+	for( uint32 x=f_width-1; x>=0; --x )
 	{
 		flag = false;
 		for( int y=0; y<f_height; ++y )
