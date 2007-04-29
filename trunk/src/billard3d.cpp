@@ -16,6 +16,7 @@
 #include "bassert.h"
 #include "blogger.h"
 #include "bfontmgr.h"
+#include "bpath.h"
 
 //---------------------------------------------------------------------------------------------
 
@@ -29,8 +30,10 @@ int main( int argc, char* argv[] )
         bDraw  graph;
         bLogger logger;
 		bFontMgr fontMgr;
+        bPath path;
         
         logger.set_state(true);
+        path.init(argv[0]);
         
         if( !video.setup() ) {
             return -1;
@@ -41,7 +44,7 @@ int main( int argc, char* argv[] )
             return -2;
         }
 
-        if( !FontMgr.load_default( "/home/deely/workspace/billard3d/fonts/default.bmp" ) ) {
+        if( !FontMgr.load_default( GETPATH("../../fonts/default.bmp" )) ) {
             BLOG( "!! Could not load default font!\n" );   
         }
 
