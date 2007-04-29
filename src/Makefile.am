@@ -1,7 +1,7 @@
 bin_PROGRAMS = billard3d
 billard3d_SOURCES = bassert.cpp bball.cpp bballmgr.cpp bband.cpp bdraw.cpp \
-	bexceptionstream.cpp bfpstimer.cpp billard3d.cpp blogger.cpp blutable.cpp bsingleton.cpp \
-	butils.cpp bvector.cpp bvideo.cpp
+	bexceptionstream.cpp bfont.cpp bfontmgr.cpp bfpstimer.cpp billard3d.cpp blogger.cpp \
+	blutable.cpp bsingleton.cpp btexture.cpp butils.cpp bvector.cpp bvideo.cpp
 
 # set the include path found by configure
 INCLUDES = $(all_includes)
