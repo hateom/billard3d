@@ -41,7 +41,9 @@ int main( int argc, char* argv[] )
             return -2;
         }
 
-		FontMgr.load_default( "..\\..\\fonts\\default.bmp" );
+        if( !FontMgr.load_default( "/home/deely/workspace/billard3d/fonts/default.bmp" ) ) {
+            BLOG( "!! Could not load default font!\n" );   
+        }
 
         while( video.messages() ) {
             graph.draw();
