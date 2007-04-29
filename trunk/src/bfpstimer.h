@@ -12,11 +12,6 @@
 
 //---------------------------------------------------------------------------------------------
 
-#include <sys/time.h>
-#include <SDL/SDL.h>
-
-//---------------------------------------------------------------------------------------------
-
 /**
 	@author Tomasz Huczek & Andrzej Jasiñski <thuczek@gmail.com>
 */
@@ -25,8 +20,8 @@ public:
     bFpsTimer();
     ~bFpsTimer();
 
-    Uint32 calc();
-    Uint32 fps() { return frames; }
+    unsigned int calc();
+    unsigned int fps() { return frames; }
     
     inline double factor() { 
         return !frames?0.0:1.0/((double)frames); 
@@ -39,10 +34,9 @@ public:
     }
 */    
 private:
-    timeval t1, t2;
-    Uint32 ms;
-    Uint32 frames;
-    Uint32 curr_frames;
+    unsigned int ms;
+    unsigned int frames;
+    unsigned int curr_frames;
 };
 
 //---------------------------------------------------------------------------------------------

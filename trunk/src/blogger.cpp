@@ -40,5 +40,3 @@ void bLogger::log(const char * text, ...)
     
     std::cout << buffer;
 }
-
-

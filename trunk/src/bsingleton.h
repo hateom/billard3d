@@ -15,6 +15,11 @@
 #include <iostream>
 #include "bassert.h"
 
+#ifdef WIN32
+#	pragma warning(disable:4312)
+#	pragma warning(disable:4311)
+#endif
+
 /**
 	@author Tomasz Huczek & Andrzej Jasiñski <thuczek@gmail.com>
 */

@@ -9,12 +9,9 @@
  *                                                                         *
  ***************************************************************************/
 
-#include <GL/gl.h>
-#include <GL/glu.h>
-#include <SDL/SDL.h>
-#include <SDL/SDL_ttf.h>
 #include "bdraw.h"
 #include "bball.h"
+#include "bsdl.h"
 
 bDraw::bDraw()
 {
@@ -41,7 +38,7 @@ void bDraw::draw()
     
     fps.calc();
 }
-
+/*
 Uint32 sec_call( Uint32 intervall, void * parameter )
 {
     static char title[64] = "";
@@ -51,7 +48,7 @@ Uint32 sec_call( Uint32 intervall, void * parameter )
     
     return intervall;
 }
-
+*/
 bool bDraw::create()
 {
     if( !bmgr.create() ) return false;
