@@ -33,7 +33,8 @@ void bDraw::draw()
     bmgr.draw();
     
 	glEnable( GL_TEXTURE_2D );
-	PRINT( 10, 10, DG_FONT_LIGHT, "%d fps", fps.fps() );
+    PRINT( 10, 10, DG_FONT_LIGHT, ":: billard 3D DEBUG edition", fps.fps() );
+	PRINT( 10, 30, DG_FONT_LIGHT, ":: %d fps", fps.fps() );
 	glDisable( GL_TEXTURE_2D );
 
     fps.calc();

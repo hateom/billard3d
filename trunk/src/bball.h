@@ -17,6 +17,7 @@
 #include "bband.h"
 #include "bvector.h"
 
+
 //---------------------------------------------------------------------------------------------
 
 /**
@@ -32,6 +33,9 @@ public:
     void draw();
     void process( double fps_factor );
     void unprocess( double fps_factor );
+    
+    //! @param force means how many collisions occured
+    void report_collision( int force );
     
     void set_v( bVector v ) { t_vel_f = true; t_vel = v; }
     void commit_v() { 

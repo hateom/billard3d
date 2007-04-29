@@ -14,6 +14,8 @@
 #include "bball.h"
 #include "bassert.h"
 
+#define COL_FACTOR 0.2
+
 #define G_PI 3.1415
 
 #define EPS 0.01
@@ -148,4 +150,11 @@ bVector bBall::collision(bBand * b, bBand::band_piece edge)
     v *= -1.0;
     
     return ( v + n*scal*2.0 );
+}
+
+void bBall::report_collision(int type)
+{
+    double dtype = (double)type;
+    t_vel.x -= t_vel.x*(dtype*COL_FACTOR);
+    t_vel.y -= t_vel.y*(dtype*COL_FACTOR);
 }
