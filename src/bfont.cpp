@@ -107,7 +107,7 @@ void bFont::writef( uint32 x, uint32 y, uint32 mode, const char * fmt, ... ) con
 
 void bFont::write( uint32 x, uint32 y, uint32 mode, const char * str ) const
 {
-	BASSERT( ( coords != NULL ) && ( widths != NULL ) );
+	BASSERTM( ( coords != NULL ) && ( widths != NULL ), (int)coords << ":" << (int)widths );
 
 	uint32 len = (uint32)strlen( str );
 	int32 orgx = x;
