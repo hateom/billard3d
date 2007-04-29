@@ -37,22 +37,22 @@ bool bBallMgr::create()
     ball[0] = new bBall(
         bVector(400.0,180.0), 
         bVector(230.0,0.0), 
-        bVector(tm,tm), 30.0);
+        bVector(tm,tm), 30.0, 1.0, 1.0, 0.4, 0.3 );
 
     ball[1] = new bBall(
         bVector(300.0,200.0), 
         bVector(200.0,500.0), 
-        bVector(tm,tm), 30.0);
+        bVector(tm,tm), 30.0, 1.0, 0.3, 1.0, 0.4 );
     
     ball[2] = new bBall(
         bVector(220.0,350.0), 
         bVector(300.0,300.0), 
-        bVector(0.0,0.0), 30.0);
+        bVector(0.0,0.0), 30.0, 1.0, 0.4, 0.3, 1.0 );
     
     ball[3] = new bBall(
         bVector(180.0,420.0), 
         bVector(-300.0,300.0), 
-        bVector(0.0,0.0), 30.0);
+        bVector(0.0,0.0), 30.0, 1.0, 1.0, 0.2, 0.8 );
 
 	band_size = 12;
 	band = new bBand*[band_size];
@@ -109,6 +109,12 @@ void bBallMgr::draw()
     for( int i=0; i<band_size; ++i ) {
         band[i]->draw();
     }
+    
+    glEnable( GL_TEXTURE_2D );
+    for( int i=0; i<ball_size; ++i ) {
+        PRINT( 10,  60+i*20, DG_FONT_LIGHT, "%2.2f", ball[i]->vel.length() );
+    }
+    glDisable( GL_TEXTURE_2D );
 }
 
 void bBallMgr::process(bFpsTimer * fps)
@@ -207,6 +213,7 @@ void bBallMgr::commit_reflections()
         if( flag != 0 ) {
             BLOG( ">> ball %d -> setting velocity: %2.2f,%2.2f divided by %d\n", i, v.x, v.y, flag );
             b1->set_v( v/(double)flag );
+            b1->report_collision(flag);
         }
     }
 }
