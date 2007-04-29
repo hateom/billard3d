@@ -13,8 +13,8 @@
 	<Configurations>
 		<Configuration
 			Name="Debug|Win32"
-			OutputDirectory="debug"
-			IntermediateDirectory="obj"
+			OutputDirectory="obj\debug"
+			IntermediateDirectory="obj\debug"
 			ConfigurationType="1"
 			CharacterSet="2">
 			<Tool
@@ -62,8 +62,8 @@
 		</Configuration>
 		<Configuration
 			Name="Release|Win32"
-			OutputDirectory="release"
-			IntermediateDirectory="obj"
+			OutputDirectory="obj\release"
+			IntermediateDirectory="obj\release"
 			ConfigurationType="1"
 			CharacterSet="2">
 			<Tool
@@ -134,6 +134,12 @@
 				RelativePath="..\src\bexceptionstream.cpp">
 			</File>
 			<File
+				RelativePath="..\src\bfont.cpp">
+			</File>
+			<File
+				RelativePath="..\src\bfontmgr.cpp">
+			</File>
+			<File
 				RelativePath="..\src\bfpstimer.cpp">
 			</File>
 			<File
@@ -147,6 +153,9 @@
 			</File>
 			<File
 				RelativePath="..\src\bsingleton.cpp">
+			</File>
+			<File
+				RelativePath="..\src\btexture.cpp">
 			</File>
 			<File
 				RelativePath="..\src\butils.cpp">
@@ -181,6 +190,12 @@
 				RelativePath="..\src\bexceptionstream.h">
 			</File>
 			<File
+				RelativePath="..\src\bfont.h">
+			</File>
+			<File
+				RelativePath="..\src\bfontmgr.h">
+			</File>
+			<File
 				RelativePath="..\src\bfpstimer.h">
 			</File>
 			<File
@@ -194,6 +209,12 @@
 			</File>
 			<File
 				RelativePath="..\src\bsingleton.h">
+			</File>
+			<File
+				RelativePath="..\src\btexture.h">
+			</File>
+			<File
+				RelativePath="..\src\btypes.h">
 			</File>
 			<File
 				RelativePath="..\src\butils.h">

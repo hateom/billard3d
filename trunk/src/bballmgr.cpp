@@ -29,37 +29,39 @@ bool bBallMgr::create()
 {
     double tm = 0.0;
     
-    ball_size = 2;
+    ball_size = 4;
     ball = new bBall*[ball_size];
     
-    band_size = 5;
-    band = new bBand*[band_size];
-    
     ball[0] = new bBall(
-        bVector(300.0,180.0), 
+        bVector(100.0,180.0), 
         bVector(230.0,0.0), 
-        bVector(tm,tm), 50.0);
+        bVector(tm,tm), 30.0);
 
     ball[1] = new bBall(
-        bVector(200.0,100.0), 
+        bVector(300.0,100.0), 
         bVector(200.0,500.0), 
-        bVector(tm,tm), 50.0);
-    /*
+        bVector(tm,tm), 30.0);
+    
     ball[2] = new bBall(
-        bVector(220.0,350.0), 
+        bVector(520.0,150.0), 
         bVector(300.0,300.0), 
-        bVector(0.0,0.0), 50.0);
+        bVector(0.0,0.0), 30.0);
     
     ball[3] = new bBall(
-        bVector(420.0,320.0), 
+        bVector(680.0,120.0), 
         bVector(-300.0,300.0), 
-        bVector(0.0,0.0), 50.0);
-    */
-    band[0] = new bBand( bVector(  20,  20 ), bVector( 140, 580 ) );
-    band[1] = new bBand( bVector( 500, 460 ), bVector( 780,  40 ) );
-    band[2] = new bBand( bVector(  20,  20 ), bVector( 790,  40 ) );
-    band[3] = new bBand( bVector( 140, 460 ), bVector( 700, 590 ) );
-    band[4] = new bBand( bVector( 200, 340 ), bVector( 250, 330 ) );
+        bVector(0.0,0.0), 30.0);
+
+	band_size = 6;
+	band = new bBand*[band_size];
+
+    band[0] = new bBand( bVector(  20,  40 ), bVector(  30, 580 ) );
+    band[1] = new bBand( bVector(  20,  40 ), bVector( 780,  40 ) );
+    band[2] = new bBand( bVector( 780,  40 ), bVector( 770, 580 ) );
+    band[3] = new bBand( bVector(  20, 580 ), bVector( 780, 580 ) );
+
+    band[4] = new bBand( bVector( 200, 330 ), bVector( 450, 335 ) );
+	band[5] = new bBand( bVector( 200, 340 ), bVector( 205, 530 ) );
     
     luball.create( ball_size );
     luband.create( ball_size, band_size, false );

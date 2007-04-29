@@ -15,6 +15,7 @@
 #include "bvector.h"
 #include "bassert.h"
 #include "blogger.h"
+#include "bfontmgr.h"
 
 //---------------------------------------------------------------------------------------------
 
@@ -27,6 +28,7 @@ int main( int argc, char* argv[] )
         bVideo video;
         bDraw  graph;
         bLogger logger;
+		bFontMgr fontMgr;
         
         logger.set_state(true);
         
@@ -39,10 +41,14 @@ int main( int argc, char* argv[] )
             return -2;
         }
 
+		FontMgr.load_default( "..\\..\\fonts\\default.bmp" );
+
         while( video.messages() ) {
             graph.draw();
             video.buffers();
         }
+
+		FontMgr.release();
         
         graph.release();
         video.release();
@@ -50,7 +56,9 @@ int main( int argc, char* argv[] )
 #ifdef DEBUG
     } catch( bException & e ) {
         std::cout << e.format() << std::endl;
-    }
+//	} catch( ... ) {
+//		std::cout << "!! Unknown exception occured!" << std::endl;
+	}
     std::cout << ">> Finished." << std::endl;
 #endif // DEBUG
     
