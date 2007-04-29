@@ -9,7 +9,7 @@
  *                                                                         *
  ***************************************************************************/
 
-#include <GL/gl.h>
+#include "bsdl.h"
 #include <cmath>
 #include "bband.h"
 

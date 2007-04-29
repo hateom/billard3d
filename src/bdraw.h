@@ -14,7 +14,6 @@
 
 //---------------------------------------------------------------------------------------------
 
-#include <SDL/SDL.h>
 #include "bballmgr.h"
 #include "bfpstimer.h"
 
@@ -33,10 +32,10 @@ public:
     void release();
     
 private:
-    bBallMgr  bmgr;
-    Uint32    frame_ms;
-    bFpsTimer fps;
-    SDL_TimerID sec_timer;
+    bBallMgr		bmgr;
+    unsigned int    frame_ms;
+    bFpsTimer		fps;
+//    SDL_TimerID sec_timer;
 };
 
 //---------------------------------------------------------------------------------------------

@@ -12,7 +12,7 @@
 #ifndef BLOGGER_H
 #define BLOGGER_H
 
-#include <bsingleton.h>
+#include "bsingleton.h"
 
 #define BLOG bLogger::get_Singleton().log
 

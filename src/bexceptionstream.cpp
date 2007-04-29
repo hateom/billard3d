@@ -80,7 +80,3 @@ const char * bExceptionStream::get_str() const
 { 
     return buffer; 
 }
-
-
-
-

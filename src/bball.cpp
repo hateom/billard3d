@@ -9,8 +9,7 @@
  *                                                                         *
  ***************************************************************************/
 
-#include <GL/gl.h>
-#include <GL/glu.h>
+#include "bsdl.h"
 #include <cmath>
 #include "bball.h"
 #include "bassert.h"
@@ -51,7 +50,7 @@ void bBall::draw()
     glBegin( GL_TRIANGLE_FAN );
         glColor3f( r, g, b );
         glVertex2d( pos.x, pos.y );
-        glColor3f( r/5.0, g/5.0, b/5.0 );
+        glColor3f( (GLfloat)(r*0.2), (GLfloat)(g*0.2), (GLfloat)(b*0.2) );
         glVertex2d( pos.x + radius*cos(0.0), pos.y + radius*sin(0.0) );
         for( int i=0; i<rnum; ++i ) {
             rad -= nrad;

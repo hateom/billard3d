@@ -19,6 +19,12 @@
 
 //---------------------------------------------------------------------------------------------
 
+#ifdef WIN32
+#ifdef _DEBUG
+#define DEBUG
+#endif
+#endif
+
 #ifdef DEBUG
 #define BASSERTM( EXPR, MSG ) if( !(EXPR) ) { \
             static bExceptionStream exp_strm;\
