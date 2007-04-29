@@ -104,7 +104,7 @@ bVector bBall::collision(bBall * b)
 
 bVector bBall::collision(bBand * b)
 {
-    bVector n(b->p2 - b->p1), v(vel);
+    bVector n(b->get_p2() - b->get_p1()), v(vel);
     double scal;
     n.normalize();
    
@@ -132,9 +132,9 @@ bVector bBall::collision(bBand * b, bBand::band_piece edge)
     
     bVector edg;
     if( edge == bBand::bEdge1 ) {
-        edg = b->p1;
+        edg = b->get_p1();
     } else {
-        edg = b->p2;
+        edg = b->get_p2();
     }
     bVector n(pos - edg), v(vel);
     double scal;

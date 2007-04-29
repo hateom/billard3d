@@ -32,11 +32,17 @@ public:
     ~bBand();
 
     void draw();
-    double distance( bVector pt );
+    double distance( bVector pt ) const;
     band_piece is_within( bVector pt, double rad );
     
-public:
+    void recalc();
+    void set_points( bVector ip1, bVector ip2 );
+    inline bVector get_p1() const { return p1; }
+    inline bVector get_p2() const { return p2; }
+    
+protected:
     bVector p1, p2;
+    double a, b, c, det;
 };
 
 //---------------------------------------------------------------------------------------------
