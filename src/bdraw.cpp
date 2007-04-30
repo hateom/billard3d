@@ -27,7 +27,7 @@ bDraw::~bDraw()
 void bDraw::draw()
 {
     Profiler.start_frame();
-    Profiler.begin("ball_mgr::frame");
+    Profiler.begin("main::frame");
     
     glClear( GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT );
 
@@ -48,7 +48,7 @@ void bDraw::draw()
 	PRINT( 10, 30, DG_FONT_LIGHT, ":: %d fps", fps.fps() );
     Profiler.end("draw::stats");
     fps.calc();
-    Profiler.end("ball_mgr::frame");
+    Profiler.end("main::frame");
     
     Profiler.write(400, 100, DG_FONT_LIGHT);
     glDisable( GL_TEXTURE_2D );

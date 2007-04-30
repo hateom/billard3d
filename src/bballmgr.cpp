@@ -16,6 +16,7 @@
 #include "bsdl.h"
 #include "bfontmgr.h"
 #include "btrace.h"
+#include "bprofiler.h"
 
 #define FACTOR 0.96
 
@@ -111,13 +112,17 @@ void bBallMgr::release()
 
 void bBallMgr::draw()
 {
+    Profiler.begin("ball_mgr::draw_balls");
     for( int i=0; i<ball_size; ++i ) {
         ball[i]->draw();
     }
+    Profiler.end("ball_mgr::draw_balls");
     
+    Profiler.begin("ball_mgr::draw_bands");
     for( int i=0; i<band_size; ++i ) {
         band[i]->draw();
     }
+    Profiler.end("ball_mgr::draw_bands");
     
     glEnable( GL_TEXTURE_2D );
     for( int i=0; i<ball_size; ++i ) {
@@ -163,9 +168,13 @@ void bBallMgr::process(bFpsTimer * fps)
     }
     
    
+    Profiler.begin( "ball_mgr::reflections" );
+    
     // calculate new velocity vectors 
     // (but no commit - one change changes next calculation result!)
     commit_reflections();
+    
+    Profiler.end( "ball_mgr::reflections" );
     
     luball.clear();
     luband.clear();
