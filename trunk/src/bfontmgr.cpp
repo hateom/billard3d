@@ -12,7 +12,7 @@ bFontMgr::~bFontMgr()
 	release();
 }
 
-bool bFontMgr::load_default()
+bool bFontMgr::init()
 {
     guard(bFontMgr::load_default);
     

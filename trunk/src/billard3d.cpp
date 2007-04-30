@@ -48,9 +48,7 @@ int main( int argc, char* argv[] )
             return -2;
         }
 
-        if( !FontMgr.load_default() ) {
-            BLOG( "!! Could not load default font!\n" );   
-        }
+        FontMgr.init();
 
         while( video.messages() ) {
             graph.draw();
