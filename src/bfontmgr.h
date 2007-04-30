@@ -13,7 +13,9 @@ public:
 	bFontMgr();
 	~bFontMgr();
 
-	bool load_default();
+    //! loads default font
+	bool init();
+    
 	void release();
 
 	bFont & get_font();
