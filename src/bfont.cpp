@@ -162,7 +162,7 @@ void bFont::write( uint32 x, uint32 y, uint32 mode, const char * str ) const
 
 	glPushAttrib( GL_ENABLE_BIT | GL_COLOR_BUFFER_BIT );
 	glEnable( GL_BLEND );
-	glBlendFunc( (mode==DG_FONT_DARK)?GL_ZERO:GL_ONE, GL_ONE_MINUS_SRC_COLOR );
+	glBlendFunc( (mode==B_FONT_DARK)?GL_ZERO:GL_ONE, GL_ONE_MINUS_SRC_COLOR );
 
 	texture.bind();
 
