@@ -126,7 +126,10 @@ void bBallMgr::draw()
     
     glEnable( GL_TEXTURE_2D );
     for( int i=0; i<ball_size; ++i ) {
-        PRINT( 10,  60+i*20, B_FONT_LIGHT, "%2.2f", ball[i]->vel.length() );
+        PRINT( (int)ball[i]->pos.x-1-(int)ball[i]->radius/2, (int)ball[i]->pos.y-9, 
+                B_FONT_DARK, "%2.2f", ball[i]->vel.length() );
+        PRINT( (int)ball[i]->pos.x-(int)ball[i]->radius/2, (int)ball[i]->pos.y-8, 
+            B_FONT_LIGHT, "%2.2f", ball[i]->vel.length() );
     }
     glDisable( GL_TEXTURE_2D );
 }
