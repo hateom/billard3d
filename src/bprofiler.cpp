@@ -3,6 +3,8 @@
 #include "bsdl.h"
 #include "btrace.h"
 
+#define HSPC 10
+
 #ifdef WIN32
 #include <windows.h>
 #else
@@ -216,9 +218,6 @@ void bProfiler::GetProfileFromHistory( const char * name, float * ave, float * m
     unguard;
 }
 
-#define bFastWrite PRINTS
-#define HSPC 10
-
 void bProfiler::write( uint32 x, uint32 y, uint32 font )
 {
     guard(bProfiler::write);
@@ -229,13 +228,13 @@ void bProfiler::write( uint32 x, uint32 y, uint32 font )
 
 	end_time = GetTime();
 
-	bFastWrite( x, y, font, "B3D Profiler by deely" );
-	y += HSPC;
-	bFastWrite(     x, y, font, "ave" );
-	bFastWrite(  x+32, y, font, "min" );
-	bFastWrite(  x+64, y, font, "max" );
-	bFastWrite(  x+96, y, font, "num" );
-	bFastWrite( x+128, y, font, "name" );
+	PRINT( x, y, font, "B3D Profiler by deely" );
+	y += 16;
+	PRINTS(     x, y, font, "ave" );
+    PRINTS(  x+32, y, font, "min" );
+    PRINTS(  x+64, y, font, "max" );
+    PRINTS(  x+96, y, font, "num" );
+    PRINTS( x+128, y, font, "name" );
     y += HSPC;
 
 	while( i < SAMPLES_COUNT && sample[i].valid == true )
@@ -277,11 +276,11 @@ void bProfiler::write( uint32 x, uint32 y, uint32 font )
 			strcpy( idented_name, name );
 		}
 
-		bFastWrite(     x, y, font, ave );
-		bFastWrite(  x+32, y, font, min );
-		bFastWrite(  x+64, y, font, max );
-		bFastWrite(  x+96, y, font, num );
-		bFastWrite( x+128, y, font, idented_name );
+        PRINTS(     x, y, font, ave );
+        PRINTS(  x+32, y, font, min );
+        PRINTS(  x+64, y, font, max );
+        PRINTS(  x+96, y, font, num );
+        PRINTS( x+128, y, font, idented_name );
 
         y += HSPC;
 		++i;

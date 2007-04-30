@@ -56,21 +56,21 @@ void bDraw::draw()
         glDisable( GL_TEXTURE_2D );
         glBegin( GL_TRIANGLE_STRIP );
             glColor4f( 1.0f, 1.0f, 1.0f, 0.5f );
-            glVertex2i( 479, 449 );
+            glVertex2i( 479, 389 );
             glVertex2i( 479, 600 );
-            glVertex2i( 800, 449 );
+            glVertex2i( 800, 389 );
             glVertex2i( 800, 600 );
         glEnd();
         glBegin( GL_TRIANGLE_STRIP );
             glColor4f( 0.0f, 0.0f, 0.0f, 0.5f );
-            glVertex2i( 480, 450 );
+            glVertex2i( 480, 390 );
             glVertex2i( 480, 600 );
-            glVertex2i( 800, 450 );
+            glVertex2i( 800, 390 );
             glVertex2i( 800, 600 );
         glEnd();
         glEnable( GL_TEXTURE_2D );
         glColor4f( 1.0f, 1.0f, 1.0f, 1.0f );
-        Profiler.write(500, 460, B_FONT_LIGHT);
+        Profiler.write(500, 400, B_FONT_LIGHT);
     }
     
     glDisable( GL_TEXTURE_2D );
