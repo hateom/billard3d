@@ -12,6 +12,7 @@
 #include <iostream>
 #include <cstdarg>
 #include "blogger.h"
+#include "btrace.h"
 
 bLogger::bLogger()
  : bSingleton<bLogger>(), on(false)
@@ -29,6 +30,8 @@ void bLogger::set_state(bool enabled)
 
 void bLogger::log(const char * text, ...)
 {
+    guard(bLogger::log);
+    
     if( !on ) return;
     
     static char buffer[512] = "";
@@ -39,4 +42,6 @@ void bLogger::log(const char * text, ...)
     va_end( al );
     
     std::cout << buffer;
+    
+    unguard;
 }

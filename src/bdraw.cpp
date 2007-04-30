@@ -13,6 +13,7 @@
 #include "bball.h"
 #include "bsdl.h"
 #include "bfontmgr.h"
+#include "btrace.h"
 
 bDraw::bDraw()
 {
@@ -33,7 +34,7 @@ void bDraw::draw()
     bmgr.draw();
     
 	glEnable( GL_TEXTURE_2D );
-    PRINT( 10, 10, DG_FONT_LIGHT, ":: billard 3D DEBUG edition", fps.fps() );
+    PRINT( 10, 10, DG_FONT_LIGHT, ":: billard 3D DEBUG edition || compiled %s at %s", __DATE__, __TIME__ );
 	PRINT( 10, 30, DG_FONT_LIGHT, ":: %d fps", fps.fps() );
 	glDisable( GL_TEXTURE_2D );
 
@@ -42,12 +43,17 @@ void bDraw::draw()
 
 bool bDraw::create()
 {
+    guard(bDraw::create);
+    
     if( !bmgr.create() ) return false;
-   
     return true;
+    
+    unguard;
 }
 
 void bDraw::release()
 {
+    guard(bDraw::release);
     bmgr.release();    
+    unguard;
 }

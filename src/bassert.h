@@ -49,7 +49,7 @@ class bException {
 public:
     bException( const char * file, int line, const char * expr, bExceptionStream & estrm );
     bException( const char * file, int line, const char * expr );
-    ~bException();
+    virtual ~bException();
     
     int get_line();
     const char * get_msg();
@@ -61,6 +61,14 @@ public:
 private:
     char * file, * expr, * msg;
     int line;
+};
+
+//---------------------------------------------------------------------------------------------
+
+class bUnknownException : public bException {
+public:
+    bUnknownException( const char * file, int line ) : bException( file, line, "" ) {}
+    virtual ~bUnknownException() {}
 };
 
 //---------------------------------------------------------------------------------------------

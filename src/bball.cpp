@@ -13,6 +13,7 @@
 #include <cmath>
 #include "bball.h"
 #include "bassert.h"
+#include "btrace.h"
 
 #define COL_FACTOR 0.2
 
@@ -63,6 +64,8 @@ void bBall::draw()
 
 void bBall::process( double fps_factor )
 {
+    guard(bBall::process);
+    
     static double mi = 50.0;
     double ta = ((mi*10.0)/radius)*fps_factor;
     
@@ -77,6 +80,8 @@ void bBall::process( double fps_factor )
     
     vel += acc * fps_factor;
     pos += vel * fps_factor;
+    
+    unguard;
 }
 
 void bBall::unprocess( double fps_factor )
@@ -87,6 +92,8 @@ void bBall::unprocess( double fps_factor )
 
 bVector bBall::collision(bBall * b)
 {
+    guard(bBall::collision);
+    
     static bVector n;
     static double a1, a2, p;
     
@@ -102,10 +109,14 @@ bVector bBall::collision(bBall * b)
     bVector v1 = vel - n*p*b->mass;
     
     return v1;
+    
+    unguard;
 }
 
 bVector bBall::collision(bBand * b)
 {
+    guard(bBall::collision);
+    
     bVector n(b->get_p2() - b->get_p1()), v(vel);
     double scal;
     n.normalize();
@@ -114,10 +125,14 @@ bVector bBall::collision(bBand * b)
     v *= -1.0;
     
     return ( v + n*scal*2.0 );
+    
+    unguard;
 }
 
 bool bBall::collides(bBall * b)
 {
+    guard(bBall::collides);
+    
     BASSERT( b != NULL );
     
     if( pos.distance( b->pos ) <= ( radius + b->radius ) ) {
@@ -125,10 +140,14 @@ bool bBall::collides(bBall * b)
     }
     
     return false;
+    
+    unguard;
 }
 
 bVector bBall::collision(bBand * b, bBand::band_piece edge)
 {
+    guard(bBall::collision);
+    
     BASSERT( b != NULL );
     BASSERT( edge == bBand::bEdge1 || edge == bBand::bEdge2 );
     
@@ -150,6 +169,8 @@ bVector bBall::collision(bBand * b, bBand::band_piece edge)
     v *= -1.0;
     
     return ( v + n*scal*2.0 );
+    
+    unguard;
 }
 
 void bBall::report_collision(int type)

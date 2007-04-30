@@ -24,3 +24,4 @@ private:
 #define GETPATH( NFILE ) bPath::get_singleton().get_full_path( NFILE )
 
 #endif // __B_PATH_H__
+

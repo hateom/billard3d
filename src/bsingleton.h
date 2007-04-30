@@ -31,8 +31,11 @@ public:
     bSingleton() {
         BASSERT( single == NULL );
         
-        int offs = (int)(T*)1 - (int)(bSingleton<T>*)(T*)1; 
-        single = (T*)((int)this + offs);
+//        int offs = (int)(T*)1 - (int)(bSingleton<T>*)(T*)1; 
+//        single = (T*)((int)this + offs);
+        
+        long offs = (long)(T*)1 - (long)(bSingleton<T>*)(T*)1; 
+        single = (T*)((long)this + offs);
     }
     
     virtual ~bSingleton() {

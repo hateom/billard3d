@@ -15,6 +15,7 @@
 #include "blogger.h"
 #include "bsdl.h"
 #include "bfontmgr.h"
+#include "btrace.h"
 
 #define FACTOR 0.96
 
@@ -29,6 +30,8 @@ bBallMgr::~bBallMgr()
 
 bool bBallMgr::create()
 {
+    guard(bBallMgr::create);
+    
     double tm = 0.0;
     
     ball_size = 4;
@@ -74,10 +77,14 @@ bool bBallMgr::create()
     luband.create( ball_size, band_size, false );
     
     return true;
+    
+    unguard;
 }
 
 void bBallMgr::release()
 {
+    guard(bBallMgr::release);
+    
     luball.release();
     luband.release();
     
@@ -98,6 +105,8 @@ void bBallMgr::release()
     delete [] band;
     band = NULL;
     band_size = 0;
+    
+    unguard;
 }
 
 void bBallMgr::draw()
@@ -119,6 +128,8 @@ void bBallMgr::draw()
 
 void bBallMgr::process(bFpsTimer * fps)
 {
+    guard(bBallMgr::process);
+    
     BASSERT( fps != NULL );
     
     for( int i=0; i<ball_size; ++i ) {
@@ -174,10 +185,14 @@ void bBallMgr::process(bFpsTimer * fps)
             }
         }*/
     }
+    
+    unguard;
 }
 
 void bBallMgr::commit_reflections()
 {
+    guard(bBallMgr::commit_reflections);
+    
     bVector v;
     bBall * b1, * b2;
     bBand * bd;
@@ -216,10 +231,14 @@ void bBallMgr::commit_reflections()
             b1->report_collision(flag);
         }
     }
+    
+    unguard;
 }
 
 bool bBallMgr::is_any(int ball)
 {
+    guard(bBallMgr::is_any);
+    
     for( int i=0; i<ball_size; ++i ) {
         if( luball.at( ball, i ) != 0 ) return true;
     }
@@ -228,5 +247,7 @@ bool bBallMgr::is_any(int ball)
     }
     
     return false;
+    
+    unguard;
 }
 

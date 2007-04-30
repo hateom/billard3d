@@ -12,6 +12,7 @@
 #include "bball.h"
 #include "bvideo.h"
 #include "bsdl.h"
+#include "btrace.h"
 
 //---------------------------------------------------------------------------------------------
 
@@ -30,6 +31,8 @@ bVideo::~bVideo()
 
 bool bVideo::setup()
 {
+    guard(bVideo::setup);
+    
     if( SDL_Init( SDL_INIT_VIDEO | SDL_INIT_TIMER ) < 0 ) {
         fprintf( stderr, "Video initialization failed: %s\n", SDL_GetError() );
         release();
@@ -72,6 +75,8 @@ bool bVideo::setup()
     resize( width, height );
     status = true;
     return true;
+    
+    unguard;
 }
 
 //---------------------------------------------------------------------------------------------
@@ -138,8 +143,12 @@ void bVideo::resize( int width, int height )
 
 void bVideo::release()
 {
+    guard(bVideo::release);
+    
     SDL_Quit();
     status = false;
+    
+    unguard;
 }
 
 //---------------------------------------------------------------------------------------------

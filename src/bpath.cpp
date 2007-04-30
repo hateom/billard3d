@@ -1,5 +1,6 @@
 #include "bassert.h"
 #include "bpath.h"
+#include "btrace.h"
 
 bPath::bPath() : bSingleton<bPath>(), dir(""), created(false), separator('\\')
 {
@@ -11,6 +12,8 @@ bPath::~bPath()
 
 bool bPath::init( const char * buffer )
 {
+    guard(bPath::init);
+    
 	char mdir[1024] = "";
 
 	for( int i=strlen(buffer)-1; i>0; --i )
@@ -27,12 +30,16 @@ bool bPath::init( const char * buffer )
 	}
 
 	return( false );
+    
+    unguard;
 }
 
 //::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::]
 
 const char * bPath::get_full_path( const char * file ) const
 {
+    guard(bPath::get_full_path);
+    
 	BASSERT( created == true );
 	if( !created ) return( file );
 	static char temp[1024] = "";
@@ -40,4 +47,7 @@ const char * bPath::get_full_path( const char * file ) const
 	sprintf( temp, "%s%c%s", dir.c_str(), separator, file );
 
 	return( temp );
+    
+    unguard;
 }
+

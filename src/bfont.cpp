@@ -4,6 +4,7 @@
 #include <cstdio>
 #include "bsdl.h"
 #include "bassert.h"
+#include "btrace.h"
 
 bFont::bFont() : coords(NULL), widths(NULL), font_data(NULL)
 {
@@ -16,8 +17,12 @@ bFont::~bFont()
 
 void bFont::release()
 {
-	release_font();
+    guard(bFont::release);
+	
+    release_font();
 	texture.release();
+    
+    unguard;
 }
 
 uint32 bFont::char_width( uint8 character )  const
@@ -32,6 +37,8 @@ uint32 bFont::char_height( uint8 character ) const
 
 uint32 bFont::str_width( const char * str )  const
 {
+    guard(bFont::str_width);
+    
 	uint16 length = 0;
 	uint16 len = (uint16)strlen( str );
 	uint16 max = 0;
@@ -50,10 +57,14 @@ uint32 bFont::str_width( const char * str )  const
 	if( length > max ) max = length;
 
 	return( (uint32)max );
+    
+    unguard;
 }
 
 uint32 bFont::str_height( const char * str ) const
 {
+    guard(bFont::str_height);
+    
 	int32 n = 1;
 	int32 len = (int32)strlen( str );
 
@@ -63,10 +74,14 @@ uint32 bFont::str_height( const char * str ) const
 	}
 
 	return( f_height*n );
+    
+    unguard;
 }
 
 bool bFont::load( const char * filename )
 {
+    guard(bFont::load);
+    
 	if( !texture.load( filename ) )
 	{
 		return( false );
@@ -79,10 +94,14 @@ bool bFont::load( const char * filename )
 	}
 
 	return( true );
+    
+    unguard;
 }
 
 void bFont::set_size( float scale )
 {
+    guard(bFont::set_size);
+    
 	size = scale;
 
 	for( int i=0; i<256; ++i )
@@ -91,10 +110,14 @@ void bFont::set_size( float scale )
 	}
 
 	ysiz = (int)(((float)f_height)*size);
+    
+    unguard;
 }
 
 void bFont::writef( uint32 x, uint32 y, uint32 mode, const char * fmt, ... ) const
 {
+    guard(bFont::writef);
+    
 	static char str[1024];
 
 	va_list al;
@@ -103,10 +126,14 @@ void bFont::writef( uint32 x, uint32 y, uint32 mode, const char * fmt, ... ) con
 	va_end( al );
 
 	write( x, y, mode, str );
+    
+    unguard;
 }
 
 void bFont::write( uint32 x, uint32 y, uint32 mode, const char * str ) const
 {
+    guard(bFont::write);
+    
 	BASSERTM( ( coords != NULL ) && ( widths != NULL ), (int)coords << ":" << (int)widths );
 
 	uint32 len = (uint32)strlen( str );
@@ -142,10 +169,14 @@ void bFont::write( uint32 x, uint32 y, uint32 mode, const char * str ) const
 	glEnd();
 
 	glPopAttrib();
+    
+    unguard;
 }
 
 bool bFont::build_font()
 {
+    guard(bFont::build_font);
+    
 	uint32 index = 0;
 	
 	f_count  = 256;
@@ -193,10 +224,14 @@ bool bFont::build_font()
 	set_size( 1.0f );
 
 	return( true );
+    
+    unguard;
 }
 
 void bFont::release_font()
 {
+    guard(bFont::release_font);
+    
 	if( coords != NULL )
 	{
 		delete [] coords;
@@ -208,10 +243,14 @@ void bFont::release_font()
 		delete [] widths;
 		widths = NULL;
 	}
+    
+    unguard;
 }
 
 bool bFont::get_font_width( uint32 fx, uint32 fy, font_width * fw )
 {
+    guard(bFont::get_font_width);
+    
 	get_font_data( fx, fy, font_data );
 
 	int start = -1;
@@ -264,18 +303,26 @@ bool bFont::get_font_width( uint32 fx, uint32 fy, font_width * fw )
 	fw->size = end-start;
 
 	return( true );
+    
+    unguard;
 }
 
 uint8 & bFont::font_buffer( uint32 x, uint32 y )
 {
+    guard(bFont::font_buffer);
+    
 	uint8 * data = texture.data();
 	BASSERT( ( x < texture.width() ) && ( y < texture.height() ) );
 
 	return( data[3*(x+(y*texture.width()))] );
+    
+    unguard;
 }
 
 bool bFont::get_font_data( uint32 px, uint32 py, uint8 * b )
 {
+    guard(bFont::get_font_data);
+    
 	uint32 sx = px*f_width;
 	uint32 sy = py*f_height;
 
@@ -291,10 +338,16 @@ bool bFont::get_font_data( uint32 px, uint32 py, uint8 * b )
 	}
 
 	return( true );
+    
+    unguard;
 }
 
 void bFont::update()
 {
+    guard(bFont::update);
+    
 	release_font();
 	build_font();
+    
+    unguard;
 }
