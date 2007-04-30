@@ -13,6 +13,7 @@
 #include "bvideo.h"
 #include "bsdl.h"
 #include "btrace.h"
+#include "bprofiler.h"
 
 //---------------------------------------------------------------------------------------------
 
@@ -96,6 +97,9 @@ void bVideo::handle_key( SDL_keysym* keysym )
             status = false;
             break;
         case SDLK_SPACE:
+            break;
+        case SDLK_p:
+            Profiler.on_off( !Profiler.is_opened() );
             break;
         default:
             break;

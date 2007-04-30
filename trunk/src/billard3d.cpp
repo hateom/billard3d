@@ -29,7 +29,6 @@ int main( int argc, char* argv[] )
         
     bProfiler profiler;
     profiler.init();
-    profiler.on_off(true);
     
     bVideo video;
     bDraw  graph;
