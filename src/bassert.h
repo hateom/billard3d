@@ -49,6 +49,7 @@ class bException {
 public:
     bException( const char * file, int line, const char * expr, bExceptionStream & estrm );
     bException( const char * file, int line, const char * expr );
+	bException( bException & e );
     virtual ~bException();
     
     int get_line();

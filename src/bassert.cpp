@@ -28,6 +28,14 @@ bException::bException( const char * ifile, int iline, const char * iexpr )
     msg = bUtils::scpy( "" );
 }
 
+bException::bException( bException & e )
+{
+	file = bUtils::scpy( e.file );
+	expr = bUtils::scpy( e.expr );
+	msg  = bUtils::scpy( e.msg );
+	line = e.line;
+}
+
 bException::~bException()
 {
     delete [] file;
