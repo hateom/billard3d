@@ -46,13 +46,13 @@ void bDraw::draw()
     
     Profiler.begin("draw::stats");
 	glEnable( GL_TEXTURE_2D );
-    PRINT( 10, 10, DG_FONT_LIGHT, ":: billard 3D DEBUG edition || compiled %s at %s", __DATE__, __TIME__ );
-	PRINT( 10, 30, DG_FONT_LIGHT, ":: %d fps", fps.fps() );
+    PRINT( 10, 10, B_FONT_LIGHT, ":: billard 3D DEBUG edition || compiled %s at %s", __DATE__, __TIME__ );
+	PRINT( 10, 30, B_FONT_LIGHT, ":: %d fps", fps.fps() );
     Profiler.end("draw::stats");
     fps.calc();
     Profiler.end("main::frame");
 
-	Profiler.write(500, 460, DG_FONT_LIGHT);
+	Profiler.write(500, 460, B_FONT_LIGHT);
     
     glDisable( GL_TEXTURE_2D );
 

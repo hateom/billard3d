@@ -4,8 +4,8 @@
 #include "btypes.h"
 #include "btexture.h"
 
-#define DG_FONT_LIGHT 0x00
-#define DG_FONT_DARK  0x01
+#define B_FONT_LIGHT 0x00
+#define B_FONT_DARK  0x01
 
 class bFont
 {
