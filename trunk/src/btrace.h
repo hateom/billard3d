@@ -29,7 +29,7 @@
                 throw e; \
             } catch( ... ) { \
                 bTrace::add_error_trace( __FUNC_NAME__ ); \
-                throw bUnknownException( __FILE__, __LINE__ ); \
+                throw;\
             }\
         }
 #else

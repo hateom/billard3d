@@ -15,7 +15,7 @@
 //---------------------------------------------------------------------------------------------
 
 #include <iostream>
-#include "bexceptionstream.h"
+#include "bexception.h"
 
 //---------------------------------------------------------------------------------------------
 
@@ -24,6 +24,12 @@
 #define DEBUG
 #endif
 #endif
+
+/**
+Assertion managing unit
+
+    @author Tomasz Huczek & Andrzej Jasiñski <thuczek@gmail.com>
+ */
 
 #ifdef DEBUG
 #define BASSERTM( EXPR, MSG ) if( !(EXPR) ) { \
@@ -37,41 +43,6 @@
 #define BASSERTM( EXPR, MSG )
 #define BASSERT( EXPR )
 #endif // DEBUG
-
-//---------------------------------------------------------------------------------------------
-
-/**
-Assertion managing unit
-
-	@author Tomasz Huczek & Andrzej Jasiñski <thuczek@gmail.com>
-*/
-class bException {
-public:
-    bException( const char * file, int line, const char * expr, bExceptionStream & estrm );
-    bException( const char * file, int line, const char * expr );
-	bException( bException & e );
-    virtual ~bException();
-    
-    int get_line();
-    const char * get_msg();
-    const char * get_expr();
-    const char * get_file();
-    
-    const char * format();
-    
-private:
-    char * file, * expr, * msg;
-    int line;
-};
-
-//---------------------------------------------------------------------------------------------
-
-class bUnknownException : public bException {
-public:
-    bUnknownException( const char * file, int line ) : 
-        bException( file, line, "unknown exception" ) {}
-    virtual ~bUnknownException() {}
-};
 
 //---------------------------------------------------------------------------------------------
 

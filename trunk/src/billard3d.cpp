@@ -60,8 +60,6 @@ int main( int argc, char* argv[] )
         }
 
 #ifdef DEBUG
-    } catch( bUnknownException & ue ) {
-        std::cout << ue.format() << std::endl;
     } catch( bException & e ) {
         std::cout << e.format() << std::endl;
 	} catch( ... ) {
