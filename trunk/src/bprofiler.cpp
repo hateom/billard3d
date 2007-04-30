@@ -216,8 +216,8 @@ void bProfiler::GetProfileFromHistory( const char * name, float * ave, float * m
     unguard;
 }
 
-#define bFastWrite PRINT
-#define HSPC 20
+#define bFastWrite PRINTS
+#define HSPC 10
 
 void bProfiler::write( uint32 x, uint32 y, uint32 font )
 {
