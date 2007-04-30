@@ -66,10 +66,10 @@ private:
     std::vector<char*> list;
 };
 
-static bErrorTrace * errTrace = NULL;
-
 namespace bTrace {
 
+static bErrorTrace * errTrace = NULL;
+    
 void init()
 {
     static bErrorTrace g_errTrace;
