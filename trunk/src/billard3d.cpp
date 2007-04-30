@@ -18,6 +18,7 @@
 #include "bfontmgr.h"
 #include "bpath.h"
 #include "btrace.h"
+#include "bprofiler.h"
 
 //---------------------------------------------------------------------------------------------
 
@@ -26,6 +27,10 @@ int main( int argc, char* argv[] )
     bPath path;
     bTrace::init();
         
+    bProfiler profiler;
+    profiler.init();
+    profiler.on_off(true);
+    
     bVideo video;
     bDraw  graph;
     bLogger logger;

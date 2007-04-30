@@ -14,6 +14,7 @@
 #include "bsdl.h"
 #include "bfontmgr.h"
 #include "btrace.h"
+#include "bprofiler.h"
 
 bDraw::bDraw()
 {
@@ -25,20 +26,32 @@ bDraw::~bDraw()
 
 void bDraw::draw()
 {
+    Profiler.start_frame();
+    Profiler.begin("ball_mgr::frame");
+    
     glClear( GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT );
 
     glMatrixMode( GL_MODELVIEW );
     glLoadIdentity();
 
-    bmgr.process( &fps );
-    bmgr.draw();
+    Profiler.begin("ball_mgr::process");
+        bmgr.process( &fps );
+    Profiler.end("ball_mgr::process");
     
+    Profiler.begin("ball_mgr::draw");
+        bmgr.draw();
+    Profiler.end("ball_mgr::draw");
+    
+    Profiler.begin("draw::stats");
 	glEnable( GL_TEXTURE_2D );
     PRINT( 10, 10, DG_FONT_LIGHT, ":: billard 3D DEBUG edition || compiled %s at %s", __DATE__, __TIME__ );
 	PRINT( 10, 30, DG_FONT_LIGHT, ":: %d fps", fps.fps() );
-	glDisable( GL_TEXTURE_2D );
-
+    Profiler.end("draw::stats");
     fps.calc();
+    Profiler.end("ball_mgr::frame");
+    
+    Profiler.write(400, 100, DG_FONT_LIGHT);
+    glDisable( GL_TEXTURE_2D );
 }
 
 bool bDraw::create()
