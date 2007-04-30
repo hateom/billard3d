@@ -26,6 +26,8 @@ bDraw::~bDraw()
 
 void bDraw::draw()
 {
+	guard(bDraw::draw);
+
     Profiler.start_frame();
     Profiler.begin("main::frame");
     
@@ -49,9 +51,12 @@ void bDraw::draw()
     Profiler.end("draw::stats");
     fps.calc();
     Profiler.end("main::frame");
+
+	Profiler.write(500, 460, DG_FONT_LIGHT);
     
-    Profiler.write(500, 460, DG_FONT_LIGHT);
     glDisable( GL_TEXTURE_2D );
+
+	unguard;
 }
 
 bool bDraw::create()

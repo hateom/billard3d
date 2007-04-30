@@ -18,9 +18,6 @@ public:
     bErrorTrace() {}
     ~bErrorTrace()
     {
-#ifdef DEBUG
-        PrintOutput();
-#endif
         Free();
     }
 
@@ -43,7 +40,7 @@ public:
         fprintf( file, "Debug Log - Error Tracer\n\n" );
         fprintf( file, "+Start Tracing\n" );
         int tab = 1;
-        for( size_t i=list.size()-1; i>=0; --i ) {
+        for( int i=(int)list.size()-1; i>=0; --i ) {
             fprintf( file, "+" );
             for(int k=0; k<tab; ++k) fprintf( file, "-" );
             fprintf( file, "%s", list[i]?list[i]:"???" );
@@ -82,6 +79,13 @@ void init()
 void add_error_trace(const char * msg)
 {
     if( errTrace ) errTrace->AddError( msg );
+}
+
+void dump()
+{
+#ifdef DEBUG
+	if( errTrace ) errTrace->PrintOutput();
+#endif
 }
 
 }

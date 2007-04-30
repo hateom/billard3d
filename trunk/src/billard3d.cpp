@@ -76,6 +76,8 @@ int main( int argc, char* argv[] )
 #ifdef DEBUG
     std::cout << ">> Finished." << std::endl;
 #endif // DEBUG
+
+	bTrace::dump();
     
     return 0;
 }

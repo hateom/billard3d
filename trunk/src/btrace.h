@@ -40,6 +40,7 @@
 namespace bTrace {
     void init();
     void add_error_trace( const char * msg );
+	void dump();
 }
 
 #endif
