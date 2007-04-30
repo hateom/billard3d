@@ -16,7 +16,7 @@ bool bPath::init( const char * buffer )
     
 	char mdir[1024] = "";
 
-	for( int i=strlen(buffer)-1; i>0; --i )
+	for( size_t i=strlen(buffer)-1; i>0; --i )
 	{
 		if( buffer[i] == '\\' || buffer[i] == '/' )
 		{

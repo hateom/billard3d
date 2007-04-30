@@ -50,7 +50,7 @@ void bDraw::draw()
     fps.calc();
     Profiler.end("main::frame");
     
-    Profiler.write(400, 100, DG_FONT_LIGHT);
+    Profiler.write(500, 460, DG_FONT_LIGHT);
     glDisable( GL_TEXTURE_2D );
 }
 

@@ -4,7 +4,11 @@
 #include "bsingleton.h"
 #include "bfont.h"
 
-#define PRINT bFontMgr::get_singleton().get_font().writef
+#define B_DEF_FONT   0x01
+#define B_SMALL_FONT 0x02
+
+#define PRINT  bFontMgr::get_singleton().get_font().writef
+#define PRINTS bFontMgr::get_singleton().get_font(B_SMALL_FONT).writef
 #define FontMgr bFontMgr::get_singleton()
 
 class bFontMgr: public bSingleton<bFontMgr>
@@ -15,14 +19,16 @@ public:
 
     //! loads default font
 	bool init();
-    
 	void release();
 
-	bFont & get_font();
+	//! @param font musb be B_DEF_FONT or B_SMALL_FONT
+	bFont & get_font( int font = B_DEF_FONT );
 
 private:
 	bFont def;
-    bool  def_loaded;
+	bFont def_small;
+
+	bool  def_loaded;
 };
 
 #endif // __B_FONT_MGR_H__

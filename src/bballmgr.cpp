@@ -41,22 +41,22 @@ bool bBallMgr::create()
     ball[0] = new bBall(
         bVector(400.0,180.0), 
         bVector(230.0,0.0), 
-        bVector(tm,tm), 30.0, 1.0, 1.0, 0.4, 0.3 );
+        bVector(tm,tm), 30.0, 1.0, 1.0f, 0.4f, 0.3f );
 
     ball[1] = new bBall(
         bVector(300.0,200.0), 
         bVector(200.0,500.0), 
-        bVector(tm,tm), 30.0, 1.0, 0.3, 1.0, 0.4 );
+        bVector(tm,tm), 30.0, 1.0, 0.3f, 1.0f, 0.4f );
     
     ball[2] = new bBall(
         bVector(220.0,350.0), 
         bVector(300.0,300.0), 
-        bVector(0.0,0.0), 30.0, 1.0, 0.4, 0.3, 1.0 );
+        bVector(0.0,0.0), 30.0, 1.0, 0.4f, 0.3f, 1.0f );
     
     ball[3] = new bBall(
         bVector(180.0,420.0), 
         bVector(-300.0,300.0), 
-        bVector(0.0,0.0), 30.0, 1.0, 1.0, 0.2, 0.8 );
+        bVector(0.0,0.0), 30.0, 1.0, 1.0f, 0.2f, 0.8f );
 
 	band_size = 12;
 	band = new bBand*[band_size];
