@@ -98,6 +98,26 @@ bool bFont::load( const char * filename )
     unguard;
 }
 
+bool bFont::load(uint8 * data, uint32 w, uint32 h)
+{
+    guard(bFont::load);
+    
+    if( !texture.load( data, w, h ) )
+    {
+        return( false );
+    }
+
+    if( !build_font() )
+    {
+        release();
+        return( false );
+    }
+
+    return( true );
+    
+    unguard;
+}
+
 void bFont::set_size( float scale )
 {
     guard(bFont::set_size);

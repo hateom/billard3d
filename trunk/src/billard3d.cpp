@@ -23,18 +23,19 @@
 
 int main( int argc, char* argv[] )
 {
+    bPath path;
+    bTrace::init();
+        
+    bVideo video;
+    bDraw  graph;
+    bLogger logger;
+    bFontMgr fontMgr;
+    
 #ifdef DEBUG
     std::cout << ">> Debug version" << std::endl;
     try {
 #endif
-        bPath path;
-        bTrace::init();
-        
-        bVideo video;
-        bDraw  graph;
-        bLogger logger;
-		bFontMgr fontMgr;
-        
+   
         logger.set_state(true);
         path.init(argv[0]);
         
@@ -47,7 +48,7 @@ int main( int argc, char* argv[] )
             return -2;
         }
 
-        if( !FontMgr.load_default( GETPATH("../../fonts/default.bmp" )) ) {
+        if( !FontMgr.load_default() ) {
             BLOG( "!! Could not load default font!\n" );   
         }
 
@@ -55,11 +56,6 @@ int main( int argc, char* argv[] )
             graph.draw();
             video.buffers();
         }
-
-		FontMgr.release();
-        
-        graph.release();
-        video.release();
 
 #ifdef DEBUG
     } catch( bUnknownException & ue ) {
@@ -69,6 +65,13 @@ int main( int argc, char* argv[] )
 	} catch( ... ) {
 		std::cout << "!! Unknown exception occured!" << std::endl;
 	}
+#endif // DEBUG
+    
+    FontMgr.release();
+    graph.release();
+    video.release();
+    
+#ifdef DEBUG
     std::cout << ">> Finished." << std::endl;
 #endif // DEBUG
     

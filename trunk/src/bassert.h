@@ -67,7 +67,8 @@ private:
 
 class bUnknownException : public bException {
 public:
-    bUnknownException( const char * file, int line ) : bException( file, line, "" ) {}
+    bUnknownException( const char * file, int line ) : 
+        bException( file, line, "unknown exception" ) {}
     virtual ~bUnknownException() {}
 };
 

@@ -13,13 +13,14 @@ public:
 	bFontMgr();
 	~bFontMgr();
 
-	bool load_default( const char * filename );
+	bool load_default();
 	void release();
 
 	bFont & get_font();
 
 private:
 	bFont def;
+    bool  def_loaded;
 };
 
 #endif // __B_FONT_MGR_H__
