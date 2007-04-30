@@ -1,6 +1,7 @@
 #include "btexture.h"
 #include "bassert.h"
 #include "bsdl.h"
+#include "btrace.h"
 
 bTexture::bTexture() : surface(0), tex_id(0)
 {
@@ -20,6 +21,8 @@ bTexture::~bTexture()
 
 bool bTexture::load( const char * filename )
 {
+    guard(bTexture::load);
+    
 	surface = SDL_LoadBMP(filename);
 	if( !surface ) return false;
 
@@ -36,6 +39,8 @@ bool bTexture::load( const char * filename )
 		GL_UNSIGNED_BYTE, surface->pixels );
 
 	return true;
+    
+    unguard;
 }
 
 void bTexture::bind() const
@@ -45,28 +50,44 @@ void bTexture::bind() const
 
 void bTexture::release()
 {
+    guard(bTexture::release);
+    
 	if( surface != 0 ) {
 		SDL_FreeSurface( surface );
 		glDeleteTextures( 1, &tex_id );
 		tex_id = 0;
 		surface = NULL;
 	}
+    
+    unguard;
 }
 
 uint32 bTexture::width() const 
 { 
+    guard(bTexture::width);
+    
 	BASSERT( surface ); 
-	return surface->w; 
+	return surface->w;
+     
+    unguard;
 }
 
 uint32 bTexture::height() const 
 { 
+    guard(bTexture::height);
+    
 	BASSERT( surface ); 
 	return surface->h; 
+    
+    unguard;
 }
 
 uint8 * bTexture::data() const
 {
+    guard(bTexture::data);
+    
 	BASSERT( surface );
 	return (uint8*)surface->pixels;
+    
+    unguard;
 }

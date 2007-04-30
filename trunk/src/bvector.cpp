@@ -199,12 +199,12 @@ double DotProduct( bVector & b1, bVector & b2 )
 void bVector::ifzero()
 {
     if( BABS(x) < EPS ) { 
-        std::cout << "ifzero: " << (BABS(x) < EPS) << ": BABS(x): " << BABS(x) << ", EPS: " << EPS <<std::endl; 
+//        std::cout << "ifzero: " << (BABS(x) < EPS) << ": BABS(x): " << BABS(x) << ", EPS: " << EPS <<std::endl; 
         x = 0.0; 
     }
     
     if( BABS(y) < EPS ) { 
-        std::cout << "ifzero: " << (BABS(y) < EPS) << ": BABS(y): " << BABS(y) << ", EPS: " << EPS <<std::endl; 
+//        std::cout << "ifzero: " << (BABS(y) < EPS) << ": BABS(y): " << BABS(y) << ", EPS: " << EPS <<std::endl; 
         y = 0.0; 
     }
 }

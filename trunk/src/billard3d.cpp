@@ -17,6 +17,7 @@
 #include "blogger.h"
 #include "bfontmgr.h"
 #include "bpath.h"
+#include "btrace.h"
 
 //---------------------------------------------------------------------------------------------
 
@@ -26,11 +27,13 @@ int main( int argc, char* argv[] )
     std::cout << ">> Debug version" << std::endl;
     try {
 #endif
+        bPath path;
+        bTrace::init();
+        
         bVideo video;
         bDraw  graph;
         bLogger logger;
 		bFontMgr fontMgr;
-        bPath path;
         
         logger.set_state(true);
         path.init(argv[0]);
@@ -59,10 +62,12 @@ int main( int argc, char* argv[] )
         video.release();
 
 #ifdef DEBUG
+    } catch( bUnknownException & ue ) {
+        std::cout << ue.format() << std::endl;
     } catch( bException & e ) {
         std::cout << e.format() << std::endl;
-//	} catch( ... ) {
-//		std::cout << "!! Unknown exception occured!" << std::endl;
+	} catch( ... ) {
+		std::cout << "!! Unknown exception occured!" << std::endl;
 	}
     std::cout << ">> Finished." << std::endl;
 #endif // DEBUG

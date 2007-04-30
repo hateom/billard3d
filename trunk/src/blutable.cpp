@@ -11,6 +11,7 @@
 
 #include "bassert.h"
 #include "blutable.h"
+#include "btrace.h"
 
 bLUTable::bLUTable() : w(0), h(0), array(0), mirr(true)
 {
@@ -24,6 +25,8 @@ bLUTable::~bLUTable()
 
 bool bLUTable::create(int n, int m, bool mirror)
 {
+    guard(bLUTable::create);
+    
     release();
     w = n;
     if( m == -1 ) h = n; else h = m;
@@ -31,42 +34,64 @@ bool bLUTable::create(int n, int m, bool mirror)
     array = new int[w*h];
     clear();
     return true;
+    
+    unguard;
 }
 
 void bLUTable::release()
 {
+    guard(bLUTable::release);
+    
     delete [] array;
     array = 0;
     w = h = 0;
+    
+    unguard;
 }
 
 int bLUTable::at(int x, int y) const
 {
+    guard(bLUTable::at);
+    
     BASSERTM( x < w && y < h, "x("<<x<<"), y("<<y<<"), w("<<w<<"), h("<<h<<")\n" );
     return array[x+y*w];
+    
+    unguard;
 }
 
 void bLUTable::set(int x, int y,int val)
 {
+    guard(bLUTable::set);
+    
     BASSERT( array != NULL );
     BASSERTM( x < w && y < h, "x("<<x<<"), y("<<y<<"), w("<<w<<"), h("<<h<<")\n" );
     if( mirr ) {
         array[y+x*w] = val;
     }
     array[x+y*w] = val;
+    
+    unguard;
 }
 
 void bLUTable::clear(int x, int y)
 {
+    guard(bLUTable::clear);
+    
     BASSERT( array != NULL );
     BASSERTM( x < w && y < h, "x("<<x<<"), y("<<y<<"), w("<<w<<"), h("<<h<<")\n" );
     array[x+y*w] = 0;
+    
+    unguard;
 }
 
 void bLUTable::clear()
 {
+    guard(bLUTable::clear);
+    
     BASSERT( array != NULL );
     memset( array, 0, sizeof(int)*w*h );
+    
+    unguard;
 }
 
 
