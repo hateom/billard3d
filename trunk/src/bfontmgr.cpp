@@ -18,13 +18,13 @@ bool bFontMgr::init()
 {
     guard(bFontMgr::load_default);
     
-	if( !def.load( (uint8*)font_default_data, 
-		font_default_width,
-		font_default_height )) return false;
+	if( !def.load( (uint8*)bFontData::font_default_data, 
+        bFontData::font_default_width,
+        bFontData::font_default_height )) return false;
 
-	if( !def_small.load( (uint8*)font_small_data, 
-		font_small_width,
-		font_small_height )) return false;
+    if( !def_small.load( (uint8*)bFontData::font_small_data, 
+        bFontData::font_small_width,
+        bFontData::font_small_height )) return false;
 
     return def_loaded=true;
     

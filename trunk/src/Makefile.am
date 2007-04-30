@@ -11,5 +11,5 @@ INCLUDES = $(all_includes)
 billard3d_LDFLAGS = $(all_libraries) -lGL -lGLU -lSDL -lSDL_ttf
 noinst_HEADERS = bassert.h bball.h bballmgr.h bband.h bdraw.h bexception.h \
 	bexceptionstream.h bfpstimer.h blogger.h blutable.h bpath.h bprofiler.h bsingleton.h \
-	btrace.h butils.h bvector.h bvideo.h font_default.h
+	btrace.h butils.h bvector.h bvideo.h
 AM_CXXFLAGS = -pedantic-errors -Wall
