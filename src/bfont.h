@@ -17,6 +17,7 @@ public:
 	virtual ~bFont();
 
 	bool load( const char * filename );
+    bool load( uint8 * data, uint32 w, uint32 h );
 	void release();
 
 	//! Updates fonts metrics. It must be called after calling Create() method!

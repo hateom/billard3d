@@ -26,17 +26,7 @@ bool bTexture::load( const char * filename )
 	surface = SDL_LoadBMP(filename);
 	if( !surface ) return false;
 
-	/* Standard OpenGL texture creation code */
-	glPixelStorei( GL_UNPACK_ALIGNMENT, 4 );
-
-	glGenTextures( 1, &tex_id );
-	glBindTexture( GL_TEXTURE_2D, tex_id );
-
-	glTexParameteri( GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR_MIPMAP_LINEAR );
-	glTexParameteri( GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR_MIPMAP_LINEAR );
-
-	gluBuild2DMipmaps(GL_TEXTURE_2D,3,surface->w, surface->h,GL_BGR_EXT,
-		GL_UNSIGNED_BYTE, surface->pixels );
+	build_texture( surface );
 
 	return true;
     
@@ -88,6 +78,42 @@ uint8 * bTexture::data() const
     
 	BASSERT( surface );
 	return (uint8*)surface->pixels;
+    
+    unguard;
+}
+
+bool bTexture::load(uint8 * data, uint32 w, uint32 h)
+{
+    guard(bTexture::load);
+    
+    surface = SDL_CreateRGBSurfaceFrom( data, w, h, 24, w*3, 
+                    0x000000FF, 0x0000FF00, 0x00FF0000, 0xFF000000 );
+    
+    if( !surface ) return false;
+
+    build_texture( surface );
+
+    return true;
+    
+    unguard;
+}
+
+void bTexture::build_texture(SDL_Surface * s)
+{
+    guard(bTexture::build_texture);
+    
+    BASSERT( s != NULL );
+    
+    glPixelStorei( GL_UNPACK_ALIGNMENT, 4 );
+
+    glGenTextures( 1, &tex_id );
+    glBindTexture( GL_TEXTURE_2D, tex_id );
+
+    glTexParameteri( GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR_MIPMAP_LINEAR );
+    glTexParameteri( GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR_MIPMAP_LINEAR );
+
+    gluBuild2DMipmaps(GL_TEXTURE_2D,3,s->w, s->h,GL_BGR_EXT,
+    GL_UNSIGNED_BYTE, s->pixels );
     
     unguard;
 }

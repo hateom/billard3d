@@ -13,6 +13,8 @@ public:
 	~bTexture();
 
 	bool load( const char * filename );
+    bool load( uint8 * data, uint32 w, uint32 h );
+    
 	void release();
 	void bind() const;
 
@@ -21,6 +23,8 @@ public:
 	uint8 * data() const;
 
 protected:
+    void build_texture( SDL_Surface * s );
+    
 	SDL_Surface * surface;
 	unsigned int tex_id;
 };
