@@ -26,14 +26,28 @@ bPauseVideoLayer::~bPauseVideoLayer()
 
 void bPauseVideoLayer::draw()
 {
+    glDisable( GL_TEXTURE_2D );
+    
     glBegin( GL_TRIANGLE_STRIP );
-        glColor3f( 0.2f, 0.2f, 0.2f );
+        glColor3f( 1.0f, 1.0f, 1.0f );
         glVertex2i( 100, 100 );
         glVertex2i( 100, 500 );
         glVertex2i( 700, 100 );
         glVertex2i( 700, 500 );
     glEnd();
     
-    PRINT( 250, 200, B_FONT_LIGHT, "PAUSE (press escape to continue)" );
+    glBegin( GL_TRIANGLE_STRIP );
+        glColor3f( 0.1f, 0.1f, 0.1f );
+        glVertex2i( 102, 102 );
+        glVertex2i( 102, 498 );
+        glVertex2i( 698, 102 );
+        glVertex2i( 698, 498 );
+    glEnd();
+    
+    glColor3f( 1.0f, 1.0f, 1.0f );
+    
+    glEnable( GL_TEXTURE_2D );
+    
+    PRINT( 250, 200, B_FONT_LIGHT, "PAUSE (press Q to quit)" );
 }
 
