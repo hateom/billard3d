@@ -9,34 +9,31 @@
  *                                                                         *
  ***************************************************************************/
 
-#ifndef BLOGGER_H
-#define BLOGGER_H
+#include "bpausevideolayer.h"
+#include "bsdl.h"
+#include "bfontmgr.h"
 
-#include "bsingleton.h"
-#include "bassert.h"
-
-#define BLOG bLogger::get_singleton().log
-
-#ifdef DEBUG
-#   define DBLOG BLOG
-#else
-#   define DBLOG( TEMP )
-#endif
-
-/**
-	@author Tomasz Huczek & Andrzej Jasiñski <thuczek@gmail.com>
-*/
-class bLogger : public bSingleton<bLogger>
+bPauseVideoLayer::bPauseVideoLayer()
+ : bVideoLayer()
 {
-public:
-    bLogger();
-    ~bLogger();
+}
 
-    void set_state( bool enabled );
-    void log( const char * text, ... );
+
+bPauseVideoLayer::~bPauseVideoLayer()
+{
+}
+
+
+void bPauseVideoLayer::draw()
+{
+    glBegin( GL_TRIANGLE_STRIP );
+        glColor3f( 0.2f, 0.2f, 0.2f );
+        glVertex2i( 100, 100 );
+        glVertex2i( 100, 500 );
+        glVertex2i( 700, 100 );
+        glVertex2i( 700, 500 );
+    glEnd();
     
-private:
-    bool on;
-};
+    PRINT( 250, 200, B_FONT_LIGHT, "PAUSE (press escape to continue)" );
+}
 
-#endif

@@ -9,34 +9,53 @@
  *                                                                         *
  ***************************************************************************/
 
-#ifndef BLOGGER_H
-#define BLOGGER_H
+#ifndef BSTATEMACHINE_H
+#define BSTATEMACHINE_H
 
 #include "bsingleton.h"
-#include "bassert.h"
 
-#define BLOG bLogger::get_singleton().log
+#include "bsimvideolayer.h"
+#include "bsimlogiclayer.h"
+#include "bpausevideolayer.h"
+#include "bpauselogiclayer.h"
 
-#ifdef DEBUG
-#   define DBLOG BLOG
-#else
-#   define DBLOG( TEMP )
-#endif
+#define GetStateMachine bStateMachine::get_singleton()
+
+// 
+//  +---------------+           +----------+
+//  | BS_SIMULATION | <-------> | BS_PAUSE | -----> QUIT
+//  +---------------+           +----------+
+// 
+
+typedef enum bState {
+    BS_NONE,
+    BS_SIMULATION,
+    BS_PAUSE,
+    BS_QUIT
+};
 
 /**
 	@author Tomasz Huczek & Andrzej Jasiñski <thuczek@gmail.com>
 */
-class bLogger : public bSingleton<bLogger>
+class bStateMachine : public bSingleton<bStateMachine>
 {
 public:
-    bLogger();
-    ~bLogger();
-
-    void set_state( bool enabled );
-    void log( const char * text, ... );
+    bStateMachine();
+    virtual ~bStateMachine();
+    
+    void go_to( bState new_state );
+    
+public:
+    inline bState get_current_state() const { return state; }
     
 private:
-    bool on;
+    bState state;
+    
+    bSimLogicLayer * sim_logic;
+    bSimVideoLayer * sim_video;
+    
+    bPauseLogicLayer * pause_logic;
+    bPauseVideoLayer * pause_video;
 };
 
 #endif
