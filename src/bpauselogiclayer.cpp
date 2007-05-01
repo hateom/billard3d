@@ -9,34 +9,37 @@
  *                                                                         *
  ***************************************************************************/
 
-#ifndef BLOGGER_H
-#define BLOGGER_H
+#include "bpauselogiclayer.h"
+#include "bsdl.h"
+#include "bsystem.h"
 
-#include "bsingleton.h"
-#include "bassert.h"
-
-#define BLOG bLogger::get_singleton().log
-
-#ifdef DEBUG
-#   define DBLOG BLOG
-#else
-#   define DBLOG( TEMP )
-#endif
-
-/**
-	@author Tomasz Huczek & Andrzej Jasiñski <thuczek@gmail.com>
-*/
-class bLogger : public bSingleton<bLogger>
+bPauseLogicLayer::bPauseLogicLayer()
+ : bLogicLayer(true)
 {
-public:
-    bLogger();
-    ~bLogger();
+}
 
-    void set_state( bool enabled );
-    void log( const char * text, ... );
-    
-private:
-    bool on;
-};
 
-#endif
+bPauseLogicLayer::~bPauseLogicLayer()
+{
+}
+
+void bPauseLogicLayer::update()
+{
+}
+
+void bPauseLogicLayer::on_key_down(uint32 key)
+{
+}
+
+void bPauseLogicLayer::on_key_up(uint32 key)
+{
+    switch(key) {
+        case SDLK_ESCAPE:
+            GetStateMachine.go_to( BS_SIMULATION );
+            break;
+        case SDLK_q:
+            GetStateMachine.go_to( BS_QUIT );
+            break;
+    }
+}
+
