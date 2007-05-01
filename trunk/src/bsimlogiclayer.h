@@ -9,34 +9,24 @@
  *                                                                         *
  ***************************************************************************/
 
-#ifndef BLOGGER_H
-#define BLOGGER_H
+#ifndef BSIMLOGICLAYER_H
+#define BSIMLOGICLAYER_H
 
-#include "bsingleton.h"
-#include "bassert.h"
-
-#define BLOG bLogger::get_singleton().log
-
-#ifdef DEBUG
-#   define DBLOG BLOG
-#else
-#   define DBLOG( TEMP, ... )
-#endif
+#include "blogiclayer.h"
 
 /**
 	@author Tomasz Huczek & Andrzej Jasiñski <thuczek@gmail.com>
 */
-class bLogger : public bSingleton<bLogger>
+class bSimLogicLayer : public bLogicLayer
 {
 public:
-    bLogger();
-    ~bLogger();
+    bSimLogicLayer();
+    virtual ~bSimLogicLayer();
 
-    void set_state( bool enabled );
-    void log( const char * text, ... );
+    virtual void update();
     
-private:
-    bool on;
+    virtual void on_key_down( uint32 key );
+    virtual void on_key_up( uint32 key );
 };
 
 #endif

@@ -9,34 +9,22 @@
  *                                                                         *
  ***************************************************************************/
 
-#ifndef BLOGGER_H
-#define BLOGGER_H
-
-#include "bsingleton.h"
-#include "bassert.h"
-
-#define BLOG bLogger::get_singleton().log
-
-#ifdef DEBUG
-#   define DBLOG BLOG
-#else
-#   define DBLOG( TEMP, ... )
-#endif
+#ifndef BSDLSYSTEM_H
+#define BSDLSYSTEM_H
 
 /**
 	@author Tomasz Huczek & Andrzej Jasiñski <thuczek@gmail.com>
 */
-class bLogger : public bSingleton<bLogger>
-{
+class bSDLSystem{
 public:
-    bLogger();
-    ~bLogger();
+    bSDLSystem();
+    ~bSDLSystem();
 
-    void set_state( bool enabled );
-    void log( const char * text, ... );
+    static bool update();
+    static void quit();
     
 private:
-    bool on;
+    static bool is_running;
 };
 
 #endif

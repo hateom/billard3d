@@ -9,34 +9,39 @@
  *                                                                         *
  ***************************************************************************/
 
-#ifndef BLOGGER_H
-#define BLOGGER_H
+#include "bsimlogiclayer.h"
+#include "bprofiler.h"
+#include "bsdl.h"
+#include "binput.h"
+#include "bsdlsystem.h"
+#include "bstatemachine.h"
 
-#include "bsingleton.h"
-#include "bassert.h"
-
-#define BLOG bLogger::get_singleton().log
-
-#ifdef DEBUG
-#   define DBLOG BLOG
-#else
-#   define DBLOG( TEMP, ... )
-#endif
-
-/**
-	@author Tomasz Huczek & Andrzej Jasiñski <thuczek@gmail.com>
-*/
-class bLogger : public bSingleton<bLogger>
+bSimLogicLayer::bSimLogicLayer()
+ : bLogicLayer(true)
 {
-public:
-    bLogger();
-    ~bLogger();
+}
 
-    void set_state( bool enabled );
-    void log( const char * text, ... );
-    
-private:
-    bool on;
-};
 
-#endif
+bSimLogicLayer::~bSimLogicLayer()
+{
+}
+
+void bSimLogicLayer::update()
+{
+}
+
+void bSimLogicLayer::on_key_down(uint32 key)
+{
+}
+
+void bSimLogicLayer::on_key_up(uint32 key)
+{
+    switch( key ) {
+        case SDLK_p:
+            Profiler.on_off( !Profiler.is_opened() );
+            break;
+        case SDLK_ESCAPE:
+            GetStateMachine.go_to( BS_PAUSE );
+            break;
+    }
+}

@@ -9,34 +9,41 @@
  *                                                                         *
  ***************************************************************************/
 
-#ifndef BLOGGER_H
-#define BLOGGER_H
+#ifndef BBOARD_H
+#define BBOARD_H
 
 #include "bsingleton.h"
-#include "bassert.h"
+#include "bball.h"
+#include "bband.h"
+#include "blutable.h"
+#include "bfpstimer.h"
 
-#define BLOG bLogger::get_singleton().log
-
-#ifdef DEBUG
-#   define DBLOG BLOG
-#else
-#   define DBLOG( TEMP, ... )
-#endif
+#define GetBoard bBoard::get_singleton()
 
 /**
 	@author Tomasz Huczek & Andrzej Jasiñski <thuczek@gmail.com>
 */
-class bLogger : public bSingleton<bLogger>
+class bBoard : public bSingleton<bBoard>
 {
 public:
-    bLogger();
-    ~bLogger();
+    bBoard();
+    virtual ~bBoard();
 
-    void set_state( bool enabled );
-    void log( const char * text, ... );
-    
+    bool create();
+    void release();
+    void process( bFpsTimer * fps );
+    void draw();
+    bool is_any( int ball );
+   
 private:
-    bool on;
+    void commit_reflections();
+    bBall ** ball;
+    bBand ** band;
+    int ball_size;
+    int band_size;
+    
+    bLUTable luball;
+    bLUTable luband;
 };
 
 #endif

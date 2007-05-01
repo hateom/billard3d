@@ -9,34 +9,46 @@
  *                                                                         *
  ***************************************************************************/
 
-#ifndef BLOGGER_H
-#define BLOGGER_H
+#include "bsdl.h"
+#include "bsdlsystem.h"
+#include "binput.h"
 
-#include "bsingleton.h"
-#include "bassert.h"
+bool bSDLSystem::is_running = true;
 
-#define BLOG bLogger::get_singleton().log
-
-#ifdef DEBUG
-#   define DBLOG BLOG
-#else
-#   define DBLOG( TEMP, ... )
-#endif
-
-/**
-	@author Tomasz Huczek & Andrzej Jasiñski <thuczek@gmail.com>
-*/
-class bLogger : public bSingleton<bLogger>
+bSDLSystem::bSDLSystem()
 {
-public:
-    bLogger();
-    ~bLogger();
+}
 
-    void set_state( bool enabled );
-    void log( const char * text, ... );
+
+bSDLSystem::~bSDLSystem()
+{
+}
+
+bool bSDLSystem::update()
+{
+    SDL_Event event;
+
+    while( SDL_PollEvent( &event ) ) {
+
+        switch( event.type ) {
+            case SDL_KEYDOWN:
+                bInput::get_singleton().call_event_key_down( 
+                    event.key.keysym.sym );
+                break;
+            case SDL_KEYUP:
+                bInput::get_singleton().call_event_key_up( 
+                    event.key.keysym.sym );
+                break;
+            case SDL_QUIT:
+                return is_running=false;
+        }
+
+    }
     
-private:
-    bool on;
-};
+    return is_running;
+}
 
-#endif
+void bSDLSystem::quit()
+{
+    is_running = false;
+}

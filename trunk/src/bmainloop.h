@@ -9,34 +9,38 @@
  *                                                                         *
  ***************************************************************************/
 
-#ifndef BLOGGER_H
-#define BLOGGER_H
+#ifndef BMAINLOOP_H
+#define BMAINLOOP_H
 
+#include <vector>
+#include "bvideolayer.h"
+#include "blogiclayer.h"
 #include "bsingleton.h"
-#include "bassert.h"
 
-#define BLOG bLogger::get_singleton().log
-
-#ifdef DEBUG
-#   define DBLOG BLOG
-#else
-#   define DBLOG( TEMP, ... )
-#endif
+#define GetMainLoop bMainLoop::get_singleton()
 
 /**
 	@author Tomasz Huczek & Andrzej Jasiñski <thuczek@gmail.com>
 */
-class bLogger : public bSingleton<bLogger>
+class bMainLoop: public bSingleton<bMainLoop>
 {
+    typedef std::vector<bVideoLayer*> bVideoLayerList;
+    typedef std::vector<bLogicLayer*> bLogicLayerList;
 public:
-    bLogger();
-    ~bLogger();
+    bMainLoop();
+    ~bMainLoop();
 
-    void set_state( bool enabled );
-    void log( const char * text, ... );
+    void insert_video_layer( bVideoLayer * layer );
+    void insert_logic_layer( bLogicLayer * layer );
+    
+    void remove_video_layer( bVideoLayer * layer );
+    void remove_logic_layer( bLogicLayer * layer );
+    
+    void update();
     
 private:
-    bool on;
+    bVideoLayerList video_layer_list;
+    bLogicLayerList logic_layer_list;
 };
 
 #endif

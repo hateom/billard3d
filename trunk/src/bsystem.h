@@ -9,34 +9,44 @@
  *                                                                         *
  ***************************************************************************/
 
-#ifndef BLOGGER_H
-#define BLOGGER_H
+#ifndef BSYSTEM_H
+#define BSYSTEM_H
 
-#include "bsingleton.h"
 #include "bassert.h"
-
-#define BLOG bLogger::get_singleton().log
-
-#ifdef DEBUG
-#   define DBLOG BLOG
-#else
-#   define DBLOG( TEMP, ... )
-#endif
+#include "bpath.h"
+#include "btrace.h"
+#include "bprofiler.h"
+#include "bvideo.h"
+#include "bdraw.h"
+#include "blogger.h"
+#include "bfontmgr.h"
+#include "bconfigreader.h"
+#include "binput.h"
+#include "bsdlsystem.h"
+#include "bmainloop.h"
+#include "bstatemachine.h"
 
 /**
 	@author Tomasz Huczek & Andrzej Jasiñski <thuczek@gmail.com>
 */
-class bLogger : public bSingleton<bLogger>
+class bSystem
 {
 public:
-    bLogger();
-    ~bLogger();
-
-    void set_state( bool enabled );
-    void log( const char * text, ... );
+    static bool init( int argc, char *argv[] );
+    static void release();
     
-private:
-    bool on;
+public:
+    static bPath            path_sys;
+    static bProfiler        profiler_sys;
+    static bVideo           video_sys;
+    static bDraw            draw_sys;
+    static bLogger          log_sys;
+    static bFontMgr         font_sys;
+    static bConfigReader    config_sys;
+    static bInput           input_sys;
+    static bSDLSystem       sdl_sys;
+    static bMainLoop        mainloop_sys;
+    static bStateMachine    statemachine_sys;
 };
 
 #endif

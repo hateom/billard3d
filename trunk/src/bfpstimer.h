@@ -12,10 +12,16 @@
 
 //---------------------------------------------------------------------------------------------
 
+#include "bsingleton.h"
+
+//---------------------------------------------------------------------------------------------
+
+#define GetFps bFpsTimer::get_singleton()
+
 /**
 	@author Tomasz Huczek & Andrzej Jasiñski <thuczek@gmail.com>
 */
-class bFpsTimer{
+class bFpsTimer: public bSingleton<bFpsTimer> {
 public:
     bFpsTimer();
     ~bFpsTimer();
