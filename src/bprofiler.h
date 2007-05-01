@@ -3,6 +3,7 @@
 
 #include "btypes.h"
 #include "bsingleton.h"
+#include "beventlistener.h"
 
 #define SAMPLES_COUNT 50
 

@@ -9,34 +9,27 @@
  *                                                                         *
  ***************************************************************************/
 
-#ifndef BLOGGER_H
-#define BLOGGER_H
+#include "bconfigreader.h"
 
-#include "bsingleton.h"
-#include "bassert.h"
-
-#define BLOG bLogger::get_singleton().log
-
-#ifdef DEBUG
-#   define DBLOG BLOG
-#else
-#   define DBLOG( TEMP, ... )
-#endif
-
-/**
-	@author Tomasz Huczek & Andrzej Jasiñski <thuczek@gmail.com>
-*/
-class bLogger : public bSingleton<bLogger>
+bConfigReader::bConfigReader()
 {
-public:
-    bLogger();
-    ~bLogger();
+    set_default();
+}
 
-    void set_state( bool enabled );
-    void log( const char * text, ... );
-    
-private:
-    bool on;
-};
+bConfigReader::~bConfigReader()
+{
+}
 
-#endif
+bool bConfigReader::read_config(const char * filename)
+{
+    return true;
+}
+
+void bConfigReader::set_default()
+{
+    config.screen_w    = 800;
+    config.screen_h    = 600;
+    config.depth       =  32;
+    config.full_screen = false;
+}
+

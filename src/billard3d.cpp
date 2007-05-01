@@ -9,73 +9,50 @@
  *                                                                         *
  ***************************************************************************/
 
-#include <iostream>
-#include "bdraw.h"
-#include "bvideo.h"
-#include "bvector.h"
-#include "bassert.h"
-#include "blogger.h"
-#include "bfontmgr.h"
-#include "bpath.h"
-#include "btrace.h"
-#include "bprofiler.h"
+#include "bsystem.h"
+#include "bmainloop.h"
+#include "bsimlogiclayer.h"
+#include "bsimvideolayer.h"
 
 //---------------------------------------------------------------------------------------------
 
 int main( int argc, char* argv[] )
 {
-    bPath path;
-    bTrace::init();
-        
-    bProfiler profiler;
-    profiler.init();
+    if( !bSystem::init( argc, argv ) ) return -1;
     
-    bVideo video;
-    bDraw  graph;
-    bLogger logger;
-    bFontMgr fontMgr;
+    DBLOG( ">> Debug version\n" );
     
-#ifdef DEBUG
-    std::cout << ">> Debug version" << std::endl;
     try {
-#endif
-   
-        logger.set_state(true);
-        path.init(argv[0]);
         
-        if( !video.setup() ) {
-            return -1;
+        bSystem::video_sys.setup(
+            GetConfig.screen_w,
+            GetConfig.screen_h,
+            GetConfig.depth,
+            GetConfig.full_screen
+        );
+        bSystem::draw_sys.create();
+        bSystem::font_sys.init();
+
+        bSystem::statemachine_sys.go_to( BS_SIMULATION );
+        
+        while( bSystem::sdl_sys.update() ) {
+            bSystem::mainloop_sys.update();
+            bSystem::video_sys.buffers();
         }
 
-        if( !graph.create() ) {
-            video.release();
-            return -2;
-        }
-
-        FontMgr.init();
-
-        while( video.messages() ) {
-            graph.draw();
-            video.buffers();
-        }
-
-#ifdef DEBUG
     } catch( bException & e ) {
         std::cout << e.format() << std::endl;
 	} catch( ... ) {
 		std::cout << "!! Unknown exception occured!" << std::endl;
 	}
-#endif // DEBUG
     
-    FontMgr.release();
-    graph.release();
-    video.release();
+    bSystem::font_sys.release();
+    bSystem::draw_sys.release();
+    bSystem::video_sys.release();
     
-#ifdef DEBUG
-    std::cout << ">> Finished." << std::endl;
-#endif // DEBUG
+    DBLOG( ">> Finished (debug trace written to ./debug_log.txt)\n" );
 
-	bTrace::dump();
+	bSystem::release();
     
     return 0;
 }

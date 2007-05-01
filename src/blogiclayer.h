@@ -9,34 +9,25 @@
  *                                                                         *
  ***************************************************************************/
 
-#ifndef BLOGGER_H
-#define BLOGGER_H
+#ifndef BLOGICLAYER_H
+#define BLOGICLAYER_H
 
-#include "bsingleton.h"
-#include "bassert.h"
-
-#define BLOG bLogger::get_singleton().log
-
-#ifdef DEBUG
-#   define DBLOG BLOG
-#else
-#   define DBLOG( TEMP, ... )
-#endif
+#include "beventlistener.h"
 
 /**
 	@author Tomasz Huczek & Andrzej Jasiñski <thuczek@gmail.com>
 */
-class bLogger : public bSingleton<bLogger>
+class bLogicLayer: public bEventListener
 {
 public:
-    bLogger();
-    ~bLogger();
+    bLogicLayer( bool exclusiv );
+    virtual ~bLogicLayer();
 
-    void set_state( bool enabled );
-    void log( const char * text, ... );
+    virtual void update() = 0;
+    bool is_exclusive() const;
     
 private:
-    bool on;
+    bool exclusive;
 };
 
 #endif

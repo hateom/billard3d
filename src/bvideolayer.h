@@ -9,34 +9,18 @@
  *                                                                         *
  ***************************************************************************/
 
-#ifndef BLOGGER_H
-#define BLOGGER_H
-
-#include "bsingleton.h"
-#include "bassert.h"
-
-#define BLOG bLogger::get_singleton().log
-
-#ifdef DEBUG
-#   define DBLOG BLOG
-#else
-#   define DBLOG( TEMP, ... )
-#endif
+#ifndef BVIDEOLAYER_H
+#define BVIDEOLAYER_H
 
 /**
 	@author Tomasz Huczek & Andrzej Jasiñski <thuczek@gmail.com>
 */
-class bLogger : public bSingleton<bLogger>
-{
+class bVideoLayer {
 public:
-    bLogger();
-    ~bLogger();
+    bVideoLayer();
+    virtual ~bVideoLayer();
 
-    void set_state( bool enabled );
-    void log( const char * text, ... );
-    
-private:
-    bool on;
+    virtual void draw() = 0;
 };
 
 #endif

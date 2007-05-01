@@ -30,24 +30,26 @@ bVideo::~bVideo()
 
 //---------------------------------------------------------------------------------------------
 
-bool bVideo::setup()
+bool bVideo::setup(uint32 scr_w, uint32 scr_h, uint32 depth, bool fs)
 {
     guard(bVideo::setup);
     
     if( SDL_Init( SDL_INIT_VIDEO | SDL_INIT_TIMER ) < 0 ) {
-        fprintf( stderr, "Video initialization failed: %s\n", SDL_GetError() );
         release();
+        BASSERTM( 0, "Video initialization failed: " << SDL_GetError() );
+        return false;
     }
 
     info = SDL_GetVideoInfo( );
 
     if( !info ) {
-        fprintf( stderr, "Video query failed: %s\n", SDL_GetError() );
         release();
+        BASSERTM( 0, "Video query failed: " << SDL_GetError() );
+        return false;
     }
 
-    width  = SCR_W;
-    height = SCR_H;
+    width  = scr_w;
+    height = scr_h;
     bpp = info->vfmt->BitsPerPixel;
 
     SDL_GL_SetAttribute( SDL_GL_RED_SIZE,        5 );
@@ -56,11 +58,13 @@ bool bVideo::setup()
     SDL_GL_SetAttribute( SDL_GL_DEPTH_SIZE,     16 );
     SDL_GL_SetAttribute( SDL_GL_DOUBLEBUFFER,    1 );
 
-    flags = SDL_OPENGL; // | SDL_FULLSCREEN;
+    flags = SDL_OPENGL;
+    if( fs ) flags |= SDL_FULLSCREEN;
 
     if( SDL_SetVideoMode( width, height, bpp, flags ) == 0 ) {
-        fprintf( stderr, "Video mode set failed: %s\n", SDL_GetError() );
         release();
+        BASSERTM( 0, "Video mode set failed: " << SDL_GetError() );
+        return false;
     }
 
     glShadeModel( GL_SMOOTH );
@@ -86,46 +90,6 @@ void bVideo::buffers()
 {
 //    SDL_Delay(10);
     SDL_GL_SwapBuffers();
-}
-
-//---------------------------------------------------------------------------------------------
-
-void bVideo::handle_key( SDL_keysym* keysym )
-{
-    switch( keysym->sym ) {
-        case SDLK_ESCAPE:
-            status = false;
-            break;
-        case SDLK_SPACE:
-            break;
-        case SDLK_p:
-            Profiler.on_off( !Profiler.is_opened() );
-            break;
-        default:
-            break;
-    }   
-}
-
-//---------------------------------------------------------------------------------------------
-
-bool bVideo::messages()
-{
-    SDL_Event event;
-
-    while( SDL_PollEvent( &event ) ) {
-
-        switch( event.type ) {
-            case SDL_KEYDOWN:
-                handle_key( &event.key.keysym );
-                break;
-            case SDL_QUIT:
-                status = false;
-                break;
-        }
-
-    }
-    
-    return status;
 }
 
 //---------------------------------------------------------------------------------------------

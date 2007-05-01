@@ -9,34 +9,20 @@
  *                                                                         *
  ***************************************************************************/
 
-#ifndef BLOGGER_H
-#define BLOGGER_H
+#ifndef BCONFIG_H
+#define BCONFIG_H
 
-#include "bsingleton.h"
-#include "bassert.h"
-
-#define BLOG bLogger::get_singleton().log
-
-#ifdef DEBUG
-#   define DBLOG BLOG
-#else
-#   define DBLOG( TEMP, ... )
-#endif
+#include "btypes.h"
 
 /**
 	@author Tomasz Huczek & Andrzej Jasiñski <thuczek@gmail.com>
 */
-class bLogger : public bSingleton<bLogger>
+struct bConfig
 {
-public:
-    bLogger();
-    ~bLogger();
-
-    void set_state( bool enabled );
-    void log( const char * text, ... );
-    
-private:
-    bool on;
+    uint32 screen_w;
+    uint32 screen_h;
+    uint32 depth;
+    bool   full_screen;
 };
 
 #endif

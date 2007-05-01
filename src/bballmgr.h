@@ -14,13 +14,6 @@
 
 //---------------------------------------------------------------------------------------------
 
-#include "bball.h"
-#include "bband.h"
-#include "bfpstimer.h"
-#include "blutable.h"
-
-//---------------------------------------------------------------------------------------------
-
 /**
 	@author Tomasz Huczek <tomasz.huczek@gmail.com>
 */
@@ -28,22 +21,6 @@ class bBallMgr{
 public:
     bBallMgr();
     ~bBallMgr();
-    
-    bool create();
-    void release();
-    void process( bFpsTimer * fps );
-    void draw();
-    bool is_any( int ball );
-   
-private:
-    void commit_reflections();
-    bBall ** ball;
-    bBand ** band;
-    int ball_size;
-    int band_size;
-    
-    bLUTable luball;
-    bLUTable luband;
 };
 
 //---------------------------------------------------------------------------------------------

@@ -30,11 +30,6 @@ public:
     bool create();
     void draw();
     void release();
-    
-private:
-    bBallMgr		bmgr;
-    unsigned int    frame_ms;
-    bFpsTimer		fps;
 };
 
 //---------------------------------------------------------------------------------------------

@@ -2,6 +2,8 @@
 #include "bfontmgr.h"
 #include "bsdl.h"
 #include "btrace.h"
+#include "binput.h"
+#include "bsdl.h"
 
 #define HSPC 10
 

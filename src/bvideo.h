@@ -14,8 +14,8 @@
 
 //---------------------------------------------------------------------------------------------
 
-#define SCR_W 800
-#define SCR_H 600
+#include "btypes.h"
+#include "bfpstimer.h"
 
 //---------------------------------------------------------------------------------------------
 
@@ -32,16 +32,14 @@ public:
     bVideo();
     ~bVideo();
 
-    bool setup();
+    bool setup( uint32 scr_w, uint32 scr_h, uint32 depth, bool fs );
     void resize( int width, int height );
     void release();
-    bool messages();
     void buffers();
-    
+   
 private:
-    void handle_key( SDL_keysym* keysym );
+    bFpsTimer g_fps_timer;
     
-private:
     const SDL_VideoInfo *   info;
     int   width;
     int   height;
