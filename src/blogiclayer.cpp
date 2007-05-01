@@ -14,12 +14,10 @@
 
 bLogicLayer::bLogicLayer(bool exclusiv) : exclusive(exclusiv)
 {
-    bInput::get_singleton().register_listener(this);
 }
 
 bLogicLayer::~bLogicLayer()
 {
-    bInput::get_singleton().unregister_listener(this);
 }
 
 bool bLogicLayer::is_exclusive() const

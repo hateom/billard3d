@@ -39,6 +39,7 @@ bool bSystem::init(int argc, char *argv[] )
 
 void bSystem::release()
 {
+    mainloop_sys.release();
     input_sys.release();
     
     bTrace::dump();

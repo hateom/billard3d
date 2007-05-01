@@ -15,11 +15,18 @@
 
 bMainLoop::bMainLoop() : bSingleton<bMainLoop>()
 {
+    bInput::get_singleton().register_listener(this);
 }
 
 
 bMainLoop::~bMainLoop()
 {
+    release();
+}
+
+void bMainLoop::release()
+{
+    bInput::get_singleton().unregister_listener(this);   
 }
 
 void bMainLoop::update()
@@ -81,3 +88,28 @@ void bMainLoop::remove_video_layer(bVideoLayer * layer)
     }
 }
 
+
+
+void bMainLoop::on_key_up(uint32 key)
+{
+    bLogicLayerList::reverse_iterator lit, 
+        lbg=logic_layer_list.rbegin(),
+        led=logic_layer_list.rend();
+        
+    for( lit=lbg; lit!=led; ++lit ) {
+        (*lit)->on_key_up( key );
+        if( (*lit)->is_exclusive() ) break;
+    }
+}
+
+void bMainLoop::on_key_down(uint32 key)
+{
+    bLogicLayerList::reverse_iterator lit, 
+        lbg=logic_layer_list.rbegin(),
+        led=logic_layer_list.rend();
+        
+    for( lit=lbg; lit!=led; ++lit ) {
+        (*lit)->on_key_down( key );
+        if( (*lit)->is_exclusive() ) break;
+    }
+}
