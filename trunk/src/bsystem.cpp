@@ -21,14 +21,19 @@ bConfigReader   bSystem::config_sys;
 bInput          bSystem::input_sys;
 bMainLoop       bSystem::mainloop_sys;
 bStateMachine   bSystem::statemachine_sys;
+bArgMgr         bSystem::argmgr_sys;
 
 bool bSystem::init(int argc, char *argv[] )
 {
     try {
+        for( int i=1; i<argc; ++i ) {
+            argmgr_sys.add_cfg( argv[i] );
+        }
         bTrace::init();
         profiler_sys.init();   
-        //log_sys.set_state(true);
-        log_sys.set_state(false);
+        if( IsArg("verbose") ) {
+            log_sys.set_state(true);
+        }
         path_sys.init(argv[0]);
     } catch( ... ) {
         release();
@@ -44,4 +49,5 @@ void bSystem::release()
     input_sys.release();
     
     bTrace::dump();
+    argmgr_sys.free();
 }

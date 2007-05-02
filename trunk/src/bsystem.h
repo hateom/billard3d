@@ -25,6 +25,7 @@
 #include "bsdlsystem.h"
 #include "bmainloop.h"
 #include "bstatemachine.h"
+#include "bargmgr.h"
 
 /**
 	@author Tomasz Huczek & Andrzej Jasiñski <thuczek@gmail.com>
@@ -59,6 +60,7 @@ public:
     static bSDLSystem       sdl_sys;
     static bMainLoop        mainloop_sys;
     static bStateMachine    statemachine_sys;
+    static bArgMgr          argmgr_sys;
 };
 
 #endif
