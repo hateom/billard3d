@@ -60,22 +60,19 @@ public:
     bool    collides( bBall * b );
 
 public:
-    /// position, velocity and acceleration vectors
-    bVector pos, vel, acc;
+    bVector pos,     ///< position vector
+            vel,     ///< velocity vector
+            acc;     ///< acceleration vector
     
-    /// radius of the ball
-    double radius;
+    double radius;   ///< radius of the ball
+    double mass;     ///< mass of the ball
     
-    /// mass of the ball
-    double mass;
+    float r,         ///< red component of the color value
+          g,         ///< green component of the color value
+          b;         ///< blue component of the color value
     
-    /// RGB color of the ball
-    float r,g,b;
-    
-    /// temporary velocity
-    bVector t_vel;
-    /// is temporary velocity set
-    bool    t_vel_f;
+    bVector t_vel;   ///< temporary velocity
+    bool    t_vel_f; ///< is temporary velocity set
 };
 
 //---------------------------------------------------------------------------------------------

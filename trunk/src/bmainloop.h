@@ -16,20 +16,20 @@
 #include "bvideolayer.h"
 #include "blogiclayer.h"
 #include "bsingleton.h"
-#include "beventlistener.h"
+#include "bautoeventlistener.h"
 
 #define GetMainLoop bMainLoop::get_singleton()
 
 /**
 	@author Tomasz Huczek & Andrzej Jasiñski <thuczek@gmail.com>
 */
-class bMainLoop: public bSingleton<bMainLoop>, public bEventListener
+class bMainLoop: public bSingleton<bMainLoop>, public bAutoEventListener
 {
     typedef std::vector<bVideoLayer*> bVideoLayerList;
     typedef std::vector<bLogicLayer*> bLogicLayerList;
 public:
     bMainLoop();
-    ~bMainLoop();
+    virtual ~bMainLoop();
 
     void insert_video_layer( bVideoLayer * layer );
     void insert_logic_layer( bLogicLayer * layer );

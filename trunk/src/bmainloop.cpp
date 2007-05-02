@@ -13,9 +13,8 @@
 #include "bsystem.h"
 #include "bfpstimer.h"
 
-bMainLoop::bMainLoop() : bSingleton<bMainLoop>()
+bMainLoop::bMainLoop() : bSingleton<bMainLoop>(), bAutoEventListener()
 {
-    bInput::get_singleton().register_listener(this);
 }
 
 
@@ -26,7 +25,7 @@ bMainLoop::~bMainLoop()
 
 void bMainLoop::release()
 {
-    bInput::get_singleton().unregister_listener(this);   
+    disconnect_listener();
 }
 
 void bMainLoop::update()
