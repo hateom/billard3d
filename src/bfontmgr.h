@@ -18,9 +18,11 @@
 
 #define B_DEF_FONT   0x01
 #define B_SMALL_FONT 0x02
+#define B_BIG_FONT   0x03
 
 #define PRINT  bFontMgr::get_singleton().get_font().writef
 #define PRINTS bFontMgr::get_singleton().get_font(B_SMALL_FONT).writef
+#define PRINTB bFontMgr::get_singleton().get_font(B_BIG_FONT).writef
 #define FontMgr bFontMgr::get_singleton()
 
 /**
@@ -44,6 +46,7 @@ public:
 private:
 	bFont def;
 	bFont def_small;
+    bFont def_big;
 
 	bool  def_loaded;
 };

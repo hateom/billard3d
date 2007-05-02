@@ -49,10 +49,10 @@ int main( int argc, char* argv[] )
     bSystem::font_sys.release();
     bSystem::draw_sys.release();
     bSystem::video_sys.release();
-    
-    DBLOG( ">> Finished (debug trace written to ./debug_log.txt)\n" );
 
 	bSystem::release();
+    
+    DBLOG( ">> Finished (debug trace written to ./debug_log.txt)\n" );
     
     return 0;
 }

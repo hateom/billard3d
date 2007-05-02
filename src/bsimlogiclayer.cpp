@@ -28,13 +28,12 @@ bSimLogicLayer::~bSimLogicLayer()
 
 void bSimLogicLayer::update()
 {
+    Profiler.begin("ball_mgr::process");
+    GetBoard.process( &GetFps );
+    Profiler.end("ball_mgr::process");
 }
 
 void bSimLogicLayer::on_key_down(uint32 key)
-{
-}
-
-void bSimLogicLayer::on_key_up(uint32 key)
 {
     switch( key ) {
         case SDLK_p:
@@ -44,4 +43,8 @@ void bSimLogicLayer::on_key_up(uint32 key)
             GetStateMachine.go_to( BS_PAUSE );
             break;
     }
+}
+
+void bSimLogicLayer::on_key_up(uint32 key)
+{
 }

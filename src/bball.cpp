@@ -9,7 +9,6 @@
  *                                                                         *
  ***************************************************************************/
 
-#include "bsdl.h"
 #include <cmath>
 #include "bball.h"
 #include "bassert.h"
@@ -30,6 +29,7 @@ bBall::bBall() : t_vel_f(false)
     mass = 1.0;
     r = g = b = 0.9f;
     acc.y = 300.0;
+    sphere_obj = gluNewQuadric();
 }
 
 bBall::bBall(bVector ip, bVector iv, bVector ia, 
@@ -38,6 +38,7 @@ bBall::bBall(bVector ip, bVector iv, bVector ia,
         r(ir), g(ig), b(ib), t_vel_f(false)
 {
     t_vel.zero();
+    sphere_obj = gluNewQuadric();
 }
 
 bBall::~bBall()
@@ -60,6 +61,8 @@ void bBall::draw()
             glVertex2d( pos.x + radius*cos(rad), pos.y + radius*sin(rad) );
         }
     glEnd();
+    
+    gluSphere(sphere_obj, radius, 8, 8);
 }
 
 void bBall::process( double fps_factor )

@@ -17,7 +17,6 @@ bMainLoop::bMainLoop() : bSingleton<bMainLoop>(), bAutoEventListener()
 {
 }
 
-
 bMainLoop::~bMainLoop()
 {
     release();

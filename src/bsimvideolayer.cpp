@@ -34,10 +34,6 @@ void bSimVideoLayer::draw()
     
     glLoadIdentity();
 
-    Profiler.begin("ball_mgr::process");
-        GetBoard.process( &GetFps );
-    Profiler.end("ball_mgr::process");
-    
     Profiler.begin("ball_mgr::draw");
         glDisable( GL_TEXTURE_2D );
         GetBoard.draw();
@@ -53,18 +49,18 @@ void bSimVideoLayer::draw()
     if( Profiler.is_opened() ) {
         glDisable( GL_TEXTURE_2D );
         glBegin( GL_TRIANGLE_STRIP );
-        glColor4f( 1.0f, 1.0f, 1.0f, 0.5f );
-        glVertex2i( 479, 389 );
-        glVertex2i( 479, 600 );
-        glVertex2i( 800, 389 );
-        glVertex2i( 800, 600 );
+            glColor4f( 1.0f, 1.0f, 1.0f, 0.5f );
+            glVertex2i( 479, 389 );
+            glVertex2i( 479, 600 );
+            glVertex2i( 800, 389 );
+            glVertex2i( 800, 600 );
         glEnd();
         glBegin( GL_TRIANGLE_STRIP );
-        glColor4f( 0.0f, 0.0f, 0.0f, 0.5f );
-        glVertex2i( 480, 390 );
-        glVertex2i( 480, 600 );
-        glVertex2i( 800, 390 );
-        glVertex2i( 800, 600 );
+            glColor4f( 0.0f, 0.0f, 0.0f, 0.5f );
+            glVertex2i( 480, 390 );
+            glVertex2i( 480, 600 );
+            glVertex2i( 800, 390 );
+            glVertex2i( 800, 600 );
         glEnd();
         glEnable( GL_TEXTURE_2D );
         glColor4f( 1.0f, 1.0f, 1.0f, 1.0f );

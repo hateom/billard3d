@@ -28,5 +28,6 @@ void bAutoEventListener::disconnect_listener()
 {
     if( connected ) {
         bInput::get_singleton().unregister_listener(this);    
+        connected = false;
     }
 }

@@ -88,7 +88,6 @@ bool bVideo::setup(uint32 scr_w, uint32 scr_h, uint32 depth, bool fs)
 
 void bVideo::buffers()
 {
-//    SDL_Delay(10);
     SDL_GL_SwapBuffers();
 }
 
@@ -113,10 +112,56 @@ void bVideo::release()
 {
     guard(bVideo::release);
     
-    SDL_Quit();
-    status = false;
+    if( status ) {
+        SDL_Quit();
+        status = false;
+    }
     
     unguard;
 }
 
 //---------------------------------------------------------------------------------------------
+
+void bVideo::set_matrix_2d( uint32 w, uint32 h )
+{
+    guard(bVideo::set_matrix_2d);
+
+    uint32 mw, mh;
+    
+    if( w != 0 ) mw = w; else mw = width;
+    if( h != 0 ) mh = h; else mh = height;
+
+    glViewport( 0, 0, mw, mh );
+
+    glMatrixMode( GL_PROJECTION );
+    glLoadIdentity();
+
+    glOrtho( 0, mw, mh, 0, -100, 100 );
+
+    glMatrixMode( GL_MODELVIEW );
+    glLoadIdentity();
+
+    unguard;
+}
+
+void bVideo::set_matrix_3d( uint32 w, uint32 h )
+{
+    guard(bVideo::set_matrix_3d);
+
+    uint32 mw, mh;
+    
+    if( w != 0 ) mw = w; else mw = width;
+    if( h != 0 ) mh = h; else mh = height;
+
+    glViewport( 0, 0, mw, mh );
+
+    glMatrixMode( GL_PROJECTION );
+    glLoadIdentity();
+
+    gluPerspective( 45.0f, (GLfloat)((GLfloat)mw / (GLfloat)mh), 1.0f, 200.0f );
+
+    glMatrixMode( GL_MODELVIEW );
+    glLoadIdentity();
+
+    unguard;
+}
