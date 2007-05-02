@@ -14,6 +14,7 @@
 #include "bsdl.h"
 #include "btrace.h"
 #include "bprofiler.h"
+#include "blightmgr.h"
 
 //---------------------------------------------------------------------------------------------
 
@@ -48,7 +49,7 @@ bool bVideo::setup(uint32 scr_w, uint32 scr_h, uint32 depth, bool fs)
         return false;
     }
 
-    width  = scr_w;
+    width = scr_w;
     height = scr_h;
     bpp = info->vfmt->BitsPerPixel;
 
@@ -72,12 +73,14 @@ bool bVideo::setup(uint32 scr_w, uint32 scr_h, uint32 depth, bool fs)
     glCullFace( GL_BACK );
     glFrontFace( GL_CCW );
     glEnable( GL_CULL_FACE );
-    //glDisable( GL_CULL_FACE );
 
     glDisable( GL_TEXTURE_2D );
     glClearColor( 0, 0, 0, 0 );
     
-    resize( width, height );
+    glEnable( GL_DEPTH_TEST );
+    
+    bLightMgr::set_defaults();
+    
     status = true;
     return true;
     
@@ -89,21 +92,6 @@ bool bVideo::setup(uint32 scr_w, uint32 scr_h, uint32 depth, bool fs)
 void bVideo::buffers()
 {
     SDL_GL_SwapBuffers();
-}
-
-//---------------------------------------------------------------------------------------------
-
-void bVideo::resize( int width, int height )
-{
-    glViewport( 0, 0, width, height );
-
-    glMatrixMode( GL_PROJECTION );
-    glLoadIdentity();
-
-    glOrtho( 0, width, height, 0, -100, 100 );
-
-    glMatrixMode( GL_MODELVIEW );
-    glLoadIdentity();  
 }
 
 //---------------------------------------------------------------------------------------------

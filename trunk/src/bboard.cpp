@@ -39,40 +39,40 @@ bool bBoard::create()
     ball = new bBall*[ball_size];
     
     ball[0] = new bBall(
-        bVector(400.0,180.0), 
-        bVector(230.0,0.0), 
-        bVector(tm,tm), 30.0, 1.0, 1.0f, 0.4f, 0.3f );
+        bVector(4.0,1.8), 
+        bVector(2.3,0.0), 
+        bVector(tm,tm), 0.3, 1.0, 1.0f, 0.4f, 0.3f );
 
     ball[1] = new bBall(
-        bVector(300.0,200.0), 
-        bVector(200.0,500.0), 
-        bVector(tm,tm), 30.0, 1.0, 0.3f, 1.0f, 0.4f );
+        bVector(3.0,2.0), 
+        bVector(2.0,5.0), 
+        bVector(tm,tm), 0.3, 1.0, 0.3f, 1.0f, 0.4f );
     
     ball[2] = new bBall(
-        bVector(220.0,350.0), 
-        bVector(300.0,300.0), 
-        bVector(0.0,0.0), 30.0, 1.0, 0.4f, 0.3f, 1.0f );
+        bVector(2.2,3.5), 
+        bVector(3.0,3.0), 
+        bVector(0.0,0.0), 0.3, 1.0, 0.4f, 0.3f, 1.0f );
     
     ball[3] = new bBall(
-        bVector(180.0,420.0), 
-        bVector(-300.0,300.0), 
-        bVector(0.0,0.0), 30.0, 1.0, 1.0f, 0.2f, 0.8f );
+        bVector(1.8,4.2), 
+        bVector(-3.0,3.0), 
+        bVector(0.0,0.0), 0.3, 1.0, 1.0f, 0.2f, 0.8f );
 
     band_size = 12;
     band = new bBand*[band_size];
 
-    band[0]  = new bBand( bVector(  65, 150 ), bVector( 200,  50 ) );
-    band[1]  = new bBand( bVector( 200,  50 ), bVector( 400, 100 ) );
-    band[2]  = new bBand( bVector( 400, 100 ), bVector( 600,  50 ) );
-    band[3]  = new bBand( bVector( 600,  50 ), bVector( 730, 150 ) );
-    band[4]  = new bBand( bVector( 730, 150 ), bVector( 665, 300 ) );
-    band[5]  = new bBand( bVector( 665, 300 ), bVector( 730, 450 ) );
-    band[6]  = new bBand( bVector( 730, 450 ), bVector( 600, 550 ) );
-    band[7]  = new bBand( bVector( 600, 550 ), bVector( 400, 500 ) );
-    band[8]  = new bBand( bVector( 400, 500 ), bVector( 200, 550 ) );
-    band[9]  = new bBand( bVector( 200, 550 ), bVector(  65, 450 ) );
-    band[10] = new bBand( bVector(  65, 450 ), bVector( 130, 300 ) );
-    band[11] = new bBand( bVector( 130, 300 ), bVector(  65, 150 ) );
+    band[0]  = new bBand( bVector( 0.65, 1.5 ), bVector( 2.0, 0.5 ) );
+    band[1]  = new bBand( bVector( 2.00, 0.5 ), bVector( 4.0, 1.0 ) );
+    band[2]  = new bBand( bVector( 4.00, 1.0 ), bVector( 6.0, 0.5 ) );
+    band[3]  = new bBand( bVector( 6.00, 0.5 ), bVector( 7.3, 1.5 ) );
+    band[4]  = new bBand( bVector( 7.30, 1.5 ), bVector( 6.65, 3.0 ) );
+    band[5]  = new bBand( bVector( 6.65, 3.0 ), bVector( 7.3, 4.5 ) );
+    band[6]  = new bBand( bVector( 7.30, 4.5 ), bVector( 6.0, 5.5 ) );
+    band[7]  = new bBand( bVector( 6.00, 5.5 ), bVector( 4.0, 5.0 ) );
+    band[8]  = new bBand( bVector( 4.00, 5.0 ), bVector( 2.0, 5.5 ) );
+    band[9]  = new bBand( bVector( 2.00, 5.5 ), bVector( 0.65, 4.5 ) );
+    band[10] = new bBand( bVector( 0.65, 4.5 ), bVector( 1.30, 3.0 ) );
+    band[11] = new bBand( bVector( 1.30, 3.0 ), bVector( 0.65, 1.5 ) );
     
     luball.create( ball_size );
     luband.create( ball_size, band_size, false );
@@ -123,7 +123,7 @@ void bBoard::draw()
         band[i]->draw();
     }
     Profiler.end("ball_mgr::draw_bands");
-    
+/*
     glEnable( GL_TEXTURE_2D );
     for( int i=0; i<ball_size; ++i ) {
         PRINT( (int)ball[i]->pos.x-1-(int)ball[i]->radius/2, (int)ball[i]->pos.y-9, 
@@ -132,6 +132,7 @@ void bBoard::draw()
                 B_FONT_LIGHT, "%2.2f", ball[i]->vel.length() );
     }
     glDisable( GL_TEXTURE_2D );
+*/
 }
 
 void bBoard::process(bFpsTimer * fps)

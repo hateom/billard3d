@@ -47,6 +47,7 @@ bBall::~bBall()
 
 void bBall::draw()
 {
+    /*
     int rnum = 32;
     double nrad = (2.0*G_PI)/(double)rnum;
     double rad = 0.0;
@@ -61,15 +62,20 @@ void bBall::draw()
             glVertex2d( pos.x + radius*cos(rad), pos.y + radius*sin(rad) );
         }
     glEnd();
+    */
     
+    glPushMatrix();
+    glTranslated( pos.x, 0.0, pos.y );
+    glColor3f( r, g, b );
     gluSphere(sphere_obj, radius, 8, 8);
+    glPopMatrix();
 }
 
 void bBall::process( double fps_factor )
 {
     guard(bBall::process);
-    
-    static double mi = 50.0;
+    /*
+    static double mi = 0.5;
     double ta = ((mi*10.0)/radius)*fps_factor;
     
     if( vel.length() < ta )
@@ -80,7 +86,7 @@ void bBall::process( double fps_factor )
     {
         vel -= vel.normal()*ta;
     }
-    
+    */
     vel += acc * fps_factor;
     pos += vel * fps_factor;
     
