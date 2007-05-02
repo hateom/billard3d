@@ -27,11 +27,18 @@ bBand::~bBand()
 
 void bBand::draw()
 {
-    glColor3f( 1.0f, 1.0f, 1.0f );
-    glBegin( GL_LINES );
-        glVertex2d( p1.x, p1.y );
-        glVertex2d( p2.x, p2.y );
+    glDisable( GL_CULL_FACE );
+    glBegin( GL_TRIANGLE_STRIP );
+        glColor3f( 1.0f, 0.3f, 0.3f );
+        glVertex3d( p1.x, 1.0, p1.y );
+        glColor3f( 0.5f, 0.3f, 0.3f );
+        glVertex3d( p1.x, 0.0, p1.y );
+        glColor3f( 1.0f, 0.3f, 0.3f );
+        glVertex3d( p2.x, 1.0, p2.y );
+        glColor3f( 0.5f, 0.3f, 0.3f );
+        glVertex3d( p2.x, 0.0, p2.y );
     glEnd();
+    glEnable( GL_CULL_FACE );
 }
 
 bBand::bBand(bVector _p1, bVector _p2) : p1(_p1), p2(_p2)
