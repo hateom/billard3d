@@ -30,6 +30,8 @@ void bPauseVideoLayer::draw()
     bSystem::video_sys.set_matrix_2d();
     
     glDisable( GL_TEXTURE_2D );
+    glEnable( GL_BLEND );
+    glBlendFunc( GL_ONE, GL_DST_COLOR );
     
     glBegin( GL_TRIANGLE_STRIP );
         glColor3f( 1.0f, 0.2f, 0.2f );
@@ -52,10 +54,15 @@ void bPauseVideoLayer::draw()
     glColor3f( 1.0f, 1.0f, 1.0f );
     
     glEnable( GL_TEXTURE_2D );
+    glDisable( GL_BLEND );
     
+    PRINTB( 432, 302, B_FONT_DARK, "PAUSE" );
     PRINTB( 430, 300, B_FONT_LIGHT, "PAUSE" );
     
+    PRINTB( 352, 362, B_FONT_DARK, "Q - quit" );
     PRINTB( 350, 360, B_FONT_LIGHT, "Q - quit" );
+    
+    PRINTB( 352, 402, B_FONT_DARK, "ESC - back to the game" );
     PRINTB( 350, 400, B_FONT_LIGHT, "ESC - back to the game" );
 }
 

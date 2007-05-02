@@ -112,6 +112,17 @@ void bBoard::release()
 
 void bBoard::draw()
 {
+    glBegin( GL_TRIANGLE_STRIP );
+        glColor3f( 0.2f, 0.2f, 0.2f );
+        glVertex3d( 0.0, 0.0, 0.0 );
+        glColor3f( 0.0f, 0.0f, 0.0f );
+        glVertex3d( 0.0, 0.0, 6.0 );
+        glColor3f( 0.2f, 0.2f, 0.2f );
+        glVertex3d( 8.0, 0.0, 0.0 );
+        glColor3f( 0.0f, 0.0f, 0.0f );
+        glVertex3d( 8.0, 0.0, 6.0 );
+    glEnd();
+    
     Profiler.begin("ball_mgr::draw_balls");
     for( int i=0; i<ball_size; ++i ) {
         ball[i]->draw();
