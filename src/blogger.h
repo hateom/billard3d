@@ -32,7 +32,15 @@ public:
     bLogger();
     ~bLogger();
 
+    /**
+     * @param enabled enables logger to write into standard output
+     */
     void set_state( bool enabled );
+    
+    
+    /**
+     * @param text outputs formatted string
+     */
     void log( const char * text, ... );
     
 private:

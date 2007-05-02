@@ -21,19 +21,17 @@
 #endif
 
 /**
+    @brief Singeton base class
+    Base class for singleton objects
 	@author Tomasz Huczek & Andrzej Jasiñski <thuczek@gmail.com>
 */
-
 template <typename T>
 class bSingleton
 {
 public:
     bSingleton() {
         BASSERT( single == NULL );
-        
-//        int offs = (int)(T*)1 - (int)(bSingleton<T>*)(T*)1; 
-//        single = (T*)((int)this + offs);
-        
+       
         long offs = (long)(T*)1 - (long)(bSingleton<T>*)(T*)1; 
         single = (T*)((long)this + offs);
     }
@@ -42,11 +40,13 @@ public:
         BASSERT( single != NULL );
     }
     
+    /// @returns singleton reference
     static T & get_singleton() {
         BASSERT( single != NULL );
         return *single;
     }
     
+    /// @returns singleton pointer
     static T * get_singleton_ptr() {
         BASSERT( single != NULL );
         return single;

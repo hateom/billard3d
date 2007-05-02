@@ -15,6 +15,7 @@
 #include "btypes.h"
 
 /**
+    @brief Configuration struct
 	@author Tomasz Huczek & Andrzej Jasiñski <thuczek@gmail.com>
 */
 struct bConfig

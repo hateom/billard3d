@@ -18,6 +18,8 @@
 #define GetConfig bConfigReader::get_singleton().config
 
 /**
+    @brief Configuration reader
+    Reads configuration from file
 	@author Tomasz Huczek & Andrzej Jasiñski <thuczek@gmail.com>
 */
 class bConfigReader: public bSingleton<bConfigReader>
@@ -26,7 +28,14 @@ public:
     bConfigReader();
     ~bConfigReader();
 
+    /**
+        Reads configuration from file
+        @param filename configuration file
+        @returns true if everything is allright
+    */
     bool read_config( const char * filename );
+    
+    /// set default configuration
     void set_default();
     
 public:

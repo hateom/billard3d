@@ -1,5 +1,16 @@
-#ifndef __B_FONT_H__
-#define __B_FONT_H__
+/***************************************************************************
+ *   Copyright (C) 2007 by                                       *
+ *                                                                  *
+ *                                                                         *
+ *   This program is free software; you can redistribute it and/or modify  *
+ *   it under the terms of the GNU Library General Public License as       *
+ *   published by the Free Software Foundation; either version 2 of the    *
+ *   License, or (at your option) any later version.                       *
+ *                                                                         *
+ ***************************************************************************/
+
+#ifndef B_FONT_H
+#define B_FONT_H
 
 #include "btypes.h"
 #include "btexture.h"
@@ -7,6 +18,11 @@
 #define B_FONT_LIGHT 0x00
 #define B_FONT_DARK  0x01
 
+/**
+    @brief Font class
+    Class represents a font
+    @author Tomasz Huczek & Andrzej Jasiñski <thuczek@gmail.com>
+ */
 class bFont
 {
 	struct font_coords { float sx, sy, ex, ey; };
@@ -16,11 +32,12 @@ public:
 	bFont();
 	virtual ~bFont();
 
+    /// load font from graphics file
 	bool load( const char * filename );
     bool load( uint8 * data, uint32 w, uint32 h );
 	void release();
 
-	//! Updates fonts metrics. It must be called after calling Create() method!
+	/// Updates fonts metrics. It must be called after calling Create() method!
 	void update();
 
 	uint32 char_width( uint8 character )  const;
@@ -53,5 +70,4 @@ private:
 	bTexture texture;
 };
 
-#endif // __B_FONT_H__
-
+#endif // B_FONT_H

@@ -179,3 +179,12 @@ void bBall::report_collision(int type)
     t_vel.x -= t_vel.x*(dtype*COL_FACTOR);
     t_vel.y -= t_vel.y*(dtype*COL_FACTOR);
 }
+
+void bBall::commit_v()
+{
+    if( t_vel_f ) { 
+        vel = t_vel;
+        vel.ifzero();
+        t_vel_f = false; 
+    } 
+}

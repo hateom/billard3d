@@ -21,6 +21,8 @@
 #define GetBoard bBoard::get_singleton()
 
 /**
+    @brief Board class
+    Defines a board class and usefull methods
 	@author Tomasz Huczek & Andrzej Jasiñski <thuczek@gmail.com>
 */
 class bBoard : public bSingleton<bBoard>
@@ -29,6 +31,7 @@ public:
     bBoard();
     virtual ~bBoard();
 
+    /// creates board
     bool create();
     void release();
     void process( bFpsTimer * fps );

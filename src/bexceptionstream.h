@@ -13,9 +13,11 @@
 #define BEXCEPTIONSTREAM_H
 
 /**
+    @brief Exception message formatting class
 	@author Tomasz Huczek & Andrzej Jasiñski <thuczek@gmail.com>
 */
-class bExceptionStream{
+class bExceptionStream
+{
 public:
     bExceptionStream();
     bExceptionStream(int isize);

@@ -19,14 +19,19 @@ namespace bUtils {
 //---------------------------------------------------------------------------------------------
     
 /**
-Various utilities
+    Various utilities
 
 	@author Tomasz Huczek & Andrzej Jasiñski <thuczek@gmail.com>
 */
 
 //---------------------------------------------------------------------------------------------
 
-/// string copy - should be released by `delete []'
+/**
+    Makes a string copy
+    @param src input string to duplicate
+    @returns a copy of input string
+    @warning should be released by `delete []'
+*/
 char * scpy( const char * src );
 
 }
