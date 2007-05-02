@@ -15,6 +15,9 @@
 #include "btypes.h"
 
 /**
+    @brief EventListener interface
+    This class defines event listener. Every object derived from this
+    class can receive input events
 	@author Tomasz Huczek & Andrzej Jasiñski <thuczek@gmail.com>
 */
 class bEventListener

@@ -15,7 +15,8 @@
 /**
 	@author Tomasz Huczek & Andrzej Jasiñski <thuczek@gmail.com>
 */
-class bLUTable{
+class bLUTable
+{
 public:
     bLUTable();
     ~bLUTable();

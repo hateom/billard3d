@@ -1,5 +1,17 @@
-#ifndef __B_PROFILER_H__
-#define __B_PROFILER_H__
+/***************************************************************************
+ *   Copyright (C) 2007 by                                       *
+ *                                                                  *
+ *                                                                         *
+ *   This program is free software; you can redistribute it and/or modify  *
+ *   it under the terms of the GNU Library General Public License as       *
+ *   published by the Free Software Foundation; either version 2 of the    *
+ *   License, or (at your option) any later version.                       *
+ *                                                                         *
+ ***************************************************************************/
+
+
+#ifndef B_PROFILER_H
+#define B_PROFILER_H
 
 #include "btypes.h"
 #include "bsingleton.h"
@@ -9,6 +21,9 @@
 
 #define Profiler bProfiler::get_singleton()
 
+/**
+    @author Tomasz Huczek & Andrzej Jasiñski <thuczek@gmail.com>
+ */
 class bProfiler: public bSingleton<bProfiler>
 {
 	struct pSample
@@ -59,4 +74,4 @@ private:
 	bool opened;
 };
 
-#endif // __B_PROFILER_H__
+#endif // B_PROFILER_H

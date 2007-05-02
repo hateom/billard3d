@@ -15,25 +15,28 @@
 #include "bexceptionstream.h"
 
 /**
+    @brief Default Exception class
+    Defines standard exception class with useful methods
 	@author Tomasz Huczek & Andrzej Jasiñski <thuczek@gmail.com>
 */
-class bException {
-    public:
-        bException( const char * file, int line, const char * expr, bExceptionStream & estrm );
-        bException( const char * file, int line, const char * expr );
-        bException( const bException & e );
-        virtual ~bException();
+class bException 
+{
+public:
+    bException( const char * file, int line, const char * expr, bExceptionStream & estrm );
+    bException( const char * file, int line, const char * expr );
+    bException( const bException & e );
+    virtual ~bException();
     
-        int get_line();
-        const char * get_msg();
-        const char * get_expr();
-        const char * get_file();
+    int get_line();
+    const char * get_msg();
+    const char * get_expr();
+    const char * get_file();
     
-        const char * format();
+    const char * format();
     
-    private:
-        char * file, * expr, * msg;
-        int line;
+private:
+    char * file, * expr, * msg;
+    int line;
 };
 
 #endif

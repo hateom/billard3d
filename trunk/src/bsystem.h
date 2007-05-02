@@ -32,7 +32,19 @@
 class bSystem
 {
 public:
+    
+    /**
+     * Initializing function - must be called at the very beginning
+     * @param argc main func argc argument
+     * @param argv[] main func argv argument
+     * @return true if all is ok
+     */
     static bool init( int argc, char *argv[] );
+    
+    
+    /**
+     * Releases system resources - must be called before quiting
+     */
     static void release();
     
 public:

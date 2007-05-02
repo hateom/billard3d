@@ -10,41 +10,38 @@
 #ifndef BFPSTIMER_H
 #define BFPSTIMER_H
 
-//---------------------------------------------------------------------------------------------
-
 #include "bsingleton.h"
-
-//---------------------------------------------------------------------------------------------
 
 #define GetFps bFpsTimer::get_singleton()
 
 /**
+    @brief FPS class
+    Class calculates @b FramesPerSeconds
+    @warning @b clalc() must be called in every frame
 	@author Tomasz Huczek & Andrzej Jasiñski <thuczek@gmail.com>
 */
-class bFpsTimer: public bSingleton<bFpsTimer> {
+class bFpsTimer: public bSingleton<bFpsTimer> 
+{
 public:
     bFpsTimer();
     ~bFpsTimer();
 
+    /// recalculates fps
     unsigned int calc();
-    unsigned int fps() { return frames; }
     
-    inline double factor() { 
+    /// @returns fps
+    inline unsigned int fps() const { return frames; }
+    
+    /// @returns 1.0/fps
+    inline double factor() const { 
         return !frames?0.0:1.0/((double)frames); 
         //return 0.006;
     }
 
-/*
-    inline double factor() {
-        return (t2.tv_usec - t1.tv_usec)*0.0001;
-    }
-*/    
 private:
     unsigned int ms;
     unsigned int frames;
     unsigned int curr_frames;
 };
-
-//---------------------------------------------------------------------------------------------
 
 #endif

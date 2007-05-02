@@ -12,17 +12,14 @@
 #ifndef BBALLMGR_H
 #define BBALLMGR_H
 
-//---------------------------------------------------------------------------------------------
-
 /**
 	@author Tomasz Huczek <tomasz.huczek@gmail.com>
 */
-class bBallMgr{
+class bBallMgr
+{
 public:
     bBallMgr();
     ~bBallMgr();
 };
-
-//---------------------------------------------------------------------------------------------
 
 #endif

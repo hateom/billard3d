@@ -1,12 +1,29 @@
-#ifndef __B_TEXTURE_H__
-#define __B_TEXTURE_H__
+/***************************************************************************
+ *   Copyright (C) 2007 by                                       *
+ *                                                                  *
+ *                                                                         *
+ *   This program is free software; you can redistribute it and/or modify  *
+ *   it under the terms of the GNU Library General Public License as       *
+ *   published by the Free Software Foundation; either version 2 of the    *
+ *   License, or (at your option) any later version.                       *
+ *                                                                         *
+ ***************************************************************************/
+
+#ifndef B_TEXTURE_H
+#define B_TEXTURE_H
 
 #include "btypes.h"
 #include "bassert.h"
 
 struct SDL_Surface;
 
-class bTexture {
+/**
+    @brief Texture object
+    Class used for loading images into OpenGL textures
+    @author Tomasz Huczek & Andrzej Jasiñski <thuczek@gmail.com>
+ */
+class bTexture 
+{
 public:
 	bTexture();
 	bTexture( const char * filename );
@@ -29,4 +46,4 @@ protected:
 	unsigned int tex_id;
 };
 
-#endif // __B_TEXTURE_H__
+#endif // B_TEXTURE_H

@@ -15,6 +15,10 @@
 #include "bassert.h"
 
 /**
+    @brief Exceptions trace system
+    Some macros used to create full tracing system. Every traced method
+    should begins with @b guard and the last instruction must be @b unguard
+    @warning unguard should be inserted after @b return statement!
 	@author Tomasz Huczek & Andrzej Jasiñski <thuczek@gmail.com>
 */
 
@@ -38,8 +42,19 @@
 #endif
 
 namespace bTrace {
+    /**
+        Initialize tracing system
+    */
     void init();
+    
+    /**
+        Report trace error
+    */
     void add_error_trace( const char * msg );
+    
+    /**
+        Dump trace information into file (debug mode only)
+    */
 	void dump();
 }
 

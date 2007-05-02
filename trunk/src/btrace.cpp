@@ -11,60 +11,7 @@
 
 #include "btrace.h"
 #include "bpath.h"
-#include <vector>
-
-class bErrorTrace {
-public:
-    bErrorTrace() {}
-    ~bErrorTrace()
-    {
-        Free();
-    }
-
-    bool AddError( const char * istr )
-    {
-        if( !istr ) return( false );
-
-        char * str = new char[strlen(istr)+1];
-        strcpy( str, istr );
-        list.push_back( str );
-
-        return( true );
-    }
-
-    void PrintOutput()
-    {
-        if( list.size() == 0 ) return;
-
-        FILE * file = fopen( GETPATH("debug_log.txt"), "w" );
-        fprintf( file, "Debug Log - Error Tracer\n\n" );
-        fprintf( file, "+Start Tracing\n" );
-        int tab = 1;
-        for( int i=(int)list.size()-1; i>=0; --i ) {
-            fprintf( file, "+" );
-            for(int k=0; k<tab; ++k) fprintf( file, "-" );
-            fprintf( file, "%s", list[i]?list[i]:"???" );
-            fprintf( file, "\n" );
-            tab++;
-        }
-        fprintf( file, "+" );
-        for(int k=0; k<tab; ++k) fprintf( file, "-" );
-        fprintf( file, "Crash!!!" );
-        fclose( file );
-    }
-
-    void Free()
-    {
-        for( unsigned int i=0; i<list.size(); ++i )
-        {
-            delete [] list[i];
-        }
-        list.clear();
-    }
-
-private:
-    std::vector<char*> list;
-};
+#include "berrortrace.h"
 
 namespace bTrace {
 
@@ -78,13 +25,13 @@ void init()
     
 void add_error_trace(const char * msg)
 {
-    if( errTrace ) errTrace->AddError( msg );
+    if( errTrace ) errTrace->add_error( msg );
 }
 
 void dump()
 {
 #ifdef DEBUG
-	if( errTrace ) errTrace->PrintOutput();
+	if( errTrace ) errTrace->print_output();
 #endif
 }
 

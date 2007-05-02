@@ -24,6 +24,11 @@ public:
     virtual ~bLogicLayer();
 
     virtual void update() = 0;
+    
+    /**
+     * @return true if layer is in exclusive mode - bottom layers
+     *         won't receive input messages
+     */
     bool is_exclusive() const;
     
 private:

@@ -12,16 +12,15 @@
 #ifndef BVECTOR_H
 #define BVECTOR_H
 
-//---------------------------------------------------------------------------------------------
-
 #include <iostream>
 
-//---------------------------------------------------------------------------------------------
-
 /**
+    @brief 2D Vector Class
+    Defines mathematical two dimension vector
 	@author Tomasz Huczek <tomasz.huczek@gmail.com>
 */
-class bVector{
+class bVector
+{
 public:
     bVector();
     bVector( double x, double y );
@@ -29,7 +28,6 @@ public:
     bVector( bVector * ptr );
     ~bVector() {}
     
-    //bVector & operator=( bVector rhs );
     bVector operator=( bVector rhs );
     bVector & operator=( double val );
 

@@ -17,12 +17,12 @@
 #include "bballmgr.h"
 #include "bfpstimer.h"
 
-//---------------------------------------------------------------------------------------------
-
 /**
+    @brief Drawing system
 	@author Tomasz Huczek <tomasz.huczek@gmail.com>
 */
-class bDraw{
+class bDraw
+{
 public:
     bDraw();
     ~bDraw();
