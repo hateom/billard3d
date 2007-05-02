@@ -29,10 +29,6 @@ void bPauseLogicLayer::update()
 
 void bPauseLogicLayer::on_key_down(uint32 key)
 {
-}
-
-void bPauseLogicLayer::on_key_up(uint32 key)
-{
     switch(key) {
         case SDLK_ESCAPE:
             GetStateMachine.go_to( BS_SIMULATION );
@@ -41,5 +37,9 @@ void bPauseLogicLayer::on_key_up(uint32 key)
             GetStateMachine.go_to( BS_QUIT );
             break;
     }
+}
+
+void bPauseLogicLayer::on_key_up(uint32 key)
+{
 }
 

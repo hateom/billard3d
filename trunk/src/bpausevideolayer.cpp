@@ -48,6 +48,9 @@ void bPauseVideoLayer::draw()
     
     glEnable( GL_TEXTURE_2D );
     
-    PRINT( 250, 200, B_FONT_LIGHT, "PAUSE (press Q to quit)" );
+    PRINTB( 330, 200, B_FONT_LIGHT, "PAUSE" );
+    
+    PRINTB( 250, 260, B_FONT_LIGHT, "Q - quit" );
+    PRINTB( 250, 300, B_FONT_LIGHT, "ESC - back to the game" );
 }
 

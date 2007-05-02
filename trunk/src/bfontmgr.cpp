@@ -4,6 +4,7 @@
 
 #include "font01.h"
 #include "font02.h"
+#include "font03.h"
 
 bFontMgr::bFontMgr() : bSingleton<bFontMgr>(), def_loaded(false)
 {
@@ -25,6 +26,10 @@ bool bFontMgr::init()
     if( !def_small.load( (uint8*)bFontData::font_small_data, 
         bFontData::font_small_width,
         bFontData::font_small_height )) return false;
+    
+    if( !def_big.load( (uint8*)bFontData::font_big_data, 
+        bFontData::font_big_width,
+        bFontData::font_big_height )) return false;
 
     return def_loaded=true;
     
@@ -38,6 +43,7 @@ void bFontMgr::release()
 	if( def_loaded ) {
         def.release();
 		def_small.release();
+        def_big.release();
         def_loaded = false;
     }
     
@@ -54,6 +60,8 @@ bFont & bFontMgr::get_font( int font )
 		return def;
 	} else if( font == B_SMALL_FONT ) {
 		return def_small;
+    } else if( font == B_BIG_FONT ) {
+        return def_big;
 	} else {
 		BASSERTM( 0, "Wrong font type!" );
 	}

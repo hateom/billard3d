@@ -14,6 +14,7 @@
 
 #include "bband.h"
 #include "bvector.h"
+#include "bsdl.h"
 
 /**
     @brief Ball object
@@ -73,6 +74,8 @@ public:
     
     bVector t_vel;   ///< temporary velocity
     bool    t_vel_f; ///< is temporary velocity set
+    
+    GLUquadricObj * sphere_obj;
 };
 
 //---------------------------------------------------------------------------------------------

@@ -28,6 +28,8 @@ bool bSDLSystem::update()
 {
     SDL_Event event;
 
+    SDL_Delay(10);
+    
     while( SDL_PollEvent( &event ) ) {
 
         switch( event.type ) {
