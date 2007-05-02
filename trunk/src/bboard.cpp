@@ -220,7 +220,7 @@ void bBoard::commit_reflections()
             b2 = ball[j];
             if( i!=j && luball.at(i,j) != 0 ) {
                 BLOG( ">> collision %d with %d\n", i, j );
-                std::cout << luball;
+                //std::cout << luball;
                 v += b1->collision( b2 );
                 flag++;
             }

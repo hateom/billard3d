@@ -27,7 +27,8 @@ bool bSystem::init(int argc, char *argv[] )
     try {
         bTrace::init();
         profiler_sys.init();   
-        log_sys.set_state(true);
+        //log_sys.set_state(true);
+        log_sys.set_state(false);
         path_sys.init(argv[0]);
     } catch( ... ) {
         release();

@@ -67,7 +67,7 @@ void bBall::draw()
     glPushMatrix();
     glTranslated( pos.x, 0.0, pos.y );
     glColor3f( r, g, b );
-    gluSphere(sphere_obj, radius, 8, 8);
+    gluSphere(sphere_obj, radius, 16, 16);
     glPopMatrix();
 }
 
