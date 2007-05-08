@@ -2,6 +2,7 @@
 #include "bassert.h"
 #include "bsdl.h"
 #include "btrace.h"
+#include "blogger.h"
 
 bTexture::bTexture() : surface(0), tex_id(0)
 {
@@ -112,8 +113,18 @@ void bTexture::build_texture(SDL_Surface * s)
     glTexParameteri( GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR_MIPMAP_LINEAR );
     glTexParameteri( GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR_MIPMAP_LINEAR );
 
-    gluBuild2DMipmaps(GL_TEXTURE_2D,3,s->w, s->h,GL_BGR_EXT,
-    GL_UNSIGNED_BYTE, s->pixels );
+//	if( compression_allowed() ) {
+//		glTexImage2D( GL_TEXTURE_2D, 0, GL_COMPRESSED_RGB_S3TC_DXT1_EXT, s->w, s->h, 0,
+//		GL_RGB, GL_UNSIGNED_BYTE, s->pixels);
+//		BLOG( ":: creating compressed texture\n" );
+//	} else {
+		gluBuild2DMipmaps(GL_TEXTURE_2D,3,s->w, s->h,GL_BGR_EXT, GL_UNSIGNED_BYTE, s->pixels );
+//	}
     
     unguard;
+}
+
+bool bTexture::compression_allowed()
+{
+	return glewIsExtensionSupported("GL_EXT_texture_compression_s3tc") == TRUE;
 }

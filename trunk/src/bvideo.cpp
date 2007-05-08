@@ -80,6 +80,7 @@ bool bVideo::setup(uint32 scr_w, uint32 scr_h, uint32 depth, bool fs)
     glEnable( GL_DEPTH_TEST );
     
     bLightMgr::set_defaults();
+	glewInit();
     
     status = true;
     return true;

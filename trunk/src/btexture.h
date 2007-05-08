@@ -39,8 +39,11 @@ public:
 	uint32 height() const;
 	uint8 * data() const;
 
+public:
+	static bool compression_allowed();
+
 protected:
-    void build_texture( SDL_Surface * s );
+	void build_texture( SDL_Surface * s );
     
 	SDL_Surface * surface;
 	unsigned int tex_id;

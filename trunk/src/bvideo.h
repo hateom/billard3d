@@ -35,6 +35,9 @@ public:
     
     void set_matrix_2d( uint32 w=0, uint32 h=0 );
     void set_matrix_3d( uint32 w=0, uint32 h=0 );
+
+public:
+	inline bool up_and_running() const { return status; }
    
 private:
     bFpsTimer g_fps_timer;
