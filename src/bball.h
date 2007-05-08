@@ -14,7 +14,7 @@
 
 #include "bband.h"
 #include "bvector.h"
-#include "bsdl.h"
+#include "bgl.h"
 
 /**
     @brief Ball object

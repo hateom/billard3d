@@ -33,7 +33,7 @@ Assertion managing unit
 
 #ifdef DEBUG
 #define BASSERTM( EXPR, MSG ) if( !(EXPR) ) { \
-            static bExceptionStream exp_strm;\
+            static bStream exp_strm;\
             exp_strm << MSG;\
             throw bException( \
             __FILE__, __LINE__, #EXPR, exp_strm ); }

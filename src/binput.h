@@ -12,8 +12,7 @@
 #ifndef BINPUT_H
 #define BINPUT_H
 
-#include <vector>
-#include "bsdl.h"
+#include "blockvector.h"
 #include "bsingleton.h"
 #include "bassert.h"
 #include "beventlistener.h"
@@ -23,7 +22,7 @@
 */
 class bInput : public bSingleton<bInput>
 {
-    typedef std::vector<bEventListener*> bEventListenerVector;
+    typedef bLockVector<bEventListener*> bEventListenerVector;
 public:
     bInput();
     virtual ~bInput();
@@ -36,10 +35,8 @@ public:
     void call_event_key_up( uint32 key );
     
 private:
-    void synchronize_backup();
     bEventListenerVector list;
-    bEventListenerVector backup_list;
-    bool lock;
+    bool is_locked;
 };
 
 #endif
