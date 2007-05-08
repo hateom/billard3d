@@ -61,7 +61,7 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalDependencies="SDL.lib OPENGL32.lib GLU32.lib"
+				AdditionalDependencies="SDL.lib OPENGL32.lib GLU32.lib glew32.lib"
 				OutputFile="bin/b3d_debug.exe"
 				LinkIncremental="2"
 				GenerateDebugInformation="true"
@@ -137,7 +137,7 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalDependencies="SDL.lib OPENGL32.lib GLU32.lib"
+				AdditionalDependencies="SDL.lib OPENGL32.lib GLU32.lib glew32.lib"
 				OutputFile="bin/b3d.exe"
 				LinkIncremental="1"
 				GenerateDebugInformation="true"
@@ -176,8 +176,8 @@
 	</References>
 	<Files>
 		<Filter
-			Name="Source Files"
-			Filter="cpp;c;cxx;def;odl;idl;hpj;bat;asm;asmx"
+			Name="Sources"
+			Filter="cpp;c;h;cxx;def;odl;idl;hpj;bat;asm;asmx"
 			UniqueIdentifier="{4FC737F1-C7A5-4376-A066-2A32D752A2FF}"
 			>
 			<File
@@ -185,169 +185,11 @@
 				>
 			</File>
 			<File
-				RelativePath="..\src\bassert.cpp"
-				>
-			</File>
-			<File
-				RelativePath="..\src\bautoeventlistener.cpp"
-				>
-			</File>
-			<File
-				RelativePath="..\src\bball.cpp"
-				>
-			</File>
-			<File
-				RelativePath="..\src\bband.cpp"
-				>
-			</File>
-			<File
-				RelativePath="..\src\bboard.cpp"
-				>
-			</File>
-			<File
-				RelativePath="..\src\bconfig.cpp"
-				>
-			</File>
-			<File
-				RelativePath="..\src\bconfigreader.cpp"
-				>
-			</File>
-			<File
-				RelativePath="..\src\bdraw.cpp"
-				>
-			</File>
-			<File
-				RelativePath="..\src\berrortrace.cpp"
-				>
-			</File>
-			<File
-				RelativePath="..\src\beventlistener.cpp"
-				>
-			</File>
-			<File
-				RelativePath="..\src\bexception.cpp"
-				>
-			</File>
-			<File
-				RelativePath="..\src\bfont.cpp"
-				>
-			</File>
-			<File
-				RelativePath="..\src\bfontmgr.cpp"
-				>
-			</File>
-			<File
-				RelativePath="..\src\bfpstimer.cpp"
-				>
-			</File>
-			<File
-				RelativePath="..\src\billard3d.cpp"
-				>
-			</File>
-			<File
-				RelativePath="..\src\binput.cpp"
-				>
-			</File>
-			<File
-				RelativePath="..\src\blightmgr.cpp"
-				>
-			</File>
-			<File
-				RelativePath="..\src\blockvector.cpp"
-				>
-			</File>
-			<File
-				RelativePath="..\src\blogger.cpp"
-				>
-			</File>
-			<File
-				RelativePath="..\src\blogiclayer.cpp"
-				>
-			</File>
-			<File
-				RelativePath="..\src\blutable.cpp"
-				>
-			</File>
-			<File
-				RelativePath="..\src\bmainloop.cpp"
-				>
-			</File>
-			<File
-				RelativePath="..\src\bpath.cpp"
-				>
-			</File>
-			<File
-				RelativePath="..\src\bpauselogiclayer.cpp"
-				>
-			</File>
-			<File
-				RelativePath="..\src\bpausevideolayer.cpp"
-				>
-			</File>
-			<File
-				RelativePath="..\src\bprofiler.cpp"
-				>
-			</File>
-			<File
-				RelativePath="..\src\bsdlsystem.cpp"
-				>
-			</File>
-			<File
-				RelativePath="..\src\bsimlogiclayer.cpp"
-				>
-			</File>
-			<File
-				RelativePath="..\src\bsimvideolayer.cpp"
-				>
-			</File>
-			<File
-				RelativePath="..\src\bsingleton.cpp"
-				>
-			</File>
-			<File
-				RelativePath="..\src\bstatemachine.cpp"
-				>
-			</File>
-			<File
-				RelativePath="..\src\bstream.cpp"
-				>
-			</File>
-			<File
-				RelativePath="..\src\bsystem.cpp"
-				>
-			</File>
-			<File
-				RelativePath="..\src\btexture.cpp"
-				>
-			</File>
-			<File
-				RelativePath="..\src\btrace.cpp"
-				>
-			</File>
-			<File
-				RelativePath="..\src\butils.cpp"
-				>
-			</File>
-			<File
-				RelativePath="..\src\bvector.cpp"
-				>
-			</File>
-			<File
-				RelativePath="..\src\bvideo.cpp"
-				>
-			</File>
-			<File
-				RelativePath="..\src\bvideolayer.cpp"
-				>
-			</File>
-		</Filter>
-		<Filter
-			Name="Header Files"
-			Filter="h;hpp;hxx;hm;inl;inc;xsd"
-			UniqueIdentifier="{93995380-89BD-4b04-88EB-625FBE52EBFB}"
-			>
-			<File
 				RelativePath="..\src\bargmgr.h"
+				>
+			</File>
+			<File
+				RelativePath="..\src\bassert.cpp"
 				>
 			</File>
 			<File
@@ -355,7 +197,15 @@
 				>
 			</File>
 			<File
+				RelativePath="..\src\bautoeventlistener.cpp"
+				>
+			</File>
+			<File
 				RelativePath="..\src\bautoeventlistener.h"
+				>
+			</File>
+			<File
+				RelativePath="..\src\bball.cpp"
 				>
 			</File>
 			<File
@@ -363,7 +213,15 @@
 				>
 			</File>
 			<File
+				RelativePath="..\src\bband.cpp"
+				>
+			</File>
+			<File
 				RelativePath="..\src\bband.h"
+				>
+			</File>
+			<File
+				RelativePath="..\src\bboard.cpp"
 				>
 			</File>
 			<File
@@ -371,7 +229,15 @@
 				>
 			</File>
 			<File
+				RelativePath="..\src\bconfig.cpp"
+				>
+			</File>
+			<File
 				RelativePath="..\src\bconfig.h"
+				>
+			</File>
+			<File
+				RelativePath="..\src\bconfigreader.cpp"
 				>
 			</File>
 			<File
@@ -379,7 +245,15 @@
 				>
 			</File>
 			<File
+				RelativePath="..\src\bdraw.cpp"
+				>
+			</File>
+			<File
 				RelativePath="..\src\bdraw.h"
+				>
+			</File>
+			<File
+				RelativePath="..\src\berrortrace.cpp"
 				>
 			</File>
 			<File
@@ -387,7 +261,15 @@
 				>
 			</File>
 			<File
+				RelativePath="..\src\beventlistener.cpp"
+				>
+			</File>
+			<File
 				RelativePath="..\src\beventlistener.h"
+				>
+			</File>
+			<File
+				RelativePath="..\src\bexception.cpp"
 				>
 			</File>
 			<File
@@ -395,11 +277,23 @@
 				>
 			</File>
 			<File
+				RelativePath="..\src\bfont.cpp"
+				>
+			</File>
+			<File
 				RelativePath="..\src\bfont.h"
 				>
 			</File>
 			<File
+				RelativePath="..\src\bfontmgr.cpp"
+				>
+			</File>
+			<File
 				RelativePath="..\src\bfontmgr.h"
+				>
+			</File>
+			<File
+				RelativePath="..\src\bfpstimer.cpp"
 				>
 			</File>
 			<File
@@ -411,7 +305,19 @@
 				>
 			</File>
 			<File
+				RelativePath="..\src\billard3d.cpp"
+				>
+			</File>
+			<File
+				RelativePath="..\src\binput.cpp"
+				>
+			</File>
+			<File
 				RelativePath="..\src\binput.h"
+				>
+			</File>
+			<File
+				RelativePath="..\src\blightmgr.cpp"
 				>
 			</File>
 			<File
@@ -419,7 +325,15 @@
 				>
 			</File>
 			<File
+				RelativePath="..\src\blockvector.cpp"
+				>
+			</File>
+			<File
 				RelativePath="..\src\blockvector.h"
+				>
+			</File>
+			<File
+				RelativePath="..\src\blogger.cpp"
 				>
 			</File>
 			<File
@@ -427,7 +341,15 @@
 				>
 			</File>
 			<File
+				RelativePath="..\src\blogiclayer.cpp"
+				>
+			</File>
+			<File
 				RelativePath="..\src\blogiclayer.h"
+				>
+			</File>
+			<File
+				RelativePath="..\src\blutable.cpp"
 				>
 			</File>
 			<File
@@ -435,7 +357,15 @@
 				>
 			</File>
 			<File
+				RelativePath="..\src\bmainloop.cpp"
+				>
+			</File>
+			<File
 				RelativePath="..\src\bmainloop.h"
+				>
+			</File>
+			<File
+				RelativePath="..\src\bpath.cpp"
 				>
 			</File>
 			<File
@@ -443,11 +373,23 @@
 				>
 			</File>
 			<File
+				RelativePath="..\src\bpauselogiclayer.cpp"
+				>
+			</File>
+			<File
 				RelativePath="..\src\bpauselogiclayer.h"
 				>
 			</File>
 			<File
+				RelativePath="..\src\bpausevideolayer.cpp"
+				>
+			</File>
+			<File
 				RelativePath="..\src\bpausevideolayer.h"
+				>
+			</File>
+			<File
+				RelativePath="..\src\bprofiler.cpp"
 				>
 			</File>
 			<File
@@ -459,7 +401,15 @@
 				>
 			</File>
 			<File
+				RelativePath="..\src\bsdlsystem.cpp"
+				>
+			</File>
+			<File
 				RelativePath="..\src\bsdlsystem.h"
+				>
+			</File>
+			<File
+				RelativePath="..\src\bsimlogiclayer.cpp"
 				>
 			</File>
 			<File
@@ -467,7 +417,15 @@
 				>
 			</File>
 			<File
+				RelativePath="..\src\bsimvideolayer.cpp"
+				>
+			</File>
+			<File
 				RelativePath="..\src\bsimvideolayer.h"
+				>
+			</File>
+			<File
+				RelativePath="..\src\bsingleton.cpp"
 				>
 			</File>
 			<File
@@ -475,7 +433,15 @@
 				>
 			</File>
 			<File
+				RelativePath="..\src\bstatemachine.cpp"
+				>
+			</File>
+			<File
 				RelativePath="..\src\bstatemachine.h"
+				>
+			</File>
+			<File
+				RelativePath="..\src\bstream.cpp"
 				>
 			</File>
 			<File
@@ -483,11 +449,23 @@
 				>
 			</File>
 			<File
+				RelativePath="..\src\bsystem.cpp"
+				>
+			</File>
+			<File
 				RelativePath="..\src\bsystem.h"
 				>
 			</File>
 			<File
+				RelativePath="..\src\btexture.cpp"
+				>
+			</File>
+			<File
 				RelativePath="..\src\btexture.h"
+				>
+			</File>
+			<File
+				RelativePath="..\src\btrace.cpp"
 				>
 			</File>
 			<File
@@ -499,7 +477,15 @@
 				>
 			</File>
 			<File
+				RelativePath="..\src\butils.cpp"
+				>
+			</File>
+			<File
 				RelativePath="..\src\butils.h"
+				>
+			</File>
+			<File
+				RelativePath="..\src\bvector.cpp"
 				>
 			</File>
 			<File
@@ -507,7 +493,15 @@
 				>
 			</File>
 			<File
+				RelativePath="..\src\bvideo.cpp"
+				>
+			</File>
+			<File
 				RelativePath="..\src\bvideo.h"
+				>
+			</File>
+			<File
+				RelativePath="..\src\bvideolayer.cpp"
 				>
 			</File>
 			<File
