@@ -13,7 +13,7 @@
 #include "butils.h"
 #include "bexception.h"
 
-bException::bException( const char * ifile, int iline, const char * iexpr, bExceptionStream & estrm )
+bException::bException( const char * ifile, int iline, const char * iexpr, bStream & estrm )
     : line(iline)
 {
     file = bUtils::scpy( ifile );
@@ -73,5 +73,3 @@ const char * bException::format()
     
     return buffer;
 }
-
-

@@ -9,26 +9,26 @@
  *                                                                         *
  ***************************************************************************/
 
-#ifndef BEXCEPTIONSTREAM_H
-#define BEXCEPTIONSTREAM_H
+#ifndef BSTREAM_H
+#define BSTREAM_H
 
 /**
-    @brief Exception message formatting class
+    @brief Stream message formatting class
 	@author Tomasz Huczek & Andrzej Jasiñski <thuczek@gmail.com>
 */
-class bExceptionStream
+class bStream
 {
 public:
-    bExceptionStream();
-    bExceptionStream(int isize);
-    virtual ~bExceptionStream();
+    bStream();
+    bStream(int isize);
+    virtual ~bStream();
 
-    bExceptionStream &operator <<( char * str );
-    bExceptionStream &operator <<( const char * str );
-    bExceptionStream &operator <<( int val );
-    bExceptionStream &operator <<( float val );
-    bExceptionStream &operator <<( double val );
-    bExceptionStream &operator <<( char c );
+    bStream &operator <<( char * str );
+    bStream &operator <<( const char * str );
+    bStream &operator <<( int val );
+    bStream &operator <<( float val );
+    bStream &operator <<( double val );
+    bStream &operator <<( char c );
 
     const char * get_str() const;
     

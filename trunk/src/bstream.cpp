@@ -9,42 +9,42 @@
  *                                                                         *
  ***************************************************************************/
 
-#include "bexceptionstream.h"
+#include "bstream.h"
 #include <string>
 
 #define DEF_SIZE 1024
 
-bExceptionStream::bExceptionStream() : size(DEF_SIZE) 
+bStream::bStream() : size(DEF_SIZE) 
 { 
     buffer = new char[DEF_SIZE]; 
     memset(buffer,0,DEF_SIZE*sizeof(char));
 }
 
-bExceptionStream::bExceptionStream(int isize) : size(isize) 
+bStream::bStream(int isize) : size(isize) 
 {
     buffer = new char[isize]; 
     memset(buffer,0,isize*sizeof(char));
 }
 
-bExceptionStream::~bExceptionStream()
+bStream::~bStream()
 { 
     delete [] buffer; 
     buffer = 0; 
     size = 0; 
 }
 
-bExceptionStream& bExceptionStream::operator <<( char * str )
+bStream& bStream::operator <<( char * str )
 {
     strcat(buffer, str); return *this; 
 }
 
-bExceptionStream& bExceptionStream::operator <<( const char * str ) 
+bStream& bStream::operator <<( const char * str ) 
 { 
     strcat(buffer, str); 
     return *this; 
 }
 
-bExceptionStream& bExceptionStream::operator <<( int val ) 
+bStream& bStream::operator <<( int val ) 
 { 
     static char temp[32]=""; 
     sprintf(temp,"%d",val);
@@ -52,7 +52,7 @@ bExceptionStream& bExceptionStream::operator <<( int val )
     return *this; 
 }
 
-bExceptionStream& bExceptionStream::operator <<( float val ) 
+bStream& bStream::operator <<( float val ) 
 { 
     static char temp[32]=""; 
     sprintf(temp,"%f",val);
@@ -60,7 +60,7 @@ bExceptionStream& bExceptionStream::operator <<( float val )
     return *this; 
 }
 
-bExceptionStream& bExceptionStream::operator <<( double val ) 
+bStream& bStream::operator <<( double val ) 
 { 
     static char temp[32]=""; 
     sprintf(temp,"%f",val);
@@ -68,7 +68,7 @@ bExceptionStream& bExceptionStream::operator <<( double val )
     return *this; 
 }
 
-bExceptionStream& bExceptionStream::operator <<( char c ) 
+bStream& bStream::operator <<( char c ) 
 { 
     static char temp[32]=""; 
     sprintf(temp,"%c",c);
@@ -76,7 +76,7 @@ bExceptionStream& bExceptionStream::operator <<( char c )
     return *this; 
 }
 
-const char * bExceptionStream::get_str() const 
+const char * bStream::get_str() const 
 { 
     return buffer; 
 }

@@ -14,7 +14,7 @@
 #include "blogger.h"
 
 bInput::bInput()
- : bSingleton<bInput>(), lock(false)
+ : bSingleton<bInput>()
 {
 }
 
@@ -27,11 +27,7 @@ bInput::~bInput()
 bool bInput::register_listener(bEventListener * listener)
 {
     BLOG( "-- registering event listener (%d)\n", (long)listener );
-    if( !lock ) {
-        list.push_back( listener );
-    } else {
-        backup_list.push_back( listener );   
-    }
+	list.push_back( listener );
     return true;
 }
 
@@ -61,14 +57,13 @@ void bInput::call_event_key_down(uint32 key)
 {
     guard(bInput::call_event_key_down);
     
-    lock = true;
+    list.lock();
     
     for( bEventListenerVector::iterator it = list.begin(); it != list.end(); ++it ) {
         (*it)->on_key_down( key );
     }
     
-    lock = false;
-    synchronize_backup();
+    list.unlock();
     
     unguard;
 }
@@ -79,25 +74,14 @@ void bInput::call_event_key_up(uint32 key)
     
     BLOG( "-- call_event_key_up %d\n", list.size() );
     
-    lock = true;
+    list.lock();
     
     for( bEventListenerVector::iterator it = list.begin(); it != list.end(); ++it ) {
         BLOG( "-- calling key_up event for (%d)\n", (long)(*it) );
         (*it)->on_key_up( key );
     }
     
-    lock = false;
-    synchronize_backup();
+    list.unlock();
     
     unguard;
-}
-
-void bInput::synchronize_backup()
-{
-    size_t siz = backup_list.size();
-    for( size_t i=0; i<siz; ++i )
-    {
-        list.push_back( backup_list[i] );
-    }
-    backup_list.clear();
 }

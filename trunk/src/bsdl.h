@@ -1,12 +1,7 @@
-#ifndef __B_SDL_H__
-#define __B_SDL_H__
+#ifndef B_SDL_H
+#define B_SDL_H
 
-#ifdef WIN32
-#	include <windows.h>
-#endif
-
-#include <GL/gl.h>
-#include <GL/glu.h>
+#include "bgl.h"
 #include <SDL/SDL.h>
 
-#endif // __B_SDL_H__
+#endif // B_SDL_H

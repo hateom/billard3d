@@ -13,6 +13,7 @@
 #include "bball.h"
 #include "bassert.h"
 #include "btrace.h"
+#include "bsdl.h"
 
 #define COL_FACTOR 0.2
 

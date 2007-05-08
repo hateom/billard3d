@@ -12,7 +12,7 @@
 #ifndef BEXCEPTION_H
 #define BEXCEPTION_H
 
-#include "bexceptionstream.h"
+#include "bstream.h"
 
 /**
     @brief Default Exception class
@@ -22,7 +22,7 @@
 class bException 
 {
 public:
-    bException( const char * file, int line, const char * expr, bExceptionStream & estrm );
+    bException( const char * file, int line, const char * expr, bStream & estrm );
     bException( const char * file, int line, const char * expr );
     bException( const bException & e );
     virtual ~bException();

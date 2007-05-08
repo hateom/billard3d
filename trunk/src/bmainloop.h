@@ -12,7 +12,7 @@
 #ifndef BMAINLOOP_H
 #define BMAINLOOP_H
 
-#include <vector>
+#include "blockvector.h"
 #include "bvideolayer.h"
 #include "blogiclayer.h"
 #include "bsingleton.h"
@@ -25,8 +25,8 @@
 */
 class bMainLoop: public bSingleton<bMainLoop>, public bAutoEventListener
 {
-    typedef std::vector<bVideoLayer*> bVideoLayerList;
-    typedef std::vector<bLogicLayer*> bLogicLayerList;
+    typedef bLockVector<bVideoLayer*> bVideoLayerList;
+    typedef bLockVector<bLogicLayer*> bLogicLayerList;
 public:
     bMainLoop();
     virtual ~bMainLoop();
