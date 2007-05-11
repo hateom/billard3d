@@ -83,7 +83,10 @@ bool bBoard::create()
 	glTexGeni( GL_S, GL_TEXTURE_GEN_MODE, GL_SPHERE_MAP );
 	glTexGeni( GL_T, GL_TEXTURE_GEN_MODE, GL_SPHERE_MAP );
 
-	ball_tex.load( GETPATH("..\\..\\tex\\ball.bmp") );
+	if( !ball_tex.load( GETPATH("../../tex/ball.bmp") ) )
+    {
+        BLOG( "!! Error loading ball texture!\n" );
+    }
 
     return true;
     
