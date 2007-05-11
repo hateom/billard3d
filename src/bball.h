@@ -63,7 +63,8 @@ public:
 public:
     bVector pos,     ///< position vector
             vel,     ///< velocity vector
-            acc;     ///< acceleration vector
+            acc,     ///< acceleration vector
+			phi;	 ///< rotation vector
     
     double radius;   ///< radius of the ball
     double mass;     ///< mass of the ball

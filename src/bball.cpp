@@ -26,11 +26,14 @@ bBall::bBall() : t_vel_f(false)
     acc.zero();
     vel.zero();
     pos.zero();
+	phi.zero();
     t_vel.zero();
     mass = 1.0;
     r = g = b = 0.9f;
     acc.y = 300.0;
     sphere_obj = gluNewQuadric();
+	gluQuadricNormals( sphere_obj, GL_SMOOTH );
+	gluQuadricTexture( sphere_obj, GL_TRUE );
 }
 
 bBall::bBall(bVector ip, bVector iv, bVector ia, 
@@ -66,9 +69,11 @@ void bBall::draw()
     */
     
     glPushMatrix();
-    glTranslated( pos.x, 0.0, pos.y );
-    glColor3f( r, g, b );
-    gluSphere(sphere_obj, radius, 16, 16);
+//		glRotated( (phi.y*3.1415*2.0)/180.0, 0.0f, 0.0f, 1.0f );
+//		glRotated( (phi.x*3.1415*2.0)/180.0, 1.0f, 0.0f, 0.0f );
+		glTranslated( pos.x, 0.0, pos.y );
+		glColor3f( r, g, b );
+		gluSphere(sphere_obj, radius, 16, 16);
     glPopMatrix();
 }
 
@@ -90,12 +95,18 @@ void bBall::process( double fps_factor )
     */
     vel += acc * fps_factor;
     pos += vel * fps_factor;
+
+	phi.x += ( vel.x / radius ) * fps_factor;
+	phi.y += ( vel.y / radius ) * fps_factor;
     
     unguard;
 }
 
 void bBall::unprocess( double fps_factor )
 {
+	phi.x -= ( vel.x / radius ) * fps_factor;
+	phi.y -= ( vel.y / radius ) * fps_factor;
+
     pos -= vel * fps_factor;
     vel -= acc * fps_factor;
 }

@@ -80,9 +80,8 @@ bool bBoard::create()
     
 	glEnable(GL_TEXTURE_2D);
 
-	// tell openGL to generate the texture coords for a sphere map
-	glTexGeni(GL_S,GL_TEXTURE_GEN_MODE,GL_SPHERE_MAP);
-	glTexGeni(GL_T,GL_TEXTURE_GEN_MODE,GL_SPHERE_MAP);
+	glTexGeni( GL_S, GL_TEXTURE_GEN_MODE, GL_SPHERE_MAP );
+	glTexGeni( GL_T, GL_TEXTURE_GEN_MODE, GL_SPHERE_MAP );
 
 	ball_tex.load( GETPATH("..\\..\\tex\\ball.bmp") );
 
