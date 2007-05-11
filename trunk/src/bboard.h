@@ -50,6 +50,7 @@ private:
     bLUTable luband;
 
 	bTexture ball_tex;
+	GLubyte face[6][64][64][3];
 };
 
 #endif
