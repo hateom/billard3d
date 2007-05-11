@@ -17,6 +17,7 @@
 #include "bband.h"
 #include "blutable.h"
 #include "bfpstimer.h"
+#include "btexture.h"
 
 #define GetBoard bBoard::get_singleton()
 
@@ -47,6 +48,8 @@ private:
     
     bLUTable luball;
     bLUTable luband;
+
+	bTexture ball_tex;
 };
 
 #endif

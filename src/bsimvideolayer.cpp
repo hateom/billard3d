@@ -43,8 +43,8 @@ void bSimVideoLayer::draw()
                0.0, 1.0, 1.0 );
     
     Profiler.begin("ball_mgr::draw");
-        //glDisable( GL_TEXTURE_2D );
-		glEnable( GL_TEXTURE_2D );
+        glDisable( GL_TEXTURE_2D );
+		//glEnable( GL_TEXTURE_2D );
         GetBoard.draw();
     Profiler.end("ball_mgr::draw");
     
