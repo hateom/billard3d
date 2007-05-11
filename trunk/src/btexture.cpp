@@ -126,5 +126,5 @@ void bTexture::build_texture(SDL_Surface * s)
 
 bool bTexture::compression_allowed()
 {
-	return glewIsExtensionSupported("GL_EXT_texture_compression_s3tc") == TRUE;
+	return glewIsExtensionSupported("GL_EXT_texture_compression_s3tc") == 1;
 }

@@ -17,11 +17,15 @@
 
 /**
     @brief Locking Vector
-    @author Tomasz Huczek & Andrzej Jasiñski <thuczek@gmail.com>
+    @author Tomasz Huczek & Andrzej Jasiï¿½ski <thuczek@gmail.com>
  */
 
-template <typename T, typename IT=std::vector<T>::iterator, 
-	typename RIT=std::vector<T>::reverse_iterator>
+#define DEF_LOCK_VECTOR( NAME, T ) typedef bLockVector<T, std::vector<T>::iterator, \
+    std::vector<T>::reverse_iterator> NAME
+
+//template <typename T, typename IT=std::vector<T>::iterator, 
+//	typename RIT=std::vector<T>::reverse_iterator>
+template <typename T, typename IT, typename RIT>
 class bLockVector
 {
 public:
