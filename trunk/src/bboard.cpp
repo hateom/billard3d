@@ -16,6 +16,7 @@
 #include "bfontmgr.h"
 #include "btrace.h"
 #include "bprofiler.h"
+#include "bpath.h"
 
 #define FACTOR 0.96
 
@@ -77,6 +78,14 @@ bool bBoard::create()
     luball.create( ball_size );
     luband.create( ball_size, band_size, false );
     
+	glEnable(GL_TEXTURE_2D);
+
+	// tell openGL to generate the texture coords for a sphere map
+	glTexGeni(GL_S,GL_TEXTURE_GEN_MODE,GL_SPHERE_MAP);
+	glTexGeni(GL_T,GL_TEXTURE_GEN_MODE,GL_SPHERE_MAP);
+
+	ball_tex.load( GETPATH("..\\..\\tex\\ball.bmp") );
+
     return true;
     
     unguard;
@@ -86,6 +95,8 @@ void bBoard::release()
 {
     guard(bBoard::release);
     
+	ball_tex.release();
+
     luball.release();
     luband.release();
     
@@ -124,9 +135,16 @@ void bBoard::draw()
     glEnd();
     
     Profiler.begin("ball_mgr::draw_balls");
+	glEnable(GL_TEXTURE_2D);
+	glEnable(GL_TEXTURE_GEN_S);
+	glEnable(GL_TEXTURE_GEN_T);
+	ball_tex.bind();
     for( int i=0; i<ball_size; ++i ) {
         ball[i]->draw();
     }
+	glDisable(GL_TEXTURE_GEN_S);
+	glDisable(GL_TEXTURE_GEN_T);
+	glDisable(GL_TEXTURE_2D);
     Profiler.end("ball_mgr::draw_balls");
     
     Profiler.begin("ball_mgr::draw_bands");
