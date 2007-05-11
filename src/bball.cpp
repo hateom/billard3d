@@ -51,23 +51,6 @@ bBall::~bBall()
 
 void bBall::draw()
 {
-    /*
-    int rnum = 32;
-    double nrad = (2.0*G_PI)/(double)rnum;
-    double rad = 0.0;
-    
-    glBegin( GL_TRIANGLE_FAN );
-        glColor3f( r, g, b );
-        glVertex2d( pos.x, pos.y );
-        glColor3f( (GLfloat)(r*0.2), (GLfloat)(g*0.2), (GLfloat)(b*0.2) );
-        glVertex2d( pos.x + radius*cos(0.0), pos.y + radius*sin(0.0) );
-        for( int i=0; i<rnum; ++i ) {
-            rad -= nrad;
-            glVertex2d( pos.x + radius*cos(rad), pos.y + radius*sin(rad) );
-        }
-    glEnd();
-    */
-    
     glPushMatrix();
 //		glRotated( (phi.y*3.1415*2.0)/180.0, 0.0f, 0.0f, 1.0f );
 //		glRotated( (phi.x*3.1415*2.0)/180.0, 1.0f, 0.0f, 0.0f );
@@ -80,8 +63,8 @@ void bBall::draw()
 void bBall::process( double fps_factor )
 {
     guard(bBall::process);
-    /*
-    static double mi = 0.5;
+    
+    static double mi = 0.005;
     double ta = ((mi*10.0)/radius)*fps_factor;
     
     if( vel.length() < ta )
@@ -92,7 +75,7 @@ void bBall::process( double fps_factor )
     {
         vel -= vel.normal()*ta;
     }
-    */
+    
     vel += acc * fps_factor;
     pos += vel * fps_factor;
 
