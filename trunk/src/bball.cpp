@@ -14,6 +14,7 @@
 #include "bassert.h"
 #include "btrace.h"
 #include "bsdl.h"
+#include "bquaternion.h"
 
 #define COL_FACTOR 0.2
 
@@ -51,9 +52,14 @@ bBall::~bBall()
 
 void bBall::draw()
 {
+    double mat[16];
+    bQuaternion q, q1(1.0,0.0,0.0,(phi.x*3.1415*2.0)/180.0), q2(0.0,0.0,1.0,(phi.y*3.1415*2.0)/180.0);
+    q = q1 * q2;
+    q.create_matrix(mat);
     glPushMatrix();
 //		glRotated( (phi.y*3.1415*2.0)/180.0, 0.0f, 0.0f, 1.0f );
 //		glRotated( (phi.x*3.1415*2.0)/180.0, 1.0f, 0.0f, 0.0f );
+        glMultMatrixd(mat);
 		glTranslated( pos.x, 0.0, pos.y );
 		glColor3f( r, g, b );
 		gluSphere(sphere_obj, radius, 16, 16);
