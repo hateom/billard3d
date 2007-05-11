@@ -18,11 +18,11 @@
 #include "beventlistener.h"
 
 /**
-	@author Tomasz Huczek & Andrzej Jasiñski <thuczek@gmail.com>
+	@author Tomasz Huczek & Andrzej Jasiï¿½ski <thuczek@gmail.com>
 */
 class bInput : public bSingleton<bInput>
 {
-    typedef bLockVector<bEventListener*> bEventListenerVector;
+    DEF_LOCK_VECTOR(bEventListenerVector, bEventListener*);
 public:
     bInput();
     virtual ~bInput();

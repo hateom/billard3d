@@ -21,12 +21,12 @@
 #define GetMainLoop bMainLoop::get_singleton()
 
 /**
-	@author Tomasz Huczek & Andrzej Jasiñski <thuczek@gmail.com>
+	@author Tomasz Huczek & Andrzej Jasiï¿½ski <thuczek@gmail.com>
 */
 class bMainLoop: public bSingleton<bMainLoop>, public bAutoEventListener
 {
-    typedef bLockVector<bVideoLayer*> bVideoLayerList;
-    typedef bLockVector<bLogicLayer*> bLogicLayerList;
+    DEF_LOCK_VECTOR(bVideoLayerList,bVideoLayer*);
+    DEF_LOCK_VECTOR(bLogicLayerList,bLogicLayer*);
 public:
     bMainLoop();
     virtual ~bMainLoop();
