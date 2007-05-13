@@ -133,7 +133,7 @@ bVector bVector::normal()
 {
     bVector vec( *this );
     double len = length();
-    if( len == 0.0 ) len = 1.0;
+    if( len == 0.0 ) { len = 1.0; vec.zero(); }
     vec.x /= len;
     vec.y /= len;
     return vec;

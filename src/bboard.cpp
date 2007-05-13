@@ -160,7 +160,7 @@ void bBoard::draw()
     glColor3f( 1.0, 1.0, 1.0 );
     bSystem::video_sys.set_matrix_2d();
     for( int i=0; i<ball_size; ++i ) {
-        PRINT( 30, 100+16*i, B_FONT_LIGHT, "%2.2f %2.2f", ball[i]->vel.length(), ball[i]->phi.length() );
+        PRINT( 30, 100+16*i, B_FONT_LIGHT, "%2.2f %2.2f", ball[i]->vel.length(), ball[i]->lphi );
     }
     glDisable( GL_TEXTURE_2D );
 
