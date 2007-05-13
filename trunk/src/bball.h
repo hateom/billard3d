@@ -15,6 +15,7 @@
 #include "bband.h"
 #include "bvector.h"
 #include "bgl.h"
+#include "GLquat.h"
 
 /**
     @brief Ball object
@@ -69,6 +70,10 @@ public:
     double lphi;
     double radius;   ///< radius of the ball
     double mass;     ///< mass of the ball
+    double blphi;
+    
+    GL_QUAT qrot, dqrot;
+    float   rotmat[4][4];
     
     float r,         ///< red component of the color value
           g,         ///< green component of the color value

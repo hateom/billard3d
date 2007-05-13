@@ -31,8 +31,10 @@ bBall::bBall() : t_vel_f(false)
 	phi.zero();
     t_vel.zero();
     mass = 1.0;
+    lphi = 0.0;
     r = g = b = 0.9f;
     acc.y = 300.0;
+    qrot.w = 1.0; qrot.x = qrot.y = qrot.z = 0.0;
     sphere_obj = gluNewQuadric();
 	gluQuadricNormals( sphere_obj, GL_SMOOTH );
 	gluQuadricTexture( sphere_obj, GL_TRUE );
@@ -44,6 +46,8 @@ bBall::bBall(bVector ip, bVector iv, bVector ia,
         r(ir), g(ig), b(ib), t_vel_f(false)
 {
     t_vel.zero();
+    lphi = 0;
+    qrot.w = 1.0; qrot.x = qrot.y = qrot.z = 0.0;
     sphere_obj = gluNewQuadric();
 }
 
@@ -53,29 +57,12 @@ bBall::~bBall()
 
 void bBall::draw()
 {
-    bVector rphi;
-    GL_QUAT q;
-    
-    float mat[4][4];
-            
-    gluEulerToQuat_EXT( -(phi.y), 0.0, -(phi.x), &q );
-    gluQuatToMat_EXT( &q, mat );
-            
     glPushMatrix();
 		glTranslated( pos.x, radius, pos.y );
-        glMultMatrixf((float*)mat);
-        //glRotated( (phi.x*180.0)/3.1415, 0.0, 0.0, 1.0 );
-        //glRotated( (phi.y*180.0)/3.1415, 1.0, 0.0, 0.0 );
-        
-        //rphi = vel.normal();
-        //glRotated( (phi.length()*180.0)/3.1415, rphi.y, 0.0, -rphi.x );
-        
+        glMultMatrixf((float*)rotmat);
 		glColor3f( r, g, b );
         gluQuadricTexture( sphere_obj, GL_TRUE );
 		gluSphere(sphere_obj, radius, 32, 32 );
-//        glDisable( GL_CULL_FACE );
-//        gluCylinder( sphere_obj, radius, radius, radius, 16, 16 );
-//        glEnable( GL_CULL_FACE );
     glPopMatrix();
 }
 
@@ -101,20 +88,51 @@ void bBall::process( double fps_factor )
 	phi.x += ( vel.x / radius ) * fps_factor;
 	phi.y += ( vel.y / radius ) * fps_factor;
     
-    lphi += ( vel.length() / radius ) * fps_factor;
+    blphi = lphi;
+    lphi = ( vel.length() / radius ) * fps_factor;
+    
+    // QUATERNIONS 
+    static bVector rphi;
+    
+    rphi = vel.normal();
+    dqrot.w = cos(lphi/2.0);
+    dqrot.x = -sin(lphi/2.0)*rphi.y;
+    dqrot.y = 0.0;
+    dqrot.z = sin(lphi/2.0)*rphi.x;
+    
+    gluQuatMul_EXT( &qrot, &dqrot, &qrot );
+    gluQuatToMat_EXT( &qrot, rotmat );
     
     unguard;
 }
 
 void bBall::unprocess( double fps_factor )
 {
-    lphi -= ( vel.length() / radius ) * fps_factor;
+    static double mi = 0.005;
+    double ta = ((mi*10.0)/radius)*fps_factor;
+    
+    lphi = blphi;
     
 	phi.x -= ( vel.x / radius ) * fps_factor;
 	phi.y -= ( vel.y / radius ) * fps_factor;
 
     pos -= vel * fps_factor;
     vel -= acc * fps_factor;
+    
+    // ~
+    vel += vel.normal()*ta;
+        
+    // QUATERNIONS 
+    static bVector rphi;
+    
+    rphi = vel.normal();
+    dqrot.w = cos(lphi/2.0);
+    dqrot.x = -sin(lphi/2.0)*rphi.y;
+    dqrot.y = 0.0;
+    dqrot.z = sin(lphi/2.0)*rphi.x;
+    
+    gluQuatMul_EXT( &qrot, &dqrot, &qrot );
+    gluQuatToMat_EXT( &qrot, rotmat );
 }
 
 bVector bBall::collision(bBall * b)
