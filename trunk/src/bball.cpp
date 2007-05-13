@@ -52,15 +52,25 @@ bBall::~bBall()
 
 void bBall::draw()
 {
+    bVector rphi;
     double mat[16];
-    bQuaternion q, q1(-1.0,0.0,0.0,(phi.x*3.1415*2.0)/180.0), q2(0.0,0.0,-1.0,(phi.y*3.1415*2.0)/180.0);
+    bQuaternion q, q1(1.0,0.0,0.0,phi.x*180.0/3.1415), q2(0.0,0.0,1.0,phi.y*180.0/3.1415);
     q = q1 * q2;
     q.create_matrix(mat);
     glPushMatrix();
-        glMultMatrixd(mat);
-		glTranslated( pos.x, 0.0, pos.y );
+		glTranslated( pos.x, radius, pos.y );
+        //glMultMatrixd(mat);
+        //glRotated( (phi.x*180.0)/3.1415, 0.0, 0.0, 1.0 );
+        glRotated( (phi.y*180.0)/3.1415, 1.0, 0.0, 0.0 );
+        
+        //rphi = vel.normal();
+        //glRotated( (phi.length()*180.0)/3.1415, rphi.y, 0.0, -rphi.x );
+        
 		glColor3f( r, g, b );
-		gluSphere(sphere_obj, radius, 16, 16);
+		gluSphere(sphere_obj, radius, 16, 16 );
+        glDisable( GL_CULL_FACE );
+        gluCylinder( sphere_obj, radius, radius, radius, 16, 16 );
+        glEnable( GL_CULL_FACE );
     glPopMatrix();
 }
 
@@ -86,11 +96,15 @@ void bBall::process( double fps_factor )
 	phi.x += ( vel.x / radius ) * fps_factor;
 	phi.y += ( vel.y / radius ) * fps_factor;
     
+    lphi += ( vel.length() / radius ) * fps_factor;
+    
     unguard;
 }
 
 void bBall::unprocess( double fps_factor )
 {
+    lphi -= ( vel.length() / radius ) * fps_factor;
+    
 	phi.x -= ( vel.x / radius ) * fps_factor;
 	phi.y -= ( vel.y / radius ) * fps_factor;
 

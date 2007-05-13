@@ -17,6 +17,7 @@
 #include "btrace.h"
 #include "bprofiler.h"
 #include "bpath.h"
+#include "bsystem.h"
 
 #define FACTOR 0.96
 
@@ -80,10 +81,10 @@ bool bBoard::create()
     
 	glEnable(GL_TEXTURE_2D);
 
-	glTexGeni( GL_S, GL_TEXTURE_GEN_MODE, GL_SPHERE_MAP );
-	glTexGeni( GL_T, GL_TEXTURE_GEN_MODE, GL_SPHERE_MAP );
+//	glTexGeni( GL_S, GL_TEXTURE_GEN_MODE, GL_SPHERE_MAP );
+//	glTexGeni( GL_T, GL_TEXTURE_GEN_MODE, GL_SPHERE_MAP );
     
-	if( !ball_tex.load( GETPATH("../../tex/ball.bmp") ) )
+	if( !ball_tex.load( GETPATH("../../tex/xball.bmp") ) )
     {
         BLOG( "!! Error loading ball texture!\n" );
     }
@@ -154,16 +155,15 @@ void bBoard::draw()
         band[i]->draw();
     }
     Profiler.end("ball_mgr::draw_bands");
-/*
+
     glEnable( GL_TEXTURE_2D );
+    glColor3f( 1.0, 1.0, 1.0 );
+    bSystem::video_sys.set_matrix_2d();
     for( int i=0; i<ball_size; ++i ) {
-        PRINT( (int)ball[i]->pos.x-1-(int)ball[i]->radius/2, (int)ball[i]->pos.y-9, 
-                B_FONT_DARK, "%2.2f", ball[i]->vel.length() );
-        PRINT( (int)ball[i]->pos.x-(int)ball[i]->radius/2, (int)ball[i]->pos.y-8, 
-                B_FONT_LIGHT, "%2.2f", ball[i]->vel.length() );
+        PRINT( 30, 100+16*i, B_FONT_LIGHT, "%2.2f %2.2f", ball[i]->vel.length(), ball[i]->phi.length() );
     }
     glDisable( GL_TEXTURE_2D );
-*/
+
 }
 
 void bBoard::process(bFpsTimer * fps)
