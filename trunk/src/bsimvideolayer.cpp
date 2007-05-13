@@ -16,6 +16,7 @@
 #include "bfontmgr.h"
 #include "bsystem.h"
 #include "blightmgr.h"
+#include "bcamera.h"
 
 bSimVideoLayer::bSimVideoLayer()
  : bVideoLayer()
@@ -38,9 +39,9 @@ void bSimVideoLayer::draw()
     
     bSystem::video_sys.set_matrix_3d();
     glEnable( GL_DEPTH_TEST );
-    gluLookAt( 4.0, 6.0, 0.0, 
-               4.0, 0.0, 3.0, 
-               0.0, 1.0, 1.0 );
+    
+    GetCamera.update();
+    GetCamera.look_at();
     
     Profiler.begin("ball_mgr::draw");
         glDisable( GL_TEXTURE_2D );

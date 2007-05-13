@@ -22,6 +22,7 @@ bInput          bSystem::input_sys;
 bMainLoop       bSystem::mainloop_sys;
 bStateMachine   bSystem::statemachine_sys;
 bArgMgr         bSystem::argmgr_sys;
+bCamera         bSystem::camera_sys;
 
 bool bSystem::init(int argc, char *argv[] )
 {

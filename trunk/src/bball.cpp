@@ -61,9 +61,26 @@ void bBall::draw()
 		glTranslated( pos.x, radius, pos.y );
         glMultMatrixf((float*)rotmat);
 		glColor3f( r, g, b );
-        //glColor4f( 1.0f, 1.0f, 1.0f, 0.5f );
         gluQuadricTexture( sphere_obj, GL_TRUE );
 		gluSphere(sphere_obj, radius, 32, 32 );
+    glPopMatrix();
+}
+
+void bBall::draw_shadow()
+{
+    static float step = 2*3.1415/16.0;
+    
+    glDisable( GL_CULL_FACE );
+    glPushMatrix();
+        glTranslated( pos.x, 0.0f, pos.y );
+        glColor3f( 0.1f, 0.1f, 0.1f );
+    
+        glBegin( GL_TRIANGLE_FAN );
+            glVertex3f(0.0f,0.0f,0.0f);
+            for( float i=0.0; i<2.0*3.1415; i+=step) {
+                glVertex3f( radius*cos(i), 0.0f, radius*sin(i) );
+            }
+        glEnd();
     glPopMatrix();
 }
 

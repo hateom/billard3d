@@ -37,28 +37,18 @@ bool bBoard::create()
     
     double tm = 0.0;
     
-    ball_size = 4;
+    ball_size = 7;
     ball = new bBall*[ball_size];
     
-    ball[0] = new bBall(
-        bVector(4.0,1.8), 
-        bVector(2.3,0.0), 
-        bVector(tm,tm), 0.3, 1.0, 1.0f, 0.8f, 0.6f );
-
-    ball[1] = new bBall(
-        bVector(3.0,2.0), 
-        bVector(2.0,5.0), 
-        bVector(tm,tm), 0.3, 1.0, 0.6f, 1.0f, 0.8f );
+    ball[0] = new bBall( bVector(4.0,1.8),  bVector( 2.3, 0.0), bVector(tm,tm), 0.3, 1.0, 1.0f, 0.8f, 0.6f );
+    ball[1] = new bBall( bVector(3.0,2.0),  bVector( 2.0, 5.0), bVector(tm,tm), 0.3, 1.0, 0.6f, 1.0f, 0.8f );
+    ball[2] = new bBall( bVector(2.2,3.5),  bVector( 3.0, 3.0), bVector(0.0,0.0), 0.3, 1.0, 0.8f, 0.6f, 1.0f );
+    ball[3] = new bBall( bVector(1.8,4.2),  bVector(-3.0, 3.0), bVector(0.0,0.0), 0.3, 1.0, 1.0f, 0.6f, 0.8f );
     
-    ball[2] = new bBall(
-        bVector(2.2,3.5), 
-        bVector(3.0,3.0), 
-        bVector(0.0,0.0), 0.3, 1.0, 0.8f, 0.6f, 1.0f );
+    ball[4] = new bBall( bVector(1.8,1.2),  bVector(-3.0, 3.0), bVector(0.0,0.0), 0.3, 1.0, 1.0f, 0.6f, 1.0f );
+    ball[5] = new bBall( bVector(4.8,4.2),  bVector(-3.0, 3.0), bVector(0.0,0.0), 0.3, 1.0, 0.5f, 0.9f, 1.0f );
     
-    ball[3] = new bBall(
-        bVector(1.8,4.2), 
-        bVector(-3.0,3.0), 
-        bVector(0.0,0.0), 0.3, 1.0, 1.0f, 0.6f, 0.8f );
+    ball[6] = new bBall( bVector(2.8,3.0),  bVector(-3.0, 3.0), bVector(0.0,0.0), 0.3, 1.0, 1.0f, 1.0f, 1.0f );
 
     band_size = 12;
     band = new bBand*[band_size];
@@ -91,6 +81,11 @@ bool bBoard::create()
     {
         BLOG( "!! Error loading ball texture!\n" );
     }
+    
+    if( !desk.load( GETPATH("../../tex/desk.bmp") ) )
+    {
+        BLOG( "!! Error loading desk texture!\n" );
+    }
 
     return true;
     
@@ -104,6 +99,7 @@ void bBoard::release()
 	ball_tex.release();
     ball_num.release();
 
+    desk.release();
     luball.release();
     luband.release();
     
@@ -128,21 +124,11 @@ void bBoard::release()
     unguard;
 }
 
-void bBoard::draw()
+void bBoard::draw_balls()
 {
-    glBegin( GL_TRIANGLE_STRIP );
-        glColor3f( 0.2f, 0.2f, 0.2f );
-        glVertex3d( 0.0, 0.0, 0.0 );
-        glColor3f( 0.0f, 0.0f, 0.0f );
-        glVertex3d( 0.0, 0.0, 6.0 );
-        glColor3f( 0.2f, 0.2f, 0.2f );
-        glVertex3d( 8.0, 0.0, 0.0 );
-        glColor3f( 0.0f, 0.0f, 0.0f );
-        glVertex3d( 8.0, 0.0, 6.0 );
-    glEnd();
-    
-    Profiler.begin("ball_mgr::draw_balls");
-	
+    for( int i=0; i<ball_size; ++i ) {
+        ball[i]->draw_shadow();
+    }
     
     glEnable( GL_BLEND );
     glDisable(GL_TEXTURE_GEN_S);
@@ -160,7 +146,7 @@ void bBoard::draw()
     glEnable(GL_TEXTURE_GEN_S);
     glEnable(GL_TEXTURE_GEN_T);
     glBlendFunc(GL_DST_COLOR, GL_ONE_MINUS_DST_ALPHA);
-	ball_tex.bind();
+    ball_tex.bind();
     
     for( int i=0; i<ball_size; ++i ) {
         ball[i]->draw();
@@ -171,7 +157,26 @@ void bBoard::draw()
     glDisable(GL_TEXTURE_GEN_T);
     glDisable( GL_BLEND );
     
-    glEnable( GL_DEPTH_TEST );
+    glEnable( GL_DEPTH_TEST );   
+}
+
+void bBoard::draw()
+{
+    glEnable( GL_TEXTURE_2D );
+    desk.bind();
+    glBegin( GL_TRIANGLE_STRIP );
+        glTexCoord2i( 0, 0 ); glColor3f( 0.2f, 0.2f, 0.2f ); glVertex3d( 0.0, -0.1, 0.0 );
+        glTexCoord2i( 0, 1 ); glColor3f( 0.9f, 1.0f, 0.9f ); glVertex3d( 0.0, -0.1, 6.0 );
+        glTexCoord2i( 1, 0 ); glColor3f( 0.2f, 0.2f, 0.2f ); glVertex3d( 8.0, -0.1, 0.0 );
+        glTexCoord2i( 1, 1 ); glColor3f( 0.9f, 1.0f, 0.9f ); glVertex3d( 8.0, -0.1, 6.0 );
+    glEnd();
+    
+    glDisable( GL_TEXTURE_2D );
+    
+    Profiler.begin("ball_mgr::draw_balls");
+	
+    sort_balls();
+    draw_balls();
     
     Profiler.end("ball_mgr::draw_balls");
     
@@ -180,7 +185,7 @@ void bBoard::draw()
         band[i]->draw();
     }
     Profiler.end("ball_mgr::draw_bands");
-
+/*
     glEnable( GL_TEXTURE_2D );
     glColor3f( 1.0, 1.0, 1.0 );
     bSystem::video_sys.set_matrix_2d();
@@ -188,6 +193,7 @@ void bBoard::draw()
         PRINT( 30, 100+16*i, B_FONT_LIGHT, "%2.2f %2.2f", ball[i]->vel.length(), ball[i]->lphi );
     }
     glDisable( GL_TEXTURE_2D );
+*/
 
 }
 
@@ -318,4 +324,19 @@ bool bBoard::is_any(int ball)
     return false;
     
     unguard;
+}
+
+void bBoard::sort_balls()
+{
+    bBall * ptr;
+    
+    for( int i=0; i<ball_size; ++i ) {
+        for( int j=0; j<ball_size-1; ++j ) {
+            if( GetCamera.get_distance( ball[j]->pos ) < GetCamera.get_distance( ball[j+1]->pos ) ) {
+                ptr = ball[j];
+                ball[j] = ball[j+1];
+                ball[j+1] = ptr;
+            }
+        }
+    }
 }

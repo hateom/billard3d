@@ -9,26 +9,33 @@
  *                                                                         *
  ***************************************************************************/
 
-#ifndef BSIMVIDEOLAYER_H
-#define BSIMVIDEOLAYER_H
+#ifndef BCAMERA_H
+#define BCAMERA_H
 
-#include "bvideolayer.h"
-#include "bboard.h"
+#include "bsingleton.h"
+#include "bvector3.h"
+
+#define GetCamera bCamera::get_singleton()
 
 /**
-	@author Tomasz Huczek & Andrzej Jasi�ski <thuczek@gmail.com>
+	@author Tomasz Huczek & Andrzej Jasiński <thuczek@gmail.com>
 */
-class bSimVideoLayer : public bVideoLayer
+class bCamera : public bSingleton<bCamera>
 {
 public:
-    bSimVideoLayer();
-    virtual ~bSimVideoLayer();
-
-    virtual void draw();
+    bCamera();
+    virtual ~bCamera();
     
-private:
-    bBoard g_board;
-    double eyex, eyey, eyez, a;
+    void look_at();
+    void update();
+    
+    bVector3 get_eye() const { return eye; }
+    bVector3 get_dest() const { return dest; }
+    double get_distance( bVector3 vec );
+    
+protected:
+    bVector3 eye, dest;
+    double angle;
 };
 
 #endif
