@@ -72,7 +72,7 @@ void bBall::draw()
         
 		glColor3f( r, g, b );
         gluQuadricTexture( sphere_obj, GL_TRUE );
-		gluSphere(sphere_obj, radius, 16, 16 );
+		gluSphere(sphere_obj, radius, 32, 32 );
 //        glDisable( GL_CULL_FACE );
 //        gluCylinder( sphere_obj, radius, radius, radius, 16, 16 );
 //        glEnable( GL_CULL_FACE );
