@@ -66,6 +66,7 @@ public:
             acc,     ///< acceleration vector
 			phi;	 ///< rotation vector
     
+    double lphi;
     double radius;   ///< radius of the ball
     double mass;     ///< mass of the ball
     
