@@ -43,22 +43,22 @@ bool bBoard::create()
     ball[0] = new bBall(
         bVector(4.0,1.8), 
         bVector(2.3,0.0), 
-        bVector(tm,tm), 0.3, 1.0, 1.0f, 0.4f, 0.3f );
+        bVector(tm,tm), 0.3, 1.0, 1.0f, 0.8f, 0.6f );
 
     ball[1] = new bBall(
         bVector(3.0,2.0), 
         bVector(2.0,5.0), 
-        bVector(tm,tm), 0.3, 1.0, 0.3f, 1.0f, 0.4f );
+        bVector(tm,tm), 0.3, 1.0, 0.6f, 1.0f, 0.8f );
     
     ball[2] = new bBall(
         bVector(2.2,3.5), 
         bVector(3.0,3.0), 
-        bVector(0.0,0.0), 0.3, 1.0, 0.4f, 0.3f, 1.0f );
+        bVector(0.0,0.0), 0.3, 1.0, 0.8f, 0.6f, 1.0f );
     
     ball[3] = new bBall(
         bVector(1.8,4.2), 
         bVector(-3.0,3.0), 
-        bVector(0.0,0.0), 0.3, 1.0, 1.0f, 0.2f, 0.8f );
+        bVector(0.0,0.0), 0.3, 1.0, 1.0f, 0.6f, 0.8f );
 
     band_size = 12;
     band = new bBand*[band_size];
@@ -79,12 +79,15 @@ bool bBoard::create()
     luball.create( ball_size );
     luband.create( ball_size, band_size, false );
     
-	glEnable(GL_TEXTURE_2D);
-
-//	glTexGeni( GL_S, GL_TEXTURE_GEN_MODE, GL_SPHERE_MAP );
-//	glTexGeni( GL_T, GL_TEXTURE_GEN_MODE, GL_SPHERE_MAP );
+	glTexGeni( GL_S, GL_TEXTURE_GEN_MODE, GL_SPHERE_MAP );
+	glTexGeni( GL_T, GL_TEXTURE_GEN_MODE, GL_SPHERE_MAP );
     
-	if( !ball_tex.load( GETPATH("../../tex/xball.bmp") ) )
+	if( !ball_tex.load( GETPATH("../../tex/ball.bmp") ) )
+    {
+        BLOG( "!! Error loading ball texture!\n" );
+    }
+    
+    if( !ball_num.load( GETPATH("../../tex/xball.bmp") ) )
     {
         BLOG( "!! Error loading ball texture!\n" );
     }
@@ -99,6 +102,7 @@ void bBoard::release()
     guard(bBoard::release);
     
 	ball_tex.release();
+    ball_num.release();
 
     luball.release();
     luband.release();
@@ -138,16 +142,37 @@ void bBoard::draw()
     glEnd();
     
     Profiler.begin("ball_mgr::draw_balls");
-	glEnable(GL_TEXTURE_2D);
-//	glEnable(GL_TEXTURE_GEN_S);
-//	glEnable(GL_TEXTURE_GEN_T);
-	ball_tex.bind();
+	
+    
+    glEnable( GL_BLEND );
+    glDisable(GL_TEXTURE_GEN_S);
+    glDisable(GL_TEXTURE_GEN_T);
+    glEnable(GL_TEXTURE_2D);
+    glBlendFunc(GL_ONE,GL_ZERO);
+    ball_num.bind();
+    
     for( int i=0; i<ball_size; ++i ) {
         ball[i]->draw();
     }
-//	glDisable(GL_TEXTURE_GEN_S);
-//	glDisable(GL_TEXTURE_GEN_T);
-	glDisable(GL_TEXTURE_2D);
+    
+    glDisable( GL_DEPTH_TEST );
+    glEnable(GL_TEXTURE_2D);
+    glEnable(GL_TEXTURE_GEN_S);
+    glEnable(GL_TEXTURE_GEN_T);
+    glBlendFunc(GL_DST_COLOR, GL_ONE_MINUS_DST_ALPHA);
+	ball_tex.bind();
+    
+    for( int i=0; i<ball_size; ++i ) {
+        ball[i]->draw();
+    }
+    
+    glDisable(GL_TEXTURE_2D);
+    glDisable(GL_TEXTURE_GEN_S);
+    glDisable(GL_TEXTURE_GEN_T);
+    glDisable( GL_BLEND );
+    
+    glEnable( GL_DEPTH_TEST );
+    
     Profiler.end("ball_mgr::draw_balls");
     
     Profiler.begin("ball_mgr::draw_bands");

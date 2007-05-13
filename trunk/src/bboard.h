@@ -24,7 +24,7 @@
 /**
     @brief Board class
     Defines a board class and usefull methods
-	@author Tomasz Huczek & Andrzej Jasiñski <thuczek@gmail.com>
+	@author Tomasz Huczek & Andrzej Jasiï¿½ski <thuczek@gmail.com>
 */
 class bBoard : public bSingleton<bBoard>
 {
@@ -50,6 +50,7 @@ private:
     bLUTable luband;
 
 	bTexture ball_tex;
+    bTexture ball_num;
 	GLubyte face[6][64][64][3];
 };
 

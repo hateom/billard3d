@@ -61,6 +61,7 @@ void bBall::draw()
 		glTranslated( pos.x, radius, pos.y );
         glMultMatrixf((float*)rotmat);
 		glColor3f( r, g, b );
+        //glColor4f( 1.0f, 1.0f, 1.0f, 0.5f );
         gluQuadricTexture( sphere_obj, GL_TRUE );
 		gluSphere(sphere_obj, radius, 32, 32 );
     glPopMatrix();
@@ -93,12 +94,15 @@ void bBall::process( double fps_factor )
     
     // QUATERNIONS 
     static bVector rphi;
+    double slphi;
+    
+    slphi = sin(lphi/2.0);
     
     rphi = vel.normal();
     dqrot.w = cos(lphi/2.0);
-    dqrot.x = -sin(lphi/2.0)*rphi.y;
+    dqrot.x = -slphi*rphi.y;
     dqrot.y = 0.0;
-    dqrot.z = sin(lphi/2.0)*rphi.x;
+    dqrot.z = slphi*rphi.x;
     
     gluQuatMul_EXT( &qrot, &dqrot, &qrot );
     gluQuatToMat_EXT( &qrot, rotmat );
@@ -124,12 +128,15 @@ void bBall::unprocess( double fps_factor )
         
     // QUATERNIONS 
     static bVector rphi;
+    double slphi;
+    
+    slphi = sin(lphi/2.0);
     
     rphi = vel.normal();
     dqrot.w = cos(lphi/2.0);
-    dqrot.x = -sin(lphi/2.0)*rphi.y;
+    dqrot.x = -slphi*rphi.y;
     dqrot.y = 0.0;
-    dqrot.z = sin(lphi/2.0)*rphi.x;
+    dqrot.z = slphi*rphi.x;
     
     gluQuatMul_EXT( &qrot, &dqrot, &qrot );
     gluQuatToMat_EXT( &qrot, rotmat );
