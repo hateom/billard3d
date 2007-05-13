@@ -40,7 +40,11 @@ public:
     bool is_any( int ball );
    
 private:
+    void draw_balls();
+    void sort_balls();            
     void commit_reflections();
+    
+private:
     bBall ** ball;
     bBand ** band;
     int ball_size;
@@ -51,7 +55,9 @@ private:
 
 	bTexture ball_tex;
     bTexture ball_num;
+    bTexture desk;
 	GLubyte face[6][64][64][3];
 };
 
 #endif
+

@@ -9,26 +9,44 @@
  *                                                                         *
  ***************************************************************************/
 
-#ifndef BSIMVIDEOLAYER_H
-#define BSIMVIDEOLAYER_H
+#include "bcamera.h"
+#include "bgl.h"
+#include <cmath>
 
-#include "bvideolayer.h"
-#include "bboard.h"
-
-/**
-	@author Tomasz Huczek & Andrzej Jasi�ski <thuczek@gmail.com>
-*/
-class bSimVideoLayer : public bVideoLayer
+bCamera::bCamera()
+ : bSingleton<bCamera>()
 {
-public:
-    bSimVideoLayer();
-    virtual ~bSimVideoLayer();
-
-    virtual void draw();
+    eye.x = 4.0;
+    eye.y = 4.5;
+    eye.z = 0.0;
+    dest.x = 4.0;
+    dest.y = 0.0;
+    dest.z = 3.0;
     
-private:
-    bBoard g_board;
-    double eyex, eyey, eyez, a;
-};
+    angle = 0.0;
+}
 
-#endif
+
+bCamera::~bCamera()
+{
+}
+
+void bCamera::look_at()
+{
+    gluLookAt( eye.x,  eye.y,  eye.z, 
+               dest.x, dest.y, dest.z, 
+               0.0, 1.0, 0.0 );
+}
+
+void bCamera::update()
+{
+    angle += 0.002;
+    
+    eye.x = 4.0+5.0*cos(angle);
+    eye.z = 3.0+5.0*sin(angle);
+}
+
+double bCamera::get_distance(bVector3 vec)
+{
+    return eye.distance( vec );
+}

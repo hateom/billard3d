@@ -33,6 +33,9 @@ public:
     /// draws ball
     void draw();
     
+    /// draws ball shadow
+    void draw_shadow();
+    
     /// apply physical calculations of the velocity, 
     /// position and acceleration
     void process( double fps_factor );

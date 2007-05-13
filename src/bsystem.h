@@ -26,9 +26,10 @@
 #include "bmainloop.h"
 #include "bstatemachine.h"
 #include "bargmgr.h"
+#include "bcamera.h"
 
 /**
-	@author Tomasz Huczek & Andrzej Jasiñski <thuczek@gmail.com>
+	@author Tomasz Huczek & Andrzej Jasiï¿½ski <thuczek@gmail.com>
 */
 class bSystem
 {
@@ -61,6 +62,7 @@ public:
     static bMainLoop        mainloop_sys;
     static bStateMachine    statemachine_sys;
     static bArgMgr          argmgr_sys;
+    static bCamera          camera_sys;
 };
 
 #endif
