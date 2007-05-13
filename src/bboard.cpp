@@ -139,14 +139,14 @@ void bBoard::draw()
     
     Profiler.begin("ball_mgr::draw_balls");
 	glEnable(GL_TEXTURE_2D);
-	glEnable(GL_TEXTURE_GEN_S);
-	glEnable(GL_TEXTURE_GEN_T);
+//	glEnable(GL_TEXTURE_GEN_S);
+//	glEnable(GL_TEXTURE_GEN_T);
 	ball_tex.bind();
     for( int i=0; i<ball_size; ++i ) {
         ball[i]->draw();
     }
-	glDisable(GL_TEXTURE_GEN_S);
-	glDisable(GL_TEXTURE_GEN_T);
+//	glDisable(GL_TEXTURE_GEN_S);
+//	glDisable(GL_TEXTURE_GEN_T);
 	glDisable(GL_TEXTURE_2D);
     Profiler.end("ball_mgr::draw_balls");
     

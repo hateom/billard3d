@@ -1,12 +1,12 @@
 bin_PROGRAMS = billard3d
-billard3d_SOURCES = bargmgr.cpp bassert.cpp bautoeventlistener.cpp bball.cpp \
-	bband.cpp bboard.cpp bconfig.cpp bconfigreader.cpp bdraw.cpp berrortrace.cpp \
-	beventlistener.cpp bexception.cpp bfont.cpp bfontmgr.cpp bfpstimer.cpp billard3d.cpp \
-	binput.cpp blightmgr.cpp blockvector.cpp blogger.cpp blogiclayer.cpp blutable.cpp \
-	bmainloop.cpp bpath.cpp bpauselogiclayer.cpp bpausevideolayer.cpp bprofiler.cpp \
-	bquaternion.cpp bsdlsystem.cpp bsimlogiclayer.cpp bsimvideolayer.cpp bsingleton.cpp \
-	bstatemachine.cpp bstream.cpp bsystem.cpp btexture.cpp btrace.cpp butils.cpp bvector.cpp \
-	bvideo.cpp bvideolayer.cpp
+billard3d_SOURCES = GLquat.c bargmgr.cpp bassert.cpp bautoeventlistener.cpp \
+	bball.cpp bband.cpp bboard.cpp bconfig.cpp bconfigreader.cpp bdraw.cpp \
+	berrortrace.cpp beventlistener.cpp bexception.cpp bfont.cpp bfontmgr.cpp bfpstimer.cpp \
+	billard3d.cpp binput.cpp blightmgr.cpp blockvector.cpp blogger.cpp blogiclayer.cpp \
+	blutable.cpp bmainloop.cpp bpath.cpp bpauselogiclayer.cpp bpausevideolayer.cpp \
+	bprofiler.cpp bquaternion.cpp bsdlsystem.cpp bsimlogiclayer.cpp bsimvideolayer.cpp \
+	bsingleton.cpp bstatemachine.cpp bstream.cpp bsystem.cpp btexture.cpp btrace.cpp \
+	butils.cpp bvector.cpp bvideo.cpp bvideolayer.cpp
 
 # set the include path found by configure
 INCLUDES = $(all_includes)
