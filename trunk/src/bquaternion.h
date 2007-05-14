@@ -19,20 +19,20 @@ class bQuaternion
 {
 public:
     bQuaternion();
-    bQuaternion( double x, double y, double z, double degrees);
+	bQuaternion( bQuaternion & rhs );
+    bQuaternion( double w, double x, double y, double z );
+	bQuaternion( double roll, double pitch, double yaw );
     virtual ~bQuaternion();
-    
-	bQuaternion operator *( bQuaternion q );
-    
-	void create_matrix( double * matrix );
-    void create_matrix( float * matrix );
-	void create_from_axis_angle( double x, double y, double z, double degrees);
 
-private:
-	double m_w;
-	double m_z;
-	double m_y;
-	double m_x;
+	void from_axis( double roll, double pitch, double yaw );
+	void from_matrix( double mat[16] );
+	void to_matrix( double mat[16] );
+
+public:
+	double w;
+	double z;
+	double y;
+	double x;
 };
 
 #endif // BQUATERNION_H
