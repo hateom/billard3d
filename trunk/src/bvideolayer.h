@@ -13,14 +13,16 @@
 #define BVIDEOLAYER_H
 
 /**
-	@author Tomasz Huczek & Andrzej Jasiñski <thuczek@gmail.com>
+	@author Tomasz Huczek & Andrzej Jasiï¿½ski <thuczek@gmail.com>
 */
 class bVideoLayer {
 public:
     bVideoLayer();
     virtual ~bVideoLayer();
 
+    virtual void init() = 0;
     virtual void draw() = 0;
+    virtual void release() = 0;
 };
 
 #endif

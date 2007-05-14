@@ -15,7 +15,7 @@
 #include "beventlistener.h"
 
 /**
-	@author Tomasz Huczek & Andrzej Jasiñski <thuczek@gmail.com>
+	@author Tomasz Huczek & Andrzej Jasiï¿½ski <thuczek@gmail.com>
 */
 class bLogicLayer: public bEventListener
 {
@@ -30,6 +30,9 @@ public:
      *         won't receive input messages
      */
     bool is_exclusive() const;
+    
+    virtual void init() = 0;
+    virtual void release() = 0;
     
 private:
     bool exclusive;

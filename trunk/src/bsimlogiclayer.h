@@ -15,7 +15,7 @@
 #include "blogiclayer.h"
 
 /**
-	@author Tomasz Huczek & Andrzej Jasiñski <thuczek@gmail.com>
+	@author Tomasz Huczek & Andrzej Jasiï¿½ski <thuczek@gmail.com>
 */
 class bSimLogicLayer : public bLogicLayer
 {
@@ -23,10 +23,13 @@ public:
     bSimLogicLayer();
     virtual ~bSimLogicLayer();
 
-    virtual void update();
+    void update();
     
-    virtual void on_key_down( uint32 key );
-    virtual void on_key_up( uint32 key );
+    void on_key_down( uint32 key );
+    void on_key_up( uint32 key );
+    
+    void init();
+    void release();
 };
 
 #endif

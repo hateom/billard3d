@@ -1,5 +1,6 @@
 #include "bquaternion.h"
 #include "bconst.h"
+#include "bvector3.h"
 #include <cmath>
 
 bQuaternion::bQuaternion()
@@ -14,12 +15,12 @@ bQuaternion::bQuaternion( bQuaternion & rhs ) :
 }
 */
 bQuaternion::bQuaternion( const bQuaternion & rhs ) : 
-	x(rhs.x), y(rhs.y), z(rhs.z), w(rhs.w)
+    w(rhs.w), x(rhs.x), y(rhs.y), z(rhs.z)
 {
 }
 
 bQuaternion::bQuaternion( double iw, double ix, double iy, double iz ) : 
-	x(ix), y(iy), z(iz), w(iw)
+    w(iw), x(ix), y(iy), z(iz)
 {
 }
 
@@ -132,26 +133,6 @@ void bQuaternion::to_matrix( double m[16] ) const
 	yy = y * y2;   yz = y * z2;   zz = z * z2;
 	wx = w * x2;   wy = w * y2;   wz = w * z2;
 
-//	m[0][0] = 1.0 - (yy + zz);
-//	m[0][1] = xy - wz;
-//	m[0][2] = xz + wy;
-//	m[0][3] = 0.0;
- 
-//	m[1][0] = xy + wz;
-//	m[1][1] = 1.0 - (xx + zz);
-//	m[1][2] = yz - wx;
-//	m[1][3] = 0.0;
-
-//	m[2][0] = xz - wy;
-//	m[2][1] = yz + wx;
-//	m[2][2] = 1.0 - (xx + yy);
-//	m[2][3] = 0.0;
-
-//	m[3][0] = 0;
-//	m[3][1] = 0;
-//	m[3][2] = 0;
-//	m[3][3] = 1;
-
 	m[0] = 1.0 - (yy + zz);
 	m[1] = xy - wz;
 	m[2] = xz + wy;
@@ -171,6 +152,7 @@ void bQuaternion::to_matrix( double m[16] ) const
 	m[13] = 0;
 	m[14] = 0;
 	m[15] = 1;
+
 }
 
 bQuaternion & bQuaternion::normalize()
@@ -321,3 +303,4 @@ double bQuaternion::dot( const bQuaternion & q ) const
 {
 	return w * q.w + x * q.x + y * q.y + z * q.z;
 }
+
