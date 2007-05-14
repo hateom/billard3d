@@ -86,6 +86,16 @@ bool bBoard::create()
     {
         BLOG( "!! Error loading desk texture!\n" );
     }
+    
+    if( !ball_shader.load_fragment( GETPATH("../../shaders/ball_frag.cg") ) )
+    {
+        BLOG( "!! Error loading ball shader!\n" );   
+    }
+    
+    if( !ball_shader.load_vertex( GETPATH("../../shaders/ball_vert.cg") ) )
+    {
+        BLOG( "!! Error loading ball shader!\n" );   
+    }
 
     return true;
     
@@ -95,6 +105,8 @@ bool bBoard::create()
 void bBoard::release()
 {
     guard(bBoard::release);
+    
+    ball_shader.release();
     
 	ball_tex.release();
     ball_num.release();
@@ -129,18 +141,34 @@ void bBoard::draw_balls()
     for( int i=0; i<ball_size; ++i ) {
         ball[i]->draw_shadow();
     }
-    
+    /*
     glEnable( GL_BLEND );
     glDisable(GL_TEXTURE_GEN_S);
     glDisable(GL_TEXTURE_GEN_T);
     glEnable(GL_TEXTURE_2D);
     glBlendFunc(GL_ONE,GL_ZERO);
+    */
+    
+    ball_shader.enable( bShader::B_BOTH );
+    ball_shader.bind( bShader::B_BOTH );
+    
+    glActiveTextureARB(GL_TEXTURE0_ARB);
+    glEnable(GL_TEXTURE_2D);
     ball_num.bind();
     
+    glActiveTextureARB(GL_TEXTURE1_ARB);
+    glEnable(GL_TEXTURE_2D);
+    ball_tex.bind();
+    
     for( int i=0; i<ball_size; ++i ) {
-        ball[i]->draw();
+        ball[i]->draw( &ball_shader );
     }
     
+    glActiveTextureARB(GL_TEXTURE0_ARB);
+    
+    ball_shader.disable( bShader::B_BOTH );
+    
+    /*
     glDisable( GL_DEPTH_TEST );
     glEnable(GL_TEXTURE_2D);
     glEnable(GL_TEXTURE_GEN_S);
@@ -151,7 +179,7 @@ void bBoard::draw_balls()
     for( int i=0; i<ball_size; ++i ) {
         ball[i]->draw();
     }
-    
+    */
     glDisable(GL_TEXTURE_2D);
     glDisable(GL_TEXTURE_GEN_S);
     glDisable(GL_TEXTURE_GEN_T);

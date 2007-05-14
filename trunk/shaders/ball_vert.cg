@@ -1,0 +1,45 @@
+struct vertex_in 
+{
+    float4 pos   : POSITION;
+    float3 norm  : NORMAL;
+	float3 tex1  : TEXCOORD0;
+    float3 tex2  : TEXCOORD1;
+    float3 color : COLOR0;
+};
+
+struct vertex_out 
+{
+    float4 pos   : POSITION;
+    float3 color : COLOR0;
+	float3 tex1  : TEXCOORD0;
+    float3 tex2  : TEXCOORD1;
+};
+
+vertex_out main( vertex_in IN, uniform float4x4 ModelViewProj, uniform float4x4 ModelView )
+{
+	vertex_out OUT;
+
+    float4 eye;
+    float4 vpos;
+    float3 texo, R, U;
+    float M;
+
+    eye = mul( ModelViewProj, IN.pos );
+    vpos = mul( ModelView, IN.pos );
+
+    U = float3( normalize( vpos - eye ) );
+    R = reflect( U, IN.norm );
+    M = 2.0 * sqrt( R.x*R.x + R.y*R.y + (R.z+1.0)*(R.z+1.0) );
+    texo.x = R.x/M + 0.5;
+    texo.y = R.y/M + 0.5;
+    texo.z = 0.0;
+
+    OUT.tex1  = IN.tex1;
+    OUT.tex2  = texo;
+    OUT.color = IN.color;
+    
+    OUT.pos   = mul( ModelViewProj, IN.pos );
+
+	return OUT;
+}
+

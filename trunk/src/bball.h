@@ -16,7 +16,7 @@
 #include "bvector.h"
 #include "bgl.h"
 #include "bquaternion.h"
-#include "GLquat.h"
+#include "bshader.h"
 
 /**
     @brief Ball object
@@ -32,7 +32,7 @@ public:
     ~bBall();
     
     /// draws ball
-    void draw();
+    void draw( bShader * s = NULL );
     
     /// draws ball shadow
     void draw_shadow();
