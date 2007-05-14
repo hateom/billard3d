@@ -15,12 +15,10 @@
 #include "btrace.h"
 #include "bsdl.h"
 #include "bquaternion.h"
+#include "bconst.h"
 #include "GLquat.h"
 
 #define COL_FACTOR 0.2
-
-#define G_PI 3.1415
-
 #define EPS 0.01
 
 bBall::bBall() : t_vel_f(false)
@@ -68,7 +66,7 @@ void bBall::draw()
 
 void bBall::draw_shadow()
 {
-    static float step = 2*3.1415/16.0;
+    static double step = (B_2PI)/16.0;
     
     glDisable( GL_CULL_FACE );
     glPushMatrix();
@@ -77,8 +75,8 @@ void bBall::draw_shadow()
     
         glBegin( GL_TRIANGLE_FAN );
             glVertex3f(0.0f,0.0f,0.0f);
-            for( float i=0.0; i<2.0*3.1415; i+=step) {
-                glVertex3f( radius*cos(i), 0.0f, radius*sin(i) );
+            for( double i=0.0; i<B_2PI; i+=step) {
+                glVertex3d( radius*cos(i), 0.0, radius*sin(i) );
             }
         glEnd();
     glPopMatrix();

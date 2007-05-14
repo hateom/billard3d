@@ -229,6 +229,14 @@
 				>
 			</File>
 			<File
+				RelativePath="..\src\bcamera.cpp"
+				>
+			</File>
+			<File
+				RelativePath="..\src\bcamera.h"
+				>
+			</File>
+			<File
 				RelativePath="..\src\bconfig.cpp"
 				>
 			</File>
@@ -242,6 +250,14 @@
 			</File>
 			<File
 				RelativePath="..\src\bconfigreader.h"
+				>
+			</File>
+			<File
+				RelativePath="..\src\bconst.cpp"
+				>
+			</File>
+			<File
+				RelativePath="..\src\bconst.h"
 				>
 			</File>
 			<File
@@ -397,6 +413,14 @@
 				>
 			</File>
 			<File
+				RelativePath="..\src\bquaternion.cpp"
+				>
+			</File>
+			<File
+				RelativePath="..\src\bquaternion.h"
+				>
+			</File>
+			<File
 				RelativePath="..\src\bsdl.h"
 				>
 			</File>
@@ -493,6 +517,14 @@
 				>
 			</File>
 			<File
+				RelativePath="..\src\bvector3.cpp"
+				>
+			</File>
+			<File
+				RelativePath="..\src\bvector3.h"
+				>
+			</File>
+			<File
 				RelativePath="..\src\bvideo.cpp"
 				>
 			</File>
@@ -518,6 +550,14 @@
 			</File>
 			<File
 				RelativePath="..\src\font03.h"
+				>
+			</File>
+			<File
+				RelativePath="..\src\GLquat.c"
+				>
+			</File>
+			<File
+				RelativePath="..\src\GLquat.h"
 				>
 			</File>
 		</Filter>

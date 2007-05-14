@@ -1,100 +1,129 @@
 #include "bquaternion.h"
+#include "bconst.h"
 #include <cmath>
-
-#ifndef M_PI
-#define M_PI 3.14159265358979323846
-#endif // M_PI
 
 bQuaternion::bQuaternion()
 {
-    m_x = m_y = m_z = 0.0;
-    m_w = 1.0;
+    x = y = z = 0.0;
+    w = 1.0;
 }
 
-
-bQuaternion::bQuaternion(double x, double y, double z, double degrees)
+bQuaternion::bQuaternion( bQuaternion & rhs ) : 
+	x(rhs.x), y(rhs.y), z(rhs.z), w(rhs.w)
 {
-    create_from_axis_angle( x, y, z, degrees );
+}
+
+bQuaternion::bQuaternion( double iw, double ix, double iy, double iz ) : 
+	x(ix), y(iy), z(iz), w(iw)
+{
+}
+
+bQuaternion::bQuaternion( double roll, double pitch, double yaw )
+{
+	from_axis( roll, pitch, yaw );
 }
 
 bQuaternion::~bQuaternion()
 {
 }
 
-void bQuaternion::create_from_axis_angle( double x, double y, double z, double degrees)
+void bQuaternion::from_axis( double roll, double pitch, double yaw )
 {
-    double angle = double((degrees / 180.0) * M_PI);
-    // Here we calculate the sin( theta / 2) once for optimization
-    double result = (double)sin( angle / 2.0 );
-		
-    // Calcualte the w value by cos( theta / 2 )
-    m_w = (double)cos( angle / 2.0 );
-    // Calculate the x, y and z of the quaternion
-    m_x = double(x * result);
-    m_y = double(y * result);
-    m_z = double(z * result);
-}
+	double cr, cp, cy, sr, sp, sy, cpcy, spsy;
 
-void bQuaternion::create_matrix(double *pMatrix)
-{
-    // Make sure the matrix has allocated memory to store the rotation data
-    if(!pMatrix) return;
-    // First row
-    pMatrix[ 0] = 1.0 - 2.0 * ( m_y * m_y + m_z * m_z ); 
-    pMatrix[ 1] = 2.0 * (m_x * m_y + m_z * m_w);
-    pMatrix[ 2] = 2.0 * (m_x * m_z - m_y * m_w);
-    pMatrix[ 3] = 0.0;  
-    // Second row
-    pMatrix[ 4] = 2.0 * ( m_x * m_y - m_z * m_w );  
-    pMatrix[ 5] = 1.0 - 2.0 * ( m_x * m_x + m_z * m_z ); 
-    pMatrix[ 6] = 2.0 * (m_z * m_y + m_x * m_w );  
-    pMatrix[ 7] = 0.0;  
-    // Third row
-    pMatrix[ 8] = 2.0 * ( m_x * m_z + m_y * m_w );
-    pMatrix[ 9] = 2.0 * ( m_y * m_z - m_x * m_w );
-    pMatrix[10] = 1.0 - 2.0 * ( m_x * m_x + m_y * m_y );  
-    pMatrix[11] = 0.0;  
-    // Fourth row
-    pMatrix[12] = 0;  
-    pMatrix[13] = 0;  
-    pMatrix[14] = 0;  
-    pMatrix[15] = 1.0;
-    // Now pMatrix[] is a 4x4 homogeneous matrix that can be applied to an OpenGL Matrix
-}
+	cr = cos(roll/2);
+	cp = cos(pitch/2);
+	cy = cos(yaw/2);
 
-bQuaternion bQuaternion::operator *(bQuaternion q)
-{
-    bQuaternion r;
-    r.m_w = m_w*q.m_w - m_x*q.m_x - m_y*q.m_y - m_z*q.m_z;
-    r.m_x = m_w*q.m_x + m_x*q.m_w + m_y*q.m_z - m_z*q.m_y;
-    r.m_y = m_w*q.m_y + m_y*q.m_w + m_z*q.m_x - m_x*q.m_z;
-    r.m_z = m_w*q.m_z + m_z*q.m_w + m_x*q.m_y - m_y*q.m_x;
+	sr = sin(roll/2);
+	sp = sin(pitch/2);
+	sy = sin(yaw/2);
 	
-    return r;
+	cpcy = cp * cy;
+	spsy = sp * sy;
+
+	w = cr * cpcy + sr * spsy;
+	x = sr * cpcy - cr * spsy;
+	y = cr * sp * cy + sr * cp * sy;
+	z = cr * cp * sy - sr * sp * cy;
 }
 
-void bQuaternion::create_matrix(float * pMatrix)
+void bQuaternion::from_matrix( double mat[16] )
 {
-    // Make sure the matrix has allocated memory to store the rotation data
-    if(!pMatrix) return;
-    // First row
-    pMatrix[ 0] = 1.0f - 2.0f * ( m_y * m_y + m_z * m_z ); 
-    pMatrix[ 1] = 2.0f * (m_x * m_y + m_z * m_w);
-    pMatrix[ 2] = 2.0f * (m_x * m_z - m_y * m_w);
-    pMatrix[ 3] = 0.0f;  
-    // Second row
-    pMatrix[ 4] = 2.0f * ( m_x * m_y - m_z * m_w );  
-    pMatrix[ 5] = 1.0f - 2.0f * ( m_x * m_x + m_z * m_z ); 
-    pMatrix[ 6] = 2.0f * (m_z * m_y + m_x * m_w );  
-    pMatrix[ 7] = 0.0f;  
-    // Third row
-    pMatrix[ 8] = 2.0f * ( m_x * m_z + m_y * m_w );
-    pMatrix[ 9] = 2.0f * ( m_y * m_z - m_x * m_w );
-    pMatrix[10] = 1.0f - 2.0f * ( m_x * m_x + m_y * m_y );  
-    pMatrix[11] = 0.0f;  
-    // Fourth row
-    pMatrix[12] = 0;  
-    pMatrix[13] = 0;  
-    pMatrix[14] = 0;  
-    pMatrix[15] = 1.0;
+	double	tr, s;
+	double	q[4];
+	int		i, j, k;
+	double ** m = (double**)&mat[0];
+
+	int nxt[3] = {1, 2, 0};
+
+	tr = m[0][0] + m[1][1] + m[2][2];
+
+	// check the diagonal
+
+	if (tr > 0.0) {
+		s = sqrt (tr + 1.0);
+		w = s / 2.0;
+		s = 0.5 / s;
+
+		x = (m[1][2] - m[2][1]) * s;
+		y = (m[2][0] - m[0][2]) * s;
+		z = (m[0][1] - m[1][0]) * s;
+	} else {		
+		// diagonal is negative
+    
+		i = 0;
+
+		if( m[1][1] > m[0][0] ) i = 1;
+		if( m[2][2] > m[i][i] ) i = 2;
+    
+		j = nxt[i];
+		k = nxt[j];
+
+		s = sqrt ((m[i][i] - (m[j][j] + m[k][k])) + 1.0);
+      
+		q[i] = s * 0.5;
+
+		if (s != 0.0) s = 0.5 / s;
+
+		q[3] = (m[j][k] - m[k][j]) * s;
+		q[j] = (m[i][j] + m[j][i]) * s;
+		q[k] = (m[i][k] + m[k][i]) * s;
+
+		x = q[0];
+		y = q[1];
+		z = q[2];
+		w = q[3];
+	}
+}
+
+void bQuaternion::to_matrix( double mat[16] )
+{
+	double wx, wy, wz, xx, yy, yz, xy, xz, zz, x2, y2, z2;
+	double ** m = (double**)&mat[0];
+
+	x2 = x + x; y2 = y + y; z2 = z + z;
+	xx = x * x2;   xy = x * y2;   xz = x * z2;
+	yy = y * y2;   yz = y * z2;   zz = z * z2;
+	wx = w * x2;   wy = w * y2;   wz = w * z2;
+
+	m[0][0] = 1.0 - (yy + zz);
+	m[0][1] = xy - wz;
+	m[0][2] = xz + wy;
+	m[0][3] = 0.0;
+ 
+	m[1][0] = xy + wz;
+	m[1][1] = 1.0 - (xx + zz);
+	m[1][2] = yz - wx;
+	m[1][3] = 0.0;
+
+	m[2][0] = xz - wy;
+	m[2][1] = yz + wx;
+	m[2][2] = 1.0 - (xx + yy);
+	m[2][3] = 0.0;
+
+	m[3][0] = 0;
+	m[3][1] = 0;
+	m[3][2] = 0;
+	m[3][3] = 1;
 }
