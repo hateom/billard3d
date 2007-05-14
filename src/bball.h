@@ -15,6 +15,7 @@
 #include "bband.h"
 #include "bvector.h"
 #include "bgl.h"
+#include "bquaternion.h"
 #include "GLquat.h"
 
 /**
@@ -77,6 +78,9 @@ public:
     
     GL_QUAT qrot, dqrot;
     float   rotmat[4][4];
+
+	//bQuaternion qrot, dqrot;
+	//double rotmat[16];
     
     float r,         ///< red component of the color value
           g,         ///< green component of the color value
