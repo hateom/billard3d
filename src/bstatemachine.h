@@ -35,7 +35,7 @@ typedef enum bState {
 };
 
 /**
-	@author Tomasz Huczek & Andrzej Jasiñski <thuczek@gmail.com>
+	@author Tomasz Huczek & Andrzej Jasiï¿½ski <thuczek@gmail.com>
 */
 class bStateMachine : public bSingleton<bStateMachine>
 {
@@ -50,12 +50,13 @@ public:
     
 private:
     bState state;
-    
+    /*
     bSimLogicLayer * sim_logic;
     bSimVideoLayer * sim_video;
     
     bPauseLogicLayer * pause_logic;
     bPauseVideoLayer * pause_video;
+    */
 };
 
 #endif

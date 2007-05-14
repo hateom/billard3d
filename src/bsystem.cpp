@@ -10,6 +10,7 @@
  ***************************************************************************/
 
 #include "bsystem.h"
+#include "blayermgr.h"
 
 bPath           bSystem::path_sys;
 bProfiler       bSystem::profiler_sys;
@@ -36,6 +37,7 @@ bool bSystem::init(int argc, char *argv[] )
             log_sys.set_state(true);
         }
         path_sys.init(argv[0]);
+        bLayerMgr::init();
     } catch( ... ) {
         release();
         return false;
@@ -47,6 +49,7 @@ bool bSystem::init(int argc, char *argv[] )
 void bSystem::release()
 {
     mainloop_sys.release();
+    bLayerMgr::release();
     input_sys.release();
     
     bTrace::dump();

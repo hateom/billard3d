@@ -9,27 +9,38 @@
  *                                                                         *
  ***************************************************************************/
 
-#ifndef BPAUSELOGICLAYER_H
-#define BPAUSELOGICLAYER_H
+#ifndef BLAYERMGR_H
+#define BLAYERMGR_H
 
+#include "bvideolayer.h"
 #include "blogiclayer.h"
 
 /**
-	@author Tomasz Huczek & Andrzej Jasi�ski <thuczek@gmail.com>
+	@author Tomasz Huczek & Andrzej Jasiński <thuczek@gmail.com>
 */
-class bPauseLogicLayer : public bLogicLayer
+
+namespace bLayer {
+
+    enum Id {
+        SIMULATION  = 0,
+        PAUSE       = 1,
+        COUNT       = 2
+    };
+
+}
+
+class bLayerMgr
 {
 public:
-    bPauseLogicLayer();
-    virtual ~bPauseLogicLayer();
-
-    void update();
-    void on_key_down( uint32 key );
-    void on_key_up( uint32 key );
+    static void insert_layer( bLayer::Id layer_id );
+    static void remove_layer( bLayer::Id layer_id );
     
-    void init();
-    void release();
-
+    static void init();
+    static void release();
+    
+private:
+    static bVideoLayer * vlayer[bLayer::COUNT];
+    static bLogicLayer * llayer[bLayer::COUNT];
 };
 
 #endif

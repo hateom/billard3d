@@ -60,7 +60,7 @@ void bBall::draw()
 {
     glPushMatrix();
 		glTranslated( pos.x, radius, pos.y );
-        glMultMatrixf((float*)rotmat);
+        glMultMatrixd((double*)rotmat);
 		glColor3f( r, g, b );
         gluQuadricTexture( sphere_obj, GL_TRUE );
 		gluSphere(sphere_obj, radius, 32, 32 );
@@ -117,16 +117,11 @@ void bBall::process( double fps_factor )
     slphi = sin(lphi/2.0);
     
     rphi = vel.normal();
-    dqrot.w = cos(lphi/2.0);
-    dqrot.x = -slphi*rphi.y;
-    dqrot.y = 0.0;
-    dqrot.z = slphi*rphi.x;
+    dqrot.w = cos(lphi/2.0); dqrot.x = -slphi*rphi.y; 
+    dqrot.y = 0.0; dqrot.z = slphi*rphi.x;
     
-    gluQuatMul_EXT( &qrot, &dqrot, &qrot );
-    gluQuatToMat_EXT( &qrot, rotmat );
-
-	//qrot *= dqrot;
-	//qrot.to_matrix( rotmat );
+	qrot *= dqrot;
+	qrot.to_matrix( rotmat );
     
     unguard;
 }
@@ -154,16 +149,11 @@ void bBall::unprocess( double fps_factor )
     slphi = sin(lphi/2.0);
     
     rphi = vel.normal();
-    dqrot.w = cos(lphi/2.0);
-    dqrot.x = -slphi*rphi.y;
-    dqrot.y = 0.0;
-    dqrot.z = slphi*rphi.x;
+    dqrot.w = cos(lphi/2.0); dqrot.x = -slphi*rphi.y;
+    dqrot.y = 0.0; dqrot.z = slphi*rphi.x;
     
-    gluQuatMul_EXT( &qrot, &dqrot, &qrot );
-    gluQuatToMat_EXT( &qrot, rotmat );
-
-	//qrot *= dqrot;
-	//qrot.to_matrix( rotmat );
+	qrot *= dqrot;
+	qrot.to_matrix( rotmat );
 }
 
 bVector bBall::collision(bBall * b)

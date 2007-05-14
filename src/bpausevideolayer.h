@@ -15,7 +15,7 @@
 #include "bvideolayer.h"
 
 /**
-	@author Tomasz Huczek & Andrzej Jasiñski <thuczek@gmail.com>
+	@author Tomasz Huczek & Andrzej Jasiï¿½ski <thuczek@gmail.com>
 */
 class bPauseVideoLayer : public bVideoLayer
 {
@@ -23,7 +23,9 @@ public:
     bPauseVideoLayer();
     virtual ~bPauseVideoLayer();
 
-    virtual void draw();
+    void init();
+    void release();
+    void draw();
 
 };
 

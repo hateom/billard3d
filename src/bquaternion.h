@@ -52,9 +52,9 @@ public:
 
 public:
 	double w;
+    double x;
+    double y;
 	double z;
-	double y;
-	double x;
 };
 
 #endif // BQUATERNION_H

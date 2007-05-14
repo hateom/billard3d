@@ -66,3 +66,12 @@ void bPauseVideoLayer::draw()
     PRINTB( 350, 400, B_FONT_LIGHT, "ESC - back to the game" );
 }
 
+
+
+void bPauseVideoLayer::init()
+{
+}
+
+void bPauseVideoLayer::release()
+{
+}

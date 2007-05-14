@@ -54,3 +54,11 @@ void bSimLogicLayer::on_key_up(uint32 key)
             break;
     }
 }
+
+void bSimLogicLayer::init()
+{
+}
+
+void bSimLogicLayer::release()
+{
+}

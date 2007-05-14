@@ -24,7 +24,10 @@ public:
     bSimVideoLayer();
     virtual ~bSimVideoLayer();
 
-    virtual void draw();
+    void draw();
+    
+    void init();
+    void release();
     
 private:
     bBoard g_board;

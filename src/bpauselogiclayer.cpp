@@ -43,3 +43,10 @@ void bPauseLogicLayer::on_key_up(uint32 key)
 {
 }
 
+void bPauseLogicLayer::release()
+{
+}
+
+void bPauseLogicLayer::init()
+{
+}

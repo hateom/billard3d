@@ -21,13 +21,11 @@
 bSimVideoLayer::bSimVideoLayer()
  : bVideoLayer()
 {
-    g_board.create();
 }
 
 
 bSimVideoLayer::~bSimVideoLayer()
 {
-    g_board.release();
 }
 
 void bSimVideoLayer::draw()
@@ -84,3 +82,12 @@ void bSimVideoLayer::draw()
     }
 }
 
+void bSimVideoLayer::init()
+{
+    g_board.create();
+}
+
+void bSimVideoLayer::release()
+{
+    g_board.release();
+}
