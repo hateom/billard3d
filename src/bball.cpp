@@ -56,11 +56,12 @@ bBall::~bBall()
 {
 }
 
-void bBall::draw()
+void bBall::draw( bShader * sh )
 {
     glPushMatrix();
 		glTranslated( pos.x, radius, pos.y );
         glMultMatrixd((double*)rotmat);
+        if( sh ) sh->set_matrices();
 		glColor3f( r, g, b );
         gluQuadricTexture( sphere_obj, GL_TRUE );
 		gluSphere(sphere_obj, radius, 32, 32 );
