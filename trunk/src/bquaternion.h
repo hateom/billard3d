@@ -19,14 +19,36 @@ class bQuaternion
 {
 public:
     bQuaternion();
-	bQuaternion( bQuaternion & rhs );
+	//bQuaternion( bQuaternion & rhs );
+	bQuaternion( const bQuaternion & rhs );
     bQuaternion( double w, double x, double y, double z );
 	bQuaternion( double roll, double pitch, double yaw );
     virtual ~bQuaternion();
 
 	void from_axis( double roll, double pitch, double yaw );
 	void from_matrix( double mat[16] );
-	void to_matrix( double mat[16] );
+	void to_matrix( double mat[16] ) const;
+
+	bQuaternion & normalize();
+	bQuaternion get_normal() const;
+
+	bQuaternion & inverse();
+	bQuaternion get_inversed() const;
+
+	bQuaternion operator=( bQuaternion rhs );
+
+    double length() const;
+	double dot( const bQuaternion & q ) const;
+    
+    bQuaternion & operator +=( const bQuaternion & q );
+    bQuaternion & operator -=( const bQuaternion & q );
+    bQuaternion operator+( const bQuaternion & q );
+    bQuaternion operator-( const bQuaternion & q );
+
+	bQuaternion & operator *=( const bQuaternion & q );
+    bQuaternion & operator /=( const bQuaternion & q );
+    bQuaternion operator*( const bQuaternion & q );
+    bQuaternion operator/( const bQuaternion & q );
 
 public:
 	double w;

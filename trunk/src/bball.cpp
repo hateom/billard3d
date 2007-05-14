@@ -16,7 +16,6 @@
 #include "bsdl.h"
 #include "bquaternion.h"
 #include "bconst.h"
-#include "GLquat.h"
 
 #define COL_FACTOR 0.2
 #define EPS 0.01
@@ -32,7 +31,9 @@ bBall::bBall() : t_vel_f(false)
     lphi = 0.0;
     r = g = b = 0.9f;
     acc.y = 300.0;
-    qrot.w = 1.0; qrot.x = qrot.y = qrot.z = 0.0;
+    
+	qrot.w = 1.0; qrot.x = qrot.y = qrot.z = 0.0;
+
     sphere_obj = gluNewQuadric();
 	gluQuadricNormals( sphere_obj, GL_SMOOTH );
 	gluQuadricTexture( sphere_obj, GL_TRUE );
@@ -45,7 +46,9 @@ bBall::bBall(bVector ip, bVector iv, bVector ia,
 {
     t_vel.zero();
     lphi = 0;
-    qrot.w = 1.0; qrot.x = qrot.y = qrot.z = 0.0;
+    
+	 qrot.w = 1.0; qrot.x = qrot.y = qrot.z = 0.0;
+
     sphere_obj = gluNewQuadric();
 }
 
@@ -75,7 +78,7 @@ void bBall::draw_shadow()
     
         glBegin( GL_TRIANGLE_FAN );
             glVertex3f(0.0f,0.0f,0.0f);
-            for( double i=0.0; i<B_2PI; i+=step) {
+            for( double i=0.0; i<B_2PI+step; i+=step) {
                 glVertex3d( radius*cos(i), 0.0, radius*sin(i) );
             }
         glEnd();
@@ -121,6 +124,9 @@ void bBall::process( double fps_factor )
     
     gluQuatMul_EXT( &qrot, &dqrot, &qrot );
     gluQuatToMat_EXT( &qrot, rotmat );
+
+	//qrot *= dqrot;
+	//qrot.to_matrix( rotmat );
     
     unguard;
 }
@@ -155,6 +161,9 @@ void bBall::unprocess( double fps_factor )
     
     gluQuatMul_EXT( &qrot, &dqrot, &qrot );
     gluQuatToMat_EXT( &qrot, rotmat );
+
+	//qrot *= dqrot;
+	//qrot.to_matrix( rotmat );
 }
 
 bVector bBall::collision(bBall * b)
