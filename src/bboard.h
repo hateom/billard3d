@@ -40,6 +40,8 @@ public:
     void draw();
     bool is_any( int ball );
    
+    void reset();
+    
 private:
     void draw_balls();
     void sort_balls();            
