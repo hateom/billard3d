@@ -119,8 +119,8 @@ bool bShader::load_vertex( const char * filename )
     
     cgGLLoadProgram( vprogram );
     
-    mvp = cgGetNamedParameter( vprogram, "ModelViewProj");
-    mv  = cgGetNamedParameter( vprogram, "ModelView");
+    mvp   = cgGetNamedParameter( vprogram, "ModelViewProj");
+    mv    = cgGetNamedParameter( vprogram, "ModelView");
     if( !mvp || !mv ) {
         BLOG( "!! shader data not loaded!\n" );
     }
@@ -148,7 +148,7 @@ char * bShader::load_string(const char * filename)
 
 void bShader::set_matrices()
 {
-    cgGLSetStateMatrixParameter( mvp, CG_GL_MODELVIEW_PROJECTION_MATRIX, CG_GL_MATRIX_IDENTITY );
-    cgGLSetStateMatrixParameter( mv, CG_GL_MODELVIEW_MATRIX, CG_GL_MATRIX_IDENTITY );
+    cgGLSetStateMatrixParameter( mvp,  CG_GL_MODELVIEW_PROJECTION_MATRIX, CG_GL_MATRIX_IDENTITY );
+    cgGLSetStateMatrixParameter( mv,   CG_GL_MODELVIEW_MATRIX, CG_GL_MATRIX_IDENTITY );
 }
 
