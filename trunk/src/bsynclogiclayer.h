@@ -9,39 +9,30 @@
  *                                                                         *
  ***************************************************************************/
 
-#ifndef BLAYERMGR_H
-#define BLAYERMGR_H
+#ifndef BSYNCLOGICLAYER_H
+#define BSYNCLOGICLAYER_H
 
-#include "bvideolayer.h"
 #include "blogiclayer.h"
 
 /**
 	@author Tomasz Huczek & Andrzej Jasiński <thuczek@gmail.com>
 */
-
-namespace bLayer {
-
-    enum Id {
-        SIMULATION  = 0,
-        PAUSE       = 1,
-        SYNC        = 2,
-        COUNT       = 3
-    };
-
-}
-
-class bLayerMgr
+class bSyncLogicLayer : public bLogicLayer
 {
 public:
-    static void insert_layer( bLayer::Id layer_id );
-    static void remove_layer( bLayer::Id layer_id );
+    bSyncLogicLayer();
+    virtual ~bSyncLogicLayer();
+
+    void init();
+    void release();
+    void update();
     
-    static void init();
-    static void release();
+    void on_key_down( uint32 key );
+    void on_key_up( uint32 key );
     
 private:
-    static bVideoLayer * vlayer[bLayer::COUNT];
-    static bLogicLayer * llayer[bLayer::COUNT];
+    uint32 ticks;
+    bool   active;
 };
 
 #endif

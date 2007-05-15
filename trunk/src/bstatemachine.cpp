@@ -29,12 +29,23 @@ void bStateMachine::go_to(bState new_state)
     switch(new_state)
     {
         case BS_SIMULATION:
-            BLOG( "## changing state to BS_SIMULATION\n" );
+            BLOG( "## changing state to BS_SIMULATION " );
             if( state == BS_NONE ) {
+                BLOG( "__init\n");
                 bLayerMgr::insert_layer( bLayer::SIMULATION );
+                go_to( BS_SYNC );
+                new_state = BS_SYNC;
             } else if( state == BS_PAUSE ) {
+                BLOG( "from PAUSE\n\n");
                 bLayerMgr::remove_layer( bLayer::PAUSE );
+            } else if( state == BS_SYNC ) {
+                BLOG( "after SYNCING\n\n");
+                bLayerMgr::remove_layer( bLayer::SYNC );
             }
+            break;
+        case BS_SYNC:
+            BLOG( "## changing state to BS_SYNC\n" );
+            bLayerMgr::insert_layer( bLayer::SYNC );
             break;
         case BS_PAUSE:
             BLOG( "## changing state to BS_PAUSE\n" );

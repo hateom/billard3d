@@ -31,6 +31,7 @@ typedef enum bState {
     BS_NONE,
     BS_SIMULATION,
     BS_PAUSE,
+    BS_SYNC,
     BS_QUIT
 };
 

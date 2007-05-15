@@ -9,39 +9,33 @@
  *                                                                         *
  ***************************************************************************/
 
-#ifndef BLAYERMGR_H
-#define BLAYERMGR_H
+#include "bsyncvideolayer.h"
+#include "bfontmgr.h"
+#include "bgl.h"
 
-#include "bvideolayer.h"
-#include "blogiclayer.h"
-
-/**
-	@author Tomasz Huczek & Andrzej Jasiński <thuczek@gmail.com>
-*/
-
-namespace bLayer {
-
-    enum Id {
-        SIMULATION  = 0,
-        PAUSE       = 1,
-        SYNC        = 2,
-        COUNT       = 3
-    };
-
+bSyncVideoLayer::bSyncVideoLayer()
+ : bVideoLayer()
+{
 }
 
-class bLayerMgr
-{
-public:
-    static void insert_layer( bLayer::Id layer_id );
-    static void remove_layer( bLayer::Id layer_id );
-    
-    static void init();
-    static void release();
-    
-private:
-    static bVideoLayer * vlayer[bLayer::COUNT];
-    static bLogicLayer * llayer[bLayer::COUNT];
-};
 
-#endif
+bSyncVideoLayer::~bSyncVideoLayer()
+{
+}
+
+void bSyncVideoLayer::draw()
+{
+    glPushMatrix();
+        glColor4d( 1.0, 1.0, 1.0, 1.0 );
+        PRINTB( 200, 300, B_FONT_LIGHT, "...SYNCHRONIZING FPS TIMER..." );
+    glPopMatrix();
+}
+
+void bSyncVideoLayer::init()
+{
+}
+
+void bSyncVideoLayer::release()
+{
+}
+
