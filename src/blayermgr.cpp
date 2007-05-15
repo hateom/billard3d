@@ -16,6 +16,8 @@
 #include "bpausevideolayer.h"
 #include "bsimlogiclayer.h"
 #include "bpauselogiclayer.h"
+#include "bsynclogiclayer.h"
+#include "bsyncvideolayer.h"
 
 #define B_DEFINE_LAYER( ENM, VIDL, LOGL ) vlayer[ENM] = VIDL; llayer[ENM] = LOGL;
 
@@ -26,6 +28,7 @@ void bLayerMgr::init()
 {
     B_DEFINE_LAYER( bLayer::SIMULATION, new bSimVideoLayer(),   new bSimLogicLayer() );
     B_DEFINE_LAYER( bLayer::PAUSE,      new bPauseVideoLayer(), new bPauseLogicLayer() );
+    B_DEFINE_LAYER( bLayer::SYNC,       new bSyncVideoLayer(),  new bSyncLogicLayer() );
 }
 
 void bLayerMgr::insert_layer(bLayer::Id layer_id)

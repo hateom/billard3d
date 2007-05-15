@@ -9,39 +9,44 @@
  *                                                                         *
  ***************************************************************************/
 
-#ifndef BLAYERMGR_H
-#define BLAYERMGR_H
+#include "bsynclogiclayer.h"
+#include "bstatemachine.h"
+#include "bsdl.h"
 
-#include "bvideolayer.h"
-#include "blogiclayer.h"
-
-/**
-	@author Tomasz Huczek & Andrzej Jasiński <thuczek@gmail.com>
-*/
-
-namespace bLayer {
-
-    enum Id {
-        SIMULATION  = 0,
-        PAUSE       = 1,
-        SYNC        = 2,
-        COUNT       = 3
-    };
-
+bSyncLogicLayer::bSyncLogicLayer()
+ : bLogicLayer(true)
+{
 }
 
-class bLayerMgr
-{
-public:
-    static void insert_layer( bLayer::Id layer_id );
-    static void remove_layer( bLayer::Id layer_id );
-    
-    static void init();
-    static void release();
-    
-private:
-    static bVideoLayer * vlayer[bLayer::COUNT];
-    static bLogicLayer * llayer[bLayer::COUNT];
-};
 
-#endif
+bSyncLogicLayer::~bSyncLogicLayer()
+{
+}
+
+void bSyncLogicLayer::init()
+{
+    active = true;
+    ticks = SDL_GetTicks();
+}
+
+void bSyncLogicLayer::release()
+{
+    active = false;
+}
+
+void bSyncLogicLayer::update()
+{
+    if( ( active && ( SDL_GetTicks() - ticks ) > 2000 ) )
+    {
+        GetStateMachine.go_to( BS_SIMULATION );
+        active = false;
+    }
+}
+
+void bSyncLogicLayer::on_key_down(uint32 key)
+{
+}
+
+void bSyncLogicLayer::on_key_up(uint32 key)
+{
+}
