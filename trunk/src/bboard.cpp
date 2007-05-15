@@ -72,34 +72,45 @@ bool bBoard::create()
 	glTexGeni( GL_S, GL_TEXTURE_GEN_MODE, GL_SPHERE_MAP );
 	glTexGeni( GL_T, GL_TEXTURE_GEN_MODE, GL_SPHERE_MAP );
     
-	if( !ball_tex.load( GETPATH("../../tex/ball.bmp") ) )
-    {
+	if( !ball_tex.load( GETPATH("../../tex/ball.bmp") ) ) {
         BLOG( "!! Error loading ball texture!\n" );
     }
     
-    if( !ball_num.load( GETPATH("../../tex/xball.bmp") ) )
-    {
+    if( !ball_num.load( GETPATH("../../tex/xball.bmp") ) ) {
         BLOG( "!! Error loading ball texture!\n" );
     }
     
-    if( !desk.load( GETPATH("../../tex/desk.bmp") ) )
-    {
+    if( !desk.load( GETPATH("../../tex/desk.bmp") ) ) {
         BLOG( "!! Error loading desk texture!\n" );
     }
     
-    if( !ball_shader.load_fragment( GETPATH("../../shaders/ball_frag.cg") ) )
-    {
-        BLOG( "!! Error loading ball shader!\n" );   
-    }
-    
-    if( !ball_shader.load_vertex( GETPATH("../../shaders/ball_vert.cg") ) )
-    {
-        BLOG( "!! Error loading ball shader!\n" );   
+    if( bShader::is_supported() ) {
+        if( !ball_shader.load_fragment( GETPATH("../../shaders/ball_frag.cg") ) ) {
+            BLOG( "!! Error loading ball shader!\n" );   
+        }
+        if( !ball_shader.load_vertex( GETPATH("../../shaders/ball_vert.cg") ) ) {
+            BLOG( "!! Error loading ball shader!\n" );   
+        }
+    } else {
+        BLOG( "!! Shaders are not supported!\n" );   
     }
 
     return true;
     
     unguard;
+}
+
+void bBoard::reset()
+{
+    ball[0]->set_v( bVector( 2.3, 0.0) ); ball[0]->commit_v();
+    ball[1]->set_v( bVector( 2.0, 5.0) ); ball[0]->commit_v();
+    ball[2]->set_v( bVector( 3.0, 3.0) ); ball[0]->commit_v();
+    ball[3]->set_v( bVector(-3.0, 3.0) ); ball[0]->commit_v();
+    
+    ball[4]->set_v( bVector(-3.0, 3.0) ); ball[0]->commit_v();
+    ball[5]->set_v( bVector(-3.0, 3.0) ); ball[0]->commit_v();
+    
+    ball[6]->set_v( bVector(-3.0, 3.0) ); ball[0]->commit_v();
 }
 
 void bBoard::release()

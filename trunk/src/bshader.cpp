@@ -32,12 +32,16 @@ bool bShader::is_supported()
 
 void bShader::enable( bProgram p )
 {
+    if( !is_supported() ) return;
+    
     if( p & B_FRAGMENT ) cgGLEnableProfile( fprofile );
     if( p & B_VERTEX )   cgGLEnableProfile( vprofile );
 }
 
 void bShader::disable( bProgram p )
 {
+    if( !is_supported() ) return;
+    
     if( p & B_FRAGMENT ) cgGLDisableProfile( fprofile );
     if( p & B_VERTEX )   cgGLDisableProfile( vprofile );
 }
@@ -46,7 +50,7 @@ void bShader::bind( bProgram p )
 {
     guard(bShader::bind);
     
-    BASSERTM( is_supported(), "Shaders aint supported, dude!" );
+    if( !is_supported() ) return;
     
     if( p & B_FRAGMENT ) { cgGLBindProgram( fprogram ); }
     if( p & B_VERTEX )   { cgGLBindProgram( vprogram ); }
@@ -56,6 +60,8 @@ void bShader::bind( bProgram p )
 
 void bShader::release()
 {
+    if( !is_supported() ) return;
+    
     if( vprogram ) { cgDestroyProgram( vprogram ); vprogram = 0; }
     if( vcontext ) { cgDestroyContext( vcontext ); vcontext = 0; }
     
@@ -67,7 +73,7 @@ bool bShader::load_fragment( const char * filename )
 {
     guard(bShader::load_fragment);
     
-    BASSERTM( is_supported(), "Shaders aint supported, dude!" );
+    if( !is_supported() ) return false;
     
     if( cgGLIsProfileSupported( CG_PROFILE_ARBFP1 ) ) {
         fprofile = CG_PROFILE_ARBFP1;
@@ -96,7 +102,7 @@ bool bShader::load_vertex( const char * filename )
 {
     guard(bShader::load_vertex);
     
-    BASSERTM( is_supported(), "Shaders aint supported, dude!" );
+    if( !is_supported() ) return false;
     
     if( cgGLIsProfileSupported( CG_PROFILE_ARBVP1 ) ) {
         vprofile = CG_PROFILE_ARBVP1;
@@ -148,6 +154,8 @@ char * bShader::load_string(const char * filename)
 
 void bShader::set_matrices()
 {
+    if( !is_supported() ) return;
+    
     cgGLSetStateMatrixParameter( mvp,  CG_GL_MODELVIEW_PROJECTION_MATRIX, CG_GL_MATRIX_IDENTITY );
     cgGLSetStateMatrixParameter( mv,   CG_GL_MODELVIEW_MATRIX, CG_GL_MATRIX_IDENTITY );
 }

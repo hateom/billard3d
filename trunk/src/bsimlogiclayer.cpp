@@ -49,8 +49,7 @@ void bSimLogicLayer::on_key_up(uint32 key)
 {
     switch( key ) {
         case SDLK_SPACE:
-            GetBoard.release();
-            GetBoard.create();
+            GetBoard.reset();
             break;
     }
 }
