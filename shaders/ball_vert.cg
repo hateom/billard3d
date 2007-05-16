@@ -15,20 +15,25 @@ struct vertex_out
     float3 tex2  : TEXCOORD1;
 };
 
-vertex_out main( vertex_in IN, uniform float4x4 ModelViewProj, uniform float4x4 ModelView, uniform float4x4 Proj )
+vertex_out main( 
+    vertex_in IN, 
+    uniform float4x4 ModelViewProj, 
+    uniform float4x4 ModelView, 
+    uniform float4x4 ModelProj, 
+    uniform float4x4 ModelViewI, 
+    uniform float4x4 ModelViewIT 
+    )
 {
 	vertex_out OUT;
 
-    float4 eye;
     float4 vpos;
     float3 texo, R, U, inorm;
     float iM;
+    
+    vpos = mul( ModelView, IN.pos );
+    inorm = mul( ModelViewIT, IN.norm ).xyz;
 
-    eye = mul( ModelViewProj, IN.pos );
-    vpos = mul( ModelViewProj, IN.pos );
-    inorm = mul( ModelViewProj, IN.norm ).xyz;
-
-    U = float3( normalize( vpos ) );
+    U = normalize( vpos ).xyz;
     R = reflect( U, normalize( inorm ) );
     R.z += 1.0;
     iM = 0.5  / length( R );

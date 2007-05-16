@@ -64,6 +64,9 @@ private:
     
     CGparameter mvp;
     CGparameter mv;
+    CGparameter mp;
+    CGparameter mvi;
+    CGparameter mvit;
 };
 
 #endif
