@@ -37,7 +37,7 @@ bool bSystem::init(int argc, char *argv[] )
             log_sys.set_state(true);
         }
         path_sys.init(argv[0]);
-        bLayerMgr::init();
+		bLayerMgr::init();
     } catch( ... ) {
         release();
         return false;

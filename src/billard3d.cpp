@@ -13,6 +13,7 @@
 #include "bmainloop.h"
 #include "bsimlogiclayer.h"
 #include "bsimvideolayer.h"
+#include "blayermgr.h"
 
 //---------------------------------------------------------------------------------------------
 
@@ -32,7 +33,6 @@ int main( int argc, char* argv[] )
         );
         bSystem::draw_sys.create();
         bSystem::font_sys.init();
-
         bSystem::statemachine_sys.go_to( BS_SIMULATION );
         
         while( bSystem::sdl_sys.update() ) {
