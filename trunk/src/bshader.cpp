@@ -92,10 +92,13 @@ bool bShader::load_fragment( const char * filename )
     if( !cgfragprog ) return false;
     
     fcontext = cgCreateContext();
+    if( !fcontext ) return false;
+        
     fprogram = cgCreateProgram( fcontext, CG_SOURCE, cgfragprog, fprofile, NULL, NULL );
+    if( !fprogram ) return false;
 
-	BLOG( "-- Fragment Program:\n");
-	BLOG( "[[\n%s\n]]\n", cgGetProgramString( fprogram, CG_COMPILED_PROGRAM ) );
+	//BLOG( "-- Fragment Program:\n");
+	//BLOG( "[[\n%s\n]]\n", cgGetProgramString( fprogram, CG_COMPILED_PROGRAM ) );
 
     cgGLLoadProgram( fprogram );
     
@@ -125,16 +128,23 @@ bool bShader::load_vertex( const char * filename )
     if( !cgvertprog ) return false;
     
     vcontext = cgCreateContext();
-    vprogram = cgCreateProgram( vcontext, CG_SOURCE, cgvertprog, vprofile, NULL, NULL );
+    if( !vcontext ) return false;
     
-	BLOG( "-- Vertex Program:\n");
-    BLOG( "[[\n%s\n]]\n", cgGetProgramString( vprogram, CG_COMPILED_PROGRAM ) );
+    vprogram = cgCreateProgram( vcontext, CG_SOURCE, cgvertprog, vprofile, NULL, NULL );
+    if( !vprogram ) return false;
+    
+	//BLOG( "-- Vertex Program:\n");
+    //BLOG( "[[\n%s\n]]\n", cgGetProgramString( vprogram, CG_COMPILED_PROGRAM ) );
     
     cgGLLoadProgram( vprogram );
     
-    mvp   = cgGetNamedParameter( vprogram, "ModelViewProj");
-    mv    = cgGetNamedParameter( vprogram, "ModelView");
-    if( !mvp || !mv ) {
+    mvp  = cgGetNamedParameter( vprogram, "ModelViewProj");
+    mv   = cgGetNamedParameter( vprogram, "ModelView");
+    mp   = cgGetNamedParameter( vprogram, "ModelProj");
+    mvi  = cgGetNamedParameter( vprogram, "ModelViewI");
+    mvit = cgGetNamedParameter( vprogram, "ModelViewIT");
+    
+    if( !mvp || !mv || !mp || !mvi || !mvit ) {
         BLOG( "!! shader data not loaded!\n" );
     }
     
@@ -165,5 +175,8 @@ void bShader::set_matrices()
     
     cgGLSetStateMatrixParameter( mvp,  CG_GL_MODELVIEW_PROJECTION_MATRIX, CG_GL_MATRIX_IDENTITY );
     cgGLSetStateMatrixParameter( mv,   CG_GL_MODELVIEW_MATRIX, CG_GL_MATRIX_IDENTITY );
+    cgGLSetStateMatrixParameter( mp,   CG_GL_PROJECTION_MATRIX, CG_GL_MATRIX_IDENTITY );
+    cgGLSetStateMatrixParameter( mvi,  CG_GL_MODELVIEW_MATRIX, CG_GL_MATRIX_INVERSE );
+    cgGLSetStateMatrixParameter( mvit, CG_GL_MODELVIEW_MATRIX, CG_GL_MATRIX_INVERSE_TRANSPOSE );
 }
 
