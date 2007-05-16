@@ -9,23 +9,23 @@
  *                                                                         *
  ***************************************************************************/
 
-#include "bpausevideolayer.h"
+#include "boptionsvideolayer.h"
 #include "bsdl.h"
 #include "bfontmgr.h"
 #include "bsystem.h"
 
-bPauseVideoLayer::bPauseVideoLayer()
+bOptionsVideoLayer::bOptionsVideoLayer()
  : bVideoLayer(), my_logic_layer(NULL)
 {
 }
 
 
-bPauseVideoLayer::~bPauseVideoLayer()
+bOptionsVideoLayer::~bOptionsVideoLayer()
 {
 }
 
 
-void bPauseVideoLayer::draw()
+void bOptionsVideoLayer::draw()
 {
     bSystem::video_sys.set_matrix_2d();
     
@@ -56,35 +56,28 @@ void bPauseVideoLayer::draw()
     glEnable( GL_TEXTURE_2D );
     glDisable( GL_BLEND );
     
-    PRINTB( 432, 302, B_FONT_DARK, "PAUSE" );
-    PRINTB( 430, 300, B_FONT_LIGHT, "PAUSE" );
-    
+    PRINTB( 432, 302, B_FONT_DARK, "OPTIONS" );
+    PRINTB( 430, 300, B_FONT_LIGHT, "OPTIONS" );
+
 	if( my_logic_layer->get_menu_item() == 0 ) {
 		PRINTB( 300, 360, B_FONT_LIGHT, ">>" );
 	} else if( my_logic_layer->get_menu_item() == 1 ) {
 		PRINTB( 300, 400, B_FONT_LIGHT, ">>" );
-	} else if( my_logic_layer->get_menu_item() == 2 ) {
-		PRINTB( 300, 440, B_FONT_LIGHT, ">>" );
 	}
-    
-    PRINTB( 352, 362, B_FONT_DARK,  "back to the game" );
-    PRINTB( 350, 360, B_FONT_LIGHT, "back to the game (esc)" );
 
-	PRINTB( 352, 402, B_FONT_DARK,  "options" );
-    PRINTB( 350, 400, B_FONT_LIGHT, "options (o)" );
-
-	PRINTB( 352, 442, B_FONT_DARK,  "quit" );
-    PRINTB( 350, 440, B_FONT_LIGHT, "quit (q)" );
+	PRINTB( 350, 360, B_FONT_LIGHT, "Shaders (s)" );
+	PRINTB( 540, 360, B_FONT_LIGHT, my_logic_layer->get_shaders_option()?"ON":"OFF" );
+	PRINTB( 350, 400, B_FONT_LIGHT, "...back (esc)" );
 }
 
 
 
-void bPauseVideoLayer::init( bLogicLayer * v )
+void bOptionsVideoLayer::init( bLogicLayer * v )
 {
-	my_logic_layer = dynamic_cast<bPauseLogicLayer*>(v);
+	my_logic_layer = dynamic_cast<bOptionsLogicLayer*>(v);
 }
 
-void bPauseVideoLayer::release()
+void bOptionsVideoLayer::release()
 {
 	my_logic_layer = NULL;
 }

@@ -26,7 +26,7 @@ bInput::~bInput()
 
 bool bInput::register_listener(bEventListener * listener)
 {
-    BLOG( "-- registering event listener (%d)\n", (long)listener );
+    BLOG( "-- registering event listener\n" );
 	list.push_back( listener );
     return true;
 }
@@ -38,7 +38,7 @@ void bInput::release()
 
 bool bInput::unregister_listener(bEventListener * listener)
 {
-    BLOG( "-- unregistering event listener (%d)\n", (long)listener );
+    BLOG( "-- unregistering event listener\n" );
     
     guard(bInput::unregister_listener);
     

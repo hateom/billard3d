@@ -9,55 +9,60 @@
  *                                                                         *
  ***************************************************************************/
 
-#include "bsimlogiclayer.h"
-#include "bprofiler.h"
+#include "boptionslogiclayer.h"
 #include "bsdl.h"
-#include "binput.h"
-#include "bsdlsystem.h"
-#include "bstatemachine.h"
+#include "bsystem.h"
 
-bSimLogicLayer::bSimLogicLayer()
+bOptionsLogicLayer::bOptionsLogicLayer()
  : bLogicLayer(true)
 {
 }
 
 
-bSimLogicLayer::~bSimLogicLayer()
+bOptionsLogicLayer::~bOptionsLogicLayer()
 {
 }
 
-void bSimLogicLayer::update()
+void bOptionsLogicLayer::update()
 {
-    Profiler.begin("ball_mgr::process");
-    GetBoard.process( &GetFps );
-    Profiler.end("ball_mgr::process");
 }
 
-void bSimLogicLayer::on_key_down(uint32 key)
+void bOptionsLogicLayer::on_key_down(uint32 key)
 {
-    switch( key ) {
-        case SDLK_p:
-            Profiler.on_off( !Profiler.is_opened() );
-            break;
+    switch(key) {
         case SDLK_ESCAPE:
             GetStateMachine.go_to( BS_PAUSE );
             break;
+		case SDLK_s:
+			shaders_option = !shaders_option;
+			bShader::set_enabled( shaders_option );
+			break;
+		case SDLK_DOWN:
+			if( menu_item < 1 ) menu_item++;
+			break;
+		case SDLK_UP:
+			if( menu_item > 0 ) menu_item--;
+			break;
+		case SDLK_RETURN:
+			if( menu_item == 1 ) GetStateMachine.go_to( BS_PAUSE );
+			if( menu_item == 0 ) {
+				shaders_option = !shaders_option;
+				bShader::set_enabled( shaders_option );
+			}
+			break;
     }
 }
 
-void bSimLogicLayer::on_key_up(uint32 key)
-{
-    switch( key ) {
-        case SDLK_SPACE:
-            GetBoard.reset();
-            break;
-    }
-}
-
-void bSimLogicLayer::init( bVideoLayer * )
+void bOptionsLogicLayer::on_key_up(uint32 key)
 {
 }
 
-void bSimLogicLayer::release()
+void bOptionsLogicLayer::release()
 {
+}
+
+void bOptionsLogicLayer::init( bVideoLayer * )
+{
+	menu_item = 0;
+	shaders_option = bShader::is_enabled();
 }

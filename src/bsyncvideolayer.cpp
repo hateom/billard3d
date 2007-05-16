@@ -31,7 +31,7 @@ void bSyncVideoLayer::draw()
     glPopMatrix();
 }
 
-void bSyncVideoLayer::init()
+void bSyncVideoLayer::init( bLogicLayer * )
 {
 }
 

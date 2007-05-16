@@ -13,6 +13,7 @@
 #define BPAUSEVIDEOLAYER_H
 
 #include "bvideolayer.h"
+#include "bpauselogiclayer.h"
 
 /**
 	@author Tomasz Huczek & Andrzej Jasi�ski <thuczek@gmail.com>
@@ -23,10 +24,13 @@ public:
     bPauseVideoLayer();
     virtual ~bPauseVideoLayer();
 
-    void init();
-    void release();
-    void draw();
+	void draw();
 
+    void init( bLogicLayer * );
+    void release();
+
+private:
+	bPauseLogicLayer * my_logic_layer;
 };
 
 #endif

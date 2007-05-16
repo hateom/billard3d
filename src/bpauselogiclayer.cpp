@@ -36,6 +36,20 @@ void bPauseLogicLayer::on_key_down(uint32 key)
         case SDLK_q:
             GetStateMachine.go_to( BS_QUIT );
             break;
+		case SDLK_o:
+            GetStateMachine.go_to( BS_OPTIONS );
+            break;
+		case SDLK_DOWN:
+			if( menu_item < 2 ) menu_item++;
+			break;
+		case SDLK_UP:
+			if( menu_item > 0 ) menu_item--;
+			break;
+		case SDLK_RETURN:
+			if( menu_item == 0 ) GetStateMachine.go_to( BS_SIMULATION );
+			if( menu_item == 1 ) GetStateMachine.go_to( BS_OPTIONS );
+			if( menu_item == 2 ) GetStateMachine.go_to( BS_QUIT );
+			break;
     }
 }
 
@@ -47,6 +61,7 @@ void bPauseLogicLayer::release()
 {
 }
 
-void bPauseLogicLayer::init()
+void bPauseLogicLayer::init( bVideoLayer * )
 {
+	menu_item = 0;
 }

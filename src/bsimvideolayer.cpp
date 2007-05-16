@@ -82,7 +82,7 @@ void bSimVideoLayer::draw()
     }
 }
 
-void bSimVideoLayer::init()
+void bSimVideoLayer::init( bLogicLayer * )
 {
     g_board.create();
 }

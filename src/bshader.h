@@ -44,6 +44,13 @@ public:
     
     void set_matrices();
    
+public:
+	static bool is_enabled() { return s_enabled && is_supported(); }
+	static void set_enabled( bool flag ) { s_enabled = flag; }
+
+private:
+	static bool s_enabled;
+
 private:
     char * load_string( const char * filename );
     

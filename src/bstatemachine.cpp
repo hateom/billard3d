@@ -41,15 +41,25 @@ void bStateMachine::go_to(bState new_state)
             } else if( state == BS_SYNC ) {
                 BLOG( "after SYNCING\n\n");
                 bLayerMgr::remove_layer( bLayer::SYNC );
-            }
+			}
             break;
+		case BS_OPTIONS:
+			BLOG( "## changing state to BS_OPTIONS\n" );
+			bLayerMgr::remove_layer( bLayer::PAUSE );
+            bLayerMgr::insert_layer( bLayer::OPTIONS );
+			break;
         case BS_SYNC:
             BLOG( "## changing state to BS_SYNC\n" );
             bLayerMgr::insert_layer( bLayer::SYNC );
             break;
         case BS_PAUSE:
-            BLOG( "## changing state to BS_PAUSE\n" );
-            bLayerMgr::insert_layer( bLayer::PAUSE );
+			BLOG( "## changing state to BS_PAUSE\n" );
+			if( state == BS_OPTIONS ) {
+                bLayerMgr::remove_layer( bLayer::OPTIONS );
+				bLayerMgr::insert_layer( bLayer::PAUSE );
+			} else if( state == BS_SIMULATION ) {
+				bLayerMgr::insert_layer( bLayer::PAUSE );
+			}
             break;
         case BS_QUIT:
             BLOG( "## changing state to BS_QUIT\n" );

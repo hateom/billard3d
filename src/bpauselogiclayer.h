@@ -27,9 +27,14 @@ public:
     void on_key_down( uint32 key );
     void on_key_up( uint32 key );
     
-    void init();
+    void init( bVideoLayer * );
     void release();
 
+public:
+	inline int get_menu_item() const { return menu_item; }
+
+private:
+	int menu_item;
 };
 
 #endif

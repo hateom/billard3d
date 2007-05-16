@@ -23,9 +23,10 @@ public:
     bSyncLogicLayer();
     virtual ~bSyncLogicLayer();
 
-    void init();
+	void update();
+
+    void init( bVideoLayer * );
     void release();
-    void update();
     
     void on_key_down( uint32 key );
     void on_key_up( uint32 key );

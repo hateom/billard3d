@@ -26,7 +26,7 @@ public:
 
     void draw();
     
-    void init();
+    void init( bLogicLayer * );
     void release();
     
 private:

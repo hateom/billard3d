@@ -12,6 +12,8 @@
 #ifndef BVIDEOLAYER_H
 #define BVIDEOLAYER_H
 
+class bLogicLayer;
+
 /**
 	@author Tomasz Huczek & Andrzej Jasi�ski <thuczek@gmail.com>
 */
@@ -20,7 +22,7 @@ public:
     bVideoLayer();
     virtual ~bVideoLayer();
 
-    virtual void init() = 0;
+    virtual void init( bLogicLayer * ) = 0;
     virtual void draw() = 0;
     virtual void release() = 0;
 };
