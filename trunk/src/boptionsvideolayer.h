@@ -9,27 +9,28 @@
  *                                                                         *
  ***************************************************************************/
 
-#ifndef BSIMLOGICLAYER_H
-#define BSIMLOGICLAYER_H
+#ifndef BOPTIONSVIDEOLAYER_H
+#define BOPTIONSVIDEOLAYER_H
 
-#include "blogiclayer.h"
+#include "bvideolayer.h"
+#include "boptionslogiclayer.h"
 
 /**
 	@author Tomasz Huczek & Andrzej Jasi�ski <thuczek@gmail.com>
 */
-class bSimLogicLayer : public bLogicLayer
+class bOptionsVideoLayer : public bVideoLayer
 {
 public:
-    bSimLogicLayer();
-    virtual ~bSimLogicLayer();
+    bOptionsVideoLayer();
+    virtual ~bOptionsVideoLayer();
 
-    void update();
-    
-    void on_key_down( uint32 key );
-    void on_key_up( uint32 key );
-    
-    void init( bVideoLayer * );
+	void draw();
+
+    void init( bLogicLayer * );
     void release();
+
+private:
+	bOptionsLogicLayer * my_logic_layer;
 };
 
 #endif

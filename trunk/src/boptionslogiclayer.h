@@ -9,27 +9,34 @@
  *                                                                         *
  ***************************************************************************/
 
-#ifndef BSIMLOGICLAYER_H
-#define BSIMLOGICLAYER_H
+#ifndef BOPTIONSLOGICLAYER_H
+#define BOPTIONSLOGICLAYER_H
 
 #include "blogiclayer.h"
 
 /**
 	@author Tomasz Huczek & Andrzej Jasi�ski <thuczek@gmail.com>
 */
-class bSimLogicLayer : public bLogicLayer
+class bOptionsLogicLayer : public bLogicLayer
 {
 public:
-    bSimLogicLayer();
-    virtual ~bSimLogicLayer();
+    bOptionsLogicLayer();
+    virtual ~bOptionsLogicLayer();
 
     void update();
-    
     void on_key_down( uint32 key );
     void on_key_up( uint32 key );
     
     void init( bVideoLayer * );
     void release();
+
+public:
+	inline int get_menu_item() const { return menu_item; }
+	inline bool get_shaders_option() const { return shaders_option; }
+
+private:
+	int		menu_item;
+	bool	shaders_option;
 };
 
 #endif

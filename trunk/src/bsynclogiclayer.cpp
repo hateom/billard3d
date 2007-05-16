@@ -23,7 +23,7 @@ bSyncLogicLayer::~bSyncLogicLayer()
 {
 }
 
-void bSyncLogicLayer::init()
+void bSyncLogicLayer::init( bVideoLayer * )
 {
     active = true;
     ticks = SDL_GetTicks();

@@ -14,6 +14,8 @@
 
 #include "beventlistener.h"
 
+class bVideoLayer;
+
 /**
 	@author Tomasz Huczek & Andrzej Jasi�ski <thuczek@gmail.com>
 */
@@ -31,7 +33,7 @@ public:
      */
     bool is_exclusive() const;
     
-    virtual void init() = 0;
+    virtual void init( bVideoLayer * ) = 0;
     virtual void release() = 0;
     
 private:

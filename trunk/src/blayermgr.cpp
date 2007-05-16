@@ -18,6 +18,8 @@
 #include "bpauselogiclayer.h"
 #include "bsynclogiclayer.h"
 #include "bsyncvideolayer.h"
+#include "boptionslogiclayer.h"
+#include "boptionsvideolayer.h"
 
 #define B_DEFINE_LAYER( ENM, VIDL, LOGL ) vlayer[ENM] = VIDL; llayer[ENM] = LOGL;
 
@@ -26,17 +28,18 @@ bLogicLayer * bLayerMgr::llayer[bLayer::COUNT] = { NULL };
 
 void bLayerMgr::init()
 {
-    B_DEFINE_LAYER( bLayer::SIMULATION, new bSimVideoLayer(),   new bSimLogicLayer() );
-    B_DEFINE_LAYER( bLayer::PAUSE,      new bPauseVideoLayer(), new bPauseLogicLayer() );
-    B_DEFINE_LAYER( bLayer::SYNC,       new bSyncVideoLayer(),  new bSyncLogicLayer() );
+    B_DEFINE_LAYER( bLayer::SIMULATION, new bSimVideoLayer(),     new bSimLogicLayer() );
+    B_DEFINE_LAYER( bLayer::PAUSE,      new bPauseVideoLayer(),   new bPauseLogicLayer() );
+	B_DEFINE_LAYER( bLayer::OPTIONS,    new bOptionsVideoLayer(), new bOptionsLogicLayer() );
+    B_DEFINE_LAYER( bLayer::SYNC,       new bSyncVideoLayer(),    new bSyncLogicLayer() );
 }
 
 void bLayerMgr::insert_layer(bLayer::Id layer_id)
 {
-    vlayer[layer_id]->init();
+    vlayer[layer_id]->init( llayer[layer_id] );
     GetMainLoop.insert_video_layer( vlayer[layer_id] );
     
-    llayer[layer_id]->init();
+    llayer[layer_id]->init( vlayer[layer_id] );
     GetMainLoop.insert_logic_layer( llayer[layer_id] );
 }
 

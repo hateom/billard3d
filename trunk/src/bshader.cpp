@@ -17,6 +17,8 @@
 #include <cstdio>
 #include <cstring>
 
+bool bShader::s_enabled = true;
+
 bShader::bShader()
 {
 }
@@ -32,7 +34,7 @@ bool bShader::is_supported()
 
 void bShader::enable( bProgram p )
 {
-    if( !is_supported() ) return;
+    if( !is_enabled() ) return;
     
     if( p & B_FRAGMENT ) cgGLEnableProfile( fprofile );
     if( p & B_VERTEX )   cgGLEnableProfile( vprofile );
@@ -40,7 +42,7 @@ void bShader::enable( bProgram p )
 
 void bShader::disable( bProgram p )
 {
-    if( !is_supported() ) return;
+    if( !is_enabled() ) return;
     
     if( p & B_FRAGMENT ) cgGLDisableProfile( fprofile );
     if( p & B_VERTEX )   cgGLDisableProfile( vprofile );
@@ -60,7 +62,7 @@ void bShader::bind( bProgram p )
 
 void bShader::release()
 {
-    if( !is_supported() ) return;
+    if( !is_enabled() ) return;
     
     if( vprogram ) { cgDestroyProgram( vprogram ); vprogram = 0; }
     if( vcontext ) { cgDestroyContext( vcontext ); vcontext = 0; }
@@ -73,7 +75,7 @@ bool bShader::load_fragment( const char * filename )
 {
     guard(bShader::load_fragment);
     
-    if( !is_supported() ) return false;
+    if( !is_enabled() ) return false;
     
     if( cgGLIsProfileSupported( CG_PROFILE_ARBFP1 ) ) {
         fprofile = CG_PROFILE_ARBFP1;
@@ -91,6 +93,10 @@ bool bShader::load_fragment( const char * filename )
     
     fcontext = cgCreateContext();
     fprogram = cgCreateProgram( fcontext, CG_SOURCE, cgfragprog, fprofile, NULL, NULL );
+
+	BLOG( "-- Fragment Program:\n");
+	BLOG( "[[\n%s\n]]\n", cgGetProgramString( fprogram, CG_COMPILED_PROGRAM ) );
+
     cgGLLoadProgram( fprogram );
     
     return true;
@@ -102,7 +108,7 @@ bool bShader::load_vertex( const char * filename )
 {
     guard(bShader::load_vertex);
     
-    if( !is_supported() ) return false;
+    if( !is_enabled() ) return false;
     
     if( cgGLIsProfileSupported( CG_PROFILE_ARBVP1 ) ) {
         vprofile = CG_PROFILE_ARBVP1;
@@ -121,6 +127,7 @@ bool bShader::load_vertex( const char * filename )
     vcontext = cgCreateContext();
     vprogram = cgCreateProgram( vcontext, CG_SOURCE, cgvertprog, vprofile, NULL, NULL );
     
+	BLOG( "-- Vertex Program:\n");
     BLOG( "[[\n%s\n]]\n", cgGetProgramString( vprogram, CG_COMPILED_PROGRAM ) );
     
     cgGLLoadProgram( vprogram );
@@ -140,7 +147,7 @@ char * bShader::load_string(const char * filename)
 {
     static char program_string[16384];
     FILE *fp;
-    unsigned int len;
+    size_t len;
 
     fp = fopen(filename, "r");
     if(!fp) return NULL;
@@ -154,7 +161,7 @@ char * bShader::load_string(const char * filename)
 
 void bShader::set_matrices()
 {
-    if( !is_supported() ) return;
+    if( !is_enabled() ) return;
     
     cgGLSetStateMatrixParameter( mvp,  CG_GL_MODELVIEW_PROJECTION_MATRIX, CG_GL_MATRIX_IDENTITY );
     cgGLSetStateMatrixParameter( mv,   CG_GL_MODELVIEW_MATRIX, CG_GL_MATRIX_IDENTITY );

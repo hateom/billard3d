@@ -31,6 +31,7 @@ typedef enum bState {
     BS_NONE,
     BS_SIMULATION,
     BS_PAUSE,
+	BS_OPTIONS,
     BS_SYNC,
     BS_QUIT
 };
@@ -51,13 +52,6 @@ public:
     
 private:
     bState state;
-    /*
-    bSimLogicLayer * sim_logic;
-    bSimVideoLayer * sim_video;
-    
-    bPauseLogicLayer * pause_logic;
-    bPauseVideoLayer * pause_video;
-    */
 };
 
 #endif

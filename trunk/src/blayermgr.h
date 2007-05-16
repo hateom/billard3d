@@ -24,8 +24,9 @@ namespace bLayer {
     enum Id {
         SIMULATION  = 0,
         PAUSE       = 1,
-        SYNC        = 2,
-        COUNT       = 3
+		OPTIONS		= 2,
+        SYNC        = 3,
+        COUNT       = 4
     };
 
 }
