@@ -61,7 +61,7 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalDependencies="SDL.lib OPENGL32.lib GLU32.lib glew32.lib"
+				AdditionalDependencies="SDL.lib OPENGL32.lib GLU32.lib glew32.lib cg.lib cggl.lib"
 				OutputFile="bin/b3d_debug.exe"
 				LinkIncremental="2"
 				GenerateDebugInformation="true"
@@ -137,7 +137,7 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalDependencies="SDL.lib OPENGL32.lib GLU32.lib glew32.lib"
+				AdditionalDependencies="SDL.lib OPENGL32.lib GLU32.lib glew32.lib cg.lib cggl.lib"
 				OutputFile="bin/b3d.exe"
 				LinkIncremental="1"
 				GenerateDebugInformation="true"
@@ -237,6 +237,10 @@
 				>
 			</File>
 			<File
+				RelativePath="..\src\bcg.h"
+				>
+			</File>
+			<File
 				RelativePath="..\src\bconfig.cpp"
 				>
 			</File>
@@ -330,6 +334,14 @@
 			</File>
 			<File
 				RelativePath="..\src\binput.h"
+				>
+			</File>
+			<File
+				RelativePath="..\src\blayermgr.cpp"
+				>
+			</File>
+			<File
+				RelativePath="..\src\blayermgr.h"
 				>
 			</File>
 			<File
@@ -433,6 +445,14 @@
 				>
 			</File>
 			<File
+				RelativePath="..\src\bshader.cpp"
+				>
+			</File>
+			<File
+				RelativePath="..\src\bshader.h"
+				>
+			</File>
+			<File
 				RelativePath="..\src\bsimlogiclayer.cpp"
 				>
 			</File>
@@ -470,6 +490,22 @@
 			</File>
 			<File
 				RelativePath="..\src\bstream.h"
+				>
+			</File>
+			<File
+				RelativePath="..\src\bsynclogiclayer.cpp"
+				>
+			</File>
+			<File
+				RelativePath="..\src\bsynclogiclayer.h"
+				>
+			</File>
+			<File
+				RelativePath="..\src\bsyncvideolayer.cpp"
+				>
+			</File>
+			<File
+				RelativePath="..\src\bsyncvideolayer.h"
 				>
 			</File>
 			<File
@@ -550,14 +586,6 @@
 			</File>
 			<File
 				RelativePath="..\src\font03.h"
-				>
-			</File>
-			<File
-				RelativePath="..\src\GLquat.c"
-				>
-			</File>
-			<File
-				RelativePath="..\src\GLquat.h"
 				>
 			</File>
 		</Filter>

@@ -1,6 +1,9 @@
 #include "bassert.h"
 #include "bpath.h"
 #include "btrace.h"
+#include "blogger.h"
+
+#include <iostream>
 
 bPath::bPath() : bSingleton<bPath>(), dir(""), created(false), separator('\\')
 {
@@ -24,12 +27,11 @@ bool bPath::init( const char * buffer )
 			mdir[i] = '\0';
 			dir = mdir;
 			separator = buffer[i];
-
 			return( created = true );
 		}
 	}
 
-	return( false );
+	return( true );
     
     unguard;
 }
@@ -40,12 +42,11 @@ const char * bPath::get_full_path( const char * file ) const
 {
     guard(bPath::get_full_path);
     
-	BASSERT( created == true );
 	if( !created ) return( file );
 	static char temp[1024] = "";
 
 	sprintf( temp, "%s%c%s", dir.c_str(), separator, file );
-
+	
 	return( temp );
     
     unguard;
