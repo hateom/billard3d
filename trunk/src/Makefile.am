@@ -1,9 +1,10 @@
 bin_PROGRAMS = billard3d
 billard3d_SOURCES = bargmgr.cpp bassert.cpp bautoeventlistener.cpp bball.cpp \
-	bband.cpp bboard.cpp bcamera.cpp bconfig.cpp bconfigreader.cpp bdraw.cpp \
-	berrortrace.cpp beventlistener.cpp bexception.cpp bfont.cpp bfontmgr.cpp bfpstimer.cpp \
-	billard3d.cpp binput.cpp blayermgr.cpp blightmgr.cpp blockvector.cpp blogger.cpp \
-	blogiclayer.cpp blutable.cpp bmainloop.cpp bpath.cpp bpauselogiclayer.cpp \
+	bband.cpp bboard.cpp bcamera.cpp bconfig.cpp bconfigreader.cpp bconst.cpp \
+	bdraw.cpp berrortrace.cpp beventlistener.cpp bexception.cpp bfont.cpp \
+	bfontmgr.cpp bfpstimer.cpp billard3d.cpp binput.cpp blayermgr.cpp blightmgr.cpp \
+	blockvector.cpp blogger.cpp blogiclayer.cpp blutable.cpp bmainloop.cpp \
+	boptionslogiclayer.cpp boptionsvideolayer.cpp bpath.cpp bpauselogiclayer.cpp \
 	bpausevideolayer.cpp bprofiler.cpp bquaternion.cpp bsdlsystem.cpp bshader.cpp \
 	bsimlogiclayer.cpp bsimvideolayer.cpp bsingleton.cpp bstatemachine.cpp bstream.cpp \
 	bsynclogiclayer.cpp bsyncvideolayer.cpp bsystem.cpp btexture.cpp btrace.cpp butils.cpp \
