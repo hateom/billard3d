@@ -16,6 +16,7 @@ pixel_out main( pixel_in IN, uniform sampler2D texture1 : TEXUNIT0, uniform samp
 
 	float3 color1 = tex2D( texture1, IN.tex1 ).rgb;
     float3 color2 = tex2D( texture2, IN.tex2 ).rgb;
+
 	OUT.color = color2 * color1 * IN.color;
 
 	return OUT;
