@@ -29,6 +29,11 @@ vertex_out main(
     float4 vpos;
     float3 texo, R, U, inorm;
     float iM;
+    float ligh;
+    float4 light_pos = float4( 1.0, 1.0, -1.0, 0.0 );
+
+    float3 lvec = mul( ModelProj, light_pos ).xyz;
+    float3 half_vec;
     
     vpos = mul( ModelView, IN.pos );
     inorm = mul( ModelViewIT, IN.norm ).xyz;
@@ -39,9 +44,11 @@ vertex_out main(
     iM = 0.5  / length( R );
     texo = float3( R.x*iM + 0.5, R.y*iM + 0.5, 0.0 );
 
+    ligh = clamp( dot( inorm, lvec ), 0.4, 0.9 );
+
     OUT.tex1  = IN.tex1;
     OUT.tex2  = texo;
-    OUT.color = IN.color;
+    OUT.color = IN.color*ligh;
     
     OUT.pos   = mul( ModelViewProj, IN.pos );
 
