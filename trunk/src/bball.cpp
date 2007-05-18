@@ -64,7 +64,7 @@ void bBall::draw( bShader * sh )
         if( sh ) sh->set_matrices();
 		glColor3f( r, g, b );
         gluQuadricTexture( sphere_obj, GL_TRUE );
-		gluSphere(sphere_obj, radius, 32, 32 );
+		gluSphere(sphere_obj, radius, 64, 64 );
     glPopMatrix();
 }
 

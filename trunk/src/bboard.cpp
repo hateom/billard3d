@@ -19,6 +19,8 @@
 #include "bpath.h"
 #include "bsystem.h"
 
+#include <cmath>
+
 #define FACTOR 0.96
 
 bBoard::bBoard() : bSingleton<bBoard>(), 
@@ -170,6 +172,8 @@ void bBoard::draw_balls()
     glActiveTextureARB(GL_TEXTURE1_ARB);
     glEnable(GL_TEXTURE_2D);
     ball_tex.bind();
+    
+    glMultiTexCoord3fARB( GL_TEXTURE2_ARB, 3.0f, 2.0, -2.5f );
     
     for( int i=0; i<ball_size; ++i ) {
         ball[i]->draw( &ball_shader );
