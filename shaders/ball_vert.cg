@@ -4,6 +4,7 @@ struct vertex_in
     float4 norm  : NORMAL;
 	float3 tex1  : TEXCOORD0;
     float3 tex2  : TEXCOORD1;
+    float3 tex3  : TEXCOORD2;
     float3 color : COLOR0;
 };
 
@@ -30,7 +31,7 @@ vertex_out main(
     float3 texo, R, U, inorm;
     float iM;
     float ligh;
-    float4 light_pos = float4( 1.0, 1.0, -1.0, 0.0 );
+    float4 light_pos = float4( IN.tex3, 0.0 );
 
     float3 lvec = mul( ModelProj, light_pos ).xyz;
     float3 half_vec;
@@ -44,7 +45,7 @@ vertex_out main(
     iM = 0.5  / length( R );
     texo = float3( R.x*iM + 0.5, R.y*iM + 0.5, 0.0 );
 
-    ligh = clamp( dot( inorm, lvec ), 0.4, 0.9 );
+    ligh = clamp( dot( inorm, lvec ), 0.5, 0.9 );
 
     OUT.tex1  = IN.tex1;
     OUT.tex2  = texo;
