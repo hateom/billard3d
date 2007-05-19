@@ -74,7 +74,8 @@ void bOptionsVideoLayer::draw()
 
 void bOptionsVideoLayer::init( bLogicLayer * v )
 {
-	my_logic_layer = dynamic_cast<bOptionsLogicLayer*>(v);
+//	my_logic_layer = dynamic_cast<bOptionsLogicLayer*>(v);
+	my_logic_layer = (bOptionsLogicLayer*)v;
 }
 
 void bOptionsVideoLayer::release()

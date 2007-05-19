@@ -81,7 +81,8 @@ void bPauseVideoLayer::draw()
 
 void bPauseVideoLayer::init( bLogicLayer * v )
 {
-	my_logic_layer = dynamic_cast<bPauseLogicLayer*>(v);
+//	my_logic_layer = dynamic_cast<bPauseLogicLayer*>(v);
+	my_logic_layer = (bPauseLogicLayer*)v;
 }
 
 void bPauseVideoLayer::release()

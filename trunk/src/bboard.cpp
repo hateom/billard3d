@@ -97,6 +97,11 @@ bool bBoard::create()
         BLOG( "!! Shaders are not supported!\n" );   
     }
 
+	if( !glewIsSupported("GL_ARB_multitexture") )
+	{
+		BLOG( "!! Multitexturing is not supported!\n" );
+	}
+
     return true;
     
     unguard;
@@ -218,7 +223,7 @@ void bBoard::draw()
     
     Profiler.begin("ball_mgr::draw_balls");
 	
-    sort_balls();
+//	sort_balls();
     draw_balls();
     
     Profiler.end("ball_mgr::draw_balls");
