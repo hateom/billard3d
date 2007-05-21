@@ -9,48 +9,41 @@
  *                                                                         *
  ***************************************************************************/
 
-#include "bcamera.h"
-#include "bgl.h"
-#include "bsincos.h"
+#ifndef BSINCOS_H
+#define BSINCOS_H
+
 #include <cmath>
 
-bCamera::bCamera()
- : bSingleton<bCamera>()
+#define SIN_TABLE_SIZE		4096
+#define SIN_TABLE_BITMASK	4095
+
+#if !defined(NO_LUT_SINCOS)
+#define bSin( A ) bSinCos::sin( A )
+#define bCos( A ) bSinCos::cos( A )
+#else
+#define bSin( A ) sin( A )
+#define bCos( A ) cos( A )
+#endif
+
+/**
+    @brief Sine & cosine LUT
+	@author Tomasz Huczek & Andrzej Jasiñski <thuczek@gmail.com>
+*/
+
+class bSinCos
 {
-    eye.x = 4.0;
-    eye.y = 4.5;
-    eye.z = 0.0;
-    dest.x = 4.0;
-    dest.y = 0.0;
-    dest.z = 3.0;
-    
-    angle = 0.0;
-}
+public:
+    static void   init();
+    static double sin( double a );
+    static double cos( double a );
 
+    static int iround( double a );
+    static int iround_up( double a );
+    static int iround_down( double a );
 
-bCamera::~bCamera()
-{
-}
+private:
+    static double LUT_s[SIN_TABLE_SIZE];
+    static double LUT_c[SIN_TABLE_SIZE];
+};
 
-void bCamera::look_at()
-{
-    gluLookAt( eye.x,  eye.y,  eye.z, 
-               dest.x, dest.y, dest.z, 
-               0.0, 1.0, 0.0 );
-}
-
-void bCamera::update()
-{
-    angle += 0.002;
-    
-    //eye.x = 4.0+5.0*cos(angle);
-    //eye.z = 3.0+5.0*sin(angle);
-
-    eye.x = 4.0+5.0*bCos(angle);
-    eye.z = 3.0+5.0*bSin(angle);
-}
-
-double bCamera::get_distance(bVector3 vec)
-{
-    return eye.distance( vec );
-}
+#endif 

@@ -16,6 +16,7 @@
 #include "bsdl.h"
 #include "bquaternion.h"
 #include "bconst.h"
+#include "bsincos.h"
 
 #define COL_FACTOR 0.2
 #define EPS 0.01
@@ -44,10 +45,12 @@ bBall::bBall(bVector ip, bVector iv, bVector ia,
         pos(ip), vel(iv), acc(ia), radius(irad), mass(imass), 
         r(ir), g(ig), b(ib), t_vel_f(false)
 {
+    BASSERT( radius > 0.0 );
     t_vel.zero();
     lphi = 0;
     
-	 qrot.w = 1.0; qrot.x = qrot.y = qrot.z = 0.0;
+    qrot.w = 1.0; qrot.x = qrot.y = qrot.z = 0.0;
+    obr = 1.0/radius;
 
     sphere_obj = gluNewQuadric();
 }
@@ -80,7 +83,8 @@ void bBall::draw_shadow()
         glBegin( GL_TRIANGLE_FAN );
             glVertex3f(0.0f,0.0f,0.0f);
             for( double i=0.0; i<B_2PI+step; i+=step) {
-                glVertex3d( radius*cos(i), 0.0, radius*sin(i) );
+                //glVertex3d( radius*cos(i), 0.0, radius*sin(i) );
+                glVertex3d( radius*bCos(i), 0.0, radius*bSin(i) );
             }
         glEnd();
     glPopMatrix();
@@ -91,7 +95,7 @@ void bBall::process( double fps_factor )
     guard(bBall::process);
     
     static double mi = 0.005;
-    double ta = ((mi*10.0)/radius)*fps_factor;
+    double ta = ((mi*10.0) * obr)*fps_factor;
     
     if( vel.length() < ta )
     {
@@ -105,17 +109,18 @@ void bBall::process( double fps_factor )
     vel += acc * fps_factor;
     pos += vel * fps_factor;
 
-	phi.x += ( vel.x / radius ) * fps_factor;
-	phi.y += ( vel.y / radius ) * fps_factor;
+	phi.x += ( vel.x * obr ) * fps_factor;
+	phi.y += ( vel.y * obr ) * fps_factor;
     
     blphi = lphi;
-    lphi = ( vel.length() / radius ) * fps_factor;
+    lphi = ( vel.length() * obr ) * fps_factor;
     
     // QUATERNIONS 
     static bVector rphi;
     double slphi;
     
-    slphi = sin(lphi/2.0);
+    //slphi = sin(lphi/2.0);
+    slphi = bSin(lphi/2.0);
     
     rphi = vel.normal();
     dqrot.w = cos(lphi/2.0); dqrot.x = -slphi*rphi.y; 
@@ -130,12 +135,12 @@ void bBall::process( double fps_factor )
 void bBall::unprocess( double fps_factor )
 {
     static double mi = 0.005;
-    double ta = ((mi*10.0)/radius)*fps_factor;
+    double ta = ((mi*10.0)*obr)*fps_factor;
     
     lphi = blphi;
     
-	phi.x -= ( vel.x / radius ) * fps_factor;
-	phi.y -= ( vel.y / radius ) * fps_factor;
+	phi.x -= ( vel.x * obr ) * fps_factor;
+	phi.y -= ( vel.y * obr ) * fps_factor;
 
     pos -= vel * fps_factor;
     vel -= acc * fps_factor;
@@ -147,7 +152,8 @@ void bBall::unprocess( double fps_factor )
     static bVector rphi;
     double slphi;
     
-    slphi = sin(lphi/2.0);
+    //slphi = sin(lphi/2.0);
+    slphi = bSin(lphi/2.0);
     
     rphi = vel.normal();
     dqrot.w = cos(lphi/2.0); dqrot.x = -slphi*rphi.y;

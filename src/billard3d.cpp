@@ -52,7 +52,7 @@ int main( int argc, char* argv[] )
 
 	bSystem::release();
     
-    DBLOG( ">> Finished (debug trace written to ./debug_log.txt)\n" );
+    DBLOG( ">> Finished (debug trace written to \"debug_log.txt\")\n" );
     
     return 0;
 }

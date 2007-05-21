@@ -1,6 +1,7 @@
 #include "bquaternion.h"
 #include "bconst.h"
 #include "bvector3.h"
+#include "bsincos.h"
 #include <cmath>
 
 bQuaternion::bQuaternion()
@@ -51,9 +52,13 @@ void bQuaternion::from_axis( double roll, double pitch, double yaw )
 	cp = cos(pitch/2);
 	cy = cos(yaw/2);
 
-	sr = sin(roll/2);
-	sp = sin(pitch/2);
-	sy = sin(yaw/2);
+    //sr = sin(roll/2);
+	//sp = sin(pitch/2);
+	//sy = sin(yaw/2);
+
+	sr = bSin(roll/2);
+	sp = bSin(pitch/2);
+	sy = bSin(yaw/2);
 	
 	cpcy = cp * cy;
 	spsy = sp * sy;
