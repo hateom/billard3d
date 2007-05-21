@@ -75,6 +75,7 @@ public:
     double radius;   ///< radius of the ball
     double mass;     ///< mass of the ball
     double blphi;
+    double obr;
     
 	bQuaternion qrot, dqrot;
 	double rotmat[16];

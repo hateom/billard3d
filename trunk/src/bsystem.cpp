@@ -11,6 +11,7 @@
 
 #include "bsystem.h"
 #include "blayermgr.h"
+#include "bsincos.h"
 
 bPath           bSystem::path_sys;
 bProfiler       bSystem::profiler_sys;
@@ -36,8 +37,13 @@ bool bSystem::init(int argc, char *argv[] )
         if( IsArg("verbose") ) {
             log_sys.set_state(true);
         }
+        int res;
+        if( GetArgMgr.get_int("shaders", &res) ) {
+            bShader::set_enabled( res==1 );
+        }
         path_sys.init(argv[0]);
 		bLayerMgr::init();
+        bSinCos::init();
     } catch( ... ) {
         release();
         return false;

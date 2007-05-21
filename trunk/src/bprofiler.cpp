@@ -274,7 +274,7 @@ void bProfiler::write( uint32 x, uint32 y, uint32 font )
 
 		for( ident = 0; ident<sample[i].parents_count; ++ident )
 		{
-			sprintf( name, "    %s", idented_name );
+			sprintf( name, " %s", idented_name );
 			strcpy( idented_name, name );
 		}
 
