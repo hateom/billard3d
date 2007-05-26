@@ -12,13 +12,13 @@
 
 #define BS 10
 
-Canvas::Canvas(QWidget *parent) : QWidget(parent), mx(BS), my(BS)
+Canvas::Canvas(QWidget *parent) : QWidget(parent), mx(BS), my(BS), mode(C_ADD), selected(NULL)
 {
 	buffer = new QImage(BW,BH,QImage::Format_RGB32);
     setMouseTracking( true );
     
     for( int i=0; i<BOARD_SEGMENTS; ++i ) {
-        plist.push_back( new QPoint( BS+(int)(board_data[i].x*80.0), BS+(int)(board_data[i].y*80.0) ) );
+        plist.push_back( new QPoint( 3*BS+(int)(board_data[i].x*80.0), 3*BS+(int)(board_data[i].y*80.0) ) );
     }
 }
 
@@ -112,15 +112,54 @@ void Canvas::mousePressEvent(QMouseEvent * event)
 
 }
 
+bool Canvas::insert_after( pIter * it )
+{
+    if( !it ) return false;
+    plist.insert( *it, new QPoint(mx, my) );
+    return true;   
+}
+
+Canvas::pIter * Canvas::find( int x, int y )
+{
+    static pIter it, bg = plist.begin(), ed = plist.end();
+    
+    for( it=bg; it < ed; ++it ) {
+        if( (*it)->x() == x && (*it)->y() == y ) {
+            return &it;
+        }
+    }
+    
+    return NULL;
+}
+
+void Canvas::remove_point( int x, int y )
+{
+    pIter * it = find( x, y );
+    if( *it != plist.end() ) plist.erase( *it );   
+}
+
 void Canvas::mouseReleaseEvent(QMouseEvent * event)
 {
-    if( event->button() == Qt::RightButton ) {
-        if( plist.size() == 0 ) return;
-        delete plist.back();
-        plist.pop_back();
-    } else {
-        plist.push_back( new QPoint( mx, my ) );
+    if( mode == C_ADD ) {
+        if( event->button() == Qt::RightButton ) {
+            if( plist.size() == 0 ) return;
+            delete plist.back();
+            plist.pop_back();
+        } else {
+            plist.push_back( new QPoint( mx, my ) );
+        }
+    } else if( mode == C_REMOVE ) {
+        remove_point( mx, my );
+    } else if( mode == C_INSERT ) {
+        if( selected == NULL ) {
+            selected = find( mx, my );
+        } else {
+            if( insert_after( selected ) ) {
+                selected = NULL;
+            }
+        }
     }
+    
     update();
 }
 

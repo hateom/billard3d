@@ -12,6 +12,10 @@ MainForm::MainForm(QWidget *parent, Qt::WindowFlags f) : QDialog(parent, f)
     
     connect( m_form.btnSave, SIGNAL(clicked()), this, SLOT(btnSaveClick()) );
     connect( m_form.btnClear, SIGNAL(clicked()), this, SLOT(btnClearClick()) );
+    
+    connect( m_form.radioAdd, SIGNAL(clicked()), this, SLOT(btnAdd()) );
+    connect( m_form.radioInsert, SIGNAL(clicked()), this, SLOT(btnInsert()) );
+    connect( m_form.radioRemove, SIGNAL(clicked()), this, SLOT(btnRemove()) );
 }
 
 MainForm::~MainForm()
@@ -30,4 +34,22 @@ void MainForm::btnSaveClick()
 {
     QString filename = QFileDialog::getSaveFileName();
     canvas->save_file( filename );
+}
+
+void MainForm::btnRemove()
+{
+    if( m_form.radioRemove->isChecked() )
+        canvas->set_mode( Canvas::C_REMOVE );
+}
+
+void MainForm::btnAdd()
+{
+    if( m_form.radioAdd->isChecked() )
+        canvas->set_mode( Canvas::C_ADD );
+}
+
+void MainForm::btnInsert()
+{
+    if( m_form.radioInsert->isChecked() )
+        canvas->set_mode( Canvas::C_INSERT );
 }

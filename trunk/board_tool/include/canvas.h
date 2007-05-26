@@ -7,13 +7,22 @@
 
 class Canvas: public QWidget
 {
+    typedef std::vector<QPoint*> pVector;
+    typedef std::vector<QPoint*>::iterator pIter;
 public:
+    enum cMode {
+        C_ADD,
+        C_INSERT,
+        C_REMOVE
+    };
+    
 	Canvas(QWidget *parent = 0);
 	virtual ~Canvas();
 
 	void set_pixel( int x, int y, unsigned long rgb );
 
     void clear();
+    void set_mode( cMode imode ) { mode = imode; mod = 0; }
     
     static int getWidth();
     static int getHeight();
@@ -21,16 +30,23 @@ public:
     void save_file( QString name );
     
 protected:
+    pIter * find( int x, int y );
+    void remove_point( int x, int y );
+    bool insert_after( pIter * it );
+            
 	void paintEvent(QPaintEvent *event);
     void mouseMoveEvent(QMouseEvent * event);
     void mousePressEvent(QMouseEvent * event);
     void mouseReleaseEvent(QMouseEvent * event);
     
     int mx, my;
+    cMode mode;
+    int mod;
     
 	QImage * buffer;
+    pIter * selected;
     
-    std::vector<QPoint*> plist;
+    pVector plist;
 };
 
 #endif // __CANVAS_H__

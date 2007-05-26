@@ -16,6 +16,9 @@ public:
 public slots:
     void btnSaveClick();
     void btnClearClick();
+    void btnRemove();
+    void btnAdd();
+    void btnInsert();
 
 protected:
 	Ui::MainForm m_form;
