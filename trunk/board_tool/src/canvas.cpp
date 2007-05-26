@@ -135,7 +135,7 @@ Canvas::pIter * Canvas::find( int x, int y )
 void Canvas::remove_point( int x, int y )
 {
     pIter * it = find( x, y );
-    if( *it != plist.end() ) plist.erase( *it );   
+    if( it != NULL ) plist.erase( *it );   
 }
 
 void Canvas::mouseReleaseEvent(QMouseEvent * event)
