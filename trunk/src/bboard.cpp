@@ -18,6 +18,7 @@
 #include "bprofiler.h"
 #include "bpath.h"
 #include "bsystem.h"
+#include "bboarddata.h"
 
 #include <cmath>
 
@@ -42,19 +43,19 @@ bool bBoard::create()
     ball_size = 7;
     ball = new bBall*[ball_size];
     
-    ball[0] = new bBall( bVector(4.0,1.8),  bVector( 2.3, 0.0), bVector(tm,tm), 0.3, 1.0, 1.0f, 0.8f, 0.6f );
-    ball[1] = new bBall( bVector(3.0,2.0),  bVector( 2.0, 5.0), bVector(tm,tm), 0.3, 1.0, 0.6f, 1.0f, 0.8f );
-    ball[2] = new bBall( bVector(2.2,3.5),  bVector( 3.0, 3.0), bVector(0.0,0.0), 0.3, 1.0, 0.8f, 0.6f, 1.0f );
-    ball[3] = new bBall( bVector(1.8,4.2),  bVector(-3.0, 3.0), bVector(0.0,0.0), 0.3, 1.0, 1.0f, 0.6f, 0.8f );
+    ball[0] = new bBall( bVector( 2.0,1.8),  bVector( 2.3, 0.0), bVector(tm,tm), 0.3, 1.0, 1.0f, 0.8f, 0.6f );
+    ball[1] = new bBall( bVector( -2.0,2.0),  bVector( 2.0, 5.0), bVector(tm,tm), 0.3, 1.0, 0.6f, 1.0f, 0.8f );
+    ball[2] = new bBall( bVector( -2.2, -1.5),  bVector( 3.0, 3.0), bVector(0.0,0.0), 0.3, 1.0, 0.8f, 0.6f, 1.0f );
+    ball[3] = new bBall( bVector( 1.8,0.2),  bVector(-3.0, 3.0), bVector(0.0,0.0), 0.3, 1.0, 1.0f, 0.6f, 0.8f );
     
-    ball[4] = new bBall( bVector(1.8,1.2),  bVector(-3.0, 3.0), bVector(0.0,0.0), 0.3, 1.0, 1.0f, 0.6f, 1.0f );
-    ball[5] = new bBall( bVector(4.8,4.2),  bVector(-3.0, 3.0), bVector(0.0,0.0), 0.3, 1.0, 0.5f, 0.9f, 1.0f );
+    ball[4] = new bBall( bVector( 1.8,1.2),  bVector(-3.0, 3.0), bVector(0.0,0.0), 0.3, 1.0, 1.0f, 0.6f, 1.0f );
+    ball[5] = new bBall( bVector( 2.1,-2.2),  bVector(-3.0, 3.0), bVector(0.0,0.0), 0.3, 1.0, 0.5f, 0.9f, 1.0f );
     
-    ball[6] = new bBall( bVector(2.8,3.0),  bVector(-3.0, 3.0), bVector(0.0,0.0), 0.3, 1.0, 1.0f, 1.0f, 1.0f );
+    ball[6] = new bBall( bVector( -2.1, 1.0),  bVector(-3.0, 3.0), bVector(0.0,0.0), 0.3, 1.0, 1.0f, 1.0f, 1.0f );
 
-    band_size = 12;
+    band_size = BOARD_SEGMENTS;
     band = new bBand*[band_size];
-
+/*
     band[0]  = new bBand( bVector( 0.65, 1.5 ), bVector( 2.0, 0.5 ) );
     band[1]  = new bBand( bVector( 2.00, 0.5 ), bVector( 4.0, 1.0 ) );
     band[2]  = new bBand( bVector( 4.00, 1.0 ), bVector( 6.0, 0.5 ) );
@@ -67,6 +68,17 @@ bool bBoard::create()
     band[9]  = new bBand( bVector( 2.00, 5.5 ), bVector( 0.65, 4.5 ) );
     band[10] = new bBand( bVector( 0.65, 4.5 ), bVector( 1.30, 3.0 ) );
     band[11] = new bBand( bVector( 1.30, 3.0 ), bVector( 0.65, 1.5 ) );
+*/
+    for( int i=0; i<BOARD_SEGMENTS-1; ++i ) {
+        band[i] = new bBand( 
+            bVector( board_data[i].x, board_data[i].y ), 
+            bVector( board_data[i+1].x, board_data[i+1].y ) 
+        );
+    }
+    band[BOARD_SEGMENTS-1] = new bBand( 
+        bVector( board_data[BOARD_SEGMENTS-1].x, board_data[BOARD_SEGMENTS-1].y ), 
+        bVector( board_data[0].x, board_data[0].y ) 
+    );
     
     luball.create( ball_size );
     luband.create( ball_size, band_size, false );
@@ -213,10 +225,10 @@ void bBoard::draw()
     glEnable( GL_TEXTURE_2D );
     desk.bind();
     glBegin( GL_TRIANGLE_STRIP );
-        glTexCoord2i( 0, 0 ); glColor3f( 0.2f, 0.2f, 0.2f ); glVertex3d( 0.0, -0.1, 0.0 );
-        glTexCoord2i( 0, 1 ); glColor3f( 0.9f, 1.0f, 0.9f ); glVertex3d( 0.0, -0.1, 6.0 );
-        glTexCoord2i( 1, 0 ); glColor3f( 0.2f, 0.2f, 0.2f ); glVertex3d( 8.0, -0.1, 0.0 );
-        glTexCoord2i( 1, 1 ); glColor3f( 0.9f, 1.0f, 0.9f ); glVertex3d( 8.0, -0.1, 6.0 );
+        glTexCoord2i( 0, 0 ); glVertex3d( BMINX, -0.1, BMINY );
+        glTexCoord2i( 0, 1 ); glVertex3d( BMINX, -0.1, BMAXY );
+        glTexCoord2i( 1, 0 ); glVertex3d( BMAXX, -0.1, BMINY );
+        glTexCoord2i( 1, 1 ); glVertex3d( BMAXX, -0.1, BMAXY );
     glEnd();
     
     glDisable( GL_TEXTURE_2D );

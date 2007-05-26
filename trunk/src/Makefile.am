@@ -6,9 +6,9 @@ billard3d_SOURCES = bargmgr.cpp bassert.cpp bautoeventlistener.cpp bball.cpp \
 	blockvector.cpp blogger.cpp blogiclayer.cpp blutable.cpp bmainloop.cpp \
 	boptionslogiclayer.cpp boptionsvideolayer.cpp bpath.cpp bpauselogiclayer.cpp \
 	bpausevideolayer.cpp bprofiler.cpp bquaternion.cpp bsdlsystem.cpp bshader.cpp \
-	bsimlogiclayer.cpp bsimvideolayer.cpp bsingleton.cpp bstatemachine.cpp bstream.cpp \
-	bsynclogiclayer.cpp bsyncvideolayer.cpp bsystem.cpp btexture.cpp btrace.cpp butils.cpp \
-	bvector.cpp bvector3.cpp bvideo.cpp bvideolayer.cpp
+	bsimlogiclayer.cpp bsimvideolayer.cpp bsincos.cpp bsingleton.cpp bstatemachine.cpp \
+	bstream.cpp bsynclogiclayer.cpp bsyncvideolayer.cpp bsystem.cpp btexture.cpp \
+	btrace.cpp butils.cpp bvector.cpp bvector3.cpp bvideo.cpp bvideolayer.cpp
 
 # set the include path found by configure
 INCLUDES = $(all_includes)
