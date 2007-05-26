@@ -35,7 +35,8 @@
 class bSinCos
 {
 public:
-    static void   init();
+    static void   init() {}
+/*    
     static double sin( double a );
     static double cos( double a );
 
@@ -46,6 +47,7 @@ public:
 private:
     static double LUT_s[SIN_TABLE_SIZE];
     static double LUT_c[SIN_TABLE_SIZE];
+*/
 };
 
 #endif 

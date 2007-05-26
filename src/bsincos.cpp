@@ -13,7 +13,7 @@
 #include "bsincos.h"
 #include "bconst.h"
 #include "blogger.h"
-
+/*
 double bSinCos::LUT_c[SIN_TABLE_SIZE];
 double bSinCos::LUT_s[SIN_TABLE_SIZE];
 
@@ -74,3 +74,4 @@ int bSinCos::iround( double a )
 }
 
 #endif
+*/
