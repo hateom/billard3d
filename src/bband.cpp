@@ -30,12 +30,12 @@ void bBand::draw()
     glDisable( GL_CULL_FACE );
     glBegin( GL_TRIANGLE_STRIP );
         glColor3f( 0.4f, 0.4f, 1.0f );
-        glVertex3d( p1.x, 1.0, p1.y );
-        glColor3f( 0.1f, 0.1f, 0.5f );
+        glVertex3d( p1.x, 0.4, p1.y );
+        glColor3f( 0.1f, 0.4f, 0.5f );
         glVertex3d( p1.x, 0.0, p1.y );
         glColor3f( 0.4f, 0.4f, 1.0f );
-        glVertex3d( p2.x, 1.0, p2.y );
-        glColor3f( 0.1f, 0.1f, 0.5f );
+        glVertex3d( p2.x, 0.4, p2.y );
+        glColor3f( 0.1f, 0.4f, 0.5f );
         glVertex3d( p2.x, 0.0, p2.y );
     glEnd();
     glEnable( GL_CULL_FACE );

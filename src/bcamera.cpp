@@ -17,12 +17,12 @@
 bCamera::bCamera()
  : bSingleton<bCamera>()
 {
-    eye.x = 4.0;
-    eye.y = 4.5;
+    eye.x = 0.0;
+    eye.y = 4.0;
     eye.z = 0.0;
-    dest.x = 4.0;
+    dest.x = 0.0;
     dest.y = 0.0;
-    dest.z = 3.0;
+    dest.z = 0.0;
     
     angle = 0.0;
 }
@@ -46,8 +46,8 @@ void bCamera::update()
     //eye.x = 4.0+5.0*cos(angle);
     //eye.z = 3.0+5.0*sin(angle);
 
-    eye.x = 4.0+5.0*bCos(angle);
-    eye.z = 3.0+5.0*bSin(angle);
+    eye.x = 8.0*bCos(angle);
+    eye.z = 8.0*bSin(angle);
 }
 
 double bCamera::get_distance(bVector3 vec)

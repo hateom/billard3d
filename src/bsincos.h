@@ -14,6 +14,8 @@
 
 #include <cmath>
 
+#define NO_LUT_SINCOS
+
 #define SIN_TABLE_SIZE		4096
 #define SIN_TABLE_BITMASK	4095
 
@@ -27,7 +29,7 @@
 
 /**
     @brief Sine & cosine LUT
-	@author Tomasz Huczek & Andrzej Jasiñski <thuczek@gmail.com>
+	@author Tomasz Huczek & Andrzej Jasiï¿½ski <thuczek@gmail.com>
 */
 
 class bSinCos
