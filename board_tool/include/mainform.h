@@ -20,6 +20,7 @@ public slots:
     void btnAdd();
     void btnInsert();
     void btnDesk();
+    void btnBall();
 
 protected:
 	Ui::MainForm m_form;

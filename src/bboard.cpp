@@ -19,13 +19,14 @@
 #include "bpath.h"
 #include "bsystem.h"
 #include "bboarddata.h"
+#include "bconst.h"
 
 #include <cmath>
 
 #define FACTOR 0.96
 
 bBoard::bBoard() : bSingleton<bBoard>(), 
-    ball(NULL), band(NULL), ball_size(0), band_size(0)
+    ball(NULL), band(NULL), ball_size(0), band_size(0), aa(B_PI), view_r(1.0), power(0.0)
 {
 }
 
@@ -38,11 +39,11 @@ bool bBoard::create()
 {
     guard(bBoard::create);
     
-    double tm = 0.0;
+    //double tm = 0.0;
     
-    ball_size = 7;
+    ball_size = BALL_COUNT;
     ball = new bBall*[ball_size];
-    
+    /*
     ball[0] = new bBall( bVector( 2.0,1.8),  bVector( 2.3, 0.0), bVector(tm,tm), 0.3, 1.0, 1.0f, 0.8f, 0.6f );
     ball[1] = new bBall( bVector( -2.0,2.0),  bVector( 2.0, 5.0), bVector(tm,tm), 0.3, 1.0, 0.6f, 1.0f, 0.8f );
     ball[2] = new bBall( bVector( -2.2, -1.5),  bVector( 3.0, 3.0), bVector(0.0,0.0), 0.3, 1.0, 0.8f, 0.6f, 1.0f );
@@ -52,6 +53,14 @@ bool bBoard::create()
     ball[5] = new bBall( bVector( 2.1,-2.2),  bVector(-3.0, 3.0), bVector(0.0,0.0), 0.3, 1.0, 0.5f, 0.9f, 1.0f );
     
     ball[6] = new bBall( bVector( -2.1, 1.0),  bVector(-3.0, 3.0), bVector(0.0,0.0), 0.3, 1.0, 1.0f, 1.0f, 1.0f );
+    */
+    
+    ball[0] = new bBall( bVector( ball_data[0].x, ball_data[0].y ), bVector( 0, 0 ), bVector( 0, 0 ), 0.3, 1.0, 1.0f, 1.0f, 1.0f );
+    
+    for( int i=1; i<BALL_COUNT; ++i ) {
+        ball[i] = new bBall( bVector( ball_data[i].x, ball_data[i].y ), bVector( 0, 0 ), bVector( 0, 0 ), 0.3, 1.0, 
+            0.5f+((float)(rand()%10))/20.0f, 0.5f+((float)(rand()%10))/20.0f, 0.5f+((float)(rand()%10))/20.0f );
+    }
 
     band_size = BOARD_SEGMENTS;
     band = new bBand*[band_size];
@@ -231,6 +240,12 @@ void bBoard::draw_balls()
 
 void bBoard::draw()
 {
+    if( idle() ) {
+        double vvx = cos(aa), vvy = sin(aa);
+        GetCamera.set_eye( bVector3( ball[0]->pos.x - 2*view_r*vvx, 2.0, ball[0]->pos.y - 2*view_r*vvy ) );
+        GetCamera.set_dst( bVector3( ball[0]->pos.x + 3*view_r*vvx, 0.2, ball[0]->pos.y + 3*view_r*vvy ) );
+    }
+    
     board_shader.enable( bShader::B_FRAGMENT );
     board_shader.bind( bShader::B_FRAGMENT );
     
@@ -318,6 +333,28 @@ void bBoard::draw()
     Profiler.begin("ball_mgr::draw_balls");
     draw_balls();
     Profiler.end("ball_mgr::draw_balls");
+    
+    if( power > 0.0 ) {
+        bSystem::video_sys.set_matrix_2d();
+        glDisable( GL_TEXTURE_2D );
+        glDisable( GL_DEPTH_TEST );
+        glColor3f( 0.0f, 0.0f, 0.0f );
+        glBegin( GL_TRIANGLE_STRIP );
+            glVertex2i( 100, 500 );        
+            glVertex2i( 100, 560 );
+            glVertex2i( 700, 500 );
+            glVertex2i( 700, 560 );
+        glEnd();
+        
+        glBegin( GL_TRIANGLE_STRIP );
+            glColor3f( 0.0f, 1.0f, 0.0f );
+            glVertex2i( 102, 502 );
+            glVertex2i( 102, 558 );
+            glColor3f( power/18.2, 1.0-power/18.2, 0.0f );
+            glVertex2d( 100.0 + (598.0*power)/18.2, 502 );
+            glVertex2d( 100.0 + (598.0*power)/18.2, 558 );
+        glEnd();
+    }
     
     Profiler.end("ball_mgr::draw_bands");
 /*
@@ -474,4 +511,21 @@ void bBoard::sort_balls()
             }
         }
     }
+}
+
+void bBoard::shoot()
+{
+    if( !idle() ) return;
+    
+    ball[0]->vel.x = power*cos(aa);
+    ball[0]->vel.y = power*sin(aa);
+}
+
+bool bBoard::idle()
+{
+    for( int i=0; i<ball_size; ++i ) {
+        if( ball[i]->vel.length() > 0.0 ) return false;
+    }
+    
+    return true;
 }

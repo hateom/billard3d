@@ -27,6 +27,10 @@ Canvas::Canvas(QWidget *parent) : QWidget(parent), mx(BS), my(BS), mode(C_ADD), 
     for( int i=0; i<BOARD_SEGMENTS; ++i ) {
         flist.push_back( new QPoint( 5*BS+(int)((band_data[i].x-BMINX)*50.0), 5*BS+(int)((band_data[i].y-BMINY)*50.0) ) );
     }
+    
+    for( int i=0; i<DESK_SEGMENTS; ++i ) {
+        dlist.push_back( new QPoint( 5*BS+(int)((desk_data[i].x-BMINX)*50.0), 5*BS+(int)((desk_data[i].y-BMINY)*50.0) ) );
+    }
 }
 
 Canvas::~Canvas()
@@ -87,7 +91,7 @@ void Canvas::paintEvent(QPaintEvent *event)
         point( buffer, px, py, MRGB(0,0,0) );
     }
     
-	painter.drawImage( 0, 0, *buffer );
+    painter.drawImage( 0, 0, *buffer );
     painter.setPen( QColor(0,0,0) );
     if( plist.size() > 1 ) {
         for( size_t i=1; i<plist.size(); ++i ) {
@@ -109,6 +113,11 @@ void Canvas::paintEvent(QPaintEvent *event)
         }
     }
     
+    for( size_t i=0; i<blist.size(); ++i ) {
+        int px = blist[i]->x(), py = blist[i]->y();
+        painter.drawEllipse( px-15, py-15, 30, 30 );
+    }
+   
     painter.setPen( QColor(32,140,64) );
     painter.drawLine( BS, my, BW-BS, my );
     painter.drawLine( mx, BS, mx, BH-BS );
@@ -260,14 +269,22 @@ void Canvas::mouseReleaseEvent(QMouseEvent * event)
             plist.push_back( new QPoint( mx, my ) );
             add_frame();
         }
+    } else if( mode == C_BALL ) {
+        if( event->button() == Qt::RightButton ) {
+            if( blist.size() == 0 ) return;
+            delete blist.back();
+            blist.pop_back();
+        } else {
+            blist.push_back( new QPoint( mx, my ) );
+        }
     } else if( mode == C_DESK ) {
-            if( event->button() == Qt::RightButton ) {
-                if( dlist.size() == 0 ) return;
-                delete dlist.back();
-                dlist.pop_back();
-            } else {
-                dlist.push_back( new QPoint( mx, my ) );
-            }
+        if( event->button() == Qt::RightButton ) {
+            if( dlist.size() == 0 ) return;
+            delete dlist.back();
+            dlist.pop_back();
+        } else {
+            dlist.push_back( new QPoint( mx, my ) );
+        }
     } else if( mode == C_REMOVE ) {
         remove_point( mx, my );
     } else if( mode == C_INSERT ) {
@@ -363,6 +380,16 @@ void Canvas::save_file( QString name )
         out << "\n};\n\n";
     
     }
+    
+    out << "#define BALL_COUNT " << blist.size() << "\n\n";
+    out << "static point ball_data[] = {\n\t";
+    
+    for( size_t i=0; i<blist.size(); ++i ) {
+        out << "{ " << ((double)blist[i]->x()-cx)/50.0 << ", " << ((double)blist[i]->y()-cy)/50.0 << " }, ";
+        if( i && (i % 5) == 0 ) out << "\n\t";
+    }
+    
+    out << "\n};\n\n";
     
     out << "static point band_data[] = {\n\t";
     

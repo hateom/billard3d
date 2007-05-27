@@ -41,6 +41,11 @@ public:
     bool is_any( int ball );
    
     void reset();
+    void shoot();
+    void set_power( double p ) { power = p; }
+    bool idle();
+    
+    void set_aim_angle( double iaa ) { aa = iaa; }
     
 private:
     void draw_balls();
@@ -64,6 +69,8 @@ private:
     bTexture band_tex;
     bTexture desk;
 	GLubyte face[6][64][64][3];
+    
+    double aa, view_r, power;
 };
 
 #endif

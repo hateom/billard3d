@@ -15,9 +15,12 @@
 #include "binput.h"
 #include "bsdlsystem.h"
 #include "bstatemachine.h"
+#include "blogger.h"
+#include "bconst.h"
+#include "bcamera.h"
 
 bSimLogicLayer::bSimLogicLayer()
- : bLogicLayer(true)
+ : bLogicLayer(true), ldown(false), rdown(false), sdown(false), shift(false), aa(B_PI), power(0.0)
 {
 }
 
@@ -31,6 +34,24 @@ void bSimLogicLayer::update()
     Profiler.begin("ball_mgr::process");
     GetBoard.process( &GetFps );
     Profiler.end("ball_mgr::process");
+    
+    if( rdown ) {
+        aa += 0.02;
+        if( aa > B_2PI ) aa -= B_2PI;
+    }
+    
+    if( ldown ) {
+        aa -= 0.02;
+        if( aa < 0.0 ) aa = B_2PI - aa;
+    }
+    
+    if( sdown ) {
+        if( power < 18.0 ) power += 0.2;
+        GetBoard.set_power( power );
+        BLOG( "p0w4: %3.3f\n", power );
+    }
+    
+    GetBoard.set_aim_angle( aa );
 }
 
 void bSimLogicLayer::on_key_down(uint32 key)
@@ -42,6 +63,15 @@ void bSimLogicLayer::on_key_down(uint32 key)
         case SDLK_ESCAPE:
             GetStateMachine.go_to( BS_PAUSE );
             break;
+        case SDLK_SPACE:
+            sdown = true;
+            break;
+        case SDLK_LEFT:
+            ldown = true;
+            break;
+        case SDLK_RIGHT:
+            rdown = true;
+            break;
     }
 }
 
@@ -49,7 +79,17 @@ void bSimLogicLayer::on_key_up(uint32 key)
 {
     switch( key ) {
         case SDLK_SPACE:
-            GetBoard.reset();
+            GetBoard.shoot();
+            GetCamera.set_dst( bVector3( 0.0, 1.0, -0.2 ) );
+            GetCamera.set_eye( bVector3( 0.0, 15.0, 0.0 ) );
+            GetBoard.set_power( power = 0.0 );
+            sdown = false;
+            break;
+        case SDLK_LEFT:
+            ldown = false;
+            break;
+        case SDLK_RIGHT:
+            rdown = false;
             break;
     }
 }
