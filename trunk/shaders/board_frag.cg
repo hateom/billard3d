@@ -1,0 +1,34 @@
+struct pixel_in 
+{
+	float3 color    : COLOR0;
+	float3 tex      : TEXCOORD0; // texcoord
+    float3 normal   : TEXCOORD1; // normal
+    float3 light    : TEXCOORD2; // lightpos
+    float3 lightdst : TEXCOORD3; // lightpos
+};
+
+struct pixel_out 
+{
+	float3 color : COLOR;
+};
+
+pixel_out main( pixel_in IN, uniform sampler2D texture1 : TEXUNIT0 )
+{
+	pixel_out OUT;
+
+	float3 color1 = tex2D( texture1, IN.tex ).rgb;
+
+    float3 l_Normal = normalize(IN.normal);
+    float3 l_LightVector = normalize(IN.light-IN.lightdst);
+    
+    float l_CosNL = saturate(dot(l_Normal, l_LightVector));
+    float d = clamp(1.0 - pow(dot(IN.lightdst, IN.lightdst),0.3), 0.0, 1.0);
+
+    // No light can reach back surfaces...
+    if (l_CosNL == 0)
+        discard;
+    
+    OUT.color = color1*(l_CosNL+0.3);
+    
+	return OUT;
+}
