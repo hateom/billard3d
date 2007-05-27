@@ -39,21 +39,8 @@ bool bBoard::create()
 {
     guard(bBoard::create);
     
-    //double tm = 0.0;
-    
     ball_size = BALL_COUNT;
     ball = new bBall*[ball_size];
-    /*
-    ball[0] = new bBall( bVector( 2.0,1.8),  bVector( 2.3, 0.0), bVector(tm,tm), 0.3, 1.0, 1.0f, 0.8f, 0.6f );
-    ball[1] = new bBall( bVector( -2.0,2.0),  bVector( 2.0, 5.0), bVector(tm,tm), 0.3, 1.0, 0.6f, 1.0f, 0.8f );
-    ball[2] = new bBall( bVector( -2.2, -1.5),  bVector( 3.0, 3.0), bVector(0.0,0.0), 0.3, 1.0, 0.8f, 0.6f, 1.0f );
-    ball[3] = new bBall( bVector( 1.8,0.2),  bVector(-3.0, 3.0), bVector(0.0,0.0), 0.3, 1.0, 1.0f, 0.6f, 0.8f );
-    
-    ball[4] = new bBall( bVector( 1.8,1.2),  bVector(-3.0, 3.0), bVector(0.0,0.0), 0.3, 1.0, 1.0f, 0.6f, 1.0f );
-    ball[5] = new bBall( bVector( 2.1,-2.2),  bVector(-3.0, 3.0), bVector(0.0,0.0), 0.3, 1.0, 0.5f, 0.9f, 1.0f );
-    
-    ball[6] = new bBall( bVector( -2.1, 1.0),  bVector(-3.0, 3.0), bVector(0.0,0.0), 0.3, 1.0, 1.0f, 1.0f, 1.0f );
-    */
     
     ball[0] = new bBall( bVector( ball_data[0].x, ball_data[0].y ), bVector( 0, 0 ), bVector( 0, 0 ), 0.3, 1.0, 1.0f, 1.0f, 1.0f );
     
@@ -64,20 +51,7 @@ bool bBoard::create()
 
     band_size = BOARD_SEGMENTS;
     band = new bBand*[band_size];
-/*
-    band[0]  = new bBand( bVector( 0.65, 1.5 ), bVector( 2.0, 0.5 ) );
-    band[1]  = new bBand( bVector( 2.00, 0.5 ), bVector( 4.0, 1.0 ) );
-    band[2]  = new bBand( bVector( 4.00, 1.0 ), bVector( 6.0, 0.5 ) );
-    band[3]  = new bBand( bVector( 6.00, 0.5 ), bVector( 7.3, 1.5 ) );
-    band[4]  = new bBand( bVector( 7.30, 1.5 ), bVector( 6.65, 3.0 ) );
-    band[5]  = new bBand( bVector( 6.65, 3.0 ), bVector( 7.3, 4.5 ) );
-    band[6]  = new bBand( bVector( 7.30, 4.5 ), bVector( 6.0, 5.5 ) );
-    band[7]  = new bBand( bVector( 6.00, 5.5 ), bVector( 4.0, 5.0 ) );
-    band[8]  = new bBand( bVector( 4.00, 5.0 ), bVector( 2.0, 5.5 ) );
-    band[9]  = new bBand( bVector( 2.00, 5.5 ), bVector( 0.65, 4.5 ) );
-    band[10] = new bBand( bVector( 0.65, 4.5 ), bVector( 1.30, 3.0 ) );
-    band[11] = new bBand( bVector( 1.30, 3.0 ), bVector( 0.65, 1.5 ) );
-*/
+
     for( int i=0; i<BOARD_SEGMENTS-1; ++i ) {
         band[i] = new bBand( 
             bVector( board_data[i].x, board_data[i].y ), 
@@ -135,19 +109,6 @@ bool bBoard::create()
     unguard;
 }
 
-void bBoard::reset()
-{
-    ball[0]->set_v( bVector( 2.3, 0.0) ); ball[0]->commit_v();
-    ball[1]->set_v( bVector( 2.0, 5.0) ); ball[0]->commit_v();
-    ball[2]->set_v( bVector( 3.0, 3.0) ); ball[0]->commit_v();
-    ball[3]->set_v( bVector(-3.0, 3.0) ); ball[0]->commit_v();
-    
-    ball[4]->set_v( bVector(-3.0, 3.0) ); ball[0]->commit_v();
-    ball[5]->set_v( bVector(-3.0, 3.0) ); ball[0]->commit_v();
-    
-    ball[6]->set_v( bVector(-3.0, 3.0) ); ball[0]->commit_v();
-}
-
 void bBoard::release()
 {
     guard(bBoard::release);
@@ -189,13 +150,6 @@ void bBoard::draw_balls()
     for( int i=0; i<ball_size; ++i ) {
         ball[i]->draw_shadow();
     }
-    /*
-    glEnable( GL_BLEND );
-    glDisable(GL_TEXTURE_GEN_S);
-    glDisable(GL_TEXTURE_GEN_T);
-    glEnable(GL_TEXTURE_2D);
-    glBlendFunc(GL_ONE,GL_ZERO);
-    */
     
     ball_shader.enable( bShader::B_BOTH );
     ball_shader.bind( bShader::B_BOTH );
@@ -218,18 +172,6 @@ void bBoard::draw_balls()
     
     ball_shader.disable( bShader::B_BOTH );
     
-    /*
-    glDisable( GL_DEPTH_TEST );
-    glEnable(GL_TEXTURE_2D);
-    glEnable(GL_TEXTURE_GEN_S);
-    glEnable(GL_TEXTURE_GEN_T);
-    glBlendFunc(GL_DST_COLOR, GL_ONE_MINUS_DST_ALPHA);
-    ball_tex.bind();
-    
-    for( int i=0; i<ball_size; ++i ) {
-        ball[i]->draw();
-    }
-    */
     glDisable(GL_TEXTURE_2D);
     glDisable(GL_TEXTURE_GEN_S);
     glDisable(GL_TEXTURE_GEN_T);
@@ -257,25 +199,6 @@ void bBoard::draw()
     glMultiTexCoord3fARB( GL_TEXTURE2_ARB, 0.0f, 0.1, 0.0f );
     
     float lx = 0, ly = 0.3f, lz = 0;
-/*    
-    glEnable( GL_TEXTURE_2D );
-    desk.bind();
-    glBegin( GL_TRIANGLE_STRIP );
-        glNormal3f( 0.0f, 1.0f, 0.0f );
-        glMultiTexCoord2fARB( GL_TEXTURE0_ARB, 0, 0 ); 
-        glMultiTexCoord3fARB( GL_TEXTURE3_ARB, BMINX-lx, 0.0-ly, BMINY-lz ); 
-        glVertex3d( BMINX, 0.0, BMINY );
-        glMultiTexCoord2fARB( GL_TEXTURE0_ARB, 0, 1 ); 
-        glMultiTexCoord3fARB( GL_TEXTURE3_ARB, BMINX-lx, 0.0-ly, BMAXY-lz ); 
-        glVertex3d( BMINX, 0.0, BMAXY );
-        glMultiTexCoord2fARB( GL_TEXTURE0_ARB, 1, 0 );
-        glMultiTexCoord3fARB( GL_TEXTURE3_ARB, BMAXX-lx, 0.0-ly, BMINY-lz );  
-        glVertex3d( BMAXX, 0.0, BMINY );
-        glMultiTexCoord2fARB( GL_TEXTURE0_ARB, 1, 1 );
-        glMultiTexCoord3fARB( GL_TEXTURE3_ARB, BMAXX-lx, 0.0-ly, BMAXY-lz );  
-        glVertex3d( BMAXX, 0.0, BMAXY );
-    glEnd();
-*/    
     
     glEnable( GL_TEXTURE_2D );
     desk.bind();
@@ -357,16 +280,6 @@ void bBoard::draw()
     }
     
     Profiler.end("ball_mgr::draw_bands");
-/*
-    glEnable( GL_TEXTURE_2D );
-    glColor3f( 1.0, 1.0, 1.0 );
-    bSystem::video_sys.set_matrix_2d();
-    for( int i=0; i<ball_size; ++i ) {
-        PRINT( 30, 100+16*i, B_FONT_LIGHT, "%2.2f %2.2f", ball[i]->vel.length(), ball[i]->lphi );
-    }
-    glDisable( GL_TEXTURE_2D );
-*/
-
 }
 
 void bBoard::process(bFpsTimer * fps)

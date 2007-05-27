@@ -19,6 +19,8 @@
 #include "bconst.h"
 #include "bcamera.h"
 
+#define MAX_POWER 18.0
+
 bSimLogicLayer::bSimLogicLayer()
  : bLogicLayer(true), ldown(false), rdown(false), sdown(false), shift(false), aa(B_PI), power(0.0)
 {
@@ -46,9 +48,9 @@ void bSimLogicLayer::update()
     }
     
     if( sdown ) {
-        if( power < 18.0 ) power += 0.2;
+        if( power < MAX_POWER ) power += 0.2;
+        if( power > MAX_POWER ) power = MAX_POWER;
         GetBoard.set_power( power );
-        BLOG( "p0w4: %3.3f\n", power );
     }
     
     GetBoard.set_aim_angle( aa );

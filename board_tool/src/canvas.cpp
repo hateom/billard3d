@@ -8,6 +8,7 @@
 #include "draw_manager.h"
 #include "board.h"
 #include "vector2.h"
+#include "mainform.h"
 
 #define BW 1024
 #define BH 768
@@ -15,7 +16,7 @@
 #define BS 10
 #define BF 40.0
 
-Canvas::Canvas(QWidget *parent) : QWidget(parent), mx(BS), my(BS), mode(C_ADD), selected(NULL)
+Canvas::Canvas(MainForm *mf, QWidget *parent) : QWidget(parent), own(mf), mx(BS), my(BS), mode(C_ADD), selected(NULL)
 {
 	buffer = new QImage(BW,BH,QImage::Format_RGB32);
     setMouseTracking( true );
@@ -143,6 +144,10 @@ void Canvas::mouseMoveEvent(QMouseEvent * event)
     if( my < BS ) my = BS;
     if( mx > BW-BS ) mx = BW-BS;
     if( my > BH-BS ) my = BH-BS;
+    
+    if( mode == C_ADD && (plist.size() > 0) ) {
+        own->set_info( QString::number(plist[plist.size()-1]->x()-mx) + tr(", ") + QString::number(plist[plist.size()-1]->y()-my) );
+    }
     
     update();
 }
@@ -415,5 +420,9 @@ void Canvas::clear()
         delete flist[i];
     }
     flist.clear();
+    for( size_t i=0; i<dlist.size(); ++i ) {
+        delete dlist[i];
+    }
+    dlist.clear();
     update();
 }

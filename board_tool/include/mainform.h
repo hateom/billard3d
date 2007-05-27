@@ -22,6 +22,8 @@ public slots:
     void btnDesk();
     void btnBall();
 
+    void set_info( QString str ) { m_form.editInfo->setText( str ); }
+    
 protected:
 	Ui::MainForm m_form;
 	Canvas * canvas;

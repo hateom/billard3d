@@ -5,6 +5,8 @@
 #include <QImage>
 #include <vector>
 
+class MainForm;
+
 class Canvas: public QWidget
 {
     typedef std::vector<QPoint*> pVector;
@@ -18,7 +20,7 @@ public:
         C_BALL
     };
     
-	Canvas(QWidget *parent = 0);
+	Canvas(MainForm * mf,QWidget *parent = 0);
 	virtual ~Canvas();
 
 	void set_pixel( int x, int y, unsigned long rgb );
@@ -32,6 +34,8 @@ public:
     void save_file( QString name );
     
 protected:
+    MainForm * own;
+    
     pIter * find( int x, int y );
     void remove_point( int x, int y );
     bool insert_after( pIter * it );
