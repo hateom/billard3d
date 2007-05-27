@@ -98,12 +98,19 @@ bool bBoard::create()
         BLOG( "!! Error loading desk texture!\n" );
     }
     
+    if( !band_tex.load( GETPATH("../../tex/band.bmp") ) ) {
+        BLOG( "!! Error loading band texture!\n" );
+    }
+    
     if( bShader::is_supported() ) {
         if( !ball_shader.load_fragment( GETPATH("../../shaders/ball_frag.cg") ) ) {
             BLOG( "!! Error loading ball shader!\n" );   
         }
         if( !ball_shader.load_vertex( GETPATH("../../shaders/ball_vert.cg") ) ) {
             BLOG( "!! Error loading ball shader!\n" );   
+        }
+        if( !board_shader.load_fragment( GETPATH("../../shaders/board_frag.cg") ) ) {
+            BLOG( "!! Error loading board shader!\n" );   
         }
     } else {
         BLOG( "!! Shaders are not supported!\n" );   
@@ -136,11 +143,13 @@ void bBoard::release()
 {
     guard(bBoard::release);
     
+    board_shader.release();
     ball_shader.release();
     
 	ball_tex.release();
     ball_num.release();
 
+    band_tex.release();
     desk.release();
     luball.release();
     luband.release();
@@ -222,52 +231,93 @@ void bBoard::draw_balls()
 
 void bBoard::draw()
 {
+    board_shader.enable( bShader::B_FRAGMENT );
+    board_shader.bind( bShader::B_FRAGMENT );
+    
+    glActiveTextureARB( GL_TEXTURE0_ARB );
+    glEnable(GL_TEXTURE_2D);
+    ball_num.bind();
+    
+    glMultiTexCoord3fARB( GL_TEXTURE1_ARB, 0.0f, 1.0, 0.0f );
+    glMultiTexCoord3fARB( GL_TEXTURE2_ARB, 0.0f, 0.1, 0.0f );
+    
+    float lx = 0, ly = 0.3f, lz = 0;
+/*    
     glEnable( GL_TEXTURE_2D );
     desk.bind();
     glBegin( GL_TRIANGLE_STRIP );
         glNormal3f( 0.0f, 1.0f, 0.0f );
-        glTexCoord2i( 0, 0 ); glVertex3d( BMINX, 0.0, BMINY );
-        glTexCoord2i( 0, 1 ); glVertex3d( BMINX, 0.0, BMAXY );
-        glTexCoord2i( 1, 0 ); glVertex3d( BMAXX, 0.0, BMINY );
-        glTexCoord2i( 1, 1 ); glVertex3d( BMAXX, 0.0, BMAXY );
+        glMultiTexCoord2fARB( GL_TEXTURE0_ARB, 0, 0 ); 
+        glMultiTexCoord3fARB( GL_TEXTURE3_ARB, BMINX-lx, 0.0-ly, BMINY-lz ); 
+        glVertex3d( BMINX, 0.0, BMINY );
+        glMultiTexCoord2fARB( GL_TEXTURE0_ARB, 0, 1 ); 
+        glMultiTexCoord3fARB( GL_TEXTURE3_ARB, BMINX-lx, 0.0-ly, BMAXY-lz ); 
+        glVertex3d( BMINX, 0.0, BMAXY );
+        glMultiTexCoord2fARB( GL_TEXTURE0_ARB, 1, 0 );
+        glMultiTexCoord3fARB( GL_TEXTURE3_ARB, BMAXX-lx, 0.0-ly, BMINY-lz );  
+        glVertex3d( BMAXX, 0.0, BMINY );
+        glMultiTexCoord2fARB( GL_TEXTURE0_ARB, 1, 1 );
+        glMultiTexCoord3fARB( GL_TEXTURE3_ARB, BMAXX-lx, 0.0-ly, BMAXY-lz );  
+        glVertex3d( BMAXX, 0.0, BMAXY );
+    glEnd();
+*/    
+    
+    glEnable( GL_TEXTURE_2D );
+    desk.bind();
+    glBegin( GL_TRIANGLE_STRIP );
+        glNormal3f( 0.0f, 1.0f, 0.0f );
+        for( int i=0; i<DESK_SEGMENTS; ++i ) {
+            glMultiTexCoord2fARB( GL_TEXTURE0_ARB, desk_data[i].tx, desk_data[i].ty ); 
+            glMultiTexCoord3fARB( GL_TEXTURE3_ARB, desk_data[i].x-lx, 0.0-ly, desk_data[i].y-lz ); 
+            glVertex3d( desk_data[i].x, 0.0, desk_data[i].y );
+        }
     glEnd();
     
-    glDisable( GL_TEXTURE_2D );
-    
-    Profiler.begin("ball_mgr::draw_balls");
-	
-//	sort_balls();
-    draw_balls();
-    
-    Profiler.end("ball_mgr::draw_balls");
-    
     Profiler.begin("ball_mgr::draw_bands");
+    
+    glActiveTextureARB( GL_TEXTURE0_ARB );
+    glEnable(GL_TEXTURE_2D);
+    band_tex.bind();
+    
     for( int i=0; i<band_size; ++i ) {
         band[i]->draw();
     }
     
-    glColor3f(0.4f,0.4f,1.0f);
-    glDisable( GL_TEXTURE_2D );
-    glDisable( GL_CULL_FACE );
+    glMultiTexCoord3dARB( GL_TEXTURE1_ARB, 0.0, 1.0, 0.0 ); 
+        
     glBegin( GL_TRIANGLE_STRIP );
     for( int i=0; i<BOARD_SEGMENTS; ++i ) {
         glNormal3d( 0.0, 1.0, 0.0 );
-        glVertex3d( board_data[i].x, 0.4, board_data[i].y );
+        //glMultiTexCoord3fARB( GL_TEXTURE3_ARB, band_data[i].x, 0.4-ly, band_data[i].y );
+        glMultiTexCoord2fARB( GL_TEXTURE0_ARB, ((i%2)==0)?0:1, 0 ); 
         glVertex3d( band_data[i].x,  0.4, band_data[i].y );
+        //glMultiTexCoord3fARB( GL_TEXTURE3_ARB, board_data[i].x, 0.4-ly, board_data[i].y );
+        glMultiTexCoord2fARB( GL_TEXTURE0_ARB, ((i%2)==0)?0:1, 1 ); 
+        glVertex3d( board_data[i].x, 0.4, board_data[i].y );
     }
-    glVertex3d( board_data[0].x, 0.4, board_data[0].y );
+    //glMultiTexCoord3fARB( GL_TEXTURE3_ARB, band_data[0].x, 0.4-ly, band_data[0].y );
+    glMultiTexCoord2fARB( GL_TEXTURE0_ARB, 1, 0 ); 
     glVertex3d( band_data[0].x,  0.4, band_data[0].y );
+    //glMultiTexCoord3fARB( GL_TEXTURE3_ARB, board_data[0].x, 0.4-ly, board_data[0].y );
+    glMultiTexCoord2fARB( GL_TEXTURE0_ARB, 1, 1 ); 
+    glVertex3d( board_data[0].x, 0.4, board_data[0].y );
     glEnd();
     
     glColor3f(0.0f,0.0f,0.2f);
     glBegin( GL_TRIANGLE_STRIP );
     for( int i=0; i<BOARD_SEGMENTS; ++i ) {
-        glVertex3d( band_data[i].x,  0.4, band_data[i].y );
         glVertex3d( band_data[i].x,  0.0, band_data[i].y );
+        glVertex3d( band_data[i].x,  0.4, band_data[i].y );
     }
-    glVertex3d( band_data[0].x,  0.4, band_data[0].y );
     glVertex3d( band_data[0].x,  0.0, band_data[0].y );
+    glVertex3d( band_data[0].x,  0.4, band_data[0].y );
     glEnd();
+    
+    board_shader.disable( bShader::B_FRAGMENT );
+    
+    Profiler.begin("ball_mgr::draw_balls");
+    draw_balls();
+    Profiler.end("ball_mgr::draw_balls");
     
     Profiler.end("ball_mgr::draw_bands");
 /*

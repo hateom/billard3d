@@ -27,15 +27,21 @@ bBand::~bBand()
 
 void bBand::draw()
 {
-    glDisable( GL_CULL_FACE );
+    glMultiTexCoord3dARB( GL_TEXTURE1_ARB, nx, 0.0, nz ); 
+    //glDisable( GL_CULL_FACE );
     glBegin( GL_TRIANGLE_STRIP );
+        //glColor3f( 0.4f, 0.4f, 1.0f );
         glNormal3d( nx, 0.0, nz );
-        glColor3f( 0.4f, 0.4f, 1.0f ); glVertex3d( p1.x, 0.4, p1.y );
-        glColor3f( 0.1f, 0.4f, 0.5f ); glVertex3d( p1.x, 0.0, p1.y );
-        glColor3f( 0.4f, 0.4f, 1.0f ); glVertex3d( p2.x, 0.4, p2.y );
-        glColor3f( 0.1f, 0.4f, 0.5f ); glVertex3d( p2.x, 0.0, p2.y );
+        glMultiTexCoord3fARB( GL_TEXTURE3_ARB, p1.x, -0.5, p1.y ); 
+        glMultiTexCoord2fARB( GL_TEXTURE0_ARB, 0, 0 ); glVertex3d( p1.x, 0.4, p1.y );
+        glMultiTexCoord3fARB( GL_TEXTURE3_ARB, p1.x, -0.1, p1.y ); 
+        glMultiTexCoord2fARB( GL_TEXTURE0_ARB, 0, 1 ); glVertex3d( p1.x, 0.0, p1.y );
+        glMultiTexCoord3fARB( GL_TEXTURE3_ARB, p2.x, -0.5, p2.y ); 
+        glMultiTexCoord2fARB( GL_TEXTURE0_ARB, 1, 0 ); glVertex3d( p2.x, 0.4, p2.y );
+        glMultiTexCoord3fARB( GL_TEXTURE3_ARB, p2.x, -0.1, p2.y ); 
+        glMultiTexCoord2fARB( GL_TEXTURE0_ARB, 1, 1 ); glVertex3d( p2.x, 0.0, p2.y );
     glEnd();
-    glEnable( GL_CULL_FACE );
+    //glEnable( GL_CULL_FACE );
 }
 
 bBand::bBand(bVector _p1, bVector _p2) : p1(_p1), p2(_p2)
@@ -83,8 +89,8 @@ void bBand::recalc()
     c = p1.y - a*p1.x;
     det = sqrt( a*a + b*b );
     
-    nx = (p2.y-p1.y);
-    nz = -(p2.x-p1.x);
+    nx = -(p2.y-p1.y);
+    nz = (p2.x-p1.x);
     nl = sqrt(nx*nx + nz*nz);
     nx /= nl;
     nz /= nl;

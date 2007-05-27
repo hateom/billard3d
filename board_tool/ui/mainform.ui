@@ -152,6 +152,19 @@
           <string>Remove points</string>
          </property>
         </widget>
+        <widget class="QRadioButton" name="radioDesk" >
+         <property name="geometry" >
+          <rect>
+           <x>10</x>
+           <y>120</y>
+           <width>91</width>
+           <height>22</height>
+          </rect>
+         </property>
+         <property name="text" >
+          <string>Desk area</string>
+         </property>
+        </widget>
        </widget>
       </item>
       <item>

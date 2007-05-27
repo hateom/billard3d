@@ -16,6 +16,7 @@ MainForm::MainForm(QWidget *parent, Qt::WindowFlags f) : QDialog(parent, f)
     connect( m_form.radioAdd, SIGNAL(clicked()), this, SLOT(btnAdd()) );
     connect( m_form.radioInsert, SIGNAL(clicked()), this, SLOT(btnInsert()) );
     connect( m_form.radioRemove, SIGNAL(clicked()), this, SLOT(btnRemove()) );
+    connect( m_form.radioDesk, SIGNAL(clicked()), this, SLOT(btnDesk()) );
 }
 
 MainForm::~MainForm()
@@ -52,4 +53,10 @@ void MainForm::btnInsert()
 {
     if( m_form.radioInsert->isChecked() )
         canvas->set_mode( Canvas::C_INSERT );
+}
+
+void MainForm::btnDesk()
+{
+    if( m_form.radioDesk->isChecked() )
+        canvas->set_mode( Canvas::C_DESK );
 }
