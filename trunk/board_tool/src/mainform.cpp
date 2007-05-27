@@ -6,7 +6,7 @@
 MainForm::MainForm(QWidget *parent, Qt::WindowFlags f) : QDialog(parent, f)
 {
 	m_form.setupUi(this);
-	canvas = new Canvas(m_form.groupBox_2);
+	canvas = new Canvas(this,m_form.groupBox_2);
 	canvas->setGeometry( 10, 20, Canvas::getWidth(), Canvas::getHeight() );
 	getDrawManager.init( canvas );
     

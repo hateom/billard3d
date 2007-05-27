@@ -40,7 +40,6 @@ public:
     void draw();
     bool is_any( int ball );
    
-    void reset();
     void shoot();
     void set_power( double p ) { power = p; }
     bool idle();
