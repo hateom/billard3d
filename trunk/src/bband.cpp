@@ -29,14 +29,11 @@ void bBand::draw()
 {
     glDisable( GL_CULL_FACE );
     glBegin( GL_TRIANGLE_STRIP );
-        glColor3f( 0.4f, 0.4f, 1.0f );
-        glVertex3d( p1.x, 0.4, p1.y );
-        glColor3f( 0.1f, 0.4f, 0.5f );
-        glVertex3d( p1.x, 0.0, p1.y );
-        glColor3f( 0.4f, 0.4f, 1.0f );
-        glVertex3d( p2.x, 0.4, p2.y );
-        glColor3f( 0.1f, 0.4f, 0.5f );
-        glVertex3d( p2.x, 0.0, p2.y );
+        glNormal3d( nx, 0.0, nz );
+        glColor3f( 0.4f, 0.4f, 1.0f ); glVertex3d( p1.x, 0.4, p1.y );
+        glColor3f( 0.1f, 0.4f, 0.5f ); glVertex3d( p1.x, 0.0, p1.y );
+        glColor3f( 0.4f, 0.4f, 1.0f ); glVertex3d( p2.x, 0.4, p2.y );
+        glColor3f( 0.1f, 0.4f, 0.5f ); glVertex3d( p2.x, 0.0, p2.y );
     glEnd();
     glEnable( GL_CULL_FACE );
 }
@@ -74,6 +71,8 @@ bBand::band_piece bBand::is_within(bVector pt, double rad)
 
 void bBand::recalc()
 {
+    double nl;
+    
     if( p2.x == p1.x ) {
         a = 0.0;
     } else {
@@ -83,6 +82,12 @@ void bBand::recalc()
     b = -1.0;
     c = p1.y - a*p1.x;
     det = sqrt( a*a + b*b );
+    
+    nx = (p2.y-p1.y);
+    nz = -(p2.x-p1.x);
+    nl = sqrt(nx*nx + nz*nz);
+    nx /= nl;
+    nz /= nl;
 }
 
 void bBand::set_points(bVector ip1, bVector ip2)

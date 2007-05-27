@@ -4,13 +4,16 @@
 #include <QImage>
 #include <QFile>
 #include <QTextStream>
+#include <cmath>
 #include "draw_manager.h"
 #include "board.h"
+#include "vector2.h"
 
 #define BW 1024
 #define BH 768
 
 #define BS 10
+#define BF 40.0
 
 Canvas::Canvas(QWidget *parent) : QWidget(parent), mx(BS), my(BS), mode(C_ADD), selected(NULL)
 {
@@ -18,12 +21,24 @@ Canvas::Canvas(QWidget *parent) : QWidget(parent), mx(BS), my(BS), mode(C_ADD), 
     setMouseTracking( true );
     
     for( int i=0; i<BOARD_SEGMENTS; ++i ) {
-        plist.push_back( new QPoint( 3*BS+(int)(board_data[i].x*80.0), 3*BS+(int)(board_data[i].y*80.0) ) );
+        plist.push_back( new QPoint( 5*BS+(int)((board_data[i].x-BMINX)*50.0), 5*BS+(int)((board_data[i].y-BMINY)*50.0) ) );
+    }
+    
+    for( int i=0; i<BOARD_SEGMENTS; ++i ) {
+        flist.push_back( new QPoint( 5*BS+(int)((band_data[i].x-BMINX)*50.0), 5*BS+(int)((band_data[i].y-BMINY)*50.0) ) );
     }
 }
 
 Canvas::~Canvas()
 {
+    for( size_t i=0; i<plist.size(); ++i ) {
+        delete plist[i];
+    }
+    plist.clear();
+    for( size_t i=0; i<flist.size(); ++i ) {
+        delete flist[i];
+    }
+    flist.clear();
 	delete buffer;
 }
 
@@ -49,6 +64,8 @@ void point( QImage * img, int x, int y, unsigned int color )
 
 void Canvas::paintEvent(QPaintEvent *event)
 {
+    if( !event ) return;
+    
 	QPainter painter(this);
 	painter.setRenderHint(QPainter::Antialiasing);
     
@@ -75,6 +92,13 @@ void Canvas::paintEvent(QPaintEvent *event)
     if( plist.size() > 1 ) {
         for( size_t i=1; i<plist.size(); ++i ) {
             painter.drawLine( plist[i-1]->x(), plist[i-1]->y(), plist[i]->x(), plist[i]->y() );
+        }
+    }
+    
+    painter.setPen( QColor(100,100,100) );
+    if( flist.size() > 1 ) {
+        for( size_t i=1; i<flist.size(); ++i ) {
+            painter.drawLine( flist[i-1]->x(), flist[i-1]->y(), flist[i]->x(), flist[i]->y() );
         }
     }
     
@@ -107,11 +131,6 @@ void Canvas::mouseMoveEvent(QMouseEvent * event)
     update();
 }
 
-void Canvas::mousePressEvent(QMouseEvent * event)
-{
-
-}
-
 bool Canvas::insert_after( pIter * it )
 {
     if( !it ) return false;
@@ -138,6 +157,89 @@ void Canvas::remove_point( int x, int y )
     if( it != NULL ) plist.erase( *it );   
 }
 
+void Canvas::add_frame()
+{
+    if( plist.size() <= 1 ) return;
+    
+    Vector2 p0, p1, p2, v2, v1, r2, n2, n1, o1a, o1b, o2a, o2b;
+    
+    p2.x = (double)(plist[plist.size()-1]->x());
+    p2.y = (double)(plist[plist.size()-1]->y());
+    p1.x = (double)(plist[plist.size()-2]->x());
+    p1.y = (double)(plist[plist.size()-2]->y());
+    
+    if( plist.size() > 2 ) {
+        p0.x = (double)(plist[plist.size()-3]->x());
+        p0.y = (double)(plist[plist.size()-3]->y());
+    } else {
+        p0.x    = p0.y = 0.0;
+    }
+    
+    v2.x = p2.x - p1.x;
+    v2.y = p2.y - p1.y;
+    n2.x = v2.x;
+    n2.y = v2.y;
+    n2.normalize();
+    
+    r2.y = -n2.x;
+    r2.x = n2.y;
+    
+    
+    o1a.x = (int)(p1.x+BF*r2.x);
+    o1a.y = (int)(p1.y+BF*r2.y);
+    
+    o1b.x = (int)(p2.x+BF*r2.x);
+    o1b.y = (int)(p2.y+BF*r2.y);
+    
+    if( flist.size() > 1 ) {
+        v1.x = p1.x - p0.x;
+        v1.y = p1.y - p0.y;
+        
+        n1.x = v1.x;
+        n1.y = v1.y;
+        
+        o2a.x = flist[flist.size()-2]->x();
+        o2a.y = flist[flist.size()-2]->y();
+    
+        o2b.x = flist[flist.size()-1]->x();
+        o2b.y = flist[flist.size()-1]->y();
+        
+        double a1, a2, c1, c2;
+    
+        a1 = (o1b.y-o1a.y)/(o1b.x-o1a.x);
+        c1 = a1 + o1a.y;
+        
+        a2 = (o2b.y-o2a.y)/(o2b.x-o2a.x);
+        c2 = a2 + o2a.y;
+    
+        Vector2 ip;
+        
+        double det, nom1, nom2;
+        det = (o1a.x-o1b.x)*(o2a.y-o2b.y) - (o1a.y-o1b.y)*(o2a.x-o2b.x);
+        nom1 = o1a.x*o1b.y-o1a.y*o1b.x;
+        nom2 = o2a.x*o2b.y-o2a.y*o2b.x;
+    
+        //ip.x = (c1-c2)/(a2-a1);
+        //ip.y = (a2*c1-a1*c2)/(a2-a1);
+        
+        ip.x = (nom1*(o2a.x-o2b.x)-nom2*(o1a.x-o1b.x))/det;
+        ip.y = (nom1*(o2a.y-o2b.y)-nom2*(o1a.y-o1b.y))/det;
+        
+        printf( "%3.3f %3.3f\n", ip.x, ip.y );
+        
+        delete flist.back();
+        flist.pop_back();
+        
+        flist.push_back( new QPoint( (int)ip.x, (int)ip.y ) );
+        //flist.push_back( new QPoint( (int)o1a.x, (int)o1a.y ) );
+    } else {
+        flist.push_back( new QPoint( (int)o1a.x, (int)o1a.y ) );
+    }
+    
+    flist.push_back( new QPoint( (int)o1b.x, (int)o1b.y ) );
+    //printf( "%2.2f %2.2f %2.2f %2.2f\n", f.x, f.y, v.x, v.y );
+}
+
 void Canvas::mouseReleaseEvent(QMouseEvent * event)
 {
     if( mode == C_ADD ) {
@@ -145,8 +247,11 @@ void Canvas::mouseReleaseEvent(QMouseEvent * event)
             if( plist.size() == 0 ) return;
             delete plist.back();
             plist.pop_back();
+            delete flist.back();
+            flist.pop_back();
         } else {
             plist.push_back( new QPoint( mx, my ) );
+            add_frame();
         }
     } else if( mode == C_REMOVE ) {
         remove_point( mx, my );
@@ -197,6 +302,7 @@ void Canvas::save_file( QString name )
     out << "/* Generated by board_tool - Tomasz Huczek */\n\n";
     out << "#ifndef __BOARD_DATA_H__\n#define __BOARD_DATA_H__\n\n";
     out << "#define BOARD_SEGMENTS " << plist.size() << "\n\n";
+    out << "#define BAND_SEGMENTS  " << flist.size() << "\n";
     
     out << "#define BMAXX " << (double)(maxx-cx)/50.0 << "\n";
     out << "#define BMAXY " << (double)(maxy-cy)/50.0 << "\n";
@@ -211,6 +317,16 @@ void Canvas::save_file( QString name )
         if( i && (i % 5) == 0 ) out << "\n\t";
     }
     
+    out << "\n};\n\n";
+    out << "static point band_data[] = {\n\t";
+    
+    for( size_t i=0; i<flist.size()-1; ++i ) {
+        out << "{ " << ((double)flist[i]->x()-cx)/50.0 << ", " << ((double)flist[i]->y()-cy)/50.0 << " }, ";
+        if( i && (i % 5) == 0 ) out << "\n\t";
+    }
+    
+    out << "{ " << ((double)flist[0]->x()-cx)/50.0 << ", " << ((double)flist[0]->y()-cy)/50.0 << " }";
+    
     out << "\n};\n\n#endif\n";
     
     file.close();
@@ -222,5 +338,9 @@ void Canvas::clear()
         delete plist[i];
     }
     plist.clear();
+    for( size_t i=0; i<flist.size(); ++i ) {
+        delete flist[i];
+    }
+    flist.clear();
     update();
 }
