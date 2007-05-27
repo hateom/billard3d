@@ -102,6 +102,13 @@ void Canvas::paintEvent(QPaintEvent *event)
         }
     }
     
+    painter.setPen( QColor(100,100,250) );
+    if( dlist.size() > 1 ) {
+        for( size_t i=1; i<dlist.size(); ++i ) {
+            painter.drawLine( dlist[i-1]->x(), dlist[i-1]->y(), dlist[i]->x(), dlist[i]->y() );
+        }
+    }
+    
     painter.setPen( QColor(32,140,64) );
     painter.drawLine( BS, my, BW-BS, my );
     painter.drawLine( mx, BS, mx, BH-BS );
@@ -253,6 +260,14 @@ void Canvas::mouseReleaseEvent(QMouseEvent * event)
             plist.push_back( new QPoint( mx, my ) );
             add_frame();
         }
+    } else if( mode == C_DESK ) {
+            if( event->button() == Qt::RightButton ) {
+                if( dlist.size() == 0 ) return;
+                delete dlist.back();
+                dlist.pop_back();
+            } else {
+                dlist.push_back( new QPoint( mx, my ) );
+            }
     } else if( mode == C_REMOVE ) {
         remove_point( mx, my );
     } else if( mode == C_INSERT ) {
@@ -318,6 +333,37 @@ void Canvas::save_file( QString name )
     }
     
     out << "\n};\n\n";
+    
+    if( dlist.size() > 0 ) {
+        
+        out << "#define DESK_SEGMENTS " << dlist.size() << "\n\n";
+        out << "struct tpoint {\n\tdouble x;\n\tdouble y;\n\tdouble tx;\n\tdouble ty;\n};\n\n";
+        out << "static tpoint desk_data[] = {\n\t";
+    
+        double dmaxx = dlist[0]->x(), dmaxy = dlist[0]->y(), dminx = dmaxx, dminy = dmaxy;
+        
+        for( size_t i=0; i<dlist.size(); ++i ) {
+            if( dlist[i]->x() < dminx ) dminx = dlist[i]->x();
+            if( dlist[i]->y() < dminy ) dminy = dlist[i]->y();
+            if( dlist[i]->x() > dmaxx ) dmaxx = dlist[i]->x();
+            if( dlist[i]->x() > dmaxy ) dmaxy = dlist[i]->y();
+        }
+        
+        double ccx, ccy;
+        
+        for( size_t i=0; i<dlist.size(); ++i ) {
+            ccx = ((double)dlist[i]->x());
+            ccy = ((double)dlist[i]->y());
+            
+            out << "{ " << (ccx-cx)/50.0 << ", " << (ccy-cy)/50.0 << ", ";
+            out << (ccx-dminx)/(dmaxx-dminx) << ", " << (ccy-dminy)/(dmaxy-dminy) << " }, ";
+            if( i && (i % 5) == 0 ) out << "\n\t";
+        }
+    
+        out << "\n};\n\n";
+    
+    }
+    
     out << "static point band_data[] = {\n\t";
     
     for( size_t i=0; i<flist.size()-1; ++i ) {

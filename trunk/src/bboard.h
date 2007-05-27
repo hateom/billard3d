@@ -57,9 +57,11 @@ private:
     bLUTable luband;
     
     bShader ball_shader;
+    bShader board_shader;
 
 	bTexture ball_tex;
     bTexture ball_num;
+    bTexture band_tex;
     bTexture desk;
 	GLubyte face[6][64][64][3];
 };
