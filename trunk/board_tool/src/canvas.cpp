@@ -32,6 +32,10 @@ Canvas::Canvas(MainForm *mf, QWidget *parent) : QWidget(parent), own(mf), mx(BS)
     for( int i=0; i<DESK_SEGMENTS; ++i ) {
         dlist.push_back( new QPoint( 5*BS+(int)((desk_data[i].x-BMINX)*50.0), 5*BS+(int)((desk_data[i].y-BMINY)*50.0) ) );
     }
+    
+    for( int i=0; i<BALL_COUNT; ++i ) {
+        blist.push_back( new QPoint( 5*BS+(int)((ball_data[i].x-BMINX)*50.0), 5*BS+(int)((ball_data[i].y-BMINY)*50.0) ) );
+    }
 }
 
 Canvas::~Canvas()
@@ -74,7 +78,7 @@ void Canvas::paintEvent(QPaintEvent *event)
 	QPainter painter(this);
 	painter.setRenderHint(QPainter::Antialiasing);
     
-    buffer->fill( MRGB(32,160,64) );
+    buffer->fill( MRGB(96,220,128) );
     
     for( int y=BS; y<BH; y += BS ) {
         for( int x=BS; x<BW; x += BS ) {
@@ -114,6 +118,7 @@ void Canvas::paintEvent(QPaintEvent *event)
         }
     }
     
+    painter.setPen( QColor(250,0,0) );
     for( size_t i=0; i<blist.size(); ++i ) {
         int px = blist[i]->x(), py = blist[i]->y();
         painter.drawEllipse( px-15, py-15, 30, 30 );
@@ -424,5 +429,9 @@ void Canvas::clear()
         delete dlist[i];
     }
     dlist.clear();
+    for( size_t i=0; i<blist.size(); ++i ) {
+        delete blist[i];
+    }
+    blist.clear();
     update();
 }

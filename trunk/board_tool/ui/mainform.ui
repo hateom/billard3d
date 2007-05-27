@@ -10,7 +10,7 @@
    </rect>
   </property>
   <property name="windowTitle" >
-   <string>CA SImulation - AiR</string>
+   <string>board_tool - b3d board editor :: AiR</string>
   </property>
   <layout class="QHBoxLayout" >
    <property name="margin" >
