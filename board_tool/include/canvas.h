@@ -33,10 +33,11 @@ protected:
     pIter * find( int x, int y );
     void remove_point( int x, int y );
     bool insert_after( pIter * it );
+    
+    void add_frame();
             
 	void paintEvent(QPaintEvent *event);
     void mouseMoveEvent(QMouseEvent * event);
-    void mousePressEvent(QMouseEvent * event);
     void mouseReleaseEvent(QMouseEvent * event);
     
     int mx, my;
@@ -47,6 +48,7 @@ protected:
     pIter * selected;
     
     pVector plist;
+    pVector flist;
 };
 
 #endif // __CANVAS_H__

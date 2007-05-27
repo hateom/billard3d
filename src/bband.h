@@ -17,7 +17,7 @@
 /**
     @brief Board band object
     This class represents a board band, and implements some useful methods.
-	@author Tomasz Huczek & Andrzej Jasiñski <thuczek@gmail.com>
+	@author Tomasz Huczek & Andrzej Jasiï¿½ski <thuczek@gmail.com>
 */
 class bBand 
 {
@@ -57,6 +57,8 @@ public:
 protected:
     /// two edges of the band
     bVector p1, p2;
+    
+    double nx, nz;
     
     /// parameters
     double a, b, c, det;

@@ -20,6 +20,6 @@ UI_SOURCES_DIR = ./src
 
 # Input
 FORMS += ui/mainform.ui
-SOURCES += 	src/main.cpp src/mainform.cpp src/canvas.cpp src/draw_manager.cpp
+SOURCES += 	src/main.cpp src/mainform.cpp src/canvas.cpp src/draw_manager.cpp src/vector2.cpp
 HEADERS += 	include/mainform.h include/canvas.h \
-			include/draw_manager.h include/board.h
+			include/draw_manager.h include/board.h include/vector2.h

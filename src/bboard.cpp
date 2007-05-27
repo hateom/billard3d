@@ -225,10 +225,11 @@ void bBoard::draw()
     glEnable( GL_TEXTURE_2D );
     desk.bind();
     glBegin( GL_TRIANGLE_STRIP );
-        glTexCoord2i( 0, 0 ); glVertex3d( BMINX, -0.1, BMINY );
-        glTexCoord2i( 0, 1 ); glVertex3d( BMINX, -0.1, BMAXY );
-        glTexCoord2i( 1, 0 ); glVertex3d( BMAXX, -0.1, BMINY );
-        glTexCoord2i( 1, 1 ); glVertex3d( BMAXX, -0.1, BMAXY );
+        glNormal3f( 0.0f, 1.0f, 0.0f );
+        glTexCoord2i( 0, 0 ); glVertex3d( BMINX, 0.0, BMINY );
+        glTexCoord2i( 0, 1 ); glVertex3d( BMINX, 0.0, BMAXY );
+        glTexCoord2i( 1, 0 ); glVertex3d( BMAXX, 0.0, BMINY );
+        glTexCoord2i( 1, 1 ); glVertex3d( BMAXX, 0.0, BMAXY );
     glEnd();
     
     glDisable( GL_TEXTURE_2D );
@@ -244,6 +245,30 @@ void bBoard::draw()
     for( int i=0; i<band_size; ++i ) {
         band[i]->draw();
     }
+    
+    glColor3f(0.4f,0.4f,1.0f);
+    glDisable( GL_TEXTURE_2D );
+    glDisable( GL_CULL_FACE );
+    glBegin( GL_TRIANGLE_STRIP );
+    for( int i=0; i<BOARD_SEGMENTS; ++i ) {
+        glNormal3d( 0.0, 1.0, 0.0 );
+        glVertex3d( board_data[i].x, 0.4, board_data[i].y );
+        glVertex3d( band_data[i].x,  0.4, band_data[i].y );
+    }
+    glVertex3d( board_data[0].x, 0.4, board_data[0].y );
+    glVertex3d( band_data[0].x,  0.4, band_data[0].y );
+    glEnd();
+    
+    glColor3f(0.0f,0.0f,0.2f);
+    glBegin( GL_TRIANGLE_STRIP );
+    for( int i=0; i<BOARD_SEGMENTS; ++i ) {
+        glVertex3d( band_data[i].x,  0.4, band_data[i].y );
+        glVertex3d( band_data[i].x,  0.0, band_data[i].y );
+    }
+    glVertex3d( band_data[0].x,  0.4, band_data[0].y );
+    glVertex3d( band_data[0].x,  0.0, band_data[0].y );
+    glEnd();
+    
     Profiler.end("ball_mgr::draw_bands");
 /*
     glEnable( GL_TEXTURE_2D );

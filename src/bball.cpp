@@ -78,15 +78,21 @@ void bBall::draw_shadow()
     glDisable( GL_CULL_FACE );
     glPushMatrix();
         glTranslated( pos.x, 0.0f, pos.y );
-        glColor3f( 0.1f, 0.1f, 0.1f );
+        glColor4f( 0.01f, 0.01f, 0.01f, 0.9f );
     
+        glBlendFunc( GL_ONE, GL_SRC_COLOR );
+        glEnable( GL_BLEND );
+        
         glBegin( GL_TRIANGLE_FAN );
+            glNormal3d( 0.0, 1.0, 0.0 );
             glVertex3f(0.0f,0.0f,0.0f);
             for( double i=0.0; i<B_2PI+step; i+=step) {
                 //glVertex3d( radius*cos(i), 0.0, radius*sin(i) );
-                glVertex3d( radius*bCos(i), 0.0, radius*bSin(i) );
+                glVertex3d( radius*bCos(i), 0.01, radius*bSin(i) );
             }
         glEnd();
+        
+        glDisable( GL_BLEND );
     glPopMatrix();
 }
 
