@@ -30,6 +30,10 @@ public:
     
     void init( bVideoLayer * );
     void release();
+    
+private:
+    bool ldown, rdown, sdown, shift;
+    double aa, power;
 };
 
 #endif

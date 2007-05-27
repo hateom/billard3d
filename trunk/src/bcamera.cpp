@@ -41,6 +41,7 @@ void bCamera::look_at()
 
 void bCamera::update()
 {
+    /*
     angle += 0.002;
     
     //eye.x = 4.0+5.0*cos(angle);
@@ -48,6 +49,7 @@ void bCamera::update()
 
     eye.x = 8.0*bCos(angle);
     eye.z = 8.0*bSin(angle);
+    */
 }
 
 double bCamera::get_distance(bVector3 vec)

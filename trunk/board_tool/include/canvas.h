@@ -14,7 +14,8 @@ public:
         C_ADD,
         C_INSERT,
         C_REMOVE,
-        C_DESK
+        C_DESK,
+        C_BALL
     };
     
 	Canvas(QWidget *parent = 0);
@@ -51,6 +52,7 @@ protected:
     pVector plist;
     pVector flist;
     pVector dlist;
+    pVector blist;
 };
 
 #endif // __CANVAS_H__
