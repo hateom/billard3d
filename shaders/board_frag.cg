@@ -18,6 +18,8 @@ pixel_out main( pixel_in IN, uniform sampler2D texture1 : TEXUNIT0 )
 
 	float3 color1 = tex2D( texture1, IN.tex ).rgb;
 
+    IN.light = float3( 0, 1, 0 );
+
     float3 l_Normal = normalize(IN.normal);
     float3 l_LightVector = normalize(IN.light-IN.lightdst);
     
