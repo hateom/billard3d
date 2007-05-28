@@ -41,6 +41,7 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				Optimization="0"
+				AdditionalIncludeDirectories="C:\workspace\b3d\src\layers;C:\workspace\b3d\src\assertion;C:\workspace\b3d\src\math;C:\workspace\b3d\src"
 				PreprocessorDefinitions="_CRT_SECURE_NO_DEPRECATE,_CRT_SECURE_NO_WARNINGS,WIN32,_DEBUG,__i386__"
 				MinimalRebuild="true"
 				BasicRuntimeChecks="3"
@@ -189,14 +190,6 @@
 				>
 			</File>
 			<File
-				RelativePath="..\src\bassert.cpp"
-				>
-			</File>
-			<File
-				RelativePath="..\src\bassert.h"
-				>
-			</File>
-			<File
 				RelativePath="..\src\bautoeventlistener.cpp"
 				>
 			</File>
@@ -226,10 +219,6 @@
 			</File>
 			<File
 				RelativePath="..\src\bboard.h"
-				>
-			</File>
-			<File
-				RelativePath="..\src\bboarddata.h"
 				>
 			</File>
 			<File
@@ -273,15 +262,7 @@
 				>
 			</File>
 			<File
-				RelativePath="..\src\bconsteditlogiclayer.h"
-				>
-			</File>
-			<File
 				RelativePath="..\src\bconsteditvideolayer.cpp"
-				>
-			</File>
-			<File
-				RelativePath="..\src\bconsteditvideolayer.h"
 				>
 			</File>
 			<File
@@ -293,27 +274,11 @@
 				>
 			</File>
 			<File
-				RelativePath="..\src\berrortrace.cpp"
-				>
-			</File>
-			<File
-				RelativePath="..\src\berrortrace.h"
-				>
-			</File>
-			<File
 				RelativePath="..\src\beventlistener.cpp"
 				>
 			</File>
 			<File
 				RelativePath="..\src\beventlistener.h"
-				>
-			</File>
-			<File
-				RelativePath="..\src\bexception.cpp"
-				>
-			</File>
-			<File
-				RelativePath="..\src\bexception.h"
 				>
 			</File>
 			<File
@@ -357,14 +322,6 @@
 				>
 			</File>
 			<File
-				RelativePath="..\src\blayermgr.cpp"
-				>
-			</File>
-			<File
-				RelativePath="..\src\blayermgr.h"
-				>
-			</File>
-			<File
 				RelativePath="..\src\blightmgr.cpp"
 				>
 			</File>
@@ -389,14 +346,6 @@
 				>
 			</File>
 			<File
-				RelativePath="..\src\blogiclayer.cpp"
-				>
-			</File>
-			<File
-				RelativePath="..\src\blogiclayer.h"
-				>
-			</File>
-			<File
 				RelativePath="..\src\blutable.cpp"
 				>
 			</File>
@@ -413,22 +362,6 @@
 				>
 			</File>
 			<File
-				RelativePath="..\src\boptionslogiclayer.cpp"
-				>
-			</File>
-			<File
-				RelativePath="..\src\boptionslogiclayer.h"
-				>
-			</File>
-			<File
-				RelativePath="..\src\boptionsvideolayer.cpp"
-				>
-			</File>
-			<File
-				RelativePath="..\src\boptionsvideolayer.h"
-				>
-			</File>
-			<File
 				RelativePath="..\src\bpath.cpp"
 				>
 			</File>
@@ -437,35 +370,11 @@
 				>
 			</File>
 			<File
-				RelativePath="..\src\bpauselogiclayer.cpp"
-				>
-			</File>
-			<File
-				RelativePath="..\src\bpauselogiclayer.h"
-				>
-			</File>
-			<File
-				RelativePath="..\src\bpausevideolayer.cpp"
-				>
-			</File>
-			<File
-				RelativePath="..\src\bpausevideolayer.h"
-				>
-			</File>
-			<File
 				RelativePath="..\src\bprofiler.cpp"
 				>
 			</File>
 			<File
 				RelativePath="..\src\bprofiler.h"
-				>
-			</File>
-			<File
-				RelativePath="..\src\bquaternion.cpp"
-				>
-			</File>
-			<File
-				RelativePath="..\src\bquaternion.h"
 				>
 			</File>
 			<File
@@ -486,30 +395,6 @@
 			</File>
 			<File
 				RelativePath="..\src\bshader.h"
-				>
-			</File>
-			<File
-				RelativePath="..\src\bsimlogiclayer.cpp"
-				>
-			</File>
-			<File
-				RelativePath="..\src\bsimlogiclayer.h"
-				>
-			</File>
-			<File
-				RelativePath="..\src\bsimvideolayer.cpp"
-				>
-			</File>
-			<File
-				RelativePath="..\src\bsimvideolayer.h"
-				>
-			</File>
-			<File
-				RelativePath="..\src\bsincos.cpp"
-				>
-			</File>
-			<File
-				RelativePath="..\src\bsincos.h"
 				>
 			</File>
 			<File
@@ -537,22 +422,6 @@
 				>
 			</File>
 			<File
-				RelativePath="..\src\bsynclogiclayer.cpp"
-				>
-			</File>
-			<File
-				RelativePath="..\src\bsynclogiclayer.h"
-				>
-			</File>
-			<File
-				RelativePath="..\src\bsyncvideolayer.cpp"
-				>
-			</File>
-			<File
-				RelativePath="..\src\bsyncvideolayer.h"
-				>
-			</File>
-			<File
 				RelativePath="..\src\bsystem.cpp"
 				>
 			</File>
@@ -569,14 +438,6 @@
 				>
 			</File>
 			<File
-				RelativePath="..\src\btrace.cpp"
-				>
-			</File>
-			<File
-				RelativePath="..\src\btrace.h"
-				>
-			</File>
-			<File
 				RelativePath="..\src\btypes.h"
 				>
 			</File>
@@ -589,22 +450,6 @@
 				>
 			</File>
 			<File
-				RelativePath="..\src\bvector.cpp"
-				>
-			</File>
-			<File
-				RelativePath="..\src\bvector.h"
-				>
-			</File>
-			<File
-				RelativePath="..\src\bvector3.cpp"
-				>
-			</File>
-			<File
-				RelativePath="..\src\bvector3.h"
-				>
-			</File>
-			<File
 				RelativePath="..\src\bvideo.cpp"
 				>
 			</File>
@@ -612,34 +457,222 @@
 				RelativePath="..\src\bvideo.h"
 				>
 			</File>
-			<File
-				RelativePath="..\src\bvideolayer.cpp"
+			<Filter
+				Name="assertion"
 				>
-			</File>
-			<File
-				RelativePath="..\src\bvideolayer.h"
+				<File
+					RelativePath="..\src\assertion\bassert.cpp"
+					>
+				</File>
+				<File
+					RelativePath="..\src\assertion\bassert.h"
+					>
+				</File>
+				<File
+					RelativePath="..\src\assertion\berrortrace.cpp"
+					>
+				</File>
+				<File
+					RelativePath="..\src\assertion\berrortrace.h"
+					>
+				</File>
+				<File
+					RelativePath="..\src\assertion\bexception.cpp"
+					>
+				</File>
+				<File
+					RelativePath="..\src\assertion\bexception.h"
+					>
+				</File>
+				<File
+					RelativePath="..\src\assertion\btrace.cpp"
+					>
+				</File>
+				<File
+					RelativePath="..\src\assertion\btrace.h"
+					>
+				</File>
+			</Filter>
+			<Filter
+				Name="math"
 				>
-			</File>
-			<File
-				RelativePath="..\src\cool_bboarddata.h"
+				<File
+					RelativePath="..\src\math\bquaternion.cpp"
+					>
+				</File>
+				<File
+					RelativePath="..\src\math\bquaternion.h"
+					>
+				</File>
+				<File
+					RelativePath="..\src\math\bsincos.cpp"
+					>
+				</File>
+				<File
+					RelativePath="..\src\math\bsincos.h"
+					>
+				</File>
+				<File
+					RelativePath="..\src\math\bvector.cpp"
+					>
+				</File>
+				<File
+					RelativePath="..\src\math\bvector.h"
+					>
+				</File>
+				<File
+					RelativePath="..\src\math\bvector3.cpp"
+					>
+				</File>
+				<File
+					RelativePath="..\src\math\bvector3.h"
+					>
+				</File>
+			</Filter>
+			<Filter
+				Name="layers"
 				>
-			</File>
-			<File
-				RelativePath="..\src\def_bboarddata.h"
-				>
-			</File>
-			<File
-				RelativePath="..\src\font01.h"
-				>
-			</File>
-			<File
-				RelativePath="..\src\font02.h"
-				>
-			</File>
-			<File
-				RelativePath="..\src\font03.h"
-				>
-			</File>
+				<File
+					RelativePath="..\src\layers\bconsteditlogiclayer.cpp"
+					>
+					<FileConfiguration
+						Name="Debug|Win32"
+						>
+						<Tool
+							Name="VCCLCompilerTool"
+							ObjectFile="$(IntDir)\$(InputName)1.obj"
+							XMLDocumentationFileName="$(IntDir)\$(InputName)1.xdc"
+						/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="Release|Win32"
+						>
+						<Tool
+							Name="VCCLCompilerTool"
+							ObjectFile="$(IntDir)\$(InputName)1.obj"
+							XMLDocumentationFileName="$(IntDir)\$(InputName)1.xdc"
+						/>
+					</FileConfiguration>
+				</File>
+				<File
+					RelativePath="..\src\layers\bconsteditlogiclayer.h"
+					>
+				</File>
+				<File
+					RelativePath="..\src\layers\bconsteditvideolayer.cpp"
+					>
+					<FileConfiguration
+						Name="Debug|Win32"
+						>
+						<Tool
+							Name="VCCLCompilerTool"
+							ObjectFile="$(IntDir)\$(InputName)1.obj"
+							XMLDocumentationFileName="$(IntDir)\$(InputName)1.xdc"
+						/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="Release|Win32"
+						>
+						<Tool
+							Name="VCCLCompilerTool"
+							ObjectFile="$(IntDir)\$(InputName)1.obj"
+							XMLDocumentationFileName="$(IntDir)\$(InputName)1.xdc"
+						/>
+					</FileConfiguration>
+				</File>
+				<File
+					RelativePath="..\src\layers\bconsteditvideolayer.h"
+					>
+				</File>
+				<File
+					RelativePath="..\src\layers\blayermgr.cpp"
+					>
+				</File>
+				<File
+					RelativePath="..\src\layers\blayermgr.h"
+					>
+				</File>
+				<File
+					RelativePath="..\src\layers\blogiclayer.cpp"
+					>
+				</File>
+				<File
+					RelativePath="..\src\layers\blogiclayer.h"
+					>
+				</File>
+				<File
+					RelativePath="..\src\layers\boptionslogiclayer.cpp"
+					>
+				</File>
+				<File
+					RelativePath="..\src\layers\boptionslogiclayer.h"
+					>
+				</File>
+				<File
+					RelativePath="..\src\layers\boptionsvideolayer.cpp"
+					>
+				</File>
+				<File
+					RelativePath="..\src\layers\boptionsvideolayer.h"
+					>
+				</File>
+				<File
+					RelativePath="..\src\layers\bpauselogiclayer.cpp"
+					>
+				</File>
+				<File
+					RelativePath="..\src\layers\bpauselogiclayer.h"
+					>
+				</File>
+				<File
+					RelativePath="..\src\layers\bpausevideolayer.cpp"
+					>
+				</File>
+				<File
+					RelativePath="..\src\layers\bpausevideolayer.h"
+					>
+				</File>
+				<File
+					RelativePath="..\src\layers\bsimlogiclayer.cpp"
+					>
+				</File>
+				<File
+					RelativePath="..\src\layers\bsimlogiclayer.h"
+					>
+				</File>
+				<File
+					RelativePath="..\src\layers\bsimvideolayer.cpp"
+					>
+				</File>
+				<File
+					RelativePath="..\src\layers\bsimvideolayer.h"
+					>
+				</File>
+				<File
+					RelativePath="..\src\layers\bsynclogiclayer.cpp"
+					>
+				</File>
+				<File
+					RelativePath="..\src\layers\bsynclogiclayer.h"
+					>
+				</File>
+				<File
+					RelativePath="..\src\layers\bsyncvideolayer.cpp"
+					>
+				</File>
+				<File
+					RelativePath="..\src\layers\bsyncvideolayer.h"
+					>
+				</File>
+				<File
+					RelativePath="..\src\layers\bvideolayer.cpp"
+					>
+				</File>
+				<File
+					RelativePath="..\src\layers\bvideolayer.h"
+					>
+				</File>
+			</Filter>
 		</Filter>
 		<Filter
 			Name="Resource Files"
