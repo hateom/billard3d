@@ -20,6 +20,8 @@
 #include "bsyncvideolayer.h"
 #include "boptionslogiclayer.h"
 #include "boptionsvideolayer.h"
+#include "bconsteditlogiclayer.h"
+#include "bconsteditvideolayer.h"
 
 #define B_DEFINE_LAYER( ENM, VIDL, LOGL ) vlayer[ENM] = VIDL; llayer[ENM] = LOGL;
 
@@ -28,10 +30,11 @@ bLogicLayer * bLayerMgr::llayer[bLayer::COUNT] = { NULL };
 
 void bLayerMgr::init()
 {
-    B_DEFINE_LAYER( bLayer::SIMULATION, new bSimVideoLayer(),     new bSimLogicLayer() );
-    B_DEFINE_LAYER( bLayer::PAUSE,      new bPauseVideoLayer(),   new bPauseLogicLayer() );
-	B_DEFINE_LAYER( bLayer::OPTIONS,    new bOptionsVideoLayer(), new bOptionsLogicLayer() );
-    B_DEFINE_LAYER( bLayer::SYNC,       new bSyncVideoLayer(),    new bSyncLogicLayer() );
+    B_DEFINE_LAYER( bLayer::SIMULATION, new bSimVideoLayer(),       new bSimLogicLayer() );
+    B_DEFINE_LAYER( bLayer::PAUSE,      new bPauseVideoLayer(),     new bPauseLogicLayer() );
+	B_DEFINE_LAYER( bLayer::OPTIONS,    new bOptionsVideoLayer(),   new bOptionsLogicLayer() );
+    B_DEFINE_LAYER( bLayer::SYNC,       new bSyncVideoLayer(),      new bSyncLogicLayer() );
+    B_DEFINE_LAYER( bLayer::CONSTED,    new bConstEditVideoLayer(), new bConstEditLogicLayer() );
 }
 
 void bLayerMgr::insert_layer(bLayer::Id layer_id)

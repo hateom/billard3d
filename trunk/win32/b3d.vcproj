@@ -269,6 +269,22 @@
 				>
 			</File>
 			<File
+				RelativePath="..\src\bconsteditlogiclayer.cpp"
+				>
+			</File>
+			<File
+				RelativePath="..\src\bconsteditlogiclayer.h"
+				>
+			</File>
+			<File
+				RelativePath="..\src\bconsteditvideolayer.cpp"
+				>
+			</File>
+			<File
+				RelativePath="..\src\bconsteditvideolayer.h"
+				>
+			</File>
+			<File
 				RelativePath="..\src\bdraw.cpp"
 				>
 			</File>

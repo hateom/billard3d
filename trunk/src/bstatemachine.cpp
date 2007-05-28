@@ -45,8 +45,13 @@ void bStateMachine::go_to(bState new_state)
             break;
 		case BS_OPTIONS:
 			BLOG( "## changing state to BS_OPTIONS\n" );
-			bLayerMgr::remove_layer( bLayer::PAUSE );
-            bLayerMgr::insert_layer( bLayer::OPTIONS );
+            if( state == BS_CONSTED ) {
+                bLayerMgr::remove_layer( bLayer::CONSTED );
+                bLayerMgr::insert_layer( bLayer::OPTIONS );
+            } else {
+			    bLayerMgr::remove_layer( bLayer::PAUSE );
+                bLayerMgr::insert_layer( bLayer::OPTIONS );
+            }
 			break;
         case BS_SYNC:
             BLOG( "## changing state to BS_SYNC\n" );
@@ -60,6 +65,11 @@ void bStateMachine::go_to(bState new_state)
 			} else if( state == BS_SIMULATION ) {
 				bLayerMgr::insert_layer( bLayer::PAUSE );
 			}
+            break;
+        case BS_CONSTED:
+            bLayerMgr::remove_layer( bLayer::OPTIONS );
+            bLayerMgr::insert_layer( bLayer::CONSTED );
+            BLOG( "## changing state to BS_CONSTED\n" );
             break;
         case BS_QUIT:
             BLOG( "## changing state to BS_QUIT\n" );

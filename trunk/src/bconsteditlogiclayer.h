@@ -9,48 +9,32 @@
  *                                                                         *
  ***************************************************************************/
 
-#include "bsynclogiclayer.h"
-#include "bstatemachine.h"
-#include "bsdl.h"
+#ifndef BCONSTEDITLOGICLAYER_H
+#define BCONSTEDITLOGICLAYER_H
 
-bSyncLogicLayer::bSyncLogicLayer()
- : bLogicLayer(true)
+#include "blogiclayer.h"
+
+/**
+	@author Tomasz Huczek & Andrzej Jasi�ski <thuczek@gmail.com>
+*/
+class bConstEditLogicLayer : public bLogicLayer
 {
-}
+public:
+    bConstEditLogicLayer();
+    virtual ~bConstEditLogicLayer();
 
+    void update();
+    void on_key_down( uint32 key );
+    void on_key_up( uint32 key );
+    
+    void init( bVideoLayer * );
+    void release();
 
-bSyncLogicLayer::~bSyncLogicLayer()
-{
-}
+public:
+	inline int get_menu_item() const { return menu_item; }
 
-void bSyncLogicLayer::init( bVideoLayer * )
-{
-    active = true;
-    ticks = SDL_GetTicks();
-}
+private:
+	int menu_item;
+};
 
-void bSyncLogicLayer::release()
-{
-    active = false;
-}
-
-void bSyncLogicLayer::update()
-{
-    if( ( active && ( SDL_GetTicks() - ticks ) > 2000 ) )
-    {
-        GetStateMachine.go_to( BS_SIMULATION );
-        active = false;
-    }
-}
-
-void bSyncLogicLayer::on_key_down(uint32 key)
-{
-    if( key == SDLK_ESCAPE ) {
-        GetStateMachine.go_to( BS_SIMULATION );
-        active = false;
-    }
-}
-
-void bSyncLogicLayer::on_key_up(uint32 key)
-{
-}
+#endif

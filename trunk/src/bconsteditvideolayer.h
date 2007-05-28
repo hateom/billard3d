@@ -9,48 +9,28 @@
  *                                                                         *
  ***************************************************************************/
 
-#include "bsynclogiclayer.h"
-#include "bstatemachine.h"
-#include "bsdl.h"
+#ifndef BCONSTEDITVIDEOLAYER_H
+#define BCONSTEDITVIDEOLAYER_H
 
-bSyncLogicLayer::bSyncLogicLayer()
- : bLogicLayer(true)
+#include "bvideolayer.h"
+#include "bconsteditlogiclayer.h"
+
+/**
+	@author Tomasz Huczek & Andrzej Jasi�ski <thuczek@gmail.com>
+*/
+class bConstEditVideoLayer : public bVideoLayer
 {
-}
+public:
+    bConstEditVideoLayer();
+    virtual ~bConstEditVideoLayer();
 
+	void draw();
 
-bSyncLogicLayer::~bSyncLogicLayer()
-{
-}
+    void init( bLogicLayer * );
+    void release();
 
-void bSyncLogicLayer::init( bVideoLayer * )
-{
-    active = true;
-    ticks = SDL_GetTicks();
-}
+private:
+	bConstEditLogicLayer * my_logic_layer;
+};
 
-void bSyncLogicLayer::release()
-{
-    active = false;
-}
-
-void bSyncLogicLayer::update()
-{
-    if( ( active && ( SDL_GetTicks() - ticks ) > 2000 ) )
-    {
-        GetStateMachine.go_to( BS_SIMULATION );
-        active = false;
-    }
-}
-
-void bSyncLogicLayer::on_key_down(uint32 key)
-{
-    if( key == SDLK_ESCAPE ) {
-        GetStateMachine.go_to( BS_SIMULATION );
-        active = false;
-    }
-}
-
-void bSyncLogicLayer::on_key_up(uint32 key)
-{
-}
+#endif

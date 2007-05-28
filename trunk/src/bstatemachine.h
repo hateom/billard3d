@@ -21,7 +21,10 @@
 
 #define GetStateMachine bStateMachine::get_singleton()
 
-// 
+//     +------------+           +------------+
+//     | BS_CONSTED | <-------> | BS_OPTIONS |
+//     +------------+           +------------+
+//                                     |
 //  +---------------+           +----------+
 //  | BS_SIMULATION | <-------> | BS_PAUSE | -----> QUIT
 //  +---------------+           +----------+
@@ -32,6 +35,7 @@ typedef enum bState {
     BS_SIMULATION,
     BS_PAUSE,
 	BS_OPTIONS,
+    BS_CONSTED,
     BS_SYNC,
     BS_QUIT
 };
