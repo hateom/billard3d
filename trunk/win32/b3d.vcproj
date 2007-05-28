@@ -120,6 +120,7 @@
 			/>
 			<Tool
 				Name="VCCLCompilerTool"
+				AdditionalIncludeDirectories="C:\workspace\b3d\src\layers;C:\workspace\b3d\src\assertion;C:\workspace\b3d\src\math;C:\workspace\b3d\src"
 				PreprocessorDefinitions="_CRT_SECURE_NO_DEPRECATE,_CRT_SECURE_NO_WARNINGS,WIN32,_RELEASE,__i386__"
 				RuntimeLibrary="0"
 				UsePrecompiledHeader="0"
