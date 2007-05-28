@@ -12,8 +12,8 @@
 #include <cmath>
 #include <iostream>
 #include "bvector.h"
+#include "bconst.h"
 
-#define EPS 0.0000001
 #define BABS( X ) (((X)<0.0)?((-1.0)*(X)):(X))
 
 bVector::bVector()
@@ -152,21 +152,7 @@ double bVector::distance( bVector & vec )
 {
     return sqrt( (x-vec.x)*(x-vec.x) + (y-vec.y)*(y-vec.y) );
 }
-/*
-bVector & bVector::operator=( bVector & rhs )
-{
-    x = rhs.x;
-    y = rhs.y;
-    return *this;
-}
-*
-bVector & bVector::operator=( bVector rhs )
-{
-    x = rhs.x;
-    y = rhs.y;
-    return *this;
-}
-*/
+
 bVector bVector::operator=( bVector rhs )
 {
     x = rhs.x;
@@ -188,7 +174,7 @@ std::ostream & operator<<(std::ostream & out, const bVector & v)
     
 double bVector::cross( bVector & v )
 {
-    return x*v.y-y*v.x;
+    return x*v.y - y*v.x;
 }
 
 double DotProduct( bVector & b1, bVector & b2 )
@@ -198,13 +184,6 @@ double DotProduct( bVector & b1, bVector & b2 )
 
 void bVector::ifzero()
 {
-    if( BABS(x) < EPS ) { 
-//        std::cout << "ifzero: " << (BABS(x) < EPS) << ": BABS(x): " << BABS(x) << ", EPS: " << EPS <<std::endl; 
-        x = 0.0; 
-    }
-    
-    if( BABS(y) < EPS ) { 
-//        std::cout << "ifzero: " << (BABS(y) < EPS) << ": BABS(y): " << BABS(y) << ", EPS: " << EPS <<std::endl; 
-        y = 0.0; 
-    }
+    if( BABS(x) < bConst::get_epsilon() ) x = 0.0; 
+    if( BABS(y) < bConst::get_epsilon() ) y = 0.0; 
 }

@@ -25,8 +25,9 @@ namespace bLayer {
         SIMULATION  = 0,
         PAUSE       = 1,
 		OPTIONS		= 2,
-        SYNC        = 3,
-        COUNT       = 4
+        CONSTED     = 3,
+        SYNC        = 4,
+        COUNT       = 5
     };
 
 }

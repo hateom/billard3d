@@ -38,13 +38,16 @@ void bOptionsLogicLayer::on_key_down(uint32 key)
 			bShader::set_enabled( shaders_option );
 			break;
 		case SDLK_DOWN:
-			if( menu_item < 1 ) menu_item++;
+			if( menu_item < 2 ) menu_item++;
 			break;
 		case SDLK_UP:
 			if( menu_item > 0 ) menu_item--;
 			break;
 		case SDLK_RETURN:
-			if( menu_item == 1 ) GetStateMachine.go_to( BS_PAUSE );
+			if( menu_item == 2 ) GetStateMachine.go_to( BS_PAUSE );
+            if( menu_item == 1 ) {
+                GetStateMachine.go_to( BS_CONSTED );
+            }
 			if( menu_item == 0 ) {
 				shaders_option = !shaders_option;
 				bShader::set_enabled( shaders_option );

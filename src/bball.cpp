@@ -18,9 +18,6 @@
 #include "bconst.h"
 #include "bsincos.h"
 
-#define COL_FACTOR 0.2
-#define EPS 0.01
-
 bBall::bBall() : t_vel_f(false)
 {
     acc.zero();
@@ -100,8 +97,7 @@ void bBall::process( double fps_factor )
 {
     guard(bBall::process);
     
-    static double mi = 0.005;
-    double ta = ((mi*10.0) * obr)*fps_factor;
+    double ta = ((bConst::get_frict_f()*10.0) * obr)*fps_factor;
     
     if( vel.length() < ta )
     {
@@ -140,8 +136,7 @@ void bBall::process( double fps_factor )
 
 void bBall::unprocess( double fps_factor )
 {
-    static double mi = 0.005;
-    double ta = ((mi*10.0)*obr)*fps_factor;
+    double ta = ((bConst::get_frict_f()*10.0)*obr)*fps_factor;
     
     lphi = blphi;
     
@@ -255,8 +250,8 @@ bVector bBall::collision(bBand * b, bBand::band_piece edge)
 void bBall::report_collision(int type)
 {
     double dtype = (double)type;
-    t_vel.x -= t_vel.x*(dtype*COL_FACTOR);
-    t_vel.y -= t_vel.y*(dtype*COL_FACTOR);
+    t_vel.x -= t_vel.x*(dtype*bConst::get_spring_f());
+    t_vel.y -= t_vel.y*(dtype*bConst::get_spring_f());
 }
 
 void bBall::commit_v()

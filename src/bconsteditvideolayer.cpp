@@ -9,23 +9,24 @@
  *                                                                         *
  ***************************************************************************/
 
-#include "boptionsvideolayer.h"
+#include "bconsteditvideolayer.h"
 #include "bsdl.h"
 #include "bfontmgr.h"
 #include "bsystem.h"
+#include "bconst.h"
 
-bOptionsVideoLayer::bOptionsVideoLayer()
+bConstEditVideoLayer::bConstEditVideoLayer()
  : bVideoLayer(), my_logic_layer(NULL)
 {
 }
 
 
-bOptionsVideoLayer::~bOptionsVideoLayer()
+bConstEditVideoLayer::~bConstEditVideoLayer()
 {
 }
 
 
-void bOptionsVideoLayer::draw()
+void bConstEditVideoLayer::draw()
 {
     bSystem::video_sys.set_matrix_2d();
     
@@ -59,31 +60,23 @@ void bOptionsVideoLayer::draw()
     PRINTB( 432, 302, B_FONT_DARK, "OPTIONS" );
     PRINTB( 430, 300, B_FONT_LIGHT, "OPTIONS" );
 
-	if( my_logic_layer->get_menu_item() == 0 ) {
-		PRINTB( 300, 360, B_FONT_LIGHT, ">>" );
-	} else if( my_logic_layer->get_menu_item() == 1 ) {
-		PRINTB( 300, 400, B_FONT_LIGHT, ">>" );
-	} else if( my_logic_layer->get_menu_item() == 2 ) {
-		PRINTB( 300, 440, B_FONT_LIGHT, ">>" );
-	}
+    PRINTB( 300, 360 + my_logic_layer->get_menu_item()*40, B_FONT_LIGHT, ">>" );
+	
+    PRINTB( 350, 360, B_FONT_LIGHT, "Friction factor: %.3f", bConst::get_frict_f() );
+    PRINTB( 350, 400, B_FONT_LIGHT, "Springness factor: %.3f", bConst::get_spring_f() );
+    PRINTB( 350, 440, B_FONT_LIGHT, "Epsilon: %.8f", bConst::get_epsilon() );
 
-	PRINTB( 350, 360, B_FONT_LIGHT, "Shaders (s)" );
-	PRINTB( 540, 360, B_FONT_LIGHT, my_logic_layer->get_shaders_option()?"ON":"OFF" );
-
-    PRINTB( 350, 400, B_FONT_LIGHT, "Constants (c)" );
-
-	PRINTB( 350, 440, B_FONT_LIGHT, "...back (esc)" );
+	PRINTB( 350, 480, B_FONT_LIGHT, "...back (esc)" );
 }
 
 
 
-void bOptionsVideoLayer::init( bLogicLayer * v )
+void bConstEditVideoLayer::init( bLogicLayer * v )
 {
-//	my_logic_layer = dynamic_cast<bOptionsLogicLayer*>(v);
-	my_logic_layer = (bOptionsLogicLayer*)v;
+	my_logic_layer = (bConstEditLogicLayer*)v;
 }
 
-void bOptionsVideoLayer::release()
+void bConstEditVideoLayer::release()
 {
 	my_logic_layer = NULL;
 }
