@@ -35,25 +35,36 @@ void bConstEditLogicLayer::on_key_down(uint32 key)
             GetStateMachine.go_to( BS_OPTIONS );
             break;
 		case SDLK_DOWN:
-			if( menu_item < 3 ) menu_item++;
+			if( menu_item < 4 ) menu_item++;
 			break;
 		case SDLK_UP:
 			if( menu_item > 0 ) menu_item--;
 			break;
+        case SDLK_d:
+            bConst::set_defaults();
+            break;
 		case SDLK_RETURN:
             if( menu_item == 3 ) {
+                bConst::set_defaults();
+            } else if( menu_item == 4 ) {
                 GetStateMachine.go_to( BS_OPTIONS );
             }
 			break;
         case SDLK_LEFT:
             if( menu_item == 0 ) {
                 bConst::set_frict_f( bConst::get_frict_f() - 0.001 );
+                if( bConst::get_frict_f() < 0.0 ) 
+                    bConst::set_frict_f( 0.0 );
             }
             if( menu_item == 1 ) {
                 bConst::set_spring_f( bConst::get_spring_f() - 0.01 );
+                if( bConst::get_spring_f() < 0.0 )
+                    bConst::set_spring_f( 0.0 );
             }
 			if( menu_item == 2 ) {
                 bConst::set_epsilon( bConst::get_epsilon() - 0.0000001 );
+                if( bConst::get_epsilon() < 0.0 )
+                    bConst::set_epsilon( 0.0 );
 			}
             break;
         case SDLK_RIGHT:

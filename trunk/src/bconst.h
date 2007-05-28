@@ -35,6 +35,8 @@ public:
     static void set_frict_f( double f );
     static void set_spring_f( double s );
 
+    static void set_defaults();
+    
 protected:
     static double epsilon;
     static double friction;
