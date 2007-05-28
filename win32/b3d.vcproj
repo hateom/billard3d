@@ -229,6 +229,10 @@
 				>
 			</File>
 			<File
+				RelativePath="..\src\bboarddata.h"
+				>
+			</File>
+			<File
 				RelativePath="..\src\bcamera.cpp"
 				>
 			</File>
@@ -598,6 +602,14 @@
 			</File>
 			<File
 				RelativePath="..\src\bvideolayer.h"
+				>
+			</File>
+			<File
+				RelativePath="..\src\cool_bboarddata.h"
+				>
+			</File>
+			<File
+				RelativePath="..\src\def_bboarddata.h"
 				>
 			</File>
 			<File
