@@ -46,8 +46,8 @@ void bCamera::update()
     de = go_eye - eye;
     dd = go_dest - dest;
     
-    eye += de/10.0;
-    dest += dd/10.0;
+    eye += de/12.0;
+    dest += dd/12.0;
 }
 
 double bCamera::get_distance(bVector3 vec)
