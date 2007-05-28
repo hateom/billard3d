@@ -1,26 +1,24 @@
 bin_PROGRAMS = billard3d
-billard3d_SOURCES = bargmgr.cpp bassert.cpp bautoeventlistener.cpp bball.cpp \
-	bband.cpp bboard.cpp bcamera.cpp bconfig.cpp bconfigreader.cpp bconst.cpp \
-	bconsteditlogiclayer.cpp bconsteditvideolayer.cpp bdraw.cpp berrortrace.cpp beventlistener.cpp \
-	bexception.cpp bfont.cpp bfontmgr.cpp bfpstimer.cpp billard3d.cpp binput.cpp \
-	blayermgr.cpp blightmgr.cpp blockvector.cpp blogger.cpp blogiclayer.cpp blutable.cpp \
-	bmainloop.cpp boptionslogiclayer.cpp boptionsvideolayer.cpp bpath.cpp \
-	bpauselogiclayer.cpp bpausevideolayer.cpp bprofiler.cpp bquaternion.cpp bsdlsystem.cpp \
-	bshader.cpp bsimlogiclayer.cpp bsimvideolayer.cpp bsincos.cpp bsingleton.cpp \
-	bstatemachine.cpp bstream.cpp bsynclogiclayer.cpp bsyncvideolayer.cpp bsystem.cpp \
-	btexture.cpp btrace.cpp butils.cpp bvector.cpp bvector3.cpp bvideo.cpp \
-	bvideolayer.cpp
 
 # set the include path found by configure
-INCLUDES = $(all_includes)
+INCLUDES = -I$(top_srcdir)/src -I$(top_srcdir)/src/math \
+	-I$(top_srcdir)/src/assertion -I$(top_srcdir)/src/layers $(all_includes)
 
 # the library search path.
 billard3d_LDFLAGS = $(all_libraries) -lGL -lGLEW -lGLU -lSDL -lCg -lCgGL
-noinst_HEADERS = bargmgr.h bassert.h bautoeventlistener.h bball.h bband.h \
-	bboard.h bcamera.h bconfig.h bconfigreader.h bdraw.h berrortrace.h \
-	beventlistener.h bexception.h bfpstimer.h binput.h blayermgr.h blightmgr.h blogger.h \
-	blogiclayer.h blutable.h bmainloop.h bpath.h bpauselogiclayer.h bpausevideolayer.h \
-	bprofiler.h bquaternion.h bsdlsystem.h bsimlogiclayer.h bsimvideolayer.h \
-	bsingleton.h bstatemachine.h bsynclogiclayer.h bsyncvideolayer.h bsystem.h btrace.h \
-	butils.h bvector.h bvector3.h bvideo.h bvideolayer.h
 AM_CXXFLAGS = -pedantic-errors -Wall
+billard3d_SOURCES = bargmgr.cpp bautoeventlistener.cpp bball.cpp bband.cpp \
+	bboard.cpp bcamera.cpp bconfig.cpp bconfigreader.cpp bconst.cpp bdraw.cpp \
+	beventlistener.cpp bfont.cpp bfontmgr.cpp bfpstimer.cpp billard3d.cpp binput.cpp \
+	blightmgr.cpp blockvector.cpp blogger.cpp blutable.cpp bmainloop.cpp bpath.cpp \
+	bprofiler.cpp bsdlsystem.cpp bshader.cpp bsingleton.cpp bstatemachine.cpp bstream.cpp \
+	bsystem.cpp btexture.cpp butils.cpp bvideo.cpp
+SUBDIRS = math assertion layers
+noinst_HEADERS = bargmgr.h bautoeventlistener.h bball.h bband.h bboard.h \
+	bcamera.h bcg.h bconfig.h bconfigreader.h bconst.h bdraw.h beventlistener.h \
+	bfont.h bfontmgr.h bfpstimer.h bgl.h binput.h blightmgr.h blockvector.h \
+	blogger.h blutable.h bmainloop.h bpath.h bprofiler.h bsdl.h bsdlsystem.h \
+	bshader.h bsingleton.h bstatemachine.h bstream.h bsystem.h btexture.h btypes.h \
+	butils.h bvideo.h
+billard3d_LDADD = $(top_builddir)/src/assertion/libbassertion.la \
+	$(top_builddir)/src/math/libbmath.la $(top_builddir)/src/layers/libblayers.la

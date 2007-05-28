@@ -12,12 +12,12 @@
 #ifndef BEXCEPTION_H
 #define BEXCEPTION_H
 
-#include "bstream.h"
+#include "../bstream.h"
 
 /**
     @brief Default Exception class
     Defines standard exception class with useful methods
-	@author Tomasz Huczek & Andrzej Jasiñski <thuczek@gmail.com>
+	@author Tomasz Huczek & Andrzej Jasiï¿½ski <thuczek@gmail.com>
 */
 class bException 
 {

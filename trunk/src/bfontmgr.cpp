@@ -2,9 +2,9 @@
 #include "btrace.h"
 #include "blogger.h"
 
-#include "font01.h"
-#include "font02.h"
-#include "font03.h"
+#include "fonts/font01.h"
+#include "fonts/font02.h"
+#include "fonts/font03.h"
 
 bFontMgr::bFontMgr() : bSingleton<bFontMgr>(), def_loaded(false)
 {

@@ -18,7 +18,7 @@
 #include "bprofiler.h"
 #include "bpath.h"
 #include "bsystem.h"
-#include "bboarddata.h"
+#include "boards/bboarddata.h"
 #include "bconst.h"
 
 #include <cmath>
@@ -26,7 +26,8 @@
 #define FACTOR 0.96
 
 bBoard::bBoard() : bSingleton<bBoard>(), 
-    ball(NULL), band(NULL), ball_size(0), band_size(0), aa(B_PI), view_r(1.0), power(0.0)
+    ball(NULL), band(NULL), ball_size(0), band_size(0), aa(B_PI), 
+    view_r(1.0), power(0.0), camera_type(CT_FPS)
 {
 }
 
@@ -85,6 +86,10 @@ bool bBoard::create()
         BLOG( "!! Error loading band texture!\n" );
     }
     
+    if( !shadow.load( GETPATH("../../tex/shadow.bmp") ) ) {
+        BLOG( "!! Error loading shadow texture!\n" );
+    }
+    
     if( bShader::is_supported() ) {
         if( !ball_shader.load_fragment( GETPATH("../../shaders/ball_frag.cg") ) ) {
             BLOG( "!! Error loading ball shader!\n" );   
@@ -116,6 +121,7 @@ void bBoard::release()
     board_shader.release();
     ball_shader.release();
     
+    shadow.release();
 	ball_tex.release();
     ball_num.release();
 
@@ -147,8 +153,11 @@ void bBoard::release()
 
 void bBoard::draw_balls()
 {
+    glActiveTextureARB(GL_TEXTURE0_ARB);
+    glEnable(GL_TEXTURE_2D);
+    shadow.bind();
     for( int i=0; i<ball_size; ++i ) {
-        ball[i]->draw_shadow();
+        ball[i]->draw_shadow( bVector3(0.0, 8.0, 0.0) );
     }
     
     ball_shader.enable( bShader::B_BOTH );
@@ -163,7 +172,6 @@ void bBoard::draw_balls()
     ball_tex.bind();
     
     glMultiTexCoord3fARB( GL_TEXTURE2_ARB, 3.0f, 2.0, -2.5f );
-    
     for( int i=0; i<ball_size; ++i ) {
         ball[i]->draw( &ball_shader );
     }
@@ -182,11 +190,36 @@ void bBoard::draw_balls()
 
 void bBoard::draw()
 {
-    if( idle() ) {
-        double vvx = cos(aa), vvy = sin(aa);
+    double vvx = cos(aa), vvy = sin(aa);
+    
+    if( idle() && camera_type == CT_FPS ) {
         GetCamera.set_eye( bVector3( ball[0]->pos.x - 2*view_r*vvx, 2.0, ball[0]->pos.y - 2*view_r*vvy ) );
         GetCamera.set_dst( bVector3( ball[0]->pos.x + 3*view_r*vvx, 0.2, ball[0]->pos.y + 3*view_r*vvy ) );
+    } else {
+        GetCamera.set_top_view();   
     }
+    
+    glDisable( GL_TEXTURE_2D );
+    glColor3f( 0.0, 0.0, 0.0 );
+    glBegin( GL_TRIANGLE_STRIP );
+    for( int i=0; i<BOTTOM_SEGMENTS; ++i ) {
+        glVertex3f( bottom_data[i].x, -0.01, bottom_data[i].y );
+    }
+    glEnd();
+    
+    if( idle() ) {
+        glLineWidth( 2.0 );
+        glEnable( GL_LINE_SMOOTH );
+        glBegin( GL_LINES );
+            glColor4f( 1.0, 0.3, 0.3, 1.0 );
+            for(double k=0.0; k<4.0; k+=0.2) {
+                glVertex3f( ball[0]->pos.x+vvx*k, ball[0]->radius, ball[0]->pos.y+vvy*k );
+            }
+        glEnd();
+        glDisable( GL_BLEND );
+    }
+    
+    glColor3f( 1.0, 1.0, 1.0 );
     
     board_shader.enable( bShader::B_FRAGMENT );
     board_shader.bind( bShader::B_FRAGMENT );
@@ -217,6 +250,7 @@ void bBoard::draw()
     glEnable(GL_TEXTURE_2D);
     band_tex.bind();
     
+    glDisable( GL_CULL_FACE );
     for( int i=0; i<band_size; ++i ) {
         band[i]->draw();
     }
@@ -441,4 +475,13 @@ bool bBoard::idle()
     }
     
     return true;
+}
+
+void bBoard::switch_camera()
+{
+    if( camera_type == CT_FPS ) {
+        camera_type = CT_TOP; 
+    } else  {
+        camera_type = CT_FPS; 
+    }
 }

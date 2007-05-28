@@ -22,6 +22,9 @@
 
 #define GetBoard bBoard::get_singleton()
 
+#define CT_FPS 0
+#define CT_TOP 1
+
 /**
     @brief Board class
     Defines a board class and usefull methods
@@ -46,6 +49,10 @@ public:
     
     void set_aim_angle( double iaa ) { aa = iaa; }
     
+    void set_camera_type( int ct ) { camera_type = ct; }
+    int  get_camera_type() const { return camera_type; }
+    void switch_camera();
+    
 private:
     void draw_balls();
     void sort_balls();            
@@ -67,9 +74,11 @@ private:
     bTexture ball_num;
     bTexture band_tex;
     bTexture desk;
+    bTexture shadow;
 	GLubyte face[6][64][64][3];
     
     double aa, view_r, power;
+    int camera_type;
 };
 
 #endif

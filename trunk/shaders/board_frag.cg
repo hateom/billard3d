@@ -27,8 +27,8 @@ pixel_out main( pixel_in IN, uniform sampler2D texture1 : TEXUNIT0 )
     float d = clamp(1.0 - pow(dot(IN.lightdst, IN.lightdst),0.3), 0.0, 1.0);
 
     // No light can reach back surfaces...
-    if (l_CosNL == 0)
-        discard;
+    //if (l_CosNL == 0)
+    //    discard;
     
     OUT.color = color1*(l_CosNL+0.3);
     

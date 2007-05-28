@@ -31,10 +31,10 @@
       <autokdesu>false</autokdesu>
       <envvars/>
       <runarguments>
-        <billard3d/>
+        <billard3d></billard3d>
       </runarguments>
       <debugarguments>
-        <billard3d/>
+        <billard3d></billard3d>
       </debugarguments>
       <cwd>
         <billard3d>/home/deely/workspace/billard3d/debug/./src</billard3d>

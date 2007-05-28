@@ -68,24 +68,37 @@ void bBall::draw( bShader * sh )
     glPopMatrix();
 }
 
-void bBall::draw_shadow()
+void bBall::draw_shadow( bVector3 light )
 {
+    double t;
+    bVector spos;
+    bVector3 v = bVector3( pos.x, radius, pos.y ) - light;
+    t = radius/v.y;
+    
+    spos.x = pos.x - v.x*t;
+    spos.y = pos.y - v.z*t;
+    
     static double step = (B_2PI)/16.0;
+    double sradius = radius*1.2;
     
     glDisable( GL_CULL_FACE );
+    glEnable( GL_TEXTURE_2D );
     glPushMatrix();
-        glTranslated( pos.x, 0.0f, pos.y );
-        glColor4f( 0.01f, 0.01f, 0.01f, 0.9f );
+        //glTranslated( pos.x, 0.0f, pos.y );
+        glTranslated( spos.x, 0.0f, spos.y );
+        glColor4f( 1.0f, 1.0f, 1.0f, 0.5f );
     
-        glBlendFunc( GL_ONE, GL_SRC_COLOR );
+        //glBlendFunc( GL_ONE, GL_SRC_COLOR );
+        glBlendFunc( GL_ZERO, GL_ONE_MINUS_SRC_COLOR );
         glEnable( GL_BLEND );
         
         glBegin( GL_TRIANGLE_FAN );
             glNormal3d( 0.0, 1.0, 0.0 );
+            glTexCoord2d( 0.5, 0.5 );
             glVertex3f(0.0f,0.0f,0.0f);
             for( double i=0.0; i<B_2PI+step; i+=step) {
-                //glVertex3d( radius*cos(i), 0.0, radius*sin(i) );
-                glVertex3d( radius*bCos(i), 0.01, radius*bSin(i) );
+                glTexCoord2d( 0.5+0.5*bCos(i), 0.5+0.5*bSin(i) );
+                glVertex3d( sradius*bCos(i), 0.01, sradius*bSin(i) );
             }
         glEnd();
         
