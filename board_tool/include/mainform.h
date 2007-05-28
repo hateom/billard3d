@@ -21,6 +21,7 @@ public slots:
     void btnInsert();
     void btnDesk();
     void btnBall();
+    void btnBottom();
 
     void set_info( QString str ) { m_form.editInfo->setText( str ); }
     

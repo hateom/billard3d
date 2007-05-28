@@ -17,6 +17,7 @@
 #include "bgl.h"
 #include "bquaternion.h"
 #include "bshader.h"
+#include "bvector3.h"
 
 /**
     @brief Ball object
@@ -35,7 +36,7 @@ public:
     void draw( bShader * s = NULL );
     
     /// draws ball shadow
-    void draw_shadow();
+    void draw_shadow( bVector3 light );
     
     /// apply physical calculations of the velocity, 
     /// position and acceleration

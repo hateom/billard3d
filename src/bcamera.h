@@ -33,11 +33,14 @@ public:
     bVector3 get_dest() const { return dest; }
     double get_distance( bVector3 vec );
     
-    void set_eye( bVector3 e ) { eye = e; }
-    void set_dst( bVector3 d ) { dest = d; }
+    void set_eye( bVector3 e ) { go_eye = e; }
+    void set_dst( bVector3 d ) { go_dest = d; }
+    
+    void set_top_view();
     
 protected:
     bVector3 eye, dest;
+    bVector3 go_eye, go_dest;
     double angle;
 };
 

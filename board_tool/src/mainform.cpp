@@ -18,6 +18,7 @@ MainForm::MainForm(QWidget *parent, Qt::WindowFlags f) : QDialog(parent, f)
     connect( m_form.radioRemove, SIGNAL(clicked()), this, SLOT(btnRemove()) );
     connect( m_form.radioDesk, SIGNAL(clicked()), this, SLOT(btnDesk()) );
     connect( m_form.radioBall, SIGNAL(clicked()), this, SLOT(btnBall()) );
+    connect( m_form.radioBottom, SIGNAL(clicked()), this, SLOT(btnBottom()) );
 }
 
 MainForm::~MainForm()
@@ -66,4 +67,10 @@ void MainForm::btnBall()
 {
     if( m_form.radioBall->isChecked() )
         canvas->set_mode( Canvas::C_BALL );
+}
+
+void MainForm::btnBottom()
+{
+    if( m_form.radioBottom->isChecked() )
+        canvas->set_mode( Canvas::C_BOTTOM );
 }

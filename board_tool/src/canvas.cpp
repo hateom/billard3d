@@ -118,6 +118,13 @@ void Canvas::paintEvent(QPaintEvent *event)
         }
     }
     
+    painter.setPen( QColor(0,100,0) );
+    if( btlist.size() > 1 ) {
+        for( size_t i=1; i<btlist.size(); ++i ) {
+            painter.drawLine( btlist[i-1]->x(), btlist[i-1]->y(), btlist[i]->x(), btlist[i]->y() );
+        }
+    }
+    
     painter.setPen( QColor(250,0,0) );
     for( size_t i=0; i<blist.size(); ++i ) {
         int px = blist[i]->x(), py = blist[i]->y();
@@ -279,6 +286,14 @@ void Canvas::mouseReleaseEvent(QMouseEvent * event)
             plist.push_back( new QPoint( mx, my ) );
             add_frame();
         }
+    } else if( mode == C_BOTTOM ) {
+        if( event->button() == Qt::RightButton ) {
+            if( btlist.size() == 0 ) return;
+            delete btlist.back();
+            btlist.pop_back();
+        } else {
+            btlist.push_back( new QPoint( mx, my ) );
+        }
     } else if( mode == C_BALL ) {
         if( event->button() == Qt::RightButton ) {
             if( blist.size() == 0 ) return;
@@ -401,6 +416,16 @@ void Canvas::save_file( QString name )
     
     out << "\n};\n\n";
     
+    out << "#define BOTTOM_SEGMENTS " << btlist.size() << "\n\n";
+    out << "static point bottom_data[] = {\n\t";
+    
+    for( size_t i=0; i<btlist.size(); ++i ) {
+        out << "{ " << ((double)btlist[i]->x()-cx)/50.0 << ", " << ((double)btlist[i]->y()-cy)/50.0 << " }, ";
+        if( i && (i % 5) == 0 ) out << "\n\t";
+    }
+    
+    out << "\n};\n\n";
+    
     out << "static point band_data[] = {\n\t";
     
     for( size_t i=0; i<flist.size()-1; ++i ) {
@@ -433,5 +458,9 @@ void Canvas::clear()
         delete blist[i];
     }
     blist.clear();
+    for( size_t i=0; i<blist.size(); ++i ) {
+        delete btlist[i];
+    }
+    btlist.clear();
     update();
 }

@@ -41,18 +41,22 @@ void bCamera::look_at()
 
 void bCamera::update()
 {
-    /*
-    angle += 0.002;
+    bVector3 de, dd;
     
-    //eye.x = 4.0+5.0*cos(angle);
-    //eye.z = 3.0+5.0*sin(angle);
-
-    eye.x = 8.0*bCos(angle);
-    eye.z = 8.0*bSin(angle);
-    */
+    de = go_eye - eye;
+    dd = go_dest - dest;
+    
+    eye += de/10.0;
+    dest += dd/10.0;
 }
 
 double bCamera::get_distance(bVector3 vec)
 {
     return eye.distance( vec );
+}
+
+void bCamera::set_top_view()
+{
+    go_dest = bVector3( 0.0, 1.0, -0.2 );
+    go_eye  = bVector3( 0.0, 15.0, 0.0 );
 }

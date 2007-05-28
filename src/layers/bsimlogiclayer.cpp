@@ -59,6 +59,9 @@ void bSimLogicLayer::update()
 void bSimLogicLayer::on_key_down(uint32 key)
 {
     switch( key ) {
+        case SDLK_RETURN:
+            GetBoard.switch_camera();
+            break;
         case SDLK_p:
             Profiler.on_off( !Profiler.is_opened() );
             break;
@@ -82,8 +85,7 @@ void bSimLogicLayer::on_key_up(uint32 key)
     switch( key ) {
         case SDLK_SPACE:
             GetBoard.shoot();
-            GetCamera.set_dst( bVector3( 0.0, 1.0, -0.2 ) );
-            GetCamera.set_eye( bVector3( 0.0, 15.0, 0.0 ) );
+            //GetCamera.set_top_view();
             GetBoard.set_power( power = 0.0 );
             sdown = false;
             break;

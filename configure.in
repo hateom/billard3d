@@ -7,4 +7,5 @@ AC_LANG_CPLUSPLUS
 AC_PROG_CXX
 AM_PROG_LIBTOOL
 
-AC_OUTPUT(Makefile src/Makefile)
+AC_OUTPUT(Makefile src/Makefile src/assertion/Makefile src/layers/Makefile \
+	src/math/Makefile)

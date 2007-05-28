@@ -17,6 +17,7 @@ public:
         C_INSERT,
         C_REMOVE,
         C_DESK,
+        C_BOTTOM,
         C_BALL
     };
     
@@ -57,6 +58,7 @@ protected:
     pVector flist;
     pVector dlist;
     pVector blist;
+    pVector btlist;
 };
 
 #endif // __CANVAS_H__
