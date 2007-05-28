@@ -57,16 +57,17 @@ void bConstEditVideoLayer::draw()
     glEnable( GL_TEXTURE_2D );
     glDisable( GL_BLEND );
     
-    PRINTB( 432, 302, B_FONT_DARK, "OPTIONS" );
-    PRINTB( 430, 300, B_FONT_LIGHT, "OPTIONS" );
+    PRINTB( 432, 302, B_FONT_DARK, "CONSTANTS" );
+    PRINTB( 430, 300, B_FONT_LIGHT, "CONSTANTS" );
 
     PRINTB( 300, 360 + my_logic_layer->get_menu_item()*40, B_FONT_LIGHT, ">>" );
 	
     PRINTB( 350, 360, B_FONT_LIGHT, "Friction factor: %.3f", bConst::get_frict_f() );
     PRINTB( 350, 400, B_FONT_LIGHT, "Springness factor: %.3f", bConst::get_spring_f() );
     PRINTB( 350, 440, B_FONT_LIGHT, "Epsilon: %.8f", bConst::get_epsilon() );
-
-	PRINTB( 350, 480, B_FONT_LIGHT, "...back (esc)" );
+    PRINTB( 350, 480, B_FONT_LIGHT, "Reset to defaults (d)" );
+    
+	PRINTB( 350, 520, B_FONT_LIGHT, "...back (esc)" );
 }
 
 

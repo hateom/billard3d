@@ -37,6 +37,9 @@ void bOptionsLogicLayer::on_key_down(uint32 key)
 			shaders_option = !shaders_option;
 			bShader::set_enabled( shaders_option );
 			break;
+        case SDLK_c:
+            GetStateMachine.go_to( BS_CONSTED );
+            break;
 		case SDLK_DOWN:
 			if( menu_item < 2 ) menu_item++;
 			break;

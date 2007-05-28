@@ -33,3 +33,11 @@ void bConst::set_spring_f( double s )
 {
     springness = s;
 }
+
+void bConst::set_defaults()
+{
+    set_frict_f( DEF_FRICT_F );
+    set_spring_f( DEF_SPRING_F );
+    set_epsilon( DEF_EPSILON );    
+}
+
