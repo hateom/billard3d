@@ -23,7 +23,22 @@
 
 #include <cmath>
 
-#define FACTOR 0.96
+bool SameSide( bVector p1, bVector p2, bVector a, bVector b )
+{
+	double cp1 = (b - a).cross(p1 - a);
+	double cp2 = (b - a).cross(p2 - a);
+	//cp1 = CrossProduct(b-a, p1-a)
+	//cp2 = CrossProduct(b-a, p2-a)
+
+	if( cp1*cp2 >= 0 ) return true; else return false;
+}
+
+bool PointInTriangle( bVector p, bVector a, bVector b, bVector c )
+{
+	if( SameSide( p, a, b, c ) && SameSide( p, b, a, c) && SameSide( p, c, a, b ) ) return true; else return false;
+}
+
+//---
 
 bBoard::bBoard() : bSingleton<bBoard>(), 
     ball(NULL), band(NULL), ball_size(0), band_size(0), aa(B_PI), 
@@ -173,7 +188,17 @@ void bBoard::draw_balls()
     
     glMultiTexCoord3fARB( GL_TEXTURE2_ARB, 3.0f, 2.0, -2.5f );
     for( int i=0; i<ball_size; ++i ) {
-        ball[i]->draw( &ball_shader );
+		if( i > 0 ) ball[i]->set_visibility( false );
+		for(int j=0; j<DESK_SEGMENTS-2; ++j ) {
+			if( PointInTriangle( ball[i]->pos, 
+					bVector( desk_data[j].x, desk_data[j].y ), 
+					bVector( desk_data[j+1].x, desk_data[j+1].y ), 
+					bVector( desk_data[j+2].x, desk_data[j+2].y ) ) ) {
+				ball[i]->set_visibility( true );
+				break;
+			}
+		}
+		ball[i]->draw( &ball_shader );
     }
     
     glActiveTextureARB(GL_TEXTURE0_ARB);
@@ -203,7 +228,7 @@ void bBoard::draw()
     glColor3f( 0.0, 0.0, 0.0 );
     glBegin( GL_TRIANGLE_STRIP );
     for( int i=0; i<BOTTOM_SEGMENTS; ++i ) {
-        glVertex3f( bottom_data[i].x, -0.01, bottom_data[i].y );
+        glVertex3d( bottom_data[i].x, -0.01, bottom_data[i].y );
     }
     glEnd();
     
@@ -211,9 +236,9 @@ void bBoard::draw()
         glLineWidth( 2.0 );
         glEnable( GL_LINE_SMOOTH );
         glBegin( GL_LINES );
-            glColor4f( 1.0, 0.3, 0.3, 1.0 );
+            glColor4d( 1.0, 0.3, 0.3, 1.0 );
             for(double k=0.0; k<4.0; k+=0.2) {
-                glVertex3f( ball[0]->pos.x+vvx*k, ball[0]->radius, ball[0]->pos.y+vvy*k );
+                glVertex3d( ball[0]->pos.x+vvx*k, ball[0]->radius, ball[0]->pos.y+vvy*k );
             }
         glEnd();
         glDisable( GL_BLEND );
@@ -228,8 +253,8 @@ void bBoard::draw()
     glEnable(GL_TEXTURE_2D);
     ball_num.bind();
     
-    glMultiTexCoord3fARB( GL_TEXTURE1_ARB, 0.0f, 1.0, 0.0f );
-    glMultiTexCoord3fARB( GL_TEXTURE2_ARB, 0.0f, 0.1, 0.0f );
+    glMultiTexCoord3fARB( GL_TEXTURE1_ARB, 0.0f, 1.0f, 0.0f );
+    glMultiTexCoord3fARB( GL_TEXTURE2_ARB, 0.0f, 0.1f, 0.0f );
     
     float lx = 0, ly = 0.3f, lz = 0;
     
@@ -238,8 +263,8 @@ void bBoard::draw()
     glBegin( GL_TRIANGLE_STRIP );
         glNormal3f( 0.0f, 1.0f, 0.0f );
         for( int i=0; i<DESK_SEGMENTS; ++i ) {
-            glMultiTexCoord2fARB( GL_TEXTURE0_ARB, desk_data[i].tx, desk_data[i].ty ); 
-            glMultiTexCoord3fARB( GL_TEXTURE3_ARB, desk_data[i].x-lx, 0.0-ly, desk_data[i].y-lz ); 
+            glMultiTexCoord2dARB( GL_TEXTURE0_ARB, desk_data[i].tx, desk_data[i].ty ); 
+            glMultiTexCoord3dARB( GL_TEXTURE3_ARB, desk_data[i].x-lx, 0.0-ly, desk_data[i].y-lz ); 
             glVertex3d( desk_data[i].x, 0.0, desk_data[i].y );
         }
     glEnd();
@@ -261,10 +286,10 @@ void bBoard::draw()
     for( int i=0; i<BOARD_SEGMENTS; ++i ) {
         glNormal3d( 0.0, 1.0, 0.0 );
         //glMultiTexCoord3fARB( GL_TEXTURE3_ARB, band_data[i].x, 0.4-ly, band_data[i].y );
-        glMultiTexCoord2fARB( GL_TEXTURE0_ARB, ((i%2)==0)?0:1, 0 ); 
+        glMultiTexCoord2dARB( GL_TEXTURE0_ARB, ((i%2)==0)?0.0:1.0, 0.0 ); 
         glVertex3d( band_data[i].x,  0.4, band_data[i].y );
         //glMultiTexCoord3fARB( GL_TEXTURE3_ARB, board_data[i].x, 0.4-ly, board_data[i].y );
-        glMultiTexCoord2fARB( GL_TEXTURE0_ARB, ((i%2)==0)?0:1, 1 ); 
+        glMultiTexCoord2dARB( GL_TEXTURE0_ARB, ((i%2)==0)?0.0:1.0, 1.0 ); 
         glVertex3d( board_data[i].x, 0.4, board_data[i].y );
     }
     //glMultiTexCoord3fARB( GL_TEXTURE3_ARB, band_data[0].x, 0.4-ly, band_data[0].y );
@@ -307,7 +332,7 @@ void bBoard::draw()
             glColor3f( 0.0f, 1.0f, 0.0f );
             glVertex2i( 102, 502 );
             glVertex2i( 102, 558 );
-            glColor3f( power/18.2, 1.0-power/18.2, 0.0f );
+            glColor3d( power/18.2, 1.0-power/18.2, 0.0f );
             glVertex2d( 100.0 + (598.0*power)/18.2, 502 );
             glVertex2d( 100.0 + (598.0*power)/18.2, 558 );
         glEnd();

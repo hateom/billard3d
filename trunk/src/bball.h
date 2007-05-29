@@ -66,6 +66,8 @@ public:
     /// check whether collision occured
     bool    collides( bBall * b );
 
+	void    set_visibility( bool v ) { visibility = v; }
+
 public:
     bVector pos,     ///< position vector
             vel,     ///< velocity vector
@@ -77,6 +79,9 @@ public:
     double mass;     ///< mass of the ball
     double blphi;
     double obr;
+	double ypos;
+
+	bool visibility;
     
 	bQuaternion qrot, dqrot;
 	double rotmat[16];

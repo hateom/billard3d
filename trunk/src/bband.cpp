@@ -32,13 +32,13 @@ void bBand::draw()
     glBegin( GL_TRIANGLE_STRIP );
         //glColor3f( 0.4f, 0.4f, 1.0f );
         glNormal3d( nx, 0.0, nz );
-        glMultiTexCoord3fARB( GL_TEXTURE3_ARB, p1.x, -0.5, p1.y ); 
+        glMultiTexCoord3dARB( GL_TEXTURE3_ARB, p1.x, -0.5, p1.y ); 
         glMultiTexCoord2fARB( GL_TEXTURE0_ARB, 0, 0 ); glVertex3d( p1.x, 0.4, p1.y );
-        glMultiTexCoord3fARB( GL_TEXTURE3_ARB, p1.x, -0.1, p1.y ); 
+        glMultiTexCoord3dARB( GL_TEXTURE3_ARB, p1.x, -0.1, p1.y ); 
         glMultiTexCoord2fARB( GL_TEXTURE0_ARB, 0, 1 ); glVertex3d( p1.x, 0.0, p1.y );
-        glMultiTexCoord3fARB( GL_TEXTURE3_ARB, p2.x, -0.5, p2.y ); 
+        glMultiTexCoord3dARB( GL_TEXTURE3_ARB, p2.x, -0.5, p2.y ); 
         glMultiTexCoord2fARB( GL_TEXTURE0_ARB, 1, 0 ); glVertex3d( p2.x, 0.4, p2.y );
-        glMultiTexCoord3fARB( GL_TEXTURE3_ARB, p2.x, -0.1, p2.y ); 
+        glMultiTexCoord3dARB( GL_TEXTURE3_ARB, p2.x, -0.1, p2.y ); 
         glMultiTexCoord2fARB( GL_TEXTURE0_ARB, 1, 1 ); glVertex3d( p2.x, 0.0, p2.y );
     glEnd();
     //glEnable( GL_CULL_FACE );
