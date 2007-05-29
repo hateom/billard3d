@@ -18,7 +18,7 @@
 #include "bconst.h"
 #include "bsincos.h"
 
-bBall::bBall() : t_vel_f(false)
+bBall::bBall() : t_vel_f(false), visibility(true)
 {
     acc.zero();
     vel.zero();
@@ -35,6 +35,8 @@ bBall::bBall() : t_vel_f(false)
     sphere_obj = gluNewQuadric();
 	gluQuadricNormals( sphere_obj, GL_SMOOTH );
 	gluQuadricTexture( sphere_obj, GL_TRUE );
+
+	ypos = radius;
 }
 
 bBall::bBall(bVector ip, bVector iv, bVector ia, 
@@ -50,6 +52,9 @@ bBall::bBall(bVector ip, bVector iv, bVector ia,
     obr = 1.0/radius;
 
     sphere_obj = gluNewQuadric();
+	gluQuadricNormals( sphere_obj, GL_SMOOTH );
+	gluQuadricTexture( sphere_obj, GL_TRUE );
+	ypos = radius;
 }
 
 bBall::~bBall()
@@ -59,7 +64,7 @@ bBall::~bBall()
 void bBall::draw( bShader * sh )
 {
     glPushMatrix();
-		glTranslated( pos.x, radius, pos.y );
+		glTranslated( pos.x, ypos, pos.y );
         glMultMatrixd((double*)rotmat);
         if( sh ) sh->set_matrices();
 		glColor3f( r, g, b );
@@ -143,6 +148,16 @@ void bBall::process( double fps_factor )
     
 	qrot *= dqrot;
 	qrot.to_matrix( rotmat );
+
+	if( !visibility ) {
+		ypos -= 0.1;
+		if( ypos < -radius ) {
+			pos.x = 100.0;
+			pos.y = 100.0;
+			vel.x = 0.0;
+			vel.y = 0.0;
+		}
+	}
     
     unguard;
 }
