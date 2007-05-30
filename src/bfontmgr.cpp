@@ -62,9 +62,9 @@ bFont & bFontMgr::get_font( int font )
 		return def_small;
     } else if( font == B_BIG_FONT ) {
         return def_big;
-	} else {
-		BASSERTM( 0, "Wrong font type!" );
 	}
+	
+    BASSERTM( 0, "Wrong font type!" );
     
     unguard;
 }
