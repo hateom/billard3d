@@ -25,8 +25,10 @@
 
 bool SameSide( bVector p1, bVector p2, bVector a, bVector b )
 {
-	double cp1 = (b - a).cross(p1 - a);
-	double cp2 = (b - a).cross(p2 - a);
+    bVector a1 = p1 - a;
+    bVector a2 = p2 - a;
+	double cp1 = (b - a).cross(a1);
+	double cp2 = (b - a).cross(a2);
 	//cp1 = CrossProduct(b-a, p1-a)
 	//cp2 = CrossProduct(b-a, p2-a)
 
