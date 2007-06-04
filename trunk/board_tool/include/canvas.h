@@ -4,13 +4,12 @@
 #include <QWidget>
 #include <QImage>
 #include <vector>
+#include "boardobj.h"
 
 class MainForm;
 
 class Canvas: public QWidget
 {
-    typedef std::vector<QPoint*> pVector;
-    typedef std::vector<QPoint*>::iterator pIter;
 public:
     enum cMode {
         C_ADD,
@@ -33,6 +32,7 @@ public:
     static int getHeight();
     
     void save_file( QString name );
+    void open_file( QString name );
     
 protected:
     MainForm * own;
@@ -54,11 +54,7 @@ protected:
 	QImage * buffer;
     pIter * selected;
     
-    pVector plist;
-    pVector flist;
-    pVector dlist;
-    pVector blist;
-    pVector btlist;
+    BoardObject boardObj;
 };
 
 #endif // __CANVAS_H__

@@ -80,3 +80,4 @@ const char * bStream::get_str() const
 { 
     return buffer; 
 }
+

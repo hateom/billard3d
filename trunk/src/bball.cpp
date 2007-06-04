@@ -18,7 +18,7 @@
 #include "bconst.h"
 #include "bsincos.h"
 
-bBall::bBall() : t_vel_f(false), visibility(true)
+bBall::bBall() : visibility(true), t_vel_f(false)
 {
     acc.zero();
     vel.zero();

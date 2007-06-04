@@ -22,32 +22,25 @@ Canvas::Canvas(MainForm *mf, QWidget *parent) : QWidget(parent), own(mf), mx(BS)
     setMouseTracking( true );
     
     for( int i=0; i<BOARD_SEGMENTS; ++i ) {
-        plist.push_back( new QPoint( 5*BS+(int)((board_data[i].x-BMINX)*50.0), 5*BS+(int)((board_data[i].y-BMINY)*50.0) ) );
+        boardObj.plist.push_back( new QPoint( 5*BS+(int)((board_data[i].x-BMINX)*50.0), 5*BS+(int)((board_data[i].y-BMINY)*50.0) ) );
     }
     
     for( int i=0; i<BOARD_SEGMENTS; ++i ) {
-        flist.push_back( new QPoint( 5*BS+(int)((band_data[i].x-BMINX)*50.0), 5*BS+(int)((band_data[i].y-BMINY)*50.0) ) );
+        boardObj.flist.push_back( new QPoint( 5*BS+(int)((band_data[i].x-BMINX)*50.0), 5*BS+(int)((band_data[i].y-BMINY)*50.0) ) );
     }
     
     for( int i=0; i<DESK_SEGMENTS; ++i ) {
-        dlist.push_back( new QPoint( 5*BS+(int)((desk_data[i].x-BMINX)*50.0), 5*BS+(int)((desk_data[i].y-BMINY)*50.0) ) );
+        boardObj.dlist.push_back( new QPoint( 5*BS+(int)((desk_data[i].x-BMINX)*50.0), 5*BS+(int)((desk_data[i].y-BMINY)*50.0) ) );
     }
     
     for( int i=0; i<BALL_COUNT; ++i ) {
-        blist.push_back( new QPoint( 5*BS+(int)((ball_data[i].x-BMINX)*50.0), 5*BS+(int)((ball_data[i].y-BMINY)*50.0) ) );
+        boardObj.blist.push_back( new QPoint( 5*BS+(int)((ball_data[i].x-BMINX)*50.0), 5*BS+(int)((ball_data[i].y-BMINY)*50.0) ) );
     }
 }
 
 Canvas::~Canvas()
 {
-    for( size_t i=0; i<plist.size(); ++i ) {
-        delete plist[i];
-    }
-    plist.clear();
-    for( size_t i=0; i<flist.size(); ++i ) {
-        delete flist[i];
-    }
-    flist.clear();
+    clear();
 	delete buffer;
 }
 
@@ -91,43 +84,43 @@ void Canvas::paintEvent(QPaintEvent *event)
     buffer->setPixel( mx+1, my-1, MRGB(255,255,255) );
     buffer->setPixel( mx-1, my+1, MRGB(255,255,255) );
         
-    for( size_t i=0; i<plist.size(); ++i ) {
-        int px = plist[i]->x(), py = plist[i]->y();
+    for( size_t i=0; i<boardObj.plist.size(); ++i ) {
+        int px = boardObj.plist[i]->x(), py = boardObj.plist[i]->y();
         point( buffer, px, py, MRGB(0,0,0) );
     }
     
     painter.drawImage( 0, 0, *buffer );
     painter.setPen( QColor(0,0,0) );
-    if( plist.size() > 1 ) {
-        for( size_t i=1; i<plist.size(); ++i ) {
-            painter.drawLine( plist[i-1]->x(), plist[i-1]->y(), plist[i]->x(), plist[i]->y() );
+    if( boardObj.plist.size() > 1 ) {
+        for( size_t i=1; i<boardObj.plist.size(); ++i ) {
+            painter.drawLine( boardObj.plist[i-1]->x(), boardObj.plist[i-1]->y(), boardObj.plist[i]->x(), boardObj.plist[i]->y() );
         }
     }
     
     painter.setPen( QColor(100,100,100) );
-    if( flist.size() > 1 ) {
-        for( size_t i=1; i<flist.size(); ++i ) {
-            painter.drawLine( flist[i-1]->x(), flist[i-1]->y(), flist[i]->x(), flist[i]->y() );
+    if( boardObj.flist.size() > 1 ) {
+        for( size_t i=1; i<boardObj.flist.size(); ++i ) {
+            painter.drawLine( boardObj.flist[i-1]->x(), boardObj.flist[i-1]->y(), boardObj.flist[i]->x(), boardObj.flist[i]->y() );
         }
     }
     
     painter.setPen( QColor(100,100,250) );
-    if( dlist.size() > 1 ) {
-        for( size_t i=1; i<dlist.size(); ++i ) {
-            painter.drawLine( dlist[i-1]->x(), dlist[i-1]->y(), dlist[i]->x(), dlist[i]->y() );
+    if( boardObj.dlist.size() > 1 ) {
+        for( size_t i=1; i<boardObj.dlist.size(); ++i ) {
+            painter.drawLine( boardObj.dlist[i-1]->x(), boardObj.dlist[i-1]->y(), boardObj.dlist[i]->x(), boardObj.dlist[i]->y() );
         }
     }
     
     painter.setPen( QColor(0,100,0) );
-    if( btlist.size() > 1 ) {
-        for( size_t i=1; i<btlist.size(); ++i ) {
-            painter.drawLine( btlist[i-1]->x(), btlist[i-1]->y(), btlist[i]->x(), btlist[i]->y() );
+    if( boardObj.btlist.size() > 1 ) {
+        for( size_t i=1; i<boardObj.btlist.size(); ++i ) {
+            painter.drawLine( boardObj.btlist[i-1]->x(), boardObj.btlist[i-1]->y(), boardObj.btlist[i]->x(), boardObj.btlist[i]->y() );
         }
     }
     
     painter.setPen( QColor(250,0,0) );
-    for( size_t i=0; i<blist.size(); ++i ) {
-        int px = blist[i]->x(), py = blist[i]->y();
+    for( size_t i=0; i<boardObj.blist.size(); ++i ) {
+        int px = boardObj.blist[i]->x(), py = boardObj.blist[i]->y();
         painter.drawEllipse( px-15, py-15, 30, 30 );
     }
    
@@ -157,8 +150,9 @@ void Canvas::mouseMoveEvent(QMouseEvent * event)
     if( mx > BW-BS ) mx = BW-BS;
     if( my > BH-BS ) my = BH-BS;
     
-    if( mode == C_ADD && (plist.size() > 0) ) {
-        own->set_info( QString::number(plist[plist.size()-1]->x()-mx) + tr(", ") + QString::number(plist[plist.size()-1]->y()-my) );
+    if( mode == C_ADD && (boardObj.plist.size() > 0) ) {
+        own->set_info( QString::number(boardObj.plist[boardObj.plist.size()-1]->x()-mx) + tr(", ") + 
+                       QString::number(boardObj.plist[boardObj.plist.size()-1]->y()-my) );
     }
     
     update();
@@ -167,13 +161,13 @@ void Canvas::mouseMoveEvent(QMouseEvent * event)
 bool Canvas::insert_after( pIter * it )
 {
     if( !it ) return false;
-    plist.insert( *it, new QPoint(mx, my) );
+    boardObj.plist.insert( *it, new QPoint(mx, my) );
     return true;   
 }
 
-Canvas::pIter * Canvas::find( int x, int y )
+pIter * Canvas::find( int x, int y )
 {
-    static pIter it, bg = plist.begin(), ed = plist.end();
+    static pIter it, bg = boardObj.plist.begin(), ed = boardObj.plist.end();
     
     for( it=bg; it < ed; ++it ) {
         if( (*it)->x() == x && (*it)->y() == y ) {
@@ -187,23 +181,23 @@ Canvas::pIter * Canvas::find( int x, int y )
 void Canvas::remove_point( int x, int y )
 {
     pIter * it = find( x, y );
-    if( it != NULL ) plist.erase( *it );   
+    if( it != NULL ) boardObj.plist.erase( *it );   
 }
 
 void Canvas::add_frame()
 {
-    if( plist.size() <= 1 ) return;
+    if( boardObj.plist.size() <= 1 ) return;
     
     Vector2 p0, p1, p2, v2, v1, r2, n2, n1, o1a, o1b, o2a, o2b;
     
-    p2.x = (double)(plist[plist.size()-1]->x());
-    p2.y = (double)(plist[plist.size()-1]->y());
-    p1.x = (double)(plist[plist.size()-2]->x());
-    p1.y = (double)(plist[plist.size()-2]->y());
+    p2.x = (double)(boardObj.plist[boardObj.plist.size()-1]->x());
+    p2.y = (double)(boardObj.plist[boardObj.plist.size()-1]->y());
+    p1.x = (double)(boardObj.plist[boardObj.plist.size()-2]->x());
+    p1.y = (double)(boardObj.plist[boardObj.plist.size()-2]->y());
     
-    if( plist.size() > 2 ) {
-        p0.x = (double)(plist[plist.size()-3]->x());
-        p0.y = (double)(plist[plist.size()-3]->y());
+    if( boardObj.plist.size() > 2 ) {
+        p0.x = (double)(boardObj.plist[boardObj.plist.size()-3]->x());
+        p0.y = (double)(boardObj.plist[boardObj.plist.size()-3]->y());
     } else {
         p0.x    = p0.y = 0.0;
     }
@@ -224,18 +218,18 @@ void Canvas::add_frame()
     o1b.x = (int)(p2.x+BF*r2.x);
     o1b.y = (int)(p2.y+BF*r2.y);
     
-    if( flist.size() > 1 ) {
+    if( boardObj.flist.size() > 1 ) {
         v1.x = p1.x - p0.x;
         v1.y = p1.y - p0.y;
         
         n1.x = v1.x;
         n1.y = v1.y;
         
-        o2a.x = flist[flist.size()-2]->x();
-        o2a.y = flist[flist.size()-2]->y();
+        o2a.x = boardObj.flist[boardObj.flist.size()-2]->x();
+        o2a.y = boardObj.flist[boardObj.flist.size()-2]->y();
     
-        o2b.x = flist[flist.size()-1]->x();
-        o2b.y = flist[flist.size()-1]->y();
+        o2b.x = boardObj.flist[boardObj.flist.size()-1]->x();
+        o2b.y = boardObj.flist[boardObj.flist.size()-1]->y();
         
         double a1, a2, c1, c2;
     
@@ -260,16 +254,16 @@ void Canvas::add_frame()
         
         printf( "%3.3f %3.3f\n", ip.x, ip.y );
         
-        delete flist.back();
-        flist.pop_back();
+        delete boardObj.flist.back();
+        boardObj.flist.pop_back();
         
-        flist.push_back( new QPoint( (int)ip.x, (int)ip.y ) );
-        //flist.push_back( new QPoint( (int)o1a.x, (int)o1a.y ) );
+        boardObj.flist.push_back( new QPoint( (int)ip.x, (int)ip.y ) );
+        //boardObj.flist.push_back( new QPoint( (int)o1a.x, (int)o1a.y ) );
     } else {
-        flist.push_back( new QPoint( (int)o1a.x, (int)o1a.y ) );
+        boardObj.flist.push_back( new QPoint( (int)o1a.x, (int)o1a.y ) );
     }
     
-    flist.push_back( new QPoint( (int)o1b.x, (int)o1b.y ) );
+    boardObj.flist.push_back( new QPoint( (int)o1b.x, (int)o1b.y ) );
     //printf( "%2.2f %2.2f %2.2f %2.2f\n", f.x, f.y, v.x, v.y );
 }
 
@@ -277,38 +271,38 @@ void Canvas::mouseReleaseEvent(QMouseEvent * event)
 {
     if( mode == C_ADD ) {
         if( event->button() == Qt::RightButton ) {
-            if( plist.size() == 0 ) return;
-            delete plist.back();
-            plist.pop_back();
-            delete flist.back();
-            flist.pop_back();
+            if( boardObj.plist.size() == 0 ) return;
+            delete boardObj.plist.back();
+            boardObj.plist.pop_back();
+            delete boardObj.flist.back();
+            boardObj.flist.pop_back();
         } else {
-            plist.push_back( new QPoint( mx, my ) );
+            boardObj.plist.push_back( new QPoint( mx, my ) );
             add_frame();
         }
     } else if( mode == C_BOTTOM ) {
         if( event->button() == Qt::RightButton ) {
-            if( btlist.size() == 0 ) return;
-            delete btlist.back();
-            btlist.pop_back();
+            if( boardObj.btlist.size() == 0 ) return;
+            delete boardObj.btlist.back();
+            boardObj.btlist.pop_back();
         } else {
-            btlist.push_back( new QPoint( mx, my ) );
+            boardObj.btlist.push_back( new QPoint( mx, my ) );
         }
     } else if( mode == C_BALL ) {
         if( event->button() == Qt::RightButton ) {
-            if( blist.size() == 0 ) return;
-            delete blist.back();
-            blist.pop_back();
+            if( boardObj.blist.size() == 0 ) return;
+            delete boardObj.blist.back();
+            boardObj.blist.pop_back();
         } else {
-            blist.push_back( new QPoint( mx, my ) );
+            boardObj.blist.push_back( new QPoint( mx, my ) );
         }
     } else if( mode == C_DESK ) {
         if( event->button() == Qt::RightButton ) {
-            if( dlist.size() == 0 ) return;
-            delete dlist.back();
-            dlist.pop_back();
+            if( boardObj.dlist.size() == 0 ) return;
+            delete boardObj.dlist.back();
+            boardObj.dlist.pop_back();
         } else {
-            dlist.push_back( new QPoint( mx, my ) );
+            boardObj.dlist.push_back( new QPoint( mx, my ) );
         }
     } else if( mode == C_REMOVE ) {
         remove_point( mx, my );
@@ -337,20 +331,23 @@ int Canvas::getHeight()
 
 void Canvas::save_file( QString name )
 {
+    boardObj.save(name.toStdString().c_str());
+    return;
+    
     QFile file(name);
     if (!file.open(QIODevice::WriteOnly | QIODevice::Text))
         return;
 
     QTextStream out(&file);
 
-    int minx = plist[0]->x(), miny = plist[0]->y();
+    int minx = boardObj.plist[0]->x(), miny = boardObj.plist[0]->y();
     int maxx = minx, maxy = miny;
     
-    for( size_t i=0; i<plist.size(); ++i ) {
-        if( plist[i]->x() < minx ) minx = plist[i]->x();
-        if( plist[i]->y() < miny ) miny = plist[i]->y();
-        if( plist[i]->x() > maxx ) maxx = plist[i]->x();
-        if( plist[i]->y() > maxy ) maxy = plist[i]->y();
+    for( size_t i=0; i<boardObj.plist.size(); ++i ) {
+        if( boardObj.plist[i]->x() < minx ) minx = boardObj.plist[i]->x();
+        if( boardObj.plist[i]->y() < miny ) miny = boardObj.plist[i]->y();
+        if( boardObj.plist[i]->x() > maxx ) maxx = boardObj.plist[i]->x();
+        if( boardObj.plist[i]->y() > maxy ) maxy = boardObj.plist[i]->y();
     }
     
     int cx = (maxx+minx)/2;
@@ -358,8 +355,8 @@ void Canvas::save_file( QString name )
     
     out << "/* Generated by board_tool - Tomasz Huczek */\n\n";
     out << "#ifndef __BOARD_DATA_H__\n#define __BOARD_DATA_H__\n\n";
-    out << "#define BOARD_SEGMENTS " << plist.size() << "\n\n";
-    out << "#define BAND_SEGMENTS  " << flist.size() << "\n";
+    out << "#define BOARD_SEGMENTS " << boardObj.plist.size() << "\n\n";
+    out << "#define BAND_SEGMENTS  " << boardObj.flist.size() << "\n";
     
     out << "#define BMAXX " << (double)(maxx-cx)/50.0 << "\n";
     out << "#define BMAXY " << (double)(maxy-cy)/50.0 << "\n";
@@ -369,33 +366,33 @@ void Canvas::save_file( QString name )
     out << "struct point {\n\tdouble x;\n\tdouble y;\n};\n\n";
     out << "static point board_data[] = {\n\t";
     
-    for( size_t i=0; i<plist.size(); ++i ) {
-        out << "{ " << ((double)plist[i]->x()-cx)/50.0 << ", " << ((double)plist[i]->y()-cy)/50.0 << " }, ";
+    for( size_t i=0; i<boardObj.plist.size(); ++i ) {
+        out << "{ " << ((double)boardObj.plist[i]->x()-cx)/50.0 << ", " << ((double)boardObj.plist[i]->y()-cy)/50.0 << " }, ";
         if( i && (i % 5) == 0 ) out << "\n\t";
     }
     
     out << "\n};\n\n";
     
-    if( dlist.size() > 0 ) {
+    if( boardObj.dlist.size() > 0 ) {
         
-        out << "#define DESK_SEGMENTS " << dlist.size() << "\n\n";
+        out << "#define DESK_SEGMENTS " << boardObj.dlist.size() << "\n\n";
         out << "struct tpoint {\n\tdouble x;\n\tdouble y;\n\tdouble tx;\n\tdouble ty;\n};\n\n";
         out << "static tpoint desk_data[] = {\n\t";
     
-        double dmaxx = dlist[0]->x(), dmaxy = dlist[0]->y(), dminx = dmaxx, dminy = dmaxy;
+        double dmaxx = boardObj.dlist[0]->x(), dmaxy = boardObj.dlist[0]->y(), dminx = dmaxx, dminy = dmaxy;
         
-        for( size_t i=0; i<dlist.size(); ++i ) {
-            if( dlist[i]->x() < dminx ) dminx = dlist[i]->x();
-            if( dlist[i]->y() < dminy ) dminy = dlist[i]->y();
-            if( dlist[i]->x() > dmaxx ) dmaxx = dlist[i]->x();
-            if( dlist[i]->x() > dmaxy ) dmaxy = dlist[i]->y();
+        for( size_t i=0; i<boardObj.dlist.size(); ++i ) {
+            if( boardObj.dlist[i]->x() < dminx ) dminx = boardObj.dlist[i]->x();
+            if( boardObj.dlist[i]->y() < dminy ) dminy = boardObj.dlist[i]->y();
+            if( boardObj.dlist[i]->x() > dmaxx ) dmaxx = boardObj.dlist[i]->x();
+            if( boardObj.dlist[i]->x() > dmaxy ) dmaxy = boardObj.dlist[i]->y();
         }
         
         double ccx, ccy;
         
-        for( size_t i=0; i<dlist.size(); ++i ) {
-            ccx = ((double)dlist[i]->x());
-            ccy = ((double)dlist[i]->y());
+        for( size_t i=0; i<boardObj.dlist.size(); ++i ) {
+            ccx = ((double)boardObj.dlist[i]->x());
+            ccy = ((double)boardObj.dlist[i]->y());
             
             out << "{ " << (ccx-cx)/50.0 << ", " << (ccy-cy)/50.0 << ", ";
             out << (ccx-dminx)/(dmaxx-dminx) << ", " << (ccy-dminy)/(dmaxy-dminy) << " }, ";
@@ -406,21 +403,21 @@ void Canvas::save_file( QString name )
     
     }
     
-    out << "#define BALL_COUNT " << blist.size() << "\n\n";
+    out << "#define BALL_COUNT " << boardObj.blist.size() << "\n\n";
     out << "static point ball_data[] = {\n\t";
     
-    for( size_t i=0; i<blist.size(); ++i ) {
-        out << "{ " << ((double)blist[i]->x()-cx)/50.0 << ", " << ((double)blist[i]->y()-cy)/50.0 << " }, ";
+    for( size_t i=0; i<boardObj.blist.size(); ++i ) {
+        out << "{ " << ((double)boardObj.blist[i]->x()-cx)/50.0 << ", " << ((double)boardObj.blist[i]->y()-cy)/50.0 << " }, ";
         if( i && (i % 5) == 0 ) out << "\n\t";
     }
     
     out << "\n};\n\n";
     
-    out << "#define BOTTOM_SEGMENTS " << btlist.size() << "\n\n";
+    out << "#define BOTTOM_SEGMENTS " << boardObj.btlist.size() << "\n\n";
     out << "static point bottom_data[] = {\n\t";
     
-    for( size_t i=0; i<btlist.size(); ++i ) {
-        out << "{ " << ((double)btlist[i]->x()-cx)/50.0 << ", " << ((double)btlist[i]->y()-cy)/50.0 << " }, ";
+    for( size_t i=0; i<boardObj.btlist.size(); ++i ) {
+        out << "{ " << ((double)boardObj.btlist[i]->x()-cx)/50.0 << ", " << ((double)boardObj.btlist[i]->y()-cy)/50.0 << " }, ";
         if( i && (i % 5) == 0 ) out << "\n\t";
     }
     
@@ -428,39 +425,24 @@ void Canvas::save_file( QString name )
     
     out << "static point band_data[] = {\n\t";
     
-    for( size_t i=0; i<flist.size()-1; ++i ) {
-        out << "{ " << ((double)flist[i]->x()-cx)/50.0 << ", " << ((double)flist[i]->y()-cy)/50.0 << " }, ";
+    for( size_t i=0; i<boardObj.flist.size()-1; ++i ) {
+        out << "{ " << ((double)boardObj.flist[i]->x()-cx)/50.0 << ", " << ((double)boardObj.flist[i]->y()-cy)/50.0 << " }, ";
         if( i && (i % 5) == 0 ) out << "\n\t";
     }
     
-    out << "{ " << ((double)flist[0]->x()-cx)/50.0 << ", " << ((double)flist[0]->y()-cy)/50.0 << " }";
+    out << "{ " << ((double)boardObj.flist[0]->x()-cx)/50.0 << ", " << ((double)boardObj.flist[0]->y()-cy)/50.0 << " }";
     
     out << "\n};\n\n#endif\n";
     
     file.close();
 }
 
+void Canvas::open_file( QString name )
+{
+    boardObj.load(name.toStdString().c_str());
+}
+
 void Canvas::clear()
 {
-    for( size_t i=0; i<plist.size(); ++i ) {
-        delete plist[i];
-    }
-    plist.clear();
-    for( size_t i=0; i<flist.size(); ++i ) {
-        delete flist[i];
-    }
-    flist.clear();
-    for( size_t i=0; i<dlist.size(); ++i ) {
-        delete dlist[i];
-    }
-    dlist.clear();
-    for( size_t i=0; i<blist.size(); ++i ) {
-        delete blist[i];
-    }
-    blist.clear();
-    for( size_t i=0; i<blist.size(); ++i ) {
-        delete btlist[i];
-    }
-    btlist.clear();
-    update();
+    boardObj.release();
 }

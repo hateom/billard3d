@@ -11,6 +11,7 @@ MainForm::MainForm(QWidget *parent, Qt::WindowFlags f) : QDialog(parent, f)
 	getDrawManager.init( canvas );
     
     connect( m_form.btnSave, SIGNAL(clicked()), this, SLOT(btnSaveClick()) );
+    connect( m_form.btnOpen, SIGNAL(clicked()), this, SLOT(btnOpenClick()) );
     connect( m_form.btnClear, SIGNAL(clicked()), this, SLOT(btnClearClick()) );
     
     connect( m_form.radioAdd, SIGNAL(clicked()), this, SLOT(btnAdd()) );
@@ -31,12 +32,19 @@ MainForm::~MainForm()
 void MainForm::btnClearClick()
 {
     canvas->clear();
+    canvas->update();
 }
 
 void MainForm::btnSaveClick()
 {
     QString filename = QFileDialog::getSaveFileName();
     canvas->save_file( filename );
+}
+
+void MainForm::btnOpenClick()
+{
+    QString filename = QFileDialog::getOpenFileName();
+    canvas->open_file( filename );
 }
 
 void MainForm::btnRemove()
