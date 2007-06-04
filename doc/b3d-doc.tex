@@ -1,0 +1,52 @@
+% \documentclass[pdftex,12pt,a4paper]{report}
+\documentclass[12pt,a4paper]{article}
+
+\usepackage{anysize}
+\marginsize{3cm}{3cm}{3cm}{3cm}
+\usepackage{graphicx}
+\usepackage{t1enc}
+\usepackage[MeX]{polski}
+\usepackage[utf-8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{subfigure}
+
+\usepackage{fancyhdr}
+\setlength{\headheight}{15pt}
+\pagestyle{fancy}
+
+\newcommand{\HRule}{\rule{\linewidth}{0.5mm}}
+
+\begin{document}
+
+\input{./tex/title.tex}
+
+\fancyhf{}
+
+\lhead{Tomasz Huczek, Andrzej Jasiński}
+\rhead{\today}
+\rfoot{\thepage}
+
+\input{./tex/abstract.tex}
+
+\tableofcontents
+\newpage
+
+
+\input{./tex/main.tex}
+\input{./tex/physics.tex}
+\input{./tex/graphics.tex}
+\input{./tex/program_usage.tex}
+\input{./tex/testing.tex}
+\input{./tex/conclusions.tex}
+
+\clearpage
+\addcontentsline{toc}{section}{Literatura}
+\begin{thebibliography}{99}
+\bibitem{bib:onelecture} Podstawy fizyki - David Halliday, Robert Resnick, Jearl Walker
+\bibitem{bib:oneurl} http://www.gamasutra.com/features/20000330/bobic\_02.htm
+\bibitem{bib:twourl} http://www.gamedev.net/reference/articles/article1095.asp
+\bibitem{bib:threeurl} http://developer.nvidia.com/page/cg\_main.html
+\bibitem{bib:foururl} http://www.lighthouse3d.com/opengl/glsl/
+\end{thebibliography}
+
+\end{document}

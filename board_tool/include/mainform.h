@@ -15,6 +15,7 @@ public:
     
 public slots:
     void btnSaveClick();
+    void btnOpenClick();
     void btnClearClick();
     void btnRemove();
     void btnAdd();
