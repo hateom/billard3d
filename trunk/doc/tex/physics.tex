@@ -8,9 +8,14 @@ dynamiki Newtona, zgodnie z drugą zasadą:
 \vec a = \frac{\vec F}{m}
 \end{equation}
 
-
-
 \subsection{Zasada zachowania pędu i energii}
+
+Bile zasymulowane są zgodnie z zasadą zachowania pędu:
+
+\begin{equation}
+\vec p = \vec v {m}
+\end{equation}
+
 \subsection{Kolizje}
 
 \begin{figure}[h]
@@ -48,6 +53,20 @@ oraz kolizja bili z brzegiem (krawędzią) bandy.
 
 
 \subsection{Odbicia jako skutki kolizji}
+
+Było to jedno z trudniejszych zadań podczas modelowania i projektowania systemu obsługi kolizji. Idea działnia
+polega na prostym założeniu przedstawionym na rysunku \ref{fig:col}.
+
+\begin{figure}[h]
+  \centering
+  \includegraphics[width=0.35\textwidth]{./img/col.eps}
+  \caption{Kolizja bila - bila}
+  \label{fig:col}
+\end{figure}
+
+Obrazek rzedstawia dwie bile, ich prędkości wektorowe przed zderzeniem, oraz wektory prędkości po zderzeniu rozłożone
+na składowe.
+
 \subsection{Prędkość obrotowa, tarcie toczne}
 
 Znając podstawowe wzory fizyczne opisujące prędkość obrotową:
@@ -56,7 +75,7 @@ Znając podstawowe wzory fizyczne opisujące prędkość obrotową:
 \omega = \frac{v}{R}
 \end{equation}
 
-obliczaliśmy prędkość obrotową bili na podstawie prędkości liniowej. Ważn7ym elementem symulacji było 
+obliczaliśmy prędkość obrotową bili na podstawie prędkości liniowej. Ważnym elementem symulacji było 
 zamodelowanie tarcia bili przy poruszaniu się po powierzchni stołu bilardowego. Współczynnik tarcia tocznego 
 opisany jest zależnością:
 
@@ -69,3 +88,6 @@ Na odstawie tego wzoru obliczyliśmy wartość siły powodującej hamowanie bili
 współczynnika na ruch i zachowanie się bil}
 
 \subsection{Kwaterniony jako reprezentacja obrotu}
+
+Na potrzeby projektu należało zaimplementować obsługę operacji na kwarternionach - zwanych nosnikami obrotów.
+Było to nieuniknione do prawidłowej reprezentacji obrotów bil.
