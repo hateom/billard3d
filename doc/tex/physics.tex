@@ -91,3 +91,29 @@ współczynnika na ruch i zachowanie się bil}
 
 Na potrzeby projektu należało zaimplementować obsługę operacji na kwarternionach - zwanych nosnikami obrotów.
 Było to nieuniknione do prawidłowej reprezentacji obrotów bil.
+
+W skrócie '''postać algebraiczna''' – wprowadzenie oznaczenia dla szczególnych macierzy (kwaternionów):
+
+
+$i = \left[ \begin{array}{ccc}
+i & 0 \\
+0 & -i \\
+\end{array}
+\right]$
+
+$j = \left[ \begin{array}{ccc}
+0 & 1 \\
+-1 & 0 \\
+\end{array}
+\right]$
+
+$k = \left[ \begin{array}{ccc}
+0 & i \\
+i & 0 \\
+\end{array}
+\right]$
+
+pozwoli na zapis dowolnego kwaternionu w postaci: $q=a+bi+cj+dk$, gdzie $a, b, c, d \in R$.
+
+Po zdefiniowaniu oraz zaimplementowaniu odpowiednich operacji na kwaternionach możliwe było
+przeliczanie obrotów w sposób niemal tak łatwy, jak operacje na wektorach przy wyznaczaniu pozycji bili.

@@ -1,4 +1,29 @@
 \section{Obsługa i działnie programu}
 \subsection{Obsługa programu}
+
+Interakcja w programie zachodzi wyłącznie przy użyciu klawiatury. 
+Podstawowe klawisze służace do sterowania przebiegiem symulacji to:
+\begin{itemize}
+ \item spacja - uderzenie bili - im dłużej przytrzymana spacja, tym siła uderzenia jest większa
+ \item enter - zmiana kamery
+ \item strzałki lewo prawo - zmiana celownika strzału
+ \item escape - menu
+\end{itemize}
+
+
+Menu w każdej chwili dostępne jest po przyciśnięciu klawisza \textbf{ESC}.
+Z poziomu menu mamy dostęp do opcji symulacji: włączenia bądź wyłączenia renderingu z użyciem shaderów, oraz
+edycję podstawowych stałych, takich jak współczynnik tarcia oraz współczynnik sprężystości.
+
 \subsection{Opcjonalne parametry}
+
+Program w chwili obecnej interpretuje 2 parametry z lini poleceń:
+\begin{itemize}
+ \item --verbose który na standardowym wyjściu umieszcza informacje a temat działania symulacji
+ \item --shaders=[1,0] określa, czy program ma wykorzystywać shadery (przydatne na komputerach z kartami, które słbo wspierają hadery) 
+\end{itemize}
+
 \subsection{Debugowanie}
+
+Program posiada wiele systemów wspomagających debugowanie programu. Zostały aimplementowane odpowiednie makra tworzące
+pewien specyficzny interfejs tworzenia kodu, który generuje informacje przydatne przy nieoczekiwanym przerwaniu działania programu. Domyślenie projekt obsługuje wyjątki, i na ich azie stworzony został framework do śledzenia rzucanych wyjątków. W momencie wystapienia sytuacji krytycznej i rzucenia wątku cały stos jest zapisywany w pliku tekstowym, z którego można prześledzić dokładnie w którym miejscu wydarzył się wyjątek.

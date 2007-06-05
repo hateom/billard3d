@@ -1,3 +1,11 @@
 \section{Grafika}
 \subsection{OpenGL}
+
+Projekt wykorzystuje bibliotekę OpenGL do renderowania grafiki trójwymiarowej. Wykorzystane zostały podstawowe funkcje
+pozwalające wyrenderować zbiór wierzchołków, mapowanie tekstur (w tym multiteksturing), światła oraz wiele innych. 
+Wykorzystane zostały również niektóre z rozszerzeń OpenGL takich jak multiteksturing, format koloru BGR czy kompresja tekstur. W związku z wykorzystaniem kilku funkcji będących rozszerzeniami, nie ma gwarancji, że program zadziała na każdej karcie graficznej VGA. Nie mniej jednak większość współczesnych kart wspiera użyte przez nas techniki.
+
 \subsection{Shaders}
+
+Shadery jest to jedena z nowocześniejszych technik programowania grafiki. Polega ona na programowaniu bezpośrednio procesora karty graficznej\footnote{W naszym przypadku przy użyciu języka CG - C for Graphics stworzonego przez nVidię}. Technika ta pozwala osiągnąć bardzo interesujące efekty w czasie rzeczywistym. W naszym projekcie w technice tej osiągneliśmy dynamiczne światła oraz mapowanie sferyczne tekstur bil.\\ \\
+Ze względu na fakt, że technika ta jest dosyć nowa, część kart może nie wspierać jej, lub emulować w sposób niezadowalający. Program posiada możliwość wyłączenia renderingu z wykorzystaniem shaderów, co może być pomocne przy uruchamianiu programu na kartach graficznych nie obsługujących, bądź nieprawidłowo obsługujących shadery w wersji 2.0.
