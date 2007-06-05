@@ -25,7 +25,7 @@ Bile zasymulowane są zgodnie z zasadą zachowania pędu:
   \label{fig:bbcol}
 \end{figure}
 
-Kolizje obliczne są w możliwie najprostszy i najszybszy sposób. W naszej symulacji mamy dwa rodzaje kolizji:
+Kolizje obliczane są w możliwie najprostszy i najszybszy sposób. W naszej symulacji mamy dwa rodzaje kolizji:
 \begin{itemize}
  \item bila - bila
  \item bila - banda
@@ -39,7 +39,7 @@ Kolizje obliczne są w możliwie najprostszy i najszybszy sposób. W naszej symu
 \end{figure}
 
 Pierwszy z testów kolizji polega na sprawdzeniu odległości od środków dwóch bil. Jeżeli jest mniejszy lub równy od sumy promieni bil kolizja nastapiła.\\
-Drugi test jest nieco bardziej skomplikowany, bo nie można traktować testu pomiędzy bandą a bilą jako odległości okręgu od prostej, gdyż banda jest odcinkiem. Aby dobrze rozpoznać kolizję musimy dpowiednio:
+Drugi test jest nieco bardziej skomplikowany, bo nie można traktować testu pomiędzy bandą a bilą jako odległości okręgu od prostej, gdyż banda jest odcinkiem. Aby dobrze rozpoznać kolizję musimy odpowiednio:
 
 \begin{itemize}
  \item sprawdzić odległość bili od prostej wyznaczonej przez 2 punkty bandy
@@ -48,13 +48,13 @@ Drugi test jest nieco bardziej skomplikowany, bo nie można traktować testu pom
 \end{itemize}
 
 Dopiero po uwzględnieniu wszystkich punktów jesteśmy w stanie jednoznacznie stwierdzić czy kolizja z bandą miała miejsce.
-Tak więc system wykrywający kolzije może poinformować i trzech typach kolizji - kolizja dwóch bil, kolizja bili z bandą, 
+Tak więc system wykrywający kolizje może poinformować i trzech typach kolizji - kolizja dwóch bil, kolizja bili z bandą, 
 oraz kolizja bili z brzegiem (krawędzią) bandy.
 
 
 \subsection{Odbicia jako skutki kolizji}
 
-Było to jedno z trudniejszych zadań podczas modelowania i projektowania systemu obsługi kolizji. Idea działnia
+Było to jedno z trudniejszych zadań podczas modelowania i projektowania systemu obsługi kolizji. Idea działania
 polega na prostym założeniu przedstawionym na rysunku \ref{fig:col}.
 
 \begin{figure}[h]
@@ -64,7 +64,7 @@ polega na prostym założeniu przedstawionym na rysunku \ref{fig:col}.
   \label{fig:col}
 \end{figure}
 
-Obrazek rzedstawia dwie bile, ich prędkości wektorowe przed zderzeniem, oraz wektory prędkości po zderzeniu rozłożone
+Obrazek przedstawia dwie bile, ich prędkości wektorowe przed zderzeniem, oraz wektory prędkości po zderzeniu rozłożone
 na składowe.
 
 \subsection{Prędkość obrotowa, tarcie toczne}
@@ -89,7 +89,7 @@ współczynnika na ruch i zachowanie się bil}
 
 \subsection{Kwaterniony jako reprezentacja obrotu}
 
-Na potrzeby projektu należało zaimplementować obsługę operacji na kwarternionach - zwanych nosnikami obrotów.
+Na potrzeby projektu należało zaimplementować obsługę operacji na kwaternionach - zwanych nośnikami obrotów.
 Było to nieuniknione do prawidłowej reprezentacji obrotów bil.
 
 W skrócie '''postać algebraiczna''' – wprowadzenie oznaczenia dla szczególnych macierzy (kwaternionów):
