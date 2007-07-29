@@ -1,3 +1,5 @@
+CXXFLAGS = -DDATADIR='"$(datadir)"' @CXXFLAGS@
+
 INCLUDES = -I$(top_srcdir)/src -I$(top_srcdir)/src/math \
 	-I$(top_srcdir)/src/assertion -I$(top_srcdir)/src/layers $(all_includes)
 METASOURCES = AUTO
