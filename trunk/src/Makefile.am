@@ -1,5 +1,7 @@
 bin_PROGRAMS = billard3d
 
+CXXFLAGS = -DDATADIR='"$(datadir)"' @CXXFLAGS@
+
 # set the include path found by configure
 INCLUDES = -I$(top_srcdir)/src -I$(top_srcdir)/src/math \
 	-I$(top_srcdir)/src/assertion -I$(top_srcdir)/src/layers $(all_includes)
