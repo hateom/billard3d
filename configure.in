@@ -7,5 +7,73 @@ AC_LANG_CPLUSPLUS
 AC_PROG_CXX
 AM_PROG_LIBTOOL
 
+AC_CHECK_LIB(GLEW, glewInit,
+[
+	AC_CHECK_HEADERS(GL/glew.h,
+	[
+		AC_DEFINE(HAVE_LIBGLEW, 1, [define if you have libglew])
+		AC_SUBST([LIBGLEW_LIBS])
+		LIBGLEW_LIBS="-lglew"
+		have_libglew=yes
+	],
+	[
+		AC_MSG_ERROR([glew header file missing or not in GL/ include subdir])
+	])
+],
+[
+	AC_MSG_ERROR([glew lib missing?])
+]
+)
+
+dnl nvidia-cG-toolkit requires pthread
+AC_CHECK_LIB(pthread, pthread_attr_init, LIBS="$LIBS -lpthread")
+
+AC_CHECK_LIB(Cg, cgCreateContext,
+[
+	AC_CHECK_HEADERS(Cg/cg.h,
+	[
+		AC_DEFINE(HAVE_LIBCG, 1, [define if you have libcg])
+		AC_SUBST([LIBCG_LIBS])
+		LIBCG_LIBS="-lCg"
+		have_libcg=yes
+	],
+	[
+		AC_MSG_ERROR([cG header file missing or not in Cg/ include subdir])
+	])
+
+],
+[
+	AC_MSG_ERROR([
+	* nvidia cG toolkit is missing.
+	* You can download it from: http://developer.nvidia.com/object/cg_toolkit.html ])
+]
+)
+
+AC_CHECK_LIB(GL,glXCreateContext, LIBS="$LIBS -lGL")
+
+AC_CHECK_LIB(CgGL, cgGLBindProgram,
+[
+	AC_CHECK_HEADERS(Cg/cgGL.h,
+	[
+		AC_DEFINE(HAVE_LIBCGGL, 1, [define if you have libcg])
+		AC_SUBST([LIBCGGL_LIBS])
+		LIBCGGL_LIBS="-lCgGL"
+		have_libcggl=yes
+	],
+	[
+		AC_MSG_ERROR([cGGL header file missing or not in Cg/ include subdir])
+	])
+
+],
+[
+	AC_MSG_ERROR([
+	* Something's wrong with nvidia cG toolkit
+	* Probably bad installation
+	* You can download it from: http://developer.nvidia.com/object/cg_toolkit.html ])
+
+]
+)
+
+
 AC_OUTPUT(Makefile src/Makefile src/assertion/Makefile src/layers/Makefile \
 	src/math/Makefile)
