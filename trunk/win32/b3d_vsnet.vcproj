@@ -1,111 +1,174 @@
 <?xml version="1.0" encoding="windows-1250"?>
 <VisualStudioProject
 	ProjectType="Visual C++"
-	Version="7.10"
+	Version="9,00"
 	Name="b3d_vsnet"
 	ProjectGUID="{2CB8F05A-D2EE-47A7-ADF8-609F98235BA2}"
 	RootNamespace="b3d_vsnet"
-	Keyword="Win32Proj">
+	Keyword="Win32Proj"
+	TargetFrameworkVersion="131072"
+	>
 	<Platforms>
 		<Platform
-			Name="Win32"/>
+			Name="Win32"
+		/>
 	</Platforms>
+	<ToolFiles>
+	</ToolFiles>
 	<Configurations>
 		<Configuration
 			Name="Debug|Win32"
 			OutputDirectory=".\obj\Debug"
 			IntermediateDirectory=".\obj\Debug"
 			ConfigurationType="1"
-			CharacterSet="2">
+			InheritedPropertySheets="$(VCInstallDir)VCProjectDefaults\UpgradeFromVC71.vsprops"
+			CharacterSet="2"
+			>
+			<Tool
+				Name="VCPreBuildEventTool"
+			/>
+			<Tool
+				Name="VCCustomBuildTool"
+			/>
+			<Tool
+				Name="VCXMLDataGeneratorTool"
+			/>
+			<Tool
+				Name="VCWebServiceProxyGeneratorTool"
+			/>
+			<Tool
+				Name="VCMIDLTool"
+			/>
 			<Tool
 				Name="VCCLCompilerTool"
 				Optimization="0"
 				PreprocessorDefinitions="WIN32;_DEBUG;_WINDOWS"
-				MinimalRebuild="TRUE"
+				MinimalRebuild="true"
 				BasicRuntimeChecks="3"
-				RuntimeLibrary="5"
+				RuntimeLibrary="1"
 				UsePrecompiledHeader="0"
 				WarningLevel="3"
-				Detect64BitPortabilityProblems="TRUE"
-				DebugInformationFormat="4"/>
+				Detect64BitPortabilityProblems="true"
+				DebugInformationFormat="4"
+			/>
 			<Tool
-				Name="VCCustomBuildTool"/>
+				Name="VCManagedResourceCompilerTool"
+			/>
+			<Tool
+				Name="VCResourceCompilerTool"
+			/>
+			<Tool
+				Name="VCPreLinkEventTool"
+			/>
 			<Tool
 				Name="VCLinkerTool"
 				AdditionalDependencies="opengl32.lib glu32.lib sdl.lib cggl.lib cg.lib glew32.lib"
 				OutputFile="bin/b3d_vsn_d.exe"
 				LinkIncremental="2"
-				GenerateDebugInformation="TRUE"
+				GenerateDebugInformation="true"
 				ProgramDatabaseFile="$(OutDir)/b3d_vsnet.pdb"
 				SubSystem="1"
-				TargetMachine="1"/>
+				RandomizedBaseAddress="1"
+				DataExecutionPrevention="0"
+				TargetMachine="1"
+			/>
 			<Tool
-				Name="VCMIDLTool"/>
+				Name="VCALinkTool"
+			/>
 			<Tool
-				Name="VCPostBuildEventTool"/>
+				Name="VCManifestTool"
+			/>
 			<Tool
-				Name="VCPreBuildEventTool"/>
+				Name="VCXDCMakeTool"
+			/>
 			<Tool
-				Name="VCPreLinkEventTool"/>
+				Name="VCBscMakeTool"
+			/>
 			<Tool
-				Name="VCResourceCompilerTool"/>
+				Name="VCFxCopTool"
+			/>
 			<Tool
-				Name="VCWebServiceProxyGeneratorTool"/>
+				Name="VCAppVerifierTool"
+			/>
 			<Tool
-				Name="VCXMLDataGeneratorTool"/>
-			<Tool
-				Name="VCWebDeploymentTool"/>
-			<Tool
-				Name="VCManagedWrapperGeneratorTool"/>
-			<Tool
-				Name="VCAuxiliaryManagedWrapperGeneratorTool"/>
+				Name="VCPostBuildEventTool"
+			/>
 		</Configuration>
 		<Configuration
 			Name="Release|Win32"
 			OutputDirectory=".\obj\Release"
 			IntermediateDirectory=".\obj\Release"
 			ConfigurationType="1"
-			CharacterSet="2">
+			InheritedPropertySheets="$(VCInstallDir)VCProjectDefaults\UpgradeFromVC71.vsprops"
+			CharacterSet="2"
+			>
+			<Tool
+				Name="VCPreBuildEventTool"
+			/>
+			<Tool
+				Name="VCCustomBuildTool"
+			/>
+			<Tool
+				Name="VCXMLDataGeneratorTool"
+			/>
+			<Tool
+				Name="VCWebServiceProxyGeneratorTool"
+			/>
+			<Tool
+				Name="VCMIDLTool"
+			/>
 			<Tool
 				Name="VCCLCompilerTool"
 				PreprocessorDefinitions="WIN32;NDEBUG;_WINDOWS"
-				RuntimeLibrary="4"
+				RuntimeLibrary="0"
 				UsePrecompiledHeader="0"
 				WarningLevel="3"
-				Detect64BitPortabilityProblems="TRUE"
-				DebugInformationFormat="3"/>
+				Detect64BitPortabilityProblems="true"
+				DebugInformationFormat="3"
+			/>
 			<Tool
-				Name="VCCustomBuildTool"/>
+				Name="VCManagedResourceCompilerTool"
+			/>
+			<Tool
+				Name="VCResourceCompilerTool"
+			/>
+			<Tool
+				Name="VCPreLinkEventTool"
+			/>
 			<Tool
 				Name="VCLinkerTool"
 				AdditionalDependencies="opengl32.lib glu32.lib sdl.lib cggl.lib cg.lib glew32.lib"
 				OutputFile="./bin/b3d_vsn.exe"
 				LinkIncremental="1"
-				GenerateDebugInformation="TRUE"
+				GenerateDebugInformation="true"
 				SubSystem="2"
 				OptimizeReferences="2"
 				EnableCOMDATFolding="2"
-				TargetMachine="1"/>
+				RandomizedBaseAddress="1"
+				DataExecutionPrevention="0"
+				TargetMachine="1"
+			/>
 			<Tool
-				Name="VCMIDLTool"/>
+				Name="VCALinkTool"
+			/>
 			<Tool
-				Name="VCPostBuildEventTool"/>
+				Name="VCManifestTool"
+			/>
 			<Tool
-				Name="VCPreBuildEventTool"/>
+				Name="VCXDCMakeTool"
+			/>
 			<Tool
-				Name="VCPreLinkEventTool"/>
+				Name="VCBscMakeTool"
+			/>
 			<Tool
-				Name="VCResourceCompilerTool"/>
+				Name="VCFxCopTool"
+			/>
 			<Tool
-				Name="VCWebServiceProxyGeneratorTool"/>
+				Name="VCAppVerifierTool"
+			/>
 			<Tool
-				Name="VCXMLDataGeneratorTool"/>
-			<Tool
-				Name="VCWebDeploymentTool"/>
-			<Tool
-				Name="VCManagedWrapperGeneratorTool"/>
-			<Tool
-				Name="VCAuxiliaryManagedWrapperGeneratorTool"/>
+				Name="VCPostBuildEventTool"
+			/>
 		</Configuration>
 	</Configurations>
 	<References>
@@ -114,334 +177,442 @@
 		<Filter
 			Name="Source Files"
 			Filter="cpp;c;cxx;def;odl;idl;hpj;bat;asm;asmx"
-			UniqueIdentifier="{4FC737F1-C7A5-4376-A066-2A32D752A2FF}">
+			UniqueIdentifier="{4FC737F1-C7A5-4376-A066-2A32D752A2FF}"
+			>
 			<File
-				RelativePath="..\src\bargmgr.cpp">
+				RelativePath="..\src\bargmgr.cpp"
+				>
 			</File>
 			<File
-				RelativePath="..\src\bargmgr.h">
+				RelativePath="..\src\bargmgr.h"
+				>
 			</File>
 			<File
-				RelativePath="..\src\bassert.cpp">
+				RelativePath="..\src\bassert.cpp"
+				>
 			</File>
 			<File
-				RelativePath="..\src\bassert.h">
+				RelativePath="..\src\bassert.h"
+				>
 			</File>
 			<File
-				RelativePath="..\src\bautoeventlistener.cpp">
+				RelativePath="..\src\bautoeventlistener.cpp"
+				>
 			</File>
 			<File
-				RelativePath="..\src\bautoeventlistener.h">
+				RelativePath="..\src\bautoeventlistener.h"
+				>
 			</File>
 			<File
-				RelativePath="..\src\bball.cpp">
+				RelativePath="..\src\bball.cpp"
+				>
 			</File>
 			<File
-				RelativePath="..\src\bball.h">
+				RelativePath="..\src\bball.h"
+				>
 			</File>
 			<File
-				RelativePath="..\src\bband.cpp">
+				RelativePath="..\src\bband.cpp"
+				>
 			</File>
 			<File
-				RelativePath="..\src\bband.h">
+				RelativePath="..\src\bband.h"
+				>
 			</File>
 			<File
-				RelativePath="..\src\bboard.cpp">
+				RelativePath="..\src\bboard.cpp"
+				>
 			</File>
 			<File
-				RelativePath="..\src\bboard.h">
+				RelativePath="..\src\bboard.h"
+				>
 			</File>
 			<File
-				RelativePath="..\src\bcamera.cpp">
+				RelativePath="..\src\bcamera.cpp"
+				>
 			</File>
 			<File
-				RelativePath="..\src\bcamera.h">
+				RelativePath="..\src\bcamera.h"
+				>
 			</File>
 			<File
-				RelativePath="..\src\bcg.h">
+				RelativePath="..\src\bcg.h"
+				>
 			</File>
 			<File
-				RelativePath="..\src\bconfig.cpp">
+				RelativePath="..\src\bconfig.cpp"
+				>
 			</File>
 			<File
-				RelativePath="..\src\bconfig.h">
+				RelativePath="..\src\bconfig.h"
+				>
 			</File>
 			<File
-				RelativePath="..\src\bconfigreader.cpp">
+				RelativePath="..\src\bconfigreader.cpp"
+				>
 			</File>
 			<File
-				RelativePath="..\src\bconfigreader.h">
+				RelativePath="..\src\bconfigreader.h"
+				>
 			</File>
 			<File
-				RelativePath="..\src\bconst.cpp">
+				RelativePath="..\src\bconst.cpp"
+				>
 			</File>
 			<File
-				RelativePath="..\src\bconst.h">
+				RelativePath="..\src\bconst.h"
+				>
 			</File>
 			<File
-				RelativePath="..\src\bdraw.cpp">
+				RelativePath="..\src\bdraw.cpp"
+				>
 			</File>
 			<File
-				RelativePath="..\src\bdraw.h">
+				RelativePath="..\src\bdraw.h"
+				>
 			</File>
 			<File
-				RelativePath="..\src\berrortrace.cpp">
+				RelativePath="..\src\berrortrace.cpp"
+				>
 			</File>
 			<File
-				RelativePath="..\src\berrortrace.h">
+				RelativePath="..\src\berrortrace.h"
+				>
 			</File>
 			<File
-				RelativePath="..\src\beventlistener.cpp">
+				RelativePath="..\src\beventlistener.cpp"
+				>
 			</File>
 			<File
-				RelativePath="..\src\beventlistener.h">
+				RelativePath="..\src\beventlistener.h"
+				>
 			</File>
 			<File
-				RelativePath="..\src\bexception.cpp">
+				RelativePath="..\src\bexception.cpp"
+				>
 			</File>
 			<File
-				RelativePath="..\src\bexception.h">
+				RelativePath="..\src\bexception.h"
+				>
 			</File>
 			<File
-				RelativePath="..\src\bfont.cpp">
+				RelativePath="..\src\bfont.cpp"
+				>
 			</File>
 			<File
-				RelativePath="..\src\bfont.h">
+				RelativePath="..\src\bfont.h"
+				>
 			</File>
 			<File
-				RelativePath="..\src\bfontmgr.cpp">
+				RelativePath="..\src\bfontmgr.cpp"
+				>
 			</File>
 			<File
-				RelativePath="..\src\bfontmgr.h">
+				RelativePath="..\src\bfontmgr.h"
+				>
 			</File>
 			<File
-				RelativePath="..\src\bfpstimer.cpp">
+				RelativePath="..\src\bfpstimer.cpp"
+				>
 			</File>
 			<File
-				RelativePath="..\src\bfpstimer.h">
+				RelativePath="..\src\bfpstimer.h"
+				>
 			</File>
 			<File
-				RelativePath="..\src\bgl.h">
+				RelativePath="..\src\bgl.h"
+				>
 			</File>
 			<File
-				RelativePath="..\src\billard3d.cpp">
+				RelativePath="..\src\billard3d.cpp"
+				>
 			</File>
 			<File
-				RelativePath="..\src\binput.cpp">
+				RelativePath="..\src\binput.cpp"
+				>
 			</File>
 			<File
-				RelativePath="..\src\binput.h">
+				RelativePath="..\src\binput.h"
+				>
 			</File>
 			<File
-				RelativePath="..\src\blayermgr.cpp">
+				RelativePath="..\src\blayermgr.cpp"
+				>
 			</File>
 			<File
-				RelativePath="..\src\blayermgr.h">
+				RelativePath="..\src\blayermgr.h"
+				>
 			</File>
 			<File
-				RelativePath="..\src\blightmgr.cpp">
+				RelativePath="..\src\blightmgr.cpp"
+				>
 			</File>
 			<File
-				RelativePath="..\src\blightmgr.h">
+				RelativePath="..\src\blightmgr.h"
+				>
 			</File>
 			<File
-				RelativePath="..\src\blockvector.cpp">
+				RelativePath="..\src\blockvector.cpp"
+				>
 			</File>
 			<File
-				RelativePath="..\src\blockvector.h">
+				RelativePath="..\src\blockvector.h"
+				>
 			</File>
 			<File
-				RelativePath="..\src\blogger.cpp">
+				RelativePath="..\src\blogger.cpp"
+				>
 			</File>
 			<File
-				RelativePath="..\src\blogger.h">
+				RelativePath="..\src\blogger.h"
+				>
 			</File>
 			<File
-				RelativePath="..\src\blogiclayer.cpp">
+				RelativePath="..\src\blogiclayer.cpp"
+				>
 			</File>
 			<File
-				RelativePath="..\src\blogiclayer.h">
+				RelativePath="..\src\blogiclayer.h"
+				>
 			</File>
 			<File
-				RelativePath="..\src\blutable.cpp">
+				RelativePath="..\src\blutable.cpp"
+				>
 			</File>
 			<File
-				RelativePath="..\src\blutable.h">
+				RelativePath="..\src\blutable.h"
+				>
 			</File>
 			<File
-				RelativePath="..\src\bmainloop.cpp">
+				RelativePath="..\src\bmainloop.cpp"
+				>
 			</File>
 			<File
-				RelativePath="..\src\bmainloop.h">
+				RelativePath="..\src\bmainloop.h"
+				>
 			</File>
 			<File
-				RelativePath="..\src\bpath.cpp">
+				RelativePath="..\src\bpath.cpp"
+				>
 			</File>
 			<File
-				RelativePath="..\src\bpath.h">
+				RelativePath="..\src\bpath.h"
+				>
 			</File>
 			<File
-				RelativePath="..\src\bprofiler.cpp">
+				RelativePath="..\src\bprofiler.cpp"
+				>
 			</File>
 			<File
-				RelativePath="..\src\bprofiler.h">
+				RelativePath="..\src\bprofiler.h"
+				>
 			</File>
 			<File
-				RelativePath="..\src\bquaternion.cpp">
+				RelativePath="..\src\bquaternion.cpp"
+				>
 			</File>
 			<File
-				RelativePath="..\src\bquaternion.h">
+				RelativePath="..\src\bquaternion.h"
+				>
 			</File>
 			<File
-				RelativePath="..\src\bsdl.h">
+				RelativePath="..\src\bsdl.h"
+				>
 			</File>
 			<File
-				RelativePath="..\src\bsdlsystem.cpp">
+				RelativePath="..\src\bsdlsystem.cpp"
+				>
 			</File>
 			<File
-				RelativePath="..\src\bsdlsystem.h">
+				RelativePath="..\src\bsdlsystem.h"
+				>
 			</File>
 			<File
-				RelativePath="..\src\bshader.cpp">
+				RelativePath="..\src\bshader.cpp"
+				>
 			</File>
 			<File
-				RelativePath="..\src\bshader.h">
+				RelativePath="..\src\bshader.h"
+				>
 			</File>
 			<File
-				RelativePath="..\src\bsingleton.cpp">
+				RelativePath="..\src\bsingleton.cpp"
+				>
 			</File>
 			<File
-				RelativePath="..\src\bsingleton.h">
+				RelativePath="..\src\bsingleton.h"
+				>
 			</File>
 			<File
-				RelativePath="..\src\bstatemachine.cpp">
+				RelativePath="..\src\bstatemachine.cpp"
+				>
 			</File>
 			<File
-				RelativePath="..\src\bstatemachine.h">
+				RelativePath="..\src\bstatemachine.h"
+				>
 			</File>
 			<File
-				RelativePath="..\src\bstream.cpp">
+				RelativePath="..\src\bstream.cpp"
+				>
 			</File>
 			<File
-				RelativePath="..\src\bstream.h">
+				RelativePath="..\src\bstream.h"
+				>
 			</File>
 			<File
-				RelativePath="..\src\bsystem.cpp">
+				RelativePath="..\src\bsystem.cpp"
+				>
 			</File>
 			<File
-				RelativePath="..\src\bsystem.h">
+				RelativePath="..\src\bsystem.h"
+				>
 			</File>
 			<File
-				RelativePath="..\src\btexture.cpp">
+				RelativePath="..\src\btexture.cpp"
+				>
 			</File>
 			<File
-				RelativePath="..\src\btexture.h">
+				RelativePath="..\src\btexture.h"
+				>
 			</File>
 			<File
-				RelativePath="..\src\btrace.cpp">
+				RelativePath="..\src\btrace.cpp"
+				>
 			</File>
 			<File
-				RelativePath="..\src\btrace.h">
+				RelativePath="..\src\btrace.h"
+				>
 			</File>
 			<File
-				RelativePath="..\src\btypes.h">
+				RelativePath="..\src\btypes.h"
+				>
 			</File>
 			<File
-				RelativePath="..\src\butils.cpp">
+				RelativePath="..\src\butils.cpp"
+				>
 			</File>
 			<File
-				RelativePath="..\src\butils.h">
+				RelativePath="..\src\butils.h"
+				>
 			</File>
 			<File
-				RelativePath="..\src\bvector.cpp">
+				RelativePath="..\src\bvector.cpp"
+				>
 			</File>
 			<File
-				RelativePath="..\src\bvector.h">
+				RelativePath="..\src\bvector.h"
+				>
 			</File>
 			<File
-				RelativePath="..\src\bvector3.cpp">
+				RelativePath="..\src\bvector3.cpp"
+				>
 			</File>
 			<File
-				RelativePath="..\src\bvector3.h">
+				RelativePath="..\src\bvector3.h"
+				>
 			</File>
 			<File
-				RelativePath="..\src\bvideo.cpp">
+				RelativePath="..\src\bvideo.cpp"
+				>
 			</File>
 			<File
-				RelativePath="..\src\bvideo.h">
+				RelativePath="..\src\bvideo.h"
+				>
 			</File>
 			<File
-				RelativePath="..\src\font01.h">
+				RelativePath="..\src\font01.h"
+				>
 			</File>
 			<File
-				RelativePath="..\src\font02.h">
+				RelativePath="..\src\font02.h"
+				>
 			</File>
 			<File
-				RelativePath="..\src\font03.h">
+				RelativePath="..\src\font03.h"
+				>
 			</File>
 			<Filter
 				Name="layers"
-				Filter="">
+				>
 				<File
-					RelativePath="..\src\boptionslogiclayer.cpp">
+					RelativePath="..\src\boptionslogiclayer.cpp"
+					>
 				</File>
 				<File
-					RelativePath="..\src\boptionslogiclayer.h">
+					RelativePath="..\src\boptionslogiclayer.h"
+					>
 				</File>
 				<File
-					RelativePath="..\src\boptionsvideolayer.cpp">
+					RelativePath="..\src\boptionsvideolayer.cpp"
+					>
 				</File>
 				<File
-					RelativePath="..\src\boptionsvideolayer.h">
+					RelativePath="..\src\boptionsvideolayer.h"
+					>
 				</File>
 				<File
-					RelativePath="..\src\bpauselogiclayer.cpp">
+					RelativePath="..\src\bpauselogiclayer.cpp"
+					>
 				</File>
 				<File
-					RelativePath="..\src\bpauselogiclayer.h">
+					RelativePath="..\src\bpauselogiclayer.h"
+					>
 				</File>
 				<File
-					RelativePath="..\src\bpausevideolayer.cpp">
+					RelativePath="..\src\bpausevideolayer.cpp"
+					>
 				</File>
 				<File
-					RelativePath="..\src\bpausevideolayer.h">
+					RelativePath="..\src\bpausevideolayer.h"
+					>
 				</File>
 				<File
-					RelativePath="..\src\bsimlogiclayer.cpp">
+					RelativePath="..\src\bsimlogiclayer.cpp"
+					>
 				</File>
 				<File
-					RelativePath="..\src\bsimlogiclayer.h">
+					RelativePath="..\src\bsimlogiclayer.h"
+					>
 				</File>
 				<File
-					RelativePath="..\src\bsimvideolayer.cpp">
+					RelativePath="..\src\bsimvideolayer.cpp"
+					>
 				</File>
 				<File
-					RelativePath="..\src\bsimvideolayer.h">
+					RelativePath="..\src\bsimvideolayer.h"
+					>
 				</File>
 				<File
-					RelativePath="..\src\bsynclogiclayer.cpp">
+					RelativePath="..\src\bsynclogiclayer.cpp"
+					>
 				</File>
 				<File
-					RelativePath="..\src\bsynclogiclayer.h">
+					RelativePath="..\src\bsynclogiclayer.h"
+					>
 				</File>
 				<File
-					RelativePath="..\src\bsyncvideolayer.cpp">
+					RelativePath="..\src\bsyncvideolayer.cpp"
+					>
 				</File>
 				<File
-					RelativePath="..\src\bsyncvideolayer.h">
+					RelativePath="..\src\bsyncvideolayer.h"
+					>
 				</File>
 				<File
-					RelativePath="..\src\bvideolayer.cpp">
+					RelativePath="..\src\bvideolayer.cpp"
+					>
 				</File>
 				<File
-					RelativePath="..\src\bvideolayer.h">
+					RelativePath="..\src\bvideolayer.h"
+					>
 				</File>
 			</Filter>
 		</Filter>
 		<Filter
 			Name="Resource Files"
 			Filter="rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx"
-			UniqueIdentifier="{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}">
+			UniqueIdentifier="{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}"
+			>
 		</Filter>
 	</Files>
 	<Globals>
