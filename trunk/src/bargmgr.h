@@ -19,7 +19,6 @@
 
 #define GetArgMgr bArgMgr::get_singleton()
 #define GetArg GetArgMgr.get
-#define IsArg(ARG) (strcmp( GetArgMgr.get(ARG), "1" ) == 0)
 
 typedef std::map<std::string, std::string> str_map;
 typedef std::pair<std::string, std::string> str_pair;

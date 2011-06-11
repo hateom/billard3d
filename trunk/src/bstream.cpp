@@ -10,20 +10,22 @@
  ***************************************************************************/
 
 #include "bstream.h"
-#include <string>
+
+#include <cstdio>
+#include <cstring>
 
 #define DEF_SIZE 1024
 
 bStream::bStream() : size(DEF_SIZE) 
 { 
     buffer = new char[DEF_SIZE]; 
-    memset(buffer,0,DEF_SIZE*sizeof(char));
+    ::memset(buffer,0,DEF_SIZE*sizeof(char));
 }
 
 bStream::bStream(int isize) : size(isize) 
 {
     buffer = new char[isize]; 
-    memset(buffer,0,isize*sizeof(char));
+    ::memset(buffer,0,isize*sizeof(char));
 }
 
 bStream::~bStream()
@@ -35,44 +37,44 @@ bStream::~bStream()
 
 bStream& bStream::operator <<( char * str )
 {
-    strcat(buffer, str); return *this; 
+    ::strcat(buffer, str); return *this; 
 }
 
 bStream& bStream::operator <<( const char * str ) 
 { 
-    strcat(buffer, str); 
+    ::strcat(buffer, str); 
     return *this; 
 }
 
 bStream& bStream::operator <<( int val ) 
 { 
     static char temp[32]=""; 
-    sprintf(temp,"%d",val);
-    strcat(buffer,temp); 
+    ::sprintf(temp,"%d",val);
+    ::strcat(buffer,temp); 
     return *this; 
 }
 
 bStream& bStream::operator <<( float val ) 
 { 
     static char temp[32]=""; 
-    sprintf(temp,"%f",val);
-    strcat(buffer,temp); 
+    ::sprintf(temp,"%f",val);
+    ::strcat(buffer,temp); 
     return *this; 
 }
 
 bStream& bStream::operator <<( double val ) 
 { 
     static char temp[32]=""; 
-    sprintf(temp,"%f",val);
-    strcat(buffer,temp); 
+    ::sprintf(temp,"%f",val);
+    ::strcat(buffer,temp); 
     return *this; 
 }
 
 bStream& bStream::operator <<( char c ) 
 { 
     static char temp[32]=""; 
-    sprintf(temp,"%c",c);
-    strcat(buffer,temp); 
+    ::sprintf(temp,"%c",c);
+    ::strcat(buffer,temp); 
     return *this; 
 }
 

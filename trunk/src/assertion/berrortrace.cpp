@@ -12,6 +12,9 @@
 #include "berrortrace.h"
 #include "bpath.h"
 
+#include <cstring>
+#include <cstdio>
+
 bErrorTrace::bErrorTrace()
 {
 }
@@ -25,8 +28,8 @@ bool bErrorTrace::add_error( const char * istr )
 {
     if( !istr ) return( false );
 
-    char * str = new char[strlen(istr)+1];
-    strcpy( str, istr );
+    char * str = new char[::strlen(istr)+1];
+    ::strcpy( str, istr );
     list.push_back( str );
 
     return( true );
@@ -36,21 +39,21 @@ void bErrorTrace::print_output()
 {
     if( list.size() == 0 ) return;
 
-    FILE * file = fopen( GETPATH("debug_log.txt"), "w" );
-    fprintf( file, "Debug Log - Error Tracer\n\n" );
-    fprintf( file, "+Start Tracing\n" );
+    FILE * file = ::fopen( GETPATH("debug_log.txt"), "w" );
+    ::fprintf( file, "Debug Log - Error Tracer\n\n" );
+    ::fprintf( file, "+Start Tracing\n" );
     int tab = 1;
     for( int i=(int)list.size()-1; i>=0; --i ) {
-        fprintf( file, "+" );
-        for(int k=0; k<tab; ++k) fprintf( file, "-" );
-        fprintf( file, "%s", list[i]?list[i]:"???" );
-        fprintf( file, "\n" );
+        ::fprintf( file, "+" );
+        for(int k=0; k<tab; ++k) ::fprintf( file, "-" );
+        ::fprintf( file, "%s", list[i]?list[i]:"???" );
+        ::fprintf( file, "\n" );
         tab++;
     }
-    fprintf( file, "+" );
-    for(int k=0; k<tab; ++k) fprintf( file, "-" );
-    fprintf( file, "Crash!!!" );
-    fclose( file );
+    ::fprintf( file, "+" );
+    for(int k=0; k<tab; ++k) ::fprintf( file, "-" );
+    ::fprintf( file, "Crash!!!" );
+    ::fclose( file );
 }
 
 void bErrorTrace::release()

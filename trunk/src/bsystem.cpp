@@ -13,6 +13,10 @@
 #include "blayermgr.h"
 #include "bsincos.h"
 
+#include <cstring>
+
+#define IsArg(ARG) (strcmp( GetArgMgr.get(ARG), "1" ) == 0)
+
 bPath           bSystem::path_sys;
 bProfiler       bSystem::profiler_sys;
 bVideo          bSystem::video_sys;
