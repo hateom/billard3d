@@ -4,6 +4,8 @@
 #include "blogger.h"
 
 #include <iostream>
+#include <cstdio>
+#include <cstring>
 
 bPath::bPath() : bSingleton<bPath>(), dir(""), created(false), separator('\\')
 {
@@ -19,11 +21,11 @@ bool bPath::init( const char * buffer )
     
 	char mdir[1024] = "";
 
-	for( size_t i=strlen(buffer)-1; i>0; --i )
+	for( size_t i=::strlen(buffer)-1; i>0; --i )
 	{
 		if( buffer[i] == '\\' || buffer[i] == '/' )
 		{
-			strncpy( mdir, buffer, i );
+			::strncpy( mdir, buffer, i );
 			mdir[i] = '\0';
 			dir = mdir;
 			separator = buffer[i];

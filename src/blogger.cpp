@@ -9,10 +9,13 @@
  *                                                                         *
  ***************************************************************************/
 
-#include <iostream>
-#include <cstdarg>
 #include "blogger.h"
 #include "btrace.h"
+
+#include <iostream>
+
+#include <cstdio>
+#include <cstdarg>
 
 bLogger::bLogger()
  : bSingleton<bLogger>(), on(false)
@@ -37,9 +40,9 @@ void bLogger::log(const char * text, ...)
     static char buffer[512] = "";
     va_list al;
     
-    va_start( al, text );
-    vsprintf( buffer, text, al );
-    va_end( al );
+    ::va_start( al, text );
+    ::vsprintf( buffer, text, al );
+    ::va_end( al );
     
     std::cout << buffer;
     

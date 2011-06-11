@@ -13,6 +13,8 @@
 #include "blutable.h"
 #include "btrace.h"
 
+#include <cstring>
+
 bLUTable::bLUTable() : w(0), h(0), array(0), mirr(true)
 {
 }
@@ -89,7 +91,7 @@ void bLUTable::clear()
     guard(bLUTable::clear);
     
     BASSERT( array != NULL );
-    memset( array, 0, sizeof(int)*w*h );
+    ::memset( array, 0, sizeof(int)*w*h );
     
     unguard;
 }
